@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixturePurchaseApplyDetailMapper">
+	<resultMap id="FixturePurchaseApplyDetail" type="org.tsinghuatj.fixture.domain.FixturePurchaseApplyDetail">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="applyId" javaType="Long" column="apply_id" jdbcType="BIGINT" />
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="CHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="fixtureQty" javaType="Integer" column="fixture_qty" jdbcType="INTEGER" />
+		<result property="baseQty" javaType="Integer" column="base_qty" jdbcType="INTEGER" />
+		<result property="availableNumber" javaType="String" column="available_number" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_purchase_apply_detail (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            apply_id,
+            fixture_number,
+            fixture_name,
+            fixture_map,
+            base_qty,
+            fixture_qty,
+            available_number
+        )
+        VALUES
+            (
+                #{fixturePurchaseApplyDetail.pkId, jdbcType = BIGINT},
+                #{fixturePurchaseApplyDetail.createUser, jdbcType = BIGINT},
+                #{fixturePurchaseApplyDetail.createTime, jdbcType = TIMESTAMP},
+                #{fixturePurchaseApplyDetail.updateUser, jdbcType = BIGINT},
+                #{fixturePurchaseApplyDetail.updateTime, jdbcType = TIMESTAMP},
+                #{fixturePurchaseApplyDetail.delMark, jdbcType = TINYINT},
+                #{fixturePurchaseApplyDetail.applyId, jdbcType = BIGINT},
+                #{fixturePurchaseApplyDetail.fixtureNumber, jdbcType = CHAR},
+                #{fixturePurchaseApplyDetail.fixtureName, jdbcType = CHAR},
+                #{fixturePurchaseApplyDetail.fixtureMap, jdbcType = CHAR},
+                #{fixturePurchaseApplyDetail.baseQty, jdbcType = INTEGER},
+                #{fixturePurchaseApplyDetail.fixtureQty, jdbcType = INTEGER},
+                #{fixturePurchaseApplyDetail.availableNumber, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_purchase_apply_detail]]>
+		<set>
+			<if test="fixturePurchaseApplyDetail.createUser != null">
+            <![CDATA[create_user = #{fixturePurchaseApplyDetail.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.createTime != null">
+            <![CDATA[create_time = #{fixturePurchaseApplyDetail.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.updateUser != null">
+            <![CDATA[update_user = #{fixturePurchaseApplyDetail.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.updateTime != null">
+            <![CDATA[update_time = #{fixturePurchaseApplyDetail.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.delMark != null">
+            <![CDATA[del_mark = #{fixturePurchaseApplyDetail.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.applyId != null">
+            <![CDATA[apply_id = #{fixturePurchaseApplyDetail.applyId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureNumber != null and fixturePurchaseApplyDetail.fixtureNumber != ''">
+            <![CDATA[fixture_number = #{fixturePurchaseApplyDetail.fixtureNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureName != null and fixturePurchaseApplyDetail.fixtureName != ''">
+            <![CDATA[fixture_name = #{fixturePurchaseApplyDetail.fixtureName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureMap != null and fixturePurchaseApplyDetail.fixtureMap != ''">
+            <![CDATA[fixture_map = #{fixturePurchaseApplyDetail.fixtureMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureQty != null">
+            <![CDATA[fixture_qty = #{fixturePurchaseApplyDetail.fixtureQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.availableNumber != null and fixturePurchaseApplyDetail.availableNumber != ''">
+            <![CDATA[available_number = #{fixturePurchaseApplyDetail.availableNumber, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixturePurchaseApplyDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<update id="updateActiveByApplyId" parameterType="Map">
+	<![CDATA[UPDATE t_fixture_purchase_apply_detail]]>
+		<set>
+			<if test="applyDetail.fixtureQty != null">
+            <![CDATA[fixture_qty = #{applyDetail.fixtureQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="applyDetail.availableNumber != null and applyDetail.availableNumber != ''">
+            <![CDATA[available_number = #{applyDetail.availableNumber, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND apply_id = #{applyDetail.applyId, jdbcType=BIGINT} AND fixture_number = #{applyDetail.fixtureNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="FixturePurchaseApplyDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.fixture_qty AS fixture_qty,
+            t.available_number AS available_number
+        FROM
+            t_fixture_purchase_apply_detail t
+        ]]>
+		<where>
+			<if test="fixturePurchaseApplyDetail.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixturePurchaseApplyDetail.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.createUser != null">
+            <![CDATA[AND t.create_user = #{fixturePurchaseApplyDetail.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.createTime != null">
+            <![CDATA[AND t.create_time = #{fixturePurchaseApplyDetail.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixturePurchaseApplyDetail.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixturePurchaseApplyDetail.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixturePurchaseApplyDetail.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.applyId != null">
+            <![CDATA[AND t.apply_id = #{fixturePurchaseApplyDetail.applyId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureNumber != null and fixturePurchaseApplyDetail.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixturePurchaseApplyDetail.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureName != null and fixturePurchaseApplyDetail.fixtureName != ''">
+            <![CDATA[AND t.fixture_name = #{fixturePurchaseApplyDetail.fixtureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureMap != null and fixturePurchaseApplyDetail.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixturePurchaseApplyDetail.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureQty != null">
+            <![CDATA[AND t.fixture_qty = #{fixturePurchaseApplyDetail.fixtureQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.availableNumber != null and fixturePurchaseApplyDetail.availableNumber != ''">
+            <![CDATA[AND t.available_number = #{fixturePurchaseApplyDetail.availableNumber, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByApplyId" parameterType="Map" resultMap="FixturePurchaseApplyDetail">
+	<![CDATA[
+        SELECT
+            t.apply_id AS apply_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.base_qty AS base_qty,
+            t.fixture_qty AS fixture_qty,
+            t.available_number AS available_number
+        FROM
+            t_fixture_purchase_apply_detail t
+        ]]>
+		<where>	
+            <![CDATA[AND t.apply_id = #{applyId, jdbcType=BIGINT}]]>
+		</where>
+
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixturePurchaseApplyDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.fixture_qty AS fixture_qty,
+            t.available_number AS available_number
+        FROM
+            t_fixture_purchase_apply_detail t
+        ]]>
+		<where>
+			<if test="fixturePurchaseApplyDetail.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixturePurchaseApplyDetail.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.createUser != null">
+            <![CDATA[AND t.create_user = #{fixturePurchaseApplyDetail.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.createTime != null">
+            <![CDATA[AND t.create_time = #{fixturePurchaseApplyDetail.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixturePurchaseApplyDetail.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixturePurchaseApplyDetail.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixturePurchaseApplyDetail.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.applyId != null">
+            <![CDATA[AND t.apply_id = #{fixturePurchaseApplyDetail.applyId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureNumber != null and fixturePurchaseApplyDetail.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixturePurchaseApplyDetail.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureName != null and fixturePurchaseApplyDetail.fixtureName != ''">
+            <![CDATA[AND t.fixture_name = #{fixturePurchaseApplyDetail.fixtureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureMap != null and fixturePurchaseApplyDetail.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixturePurchaseApplyDetail.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.fixtureQty != null">
+            <![CDATA[AND t.fixture_qty = #{fixturePurchaseApplyDetail.fixtureQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="fixturePurchaseApplyDetail.availableNumber != null and fixturePurchaseApplyDetail.availableNumber != ''">
+            <![CDATA[AND t.available_number = #{fixturePurchaseApplyDetail.availableNumber, jdbcType=VARCHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixturePurchaseApplyDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.fixture_qty AS fixture_qty,
+            t.available_number AS available_number
+        FROM
+            t_fixture_purchase_apply_detail t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixturePurchaseApplyDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_purchase_apply_detail SET del_mark = 1,update_user=#{fixturePurchaseApplyDetail.updateUser, jdbcType=BIGINT},update_time=#{fixturePurchaseApplyDetail.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixturePurchaseApplyDetail.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_purchase_apply_detail]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixturePurchaseApplyDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolHeadPartMapper">
+	<resultMap id="ToolHeadPart" type="org.tsinghuatj.tool.domain.ToolHeadPart">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="headNumber" javaType="String" column="head_number" jdbcType="CHAR" />
+		<result property="headName" javaType="String" column="head_name" jdbcType="CHAR" />
+		<result property="partCode" javaType="String" column="part_code" jdbcType="CHAR" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_head_part (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            head_number,           
+            part_code
+        )
+        VALUES
+            (
+                #{toolHeadPart.pkId, jdbcType = BIGINT},
+                #{toolHeadPart.createUser, jdbcType = BIGINT},
+                #{toolHeadPart.createTime, jdbcType = TIMESTAMP},
+                #{toolHeadPart.updateUser, jdbcType = BIGINT},
+                #{toolHeadPart.updateTime, jdbcType = TIMESTAMP},
+                #{toolHeadPart.delMark, jdbcType = TINYINT},
+                #{toolHeadPart.headNumber, jdbcType = CHAR},               
+                #{toolHeadPart.partCode, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_head_part]]>
+		<set>
+			<if test="toolHeadPart.createUser != null">
+            <![CDATA[create_user = #{toolHeadPart.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolHeadPart.createTime != null">
+            <![CDATA[create_time = #{toolHeadPart.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolHeadPart.updateUser != null">
+            <![CDATA[update_user = #{toolHeadPart.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolHeadPart.updateTime != null">
+            <![CDATA[update_time = #{toolHeadPart.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolHeadPart.delMark != null">
+            <![CDATA[del_mark = #{toolHeadPart.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolHeadPart.headNumber != null and toolHeadPart.headNumber != ''">
+            <![CDATA[head_number = #{toolHeadPart.headNumber, jdbcType=CHAR},]]>
+			</if>			
+			<if test="toolHeadPart.partCode != null and toolHeadPart.partCode != ''">
+            <![CDATA[part_code = #{toolHeadPart.partCode, jdbcType=CHAR},]]>
+			</if>			
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolHeadPartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolHeadPart">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.head_number AS head_number, 
+            h.head_name AS head_name,           
+            t.part_code AS part_code,
+            p.part_name AS part_name            
+        FROM
+            t_tool_head_part t
+            inner join t_part p on t.part_code = p.part_code and p.del_mark = 0
+            inner join t_tool_head h on h.head_number = t.head_number and t.del_mark =0 
+        ]]>
+		<where>			
+			<if test="toolHeadPart.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolHeadPart.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolHeadPart.headNumber != null and toolHeadPart.headNumber != ''">
+            <![CDATA[AND t.head_number = #{toolHeadPart.headNumber, jdbcType=CHAR}]]>
+			</if>		
+			<if test="toolHeadPart.partCode != null and toolHeadPart.partCode != ''">
+            <![CDATA[AND t.part_code = #{toolHeadPart.partCode, jdbcType=CHAR}]]>
+			</if>			
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolHeadPart">
+        <![CDATA[
+       SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.head_number AS head_number, 
+            h.head_name AS head_name,           
+            t.part_code AS part_code,
+            p.part_name AS part_name            
+        FROM
+            t_tool_head_part t
+            inner join t_part p on t.part_code = p.part_code and p.del_mark = 0
+            inner join t_tool_head h on h.head_number = t.head_number and t.del_mark =0 
+        ]]>
+		<where>
+			<if test="toolHeadPart.headNumber != null and toolHeadPart.headNumber != ''">
+            <![CDATA[AND t.head_number = #{toolHeadPart.headNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolHeadPart.partCode != null and toolHeadPart.partCode != ''">
+            <![CDATA[AND t.part_code = #{toolHeadPart.partCode, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolHeadPart">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.head_number AS head_number,
+            t.part_code AS part_code
+        FROM
+            t_tool_head_part t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolHeadPartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByHeadPart" parameterType="Map" resultMap="ToolHeadPart">
+		 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.head_number AS head_number,
+            t.part_code AS part_code
+        FROM
+            t_tool_head_part t
+        ]]>
+		<where>
+        	<![CDATA[AND t.head_number = #{headNumber, jdbcType=CHAR}]]>
+        	<![CDATA[AND t.part_code = #{partCode, jdbcType=CHAR}]]>
+        	<if test="pkId != null">
+           		<![CDATA[AND t.pk_id <> #{pkId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_head_part SET del_mark = 1,update_user=#{toolHeadPart.updateUser, jdbcType=BIGINT},update_time=#{toolHeadPart.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolHeadPart.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_head_part]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolHeadPartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

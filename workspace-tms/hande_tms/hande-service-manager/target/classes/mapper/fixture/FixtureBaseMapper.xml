@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureBaseMapper">
+	<resultMap id="FixtureBase" type="org.tsinghuatj.fixture.domain.FixtureBase">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="CHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="fixtureType" javaType="Integer" column="fixture_type" jdbcType="TINYINT" />
+		<result property="price" javaType="BigDecimal" column="price" jdbcType="DECIMAL" />
+		<result property="inventoryQty" javaType="Integer" column="inventory_qty" jdbcType="INTEGER" />	
+		<result property="maxSeq" javaType="String" column="max_seq" jdbcType="CHAR" />	
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_base (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            fixture_number,
+            fixture_name,
+            fixture_map,
+            fixture_type,
+            price,
+            inventory_qty,
+            max_seq
+        )
+        VALUES
+            (
+                #{fixtureBase.pkId, jdbcType = BIGINT},
+                #{fixtureBase.createUser, jdbcType = BIGINT},
+                #{fixtureBase.createTime, jdbcType = TIMESTAMP},
+                #{fixtureBase.updateUser, jdbcType = BIGINT},
+                #{fixtureBase.updateTime, jdbcType = TIMESTAMP},
+                #{fixtureBase.delMark, jdbcType = TINYINT},
+                #{fixtureBase.fixtureNumber, jdbcType = CHAR},
+                #{fixtureBase.fixtureName, jdbcType = CHAR},
+                #{fixtureBase.fixtureMap, jdbcType = CHAR},
+                #{fixtureBase.fixtureType, jdbcType = TINYINT},
+                #{fixtureBase.price, jdbcType = DECIMAL},
+                0,0
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_base]]>
+		<set>
+			<if test="fixtureBase.updateTime != null">
+            <![CDATA[update_time = #{fixtureBase.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureBase.fixtureName != null and fixtureBase.fixtureName != ''">
+            <![CDATA[fixture_name = #{fixtureBase.fixtureName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureBase.fixtureMap != null and fixtureBase.fixtureMap != ''">
+            <![CDATA[fixture_map = #{fixtureBase.fixtureMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureBase.fixtureType != null">
+            <![CDATA[fixture_type = #{fixtureBase.fixtureType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureBase.price != null">
+            <![CDATA[price = #{fixtureBase.price, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="fixtureBase.inventoryQty != null">
+            <![CDATA[inventory_qty = #{fixtureBase.inventoryQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixtureBase.maxSeq != null and fixtureBase.maxSeq != ''">
+            <![CDATA[max_seq = #{fixtureBase.maxSeq, jdbcType=CHAR},]]>
+			</if>			
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureBaseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="FixtureBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.price AS price,
+            t.fixture_type AS fixture_type,
+            t.inventory_qty as inventory_qty
+        FROM
+            t_fixture_base t
+        ]]>
+		<where>
+			<if test="fixtureBase.fixtureNumber != null and fixtureBase.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixtureBase.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureBase.fixtureName != null and fixtureBase.fixtureName != ''">
+            <![CDATA[AND t.fixture_name = #{fixtureBase.fixtureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureBase.fixtureMap != null and fixtureBase.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixtureBase.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureBase.fixtureType != null">
+            <![CDATA[fixture_type = #{fixtureBase.fixtureType, jdbcType=TINYINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<select id="selectByNumberList" parameterType="Map" resultMap="FixtureBase">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.price AS price,
+            t.fixture_type AS fixture_type,
+            t.inventory_qty as inventory_qty
+        FROM
+            t_fixture_base t
+        ]]>
+		<where>
+			<![CDATA[AND t.fixture_number in ]]>
+			<foreach item="item" index="index" collection="numberList" open="(" separator="," close=")">
+				#{item}
+			</foreach>  
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixtureBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.fixture_type AS fixture_type,
+            t.inventory_qty as inventory_qty,
+            t.price AS price
+        FROM
+            t_fixture_base t
+        ]]>
+		<where>
+			<if test="fixtureBase.fixtureNumber != null and fixtureBase.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixtureBase.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureBase.fixtureName != null and fixtureBase.fixtureName != ''">
+             <![CDATA[AND t.fixture_name LIKE CONCAT(CONCAT('%',#{fixtureBase.fixtureName, jdbcType=CHAR},'%'))]]>
+			</if>
+			<if test="fixtureBase.fixtureMap != null and fixtureBase.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map LIKE CONCAT(CONCAT('%',#{fixtureBase.fixtureMap, jdbcType=CHAR},'%'))]]>
+			</if>
+			<if test="fixtureBase.fixtureType != null">
+            <![CDATA[AND t.fixture_type = #{fixtureBase.fixtureType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureBase.price != null">
+            <![CDATA[AND t.price = #{fixtureBase.price, jdbcType=DECIMAL}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixtureBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.price AS price,
+            t.fixture_type AS fixture_type,
+            t.inventory_qty as inventory_qty
+        FROM
+            t_fixture_base t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureBaseId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据编码查询 -->
+	<select id="selectByNumber" parameterType="Map" resultMap="FixtureBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.price AS price,
+            t.max_seq as max_seq,
+            t.fixture_type AS fixture_type,
+            t.inventory_qty as inventory_qty
+        FROM
+            t_fixture_base t
+        ]]>
+		<where>
+        <![CDATA[AND t.fixture_number = #{fixtureNumber, jdbcType=CHAR}]]>
+			<if test="pkId != null">
+            <![CDATA[AND t.pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByFixtureMap" parameterType="Map" resultMap="FixtureBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.price AS price,
+            t.max_seq as max_seq,
+            t.fixture_type AS fixture_type,
+            t.inventory_qty as inventory_qty
+        FROM
+            t_fixture_base t
+        ]]>
+		<where>
+        <![CDATA[AND t.fixture_map = #{fixtureMap, jdbcType=CHAR}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="countByFixtureNumber" parameterType="Map" resultType="int">	
+	 <![CDATA[
+        SELECT
+           COUNT(t.pk_id) AS count
+        FROM
+            t_fixture t
+        ]]>
+		<where>
+        <![CDATA[AND t.fixture_number = #{fixtureNumber, jdbcType=VARCHAR}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+
+	</select>
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_base SET del_mark = 1,update_user=#{fixtureBase.updateUser, jdbcType=BIGINT},update_time=#{fixtureBase.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureBase.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_base]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureBaseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

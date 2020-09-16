@@ -1,0 +1,151 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.tsinghuatj</groupId>
+	<artifactId>hande_tms</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+
+	<!-- 定义spring boot 版本 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.3.RELEASE</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+
+		<mybatis.version>3.4.4</mybatis.version>
+		<mybatis-spring.version>1.3.1</mybatis-spring.version>
+		<io.springfox.version>2.9.2</io.springfox.version>
+		<org.apache.poi>3.17-beta1</org.apache.poi>
+		
+	</properties>
+
+
+	<!-- 定义spring版本 -->
+	<dependencyManagement>
+		<dependencies>			
+			<dependency>
+				<groupId>org.tsinghuatj</groupId>
+				<artifactId>hande-common-utils</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>1.3.2</version>
+			</dependency>			
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>2.1.3.RELEASE</version>
+			</dependency>			
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>1.2.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.lazyluke</groupId>
+				<artifactId>log4jdbc-remix</artifactId>
+				<version>0.2.7</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.unbescape</groupId>
+				<artifactId>unbescape</artifactId>
+				<version>1.1.4.RELEASE</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.oracle</groupId>
+				<artifactId>ojdbc14</artifactId>
+				<version>10.2.0.2.0</version>
+			</dependency>
+			
+			<dependency>
+           	 	<groupId>io.jsonwebtoken</groupId>
+            	<artifactId>jjwt</artifactId>
+            	<version>0.7.0</version>
+       		 </dependency>
+       		 
+       		<dependency>
+				<groupId>com.github.bingoohuang</groupId>
+				<artifactId>patchca</artifactId>
+				<version>0.0.1</version>
+			</dependency> 
+			
+			
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-scratchpad</artifactId>
+				<version>${org.apache.poi}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${org.apache.poi}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml-schemas</artifactId>
+				<version>${org.apache.poi}</version>
+			</dependency>
+			
+			
+			<!-- api start -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${io.springfox.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${io.springfox.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-petstore</artifactId>
+				<version>${io.springfox.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-staticdocs</artifactId>
+				<version>${io.springfox.version}</version>
+			</dependency>
+			<!-- api end -->
+
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- 定义业务模块 -->
+	<modules>
+		<!-- 框架核心 -->
+		<module>hande-common-utils</module>
+		<module>hande-service-manager</module>
+	</modules>
+
+	<!-- 私有仓库 -->
+	<repositories>
+		<repository>
+			<id>nexus-osc</id>
+			<name>Nexus osc</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<!-- 私有插件仓库 -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus-osc</id>
+			<name>Nexus osc</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

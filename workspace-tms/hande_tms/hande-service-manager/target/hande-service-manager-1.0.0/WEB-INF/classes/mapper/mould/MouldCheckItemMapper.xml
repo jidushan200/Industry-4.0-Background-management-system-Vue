@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldCheckItemMapper">
+	<resultMap id="MouldCheckItem" type="org.tsinghuatj.mould.domain.MouldCheckItem">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="itemSeq" javaType="Integer" column="item_seq" jdbcType="TINYINT" />
+		<result property="checkItem" javaType="String" column="check_item" jdbcType="CHAR" />
+		<result property="checkResult" javaType="String" column="check_result" jdbcType="CHAR" />
+		<result property="isQualified" javaType="Integer" column="is_qualified" jdbcType="TINYINT" />
+		<result property="remark" javaType="String" column="remark" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_check_item (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            check_id,
+            item_seq,
+            check_item,
+            check_result,
+            is_qualified,
+            remark
+        )
+        VALUES
+            (
+                #{mouldCheckItem.pkId, jdbcType = BIGINT},
+                #{mouldCheckItem.createUser, jdbcType = BIGINT},
+                #{mouldCheckItem.createTime, jdbcType = TIMESTAMP},
+                #{mouldCheckItem.updateUser, jdbcType = BIGINT},
+                #{mouldCheckItem.updateTime, jdbcType = TIMESTAMP},
+                #{mouldCheckItem.delMark, jdbcType = TINYINT},
+                #{mouldCheckItem.checkId, jdbcType = BIGINT},
+                #{mouldCheckItem.itemSeq, jdbcType = TINYINT},
+                #{mouldCheckItem.checkItem, jdbcType = CHAR},
+                #{mouldCheckItem.checkResult, jdbcType = CHAR},
+                #{mouldCheckItem.isQualified, jdbcType = TINYINT},
+                #{mouldCheckItem.remark, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_check_item]]>
+		<set>
+			<if test="mouldCheckItem.createUser != null">
+            <![CDATA[create_user = #{mouldCheckItem.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheckItem.createTime != null">
+            <![CDATA[create_time = #{mouldCheckItem.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldCheckItem.updateUser != null">
+            <![CDATA[update_user = #{mouldCheckItem.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheckItem.updateTime != null">
+            <![CDATA[update_time = #{mouldCheckItem.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldCheckItem.delMark != null">
+            <![CDATA[del_mark = #{mouldCheckItem.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldCheckItem.checkId != null">
+            <![CDATA[check_id = #{mouldCheckItem.checkId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheckItem.itemSeq != null">
+            <![CDATA[item_seq = #{mouldCheckItem.itemSeq, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldCheckItem.checkItem != null and mouldCheckItem.checkItem != ''">
+            <![CDATA[check_item = #{mouldCheckItem.checkItem, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheckItem.checkResult != null and mouldCheckItem.checkResult != ''">
+            <![CDATA[check_result = #{mouldCheckItem.checkResult, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheckItem.isQualified != null">
+            <![CDATA[is_qualified = #{mouldCheckItem.isQualified, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldCheckItem.remark != null and mouldCheckItem.remark != ''">
+            <![CDATA[remark = #{mouldCheckItem.remark, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldCheckItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldCheckItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_seq AS item_seq,
+            t.check_item AS check_item,
+            t.check_result AS check_result,
+            t.is_qualified AS is_qualified,
+            t.remark AS remark
+        FROM
+            t_mould_check_item t
+        ]]>
+		<where>
+			<if test="mouldCheckItem.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldCheckItem.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldCheckItem.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldCheckItem.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldCheckItem.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldCheckItem.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldCheckItem.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldCheckItem.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldCheckItem.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheckItem.checkId != null">
+            <![CDATA[AND t.check_id = #{mouldCheckItem.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.itemSeq != null">
+            <![CDATA[AND t.item_seq = #{mouldCheckItem.itemSeq, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheckItem.checkItem != null and mouldCheckItem.checkItem != ''">
+            <![CDATA[AND t.check_item = #{mouldCheckItem.checkItem, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheckItem.checkResult != null and mouldCheckItem.checkResult != ''">
+            <![CDATA[AND t.check_result = #{mouldCheckItem.checkResult, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheckItem.isQualified != null">
+            <![CDATA[AND t.is_qualified = #{mouldCheckItem.isQualified, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheckItem.remark != null and mouldCheckItem.remark != ''">
+            <![CDATA[AND t.remark = #{mouldCheckItem.remark, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldCheckItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_seq AS item_seq,
+            t.check_item AS check_item,
+            t.check_result AS check_result,
+            t.is_qualified AS is_qualified,
+            t.remark AS remark
+        FROM
+            t_mould_check_item t
+        ]]>
+		<where>
+			<if test="mouldCheckItem.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldCheckItem.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldCheckItem.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldCheckItem.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldCheckItem.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldCheckItem.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldCheckItem.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldCheckItem.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldCheckItem.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheckItem.checkId != null">
+            <![CDATA[AND t.check_id = #{mouldCheckItem.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheckItem.itemSeq != null">
+            <![CDATA[AND t.item_seq = #{mouldCheckItem.itemSeq, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheckItem.checkItem != null and mouldCheckItem.checkItem != ''">
+            <![CDATA[AND t.check_item = #{mouldCheckItem.checkItem, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheckItem.checkResult != null and mouldCheckItem.checkResult != ''">
+            <![CDATA[AND t.check_result = #{mouldCheckItem.checkResult, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheckItem.isQualified != null">
+            <![CDATA[AND t.is_qualified = #{mouldCheckItem.isQualified, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheckItem.remark != null and mouldCheckItem.remark != ''">
+            <![CDATA[AND t.remark = #{mouldCheckItem.remark, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldCheckItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_seq AS item_seq,
+            t.check_item AS check_item,
+            t.check_result AS check_result,
+            t.is_qualified AS is_qualified,
+            t.remark AS remark
+        FROM
+            t_mould_check_item t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldCheckItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_check_item SET del_mark = 1,update_user=#{mouldCheckItem.updateUser, jdbcType=BIGINT},update_time=#{mouldCheckItem.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldCheckItem.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_check_item]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldCheckItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectByCheckId" parameterType="Map" resultMap="MouldCheckItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_seq AS item_seq,
+            t.check_item AS check_item,
+            t.check_result AS check_result,
+            t.is_qualified AS is_qualified,
+            t.remark AS remark
+        FROM
+            t_mould_check_item t
+        ]]>
+		<where>
+        <![CDATA[AND t.check_id = #{checkId, jdbcType=BIGINT}]]>
+		</where>
+	</select>
+</mapper>

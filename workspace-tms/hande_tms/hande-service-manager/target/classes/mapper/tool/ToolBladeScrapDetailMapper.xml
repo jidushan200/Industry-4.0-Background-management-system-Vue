@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolBladeScrapDetailMapper">
+	<resultMap id="ToolBladeScrapDetail" type="org.tsinghuatj.tool.domain.ToolBladeScrapDetail">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="composeNumber" javaType="String" column="compose_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="scrapQty" javaType="Integer" column="scrap_qty" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_blade_scrap_detail (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            compose_number,
+            tool_number,
+            scrap_qty
+        )
+        VALUES
+            (
+                #{toolBladeScrapDetail.pkId, jdbcType = BIGINT},
+                #{toolBladeScrapDetail.createUser, jdbcType = BIGINT},
+                #{toolBladeScrapDetail.createTime, jdbcType = TIMESTAMP},
+                #{toolBladeScrapDetail.updateUser, jdbcType = BIGINT},
+                #{toolBladeScrapDetail.updateTime, jdbcType = TIMESTAMP},
+                #{toolBladeScrapDetail.delMark, jdbcType = TINYINT},
+                #{toolBladeScrapDetail.composeNumber, jdbcType = CHAR},
+                #{toolBladeScrapDetail.toolNumber, jdbcType = CHAR},
+                #{toolBladeScrapDetail.scrapQty, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_scrap_detail]]>
+		<set>
+			<if test="toolBladeScrapDetail.createUser != null">
+            <![CDATA[create_user = #{toolBladeScrapDetail.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeScrapDetail.createTime != null">
+            <![CDATA[create_time = #{toolBladeScrapDetail.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeScrapDetail.updateUser != null">
+            <![CDATA[update_user = #{toolBladeScrapDetail.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeScrapDetail.updateTime != null">
+            <![CDATA[update_time = #{toolBladeScrapDetail.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeScrapDetail.delMark != null">
+            <![CDATA[del_mark = #{toolBladeScrapDetail.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolBladeScrapDetail.composeNumber != null and toolBladeScrapDetail.composeNumber != ''">
+            <![CDATA[compose_number = #{toolBladeScrapDetail.composeNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolBladeScrapDetail.toolNumber != null and toolBladeScrapDetail.toolNumber != ''">
+            <![CDATA[tool_number = #{toolBladeScrapDetail.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolBladeScrapDetail.scrapQty != null">
+            <![CDATA[scrap_qty = #{toolBladeScrapDetail.scrapQty, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeScrapDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolBladeScrapDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.scrap_qty AS scrap_qty
+        FROM
+            t_tool_blade_scrap_detail t
+        ]]>
+		<where>
+			<if test="toolBladeScrapDetail.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolBladeScrapDetail.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.createUser != null">
+            <![CDATA[AND t.create_user = #{toolBladeScrapDetail.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.createTime != null">
+            <![CDATA[AND t.create_time = #{toolBladeScrapDetail.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeScrapDetail.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolBladeScrapDetail.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolBladeScrapDetail.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeScrapDetail.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolBladeScrapDetail.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.composeNumber != null and toolBladeScrapDetail.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeScrapDetail.composeNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeScrapDetail.toolNumber != null and toolBladeScrapDetail.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolBladeScrapDetail.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeScrapDetail.scrapQty != null">
+            <![CDATA[AND t.scrap_qty = #{toolBladeScrapDetail.scrapQty, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	
+	
+	
+	<select id="selectByComposeNumber" parameterType="Map" resultMap="ToolBladeScrapDetail">
+	<![CDATA[
+         SELECT
+            t.pk_id AS pk_id,          
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.scrap_qty AS scrap_qty,
+            b.tool_name as tool_name,
+            b.tool_map as tool_map
+        FROM
+            t_tool_blade_scrap_detail t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0       
+        ]]>
+		<where>
+            <![CDATA[AND t.compose_number = #{composeNumber, jdbcType=CHAR} ]]>
+		</where>	
+	
+	</select>
+	
+	<select id="selectByComposeList" parameterType="Map" resultMap="ToolBladeScrapDetail">
+	<![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.scrap_qty AS scrap_qty,
+            b.tool_name as tool_name,
+            b.tool_map as tool_map
+        FROM
+            t_tool_blade_scrap_detail t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0 
+        ]]>
+		<where>
+            <![CDATA[AND t.compose_number in ]]>
+			<foreach item="item" index="index" collection="numberList" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>	
+	
+	</select>
+	
+	
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolBladeScrapDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.scrap_qty AS scrap_qty
+        FROM
+            t_tool_blade_scrap_detail t
+        ]]>
+		<where>
+			<if test="toolBladeScrapDetail.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolBladeScrapDetail.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.createUser != null">
+            <![CDATA[AND t.create_user = #{toolBladeScrapDetail.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.createTime != null">
+            <![CDATA[AND t.create_time = #{toolBladeScrapDetail.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeScrapDetail.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolBladeScrapDetail.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolBladeScrapDetail.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeScrapDetail.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolBladeScrapDetail.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeScrapDetail.composeNumber != null and toolBladeScrapDetail.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeScrapDetail.composeNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeScrapDetail.toolNumber != null and toolBladeScrapDetail.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolBladeScrapDetail.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeScrapDetail.scrapQty != null">
+            <![CDATA[AND t.scrap_qty = #{toolBladeScrapDetail.scrapQty, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolBladeScrapDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.scrap_qty AS scrap_qty
+        FROM
+            t_tool_blade_scrap_detail t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolBladeScrapDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_scrap_detail SET del_mark = 1,update_user=#{toolBladeScrapDetail.updateUser, jdbcType=BIGINT},update_time=#{toolBladeScrapDetail.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeScrapDetail.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_blade_scrap_detail]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeScrapDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

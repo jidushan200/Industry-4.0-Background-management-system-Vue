@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureMapper">
+	<resultMap id="Fixture" type="org.tsinghuatj.fixture.domain.Fixture">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="fixtureBarcode" javaType="String" column="fixture_barcode" jdbcType="CHAR" />
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="VARCHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="fixtureType" javaType="Integer" column="fixture_type" jdbcType="TINYINT" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="price" javaType="BigDecimal" column="price" jdbcType="DECIMAL" />
+		<result property="storeHouse" javaType="String" column="store_house" jdbcType="CHAR" />
+		<result property="warehouseTime" javaType="Date" column="warehouse_time" jdbcType="TIMESTAMP" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="equipmentId" javaType="Long" column="equipment_id" jdbcType="BIGINT" />
+		<result property="equipmentName" javaType="String" column="equipment_name" jdbcType="CHAR" />
+		<result property="staffCode" javaType="String" column="staff_code" jdbcType="CHAR" />
+		<result property="staffName" javaType="String" column="staff_name" jdbcType="CHAR" />
+		<result property="fixtureStatus" javaType="Integer" column="fixture_status" jdbcType="INTEGER" />
+		<result property="inUse" javaType="Integer" column="in_use" jdbcType="INTEGER" />
+		<result property="repairTimes" javaType="Integer" column="repair_times" jdbcType="INTEGER" />
+		<result property="lastRepairTime" javaType="Date" column="last_repair_time" jdbcType="TIMESTAMP" />
+		<result property="maintainTimes" javaType="Integer" column="maintain_times" jdbcType="INTEGER" />
+		<result property="lastMaintainTime" javaType="Date" column="last_maintain_time" jdbcType="TIMESTAMP" />
+		<result property="spotTimes" javaType="Integer" column="spot_times" jdbcType="INTEGER" />
+		<result property="lastSpotTime" javaType="Date" column="last_spot_time" jdbcType="TIMESTAMP" />
+		<result property="nextMaintainTime" javaType="Date" column="next_maintain_time" jdbcType="TIMESTAMP" />
+		<result property="setRepairTime" javaType="Date" column="set_repair_time" jdbcType="TIMESTAMP" />
+		<result property="setCheckTime" javaType="Date" column="set_check_time" jdbcType="TIMESTAMP" />
+		
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            fixture_barcode,
+            fixture_number,
+            fixture_name,
+            fixture_map,
+            fixture_type,
+            supplier_id,
+            supplier_name,
+            price,
+            store_house,
+            warehouse_time,
+            department_id,
+            department_name,
+            equipment_id,
+            equipment_name,
+            staff_code,
+            staff_name,
+            fixture_status,
+            repair_times,
+            last_repair_time,
+            maintain_times,
+            last_maintain_time,
+            spot_times,
+            last_spot_time,
+            next_maintain_time,
+            set_repair_time,
+            set_check_time,
+            in_use,
+            remark
+        )
+        VALUES
+            (
+                #{fixture.pkId, jdbcType = BIGINT},
+                #{fixture.createUser, jdbcType = BIGINT},
+                #{fixture.createTime, jdbcType = TIMESTAMP},
+                #{fixture.updateUser, jdbcType = BIGINT},
+                #{fixture.updateTime, jdbcType = TIMESTAMP},
+                #{fixture.delMark, jdbcType = TINYINT},
+                #{fixture.fixtureBarcode, jdbcType = CHAR},
+                #{fixture.fixtureNumber, jdbcType = CHAR},
+                #{fixture.fixtureName, jdbcType = VARCHAR},
+                #{fixture.fixtureMap, jdbcType = CHAR},
+                #{fixture.fixtureType, jdbcType = TINYINT},
+                #{fixture.supplierId, jdbcType = BIGINT},
+                #{fixture.supplierName, jdbcType = CHAR},
+                #{fixture.price, jdbcType = DECIMAL},
+                #{fixture.storeHouse, jdbcType = CHAR},
+                #{fixture.warehouseTime, jdbcType = TIMESTAMP},
+                #{fixture.departmentId, jdbcType = BIGINT},
+                #{fixture.departmentName, jdbcType = CHAR},
+                #{fixture.equipmentId, jdbcType = BIGINT},
+                #{fixture.equipmentName, jdbcType = CHAR},
+                #{fixture.staffCode, jdbcType = CHAR},
+                #{fixture.staffName, jdbcType = CHAR},
+                #{fixture.fixtureStatus, jdbcType = TINYINT},
+                #{fixture.repairTimes, jdbcType = INTEGER},
+                #{fixture.lastRepairTime, jdbcType = TIMESTAMP},
+                #{fixture.maintainTimes, jdbcType = INTEGER},
+                #{fixture.lastMaintainTime, jdbcType = TIMESTAMP},
+                #{fixture.spotTimes, jdbcType = INTEGER},
+                #{fixture.lastSpotTime, jdbcType = TIMESTAMP},
+                #{fixture.nextMaintainTime, jdbcType = TIMESTAMP},
+                #{fixture.setRepairTime, jdbcType = TIMESTAMP},
+                #{fixture.setCheckTime, jdbcType = TIMESTAMP},
+                #{fixture.inUse, jdbcType = TINYINT},
+                #{fixture.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveByFixtureBarcode" parameterType="Map">
+        <![CDATA[UPDATE t_fixture]]>
+		<set>			
+			<if test="fixture.updateUser != null">
+            <![CDATA[update_user = #{fixture.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixture.updateTime != null">
+            <![CDATA[update_time = #{fixture.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>					
+			<if test="fixture.fixtureStatus != null">
+            <![CDATA[fixture_status = #{fixture.fixtureStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixture.repairTimes != null">
+            <![CDATA[repair_times = #{fixture.repairTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixture.lastRepairTime != null">
+            <![CDATA[last_repair_time = #{fixture.lastRepairTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.maintainTimes != null">
+            <![CDATA[maintain_times = #{fixture.maintainTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixture.lastMaintainTime != null">
+            <![CDATA[last_maintain_time = #{fixture.lastMaintainTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.spotTimes != null">
+            <![CDATA[spot_times = #{fixture.spotTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixture.lastSpotTime != null">
+            <![CDATA[last_spot_time = #{fixture.lastSpotTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.nextMaintainTime != null">
+            <![CDATA[next_maintain_time = #{fixture.nextMaintainTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.setRepairTime != null">
+            <![CDATA[set_repair_time = #{fixture.setRepairTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.inUse != null">
+            <![CDATA[in_use = #{fixture.inUse, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND fixture_barcode = #{fixture.fixtureBarcode, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+	
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture]]>
+		<set>			
+			<if test="fixture.updateUser != null">
+            <![CDATA[update_user = #{fixture.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixture.updateTime != null">
+            <![CDATA[update_time = #{fixture.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>	
+			<if test="fixture.price != null">
+            <![CDATA[price = #{fixture.price, jdbcType=DECIMAL},]]>
+			</if>				
+			<if test="fixture.fixtureStatus != null">
+            <![CDATA[fixture_status = #{fixture.fixtureStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixture.repairTimes != null">
+            <![CDATA[repair_times = #{fixture.repairTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixture.lastRepairTime != null">
+            <![CDATA[last_repair_time = #{fixture.lastRepairTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.maintainTimes != null">
+            <![CDATA[maintain_times = #{fixture.maintainTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixture.lastMaintainTime != null">
+            <![CDATA[last_maintain_time = #{fixture.lastMaintainTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.spotTimes != null">
+            <![CDATA[spot_times = #{fixture.spotTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="fixture.lastSpotTime != null">
+            <![CDATA[last_spot_time = #{fixture.lastSpotTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.nextMaintainTime != null">
+            <![CDATA[next_maintain_time = #{fixture.nextMaintainTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.setRepairTime != null">
+            <![CDATA[set_repair_time = #{fixture.setRepairTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.equipmentId != null">
+            <![CDATA[equipment_id = #{fixture.equipmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixture.equipmentName != null and fixture.equipmentName != ''">
+            <![CDATA[equipment_name = #{fixture.equipmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixture.staffCode != null and fixture.staffCode != ''">
+            <![CDATA[staff_code = #{fixture.staffCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixture.staffName != null and fixture.staffName != ''">
+            <![CDATA[staff_name = #{fixture.staffName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixture.inUse != null">
+            <![CDATA[in_use = #{fixture.inUse, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixture.setCheckTime != null">
+            <![CDATA[set_check_time = #{fixture.setCheckTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.remark != null and fixture.remark != ''">
+            <![CDATA[remark = #{fixture.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+	
+	
+	<update id="updateReturnWarehouse" parameterType="Map">
+        <![CDATA[UPDATE t_fixture]]>
+		<set>			
+			<if test="fixture.updateUser != null">
+            <![CDATA[update_user = #{fixture.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixture.updateTime != null">
+            <![CDATA[update_time = #{fixture.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixture.inUse != null">
+            <![CDATA[in_use = #{fixture.inUse, jdbcType=TINYINT},]]>
+			</if>		
+            <![CDATA[equipment_id = null,]]>
+            <![CDATA[equipment_name = '',]]>
+            <![CDATA[staff_code = '',]]>		
+            <![CDATA[staff_name = '',]]>
+			<if test="fixture.remark != null and fixture.remark != ''">
+            <![CDATA[remark = #{fixture.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+	
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Fixture">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,           
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.price AS price,
+            t.store_house AS store_house,
+            t.warehouse_time AS warehouse_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.equipment_id AS equipment_id,
+            t.equipment_name AS equipment_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.fixture_status AS fixture_status,
+            t.repair_times AS repair_times,
+            t.last_repair_time AS last_repair_time,
+            t.maintain_times AS maintain_times,
+            t.last_maintain_time AS last_maintain_time,
+            t.spot_times AS spot_times,
+            t.last_spot_time AS last_spot_time,
+            t.next_maintain_time AS next_maintain_time,
+            t.set_repair_time AS set_repair_time,
+            t.set_check_time AS set_check_time,
+            t.in_use AS in_use,
+            t.remark AS remark
+        FROM
+            t_fixture t
+        ]]>
+		<where>			
+			<if test="fixture.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixture.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixture.fixtureBarcode != null and fixture.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixture.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.fixtureNumber != null and fixture.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixture.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.fixtureName != null and fixture.fixtureName != ''">
+            <![CDATA[AND t.fixture_name = #{fixture.fixtureName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="fixture.fixtureMap != null and fixture.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixture.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.departmentId != null">
+            <![CDATA[AND t.department_id = #{fixture.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixture.departmentName != null and fixture.departmentName != ''">
+            <![CDATA[AND t.department_name = #{fixture.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.equipmentId != null">
+            <![CDATA[AND t.equipment_id = #{fixture.equipmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixture.equipmentName != null and fixture.equipmentName != ''">
+            <![CDATA[AND t.equipment_name = #{fixture.equipmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.staffCode != null and fixture.staffCode != ''">
+            <![CDATA[AND t.staff_code = #{fixture.staffCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.staffName != null and fixture.staffName != ''">
+            <![CDATA[AND t.staff_name = #{fixture.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.fixtureStatus != null and fixture.fixtureStatus != ''">
+            <![CDATA[AND t.fixture_status = #{fixture.fixtureStatus, jdbcType=VARCHAR}]]>
+			</if>
+			
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Fixture">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.fixture_type AS fixture_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.equipment_name AS equipment_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.fixture_status AS fixture_status,
+            t.repair_times AS repair_times,
+            t.last_repair_time AS last_repair_time,
+            t.maintain_times AS maintain_times,
+            t.last_maintain_time AS last_maintain_time,
+            t.spot_times AS spot_times,
+            t.last_spot_time AS last_spot_time,
+            t.next_maintain_time AS next_maintain_time,
+            t.set_repair_time AS set_repair_time,
+            t.set_check_time AS set_check_time,
+            t.in_use AS in_use,
+            t.remark AS remark
+        FROM
+            t_fixture t
+        ]]>
+		<where>
+			<if test="fixture.fixtureBarcode != null and fixture.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixture.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.fixtureNumber != null and fixture.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixture.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.fixtureName != null and fixture.fixtureName != ''">
+              <![CDATA[AND t.fixture_name LIKE CONCAT(CONCAT('%',#{fixture.fixtureName, jdbcType=CHAR},'%'))]]>
+			</if>
+			<if test="fixture.fixtureMap != null and fixture.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixture.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixture.departmentId != null">
+            <![CDATA[AND t.department_id = #{fixture.departmentId, jdbcType=BIGINT}]]>
+			</if>		
+			<if test="fixture.fixtureStatus != null">
+            <![CDATA[AND t.fixture_status = #{fixture.fixtureStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixture.inUse != null">
+            <![CDATA[AND t.in_use = #{fixture.inUse, jdbcType=BIGINT}]]>
+			</if>
+			<![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Fixture">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.price AS price,
+            t.store_house AS store_house,
+            t.warehouse_time AS warehouse_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.equipment_id AS equipment_id,
+            t.equipment_name AS equipment_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.fixture_status AS fixture_status,
+            t.repair_times AS repair_times,
+            t.last_repair_time AS last_repair_time,
+            t.maintain_times AS maintain_times,
+            t.last_maintain_time AS last_maintain_time,
+            t.spot_times AS spot_times,
+            t.last_spot_time AS last_spot_time,
+            t.next_maintain_time AS next_maintain_time,
+            t.set_repair_time AS set_repair_time,
+            t.set_check_time AS set_check_time,
+            t.remark AS remark
+        FROM
+            t_fixture t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByFixtureBarcode" parameterType="Map" resultMap="Fixture">
+	 <![CDATA[
+        SELECT
+        	t.pk_id as pk_id,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.price AS price,
+            t.store_house AS store_house,
+            t.warehouse_time AS warehouse_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.equipment_id AS equipment_id,
+            t.equipment_name AS equipment_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.fixture_status AS fixture_status,
+            t.repair_times AS repair_times,
+            t.last_repair_time AS last_repair_time,
+            t.maintain_times AS maintain_times,
+            t.last_maintain_time AS last_maintain_time,
+            t.spot_times AS spot_times,
+            t.last_spot_time AS last_spot_time,
+            t.next_maintain_time AS next_maintain_time,
+            t.set_repair_time AS set_repair_time,
+            t.set_check_time AS set_check_time,
+            t.in_use as in_use,
+            t.remark AS remark
+        FROM
+            t_fixture t
+        ]]>
+		<where>
+        <![CDATA[AND t.fixture_barcode = #{fixtureBarcode, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectPartList" parameterType="Map" resultMap="Fixture">
+		<![CDATA[
+        SELECT
+        	t.pk_id as pk_id,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+        FROM
+            t_fixture t
+        ]]>
+		<where>
+        <![CDATA[AND t.fixture_number = #{fixtureNumber, jdbcType=CHAR} AND t.department_id = #{fixture.departmentId, jdbcType=BIGINT} and in_use = 2 ]]>
+		</where>	
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture SET del_mark = 1,update_user=#{fixture.updateUser, jdbcType=BIGINT},update_time=#{fixture.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+		<if test="fixture.pkId != null ">
+        	<![CDATA[AND pk_id = #{fixture.pkId, jdbcType=BIGINT}]]>
+        </if>
+        <if test="fixture.fixtureBarcode != null and fixture.fixtureBarcode != ''">
+            <![CDATA[fixture_barcode = #{fixture.fixtureBarcode, jdbcType=CHAR}]]>
+		</if>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

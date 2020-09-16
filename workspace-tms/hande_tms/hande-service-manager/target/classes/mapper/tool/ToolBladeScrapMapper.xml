@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolBladeScrapMapper">
+	<resultMap id="ToolBladeScrap" type="org.tsinghuatj.tool.domain.ToolBladeScrap">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="composeNumber" javaType="String" column="compose_number" jdbcType="CHAR" />
+		<result property="headNumber" javaType="String" column="head_number" jdbcType="CHAR" />		
+		<result property="productionQty" javaType="Integer" column="production_qty" jdbcType="TINYINT" />
+		<result property="scrapResion" javaType="Integer" column="scrap_resion" jdbcType="TINYINT" />
+		<result property="applyStatus" javaType="Integer" column="apply_status" jdbcType="TINYINT" />
+		<result property="scrapRemark" javaType="String" column="scrap_remark" jdbcType="VARCHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="applierId" javaType="Long" column="applier_id" jdbcType="BIGINT" />
+		<result property="applierName" javaType="String" column="applier_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_blade_scrap (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            compose_number,           
+            scrap_resion,
+            apply_status,
+            Scrap_remark,
+            department_id,
+            department_name,
+            applier_id,
+            applier_name
+        )
+        VALUES
+            (
+                #{toolBladeScrap.pkId, jdbcType = BIGINT},
+                #{toolBladeScrap.createUser, jdbcType = BIGINT},
+                #{toolBladeScrap.createTime, jdbcType = TIMESTAMP},
+                #{toolBladeScrap.updateUser, jdbcType = BIGINT},
+                #{toolBladeScrap.updateTime, jdbcType = TIMESTAMP},
+                #{toolBladeScrap.delMark, jdbcType = TINYINT},
+                #{toolBladeScrap.composeNumber, jdbcType = CHAR},               
+                #{toolBladeScrap.scrapResion, jdbcType = TINYINT},
+                #{toolBladeScrap.applyStatus, jdbcType = TINYINT},
+                #{toolBladeScrap.scrapRemark, jdbcType = VARCHAR},
+                #{toolBladeScrap.departmentId, jdbcType = BIGINT},
+                #{toolBladeScrap.departmentName, jdbcType = CHAR},
+                #{toolBladeScrap.applierId, jdbcType = BIGINT},
+                #{toolBladeScrap.applierName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_scrap]]>
+		<set>
+			<if test="toolBladeScrap.createUser != null">
+            <![CDATA[create_user = #{toolBladeScrap.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeScrap.createTime != null">
+            <![CDATA[create_time = #{toolBladeScrap.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeScrap.updateUser != null">
+            <![CDATA[update_user = #{toolBladeScrap.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeScrap.updateTime != null">
+            <![CDATA[update_time = #{toolBladeScrap.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeScrap.delMark != null">
+            <![CDATA[del_mark = #{toolBladeScrap.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolBladeScrap.composeNumber != null and toolBladeScrap.composeNumber != ''">
+            <![CDATA[compose_number = #{toolBladeScrap.composeNumber, jdbcType=CHAR},]]>
+			</if>			
+			<if test="toolBladeScrap.ScrapResion != null">
+            <![CDATA[Scrap_resion = #{toolBladeScrap.scrapResion, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolBladeScrap.applyStatus != null">
+            <![CDATA[apply_status = #{toolBladeScrap.applyStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolBladeScrap.ScrapRemark != null and toolBladeScrap.ScrapRemark != ''">
+            <![CDATA[Scrap_remark = #{toolBladeScrap.scrapRemark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolBladeScrap.departmentId != null">
+            <![CDATA[department_id = #{toolBladeScrap.departmentId, jdbcType=BIGINT},]]>
+			</if>			
+			<if test="toolBladeScrap.applierId != null">
+            <![CDATA[applier_id = #{toolBladeScrap.applierId, jdbcType=BIGINT},]]>
+			</if>			
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeScrapId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolBladeScrap">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,           
+            t.Scrap_resion AS Scrap_resion,
+            t.apply_status AS apply_status,
+            t.Scrap_remark AS Scrap_remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name
+        FROM
+            t_tool_blade_scrap t       		
+        ]]>
+		<where>
+			<if test="toolBladeScrap.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolBladeScrap.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrap.createUser != null">
+            <![CDATA[AND t.create_user = #{toolBladeScrap.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrap.createTime != null">
+            <![CDATA[AND t.create_time = #{toolBladeScrap.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeScrap.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolBladeScrap.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrap.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolBladeScrap.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeScrap.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolBladeScrap.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeScrap.composeNumber != null and toolBladeScrap.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeScrap.composeNumber, jdbcType=CHAR}]]>
+			</if>			
+			<if test="toolBladeScrap.scrapResion != null">
+            <![CDATA[AND t.scrap_resion = #{toolBladeScrap.scrapResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeScrap.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{toolBladeScrap.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeScrap.ScrapRemark != null and toolBladeScrap.ScrapRemark != ''">
+            <![CDATA[AND t.scrap_remark = #{toolBladeScrap.scrapRemark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolBladeScrap.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolBladeScrap.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrap.departmentName != null and toolBladeScrap.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolBladeScrap.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeScrap.applierId != null">
+            <![CDATA[AND t.applier_id = #{toolBladeScrap.applierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeScrap.applierName != null and toolBladeScrap.applierName != ''">
+            <![CDATA[AND t.applier_name = #{toolBladeScrap.applierName, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolBladeScrap">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_time AS create_time,          
+            t.compose_number AS compose_number,           
+            t.scrap_resion AS scrap_resion,
+            t.apply_status AS apply_status,
+            t.scrap_remark AS scrap_remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name
+        FROM
+            t_tool_blade_scrap t          
+        ]]>
+		<where>
+			<if test="toolBladeScrap.composeNumber != null and toolBladeScrap.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeScrap.composeNumber, jdbcType=CHAR}]]>
+			</if>			
+			<if test="toolBladeScrap.scrapResion != null">
+            <![CDATA[AND t.scrap_resion = #{toolBladeScrap.scrapResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeScrap.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{toolBladeScrap.applyStatus, jdbcType=TINYINT}]]>
+			</if>			
+			<if test="toolBladeScrap.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolBladeScrap.departmentId, jdbcType=BIGINT}]]>
+			</if>			
+			 <![CDATA[ AND t.del_mark = 0 AND t.apply_status < 3 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolBladeScrap">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.compose_number AS compose_number,           
+            t.scrap_resion AS scrap_resion,
+            t.apply_status AS apply_status,
+            t.scrap_remark AS scrap_remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.applier_name AS applier_name,
+            c.head_number AS head_number,
+            c.production_qty AS production_qty
+        FROM
+            t_tool_blade_scrap t
+            inner join t_tool_blade_compose c on t.compose_number = c.compose_number           
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolBladeScrapId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByComposeNumber" parameterType="Map" resultMap="ToolBladeScrap">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.compose_number AS compose_number,           
+            t.scrap_resion AS scrap_resion,
+            t.apply_status AS apply_status,
+            t.scrap_remark AS scrap_remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name
+        FROM
+            t_tool_blade_scrap t         
+        ]]>
+		<where>
+        <![CDATA[AND t.compose_number = #{composeNumber, jdbcType=CHAR} AND t.del_mark = 0 ]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	
+	</select>
+	
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_scrap SET del_mark = 1,update_user=#{toolBladeScrap.updateUser, jdbcType=BIGINT},update_time=#{toolBladeScrap.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeScrap.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_blade_scrap]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeScrapId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

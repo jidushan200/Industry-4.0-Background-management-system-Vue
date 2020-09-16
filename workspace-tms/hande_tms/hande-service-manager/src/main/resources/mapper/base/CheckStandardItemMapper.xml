@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.CheckStandardItemMapper">
+	<resultMap id="CheckStandardItem" type="org.tsinghuatj.base.domain.CheckStandardItem">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="standardId" javaType="Long" column="standard_id" jdbcType="BIGINT" />
+		<result property="checkItem" javaType="String" column="check_item" jdbcType="CHAR" />
+		<result property="itemStandard" javaType="String" column="item_standard" jdbcType="CHAR" />
+		<result property="upDeviation" javaType="BigDecimal" column="up_deviation" jdbcType="DECIMAL" />
+		<result property="downDeviation" javaType="BigDecimal" column="down_deviation" jdbcType="DECIMAL" />
+		<result property="minimum" javaType="BigDecimal" column="minimum" jdbcType="DECIMAL" />
+		<result property="maximum" javaType="BigDecimal" column="maximum" jdbcType="DECIMAL" />
+		<result property="unit" javaType="String" column="unit" jdbcType="CHAR" />
+		<result property="checkType" javaType="Integer" column="check_type" jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_check_standard_item (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            standard_id,
+            check_item,
+            item_standard,
+            up_deviation,
+            down_deviation,
+            minimum,
+            maximum,
+            unit,
+            check_type
+        )
+        VALUES
+            (
+                #{checkStandardItem.pkId, jdbcType = BIGINT},
+                #{checkStandardItem.createUser, jdbcType = BIGINT},
+                #{checkStandardItem.createTime, jdbcType = TIMESTAMP},
+                #{checkStandardItem.updateUser, jdbcType = BIGINT},
+                #{checkStandardItem.updateTime, jdbcType = TIMESTAMP},
+                #{checkStandardItem.delMark, jdbcType = TINYINT},
+                #{checkStandardItem.standardId, jdbcType = BIGINT},
+                #{checkStandardItem.checkItem, jdbcType = CHAR},
+                #{checkStandardItem.itemStandard, jdbcType = CHAR},
+                #{checkStandardItem.upDeviation, jdbcType = DECIMAL},
+                #{checkStandardItem.downDeviation, jdbcType = DECIMAL},
+                #{checkStandardItem.minimum, jdbcType = DECIMAL},
+                #{checkStandardItem.maximum, jdbcType = DECIMAL},
+                #{checkStandardItem.unit, jdbcType = CHAR},
+                #{checkStandardItem.checkType, jdbcType = INTEGER}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_check_standard_item]]>
+		<set>			
+			<if test="checkStandardItem.updateUser != null">
+            <![CDATA[update_user = #{checkStandardItem.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="checkStandardItem.updateTime != null">
+            <![CDATA[update_time = #{checkStandardItem.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="checkStandardItem.checkItem != null and checkStandardItem.checkItem != ''">
+            <![CDATA[check_item = #{checkStandardItem.checkItem, jdbcType=CHAR},]]>
+			</if>
+			<if test="checkStandardItem.itemStandard != null and checkStandardItem.itemStandard != ''">
+            <![CDATA[item_standard = #{checkStandardItem.itemStandard, jdbcType=CHAR},]]>
+			</if>
+			<if test="checkStandardItem.upDeviation != null">
+            <![CDATA[up_deviation = #{checkStandardItem.upDeviation, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="checkStandardItem.downDeviation != null">
+            <![CDATA[down_deviation = #{checkStandardItem.downDeviation, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="checkStandardItem.minimum != null">
+            <![CDATA[minimum = #{checkStandardItem.minimum, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="checkStandardItem.maximum != null">
+            <![CDATA[maximum = #{checkStandardItem.maximum, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="checkStandardItem.unit != null and checkStandardItem.unit != ''">
+            <![CDATA[unit = #{checkStandardItem.unit, jdbcType=CHAR},]]>
+			</if>
+			<if test="checkStandardItem.checkType != null">
+            <![CDATA[check_type = #{checkStandardItem.checkType, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{checkStandardItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="CheckStandardItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.standard_id AS standard_id,
+            t.check_item AS check_item,
+            t.item_standard AS item_standard,
+            t.up_deviation AS up_deviation,
+            t.down_deviation AS down_deviation,
+            t.minimum AS minimum,
+            t.maximum AS maximum,
+            t.unit AS unit,
+            t.check_type AS check_type
+        FROM
+            t_check_standard_item t
+        ]]>
+		<where>
+			<if test="checkStandardItem.pkId != null">
+            <![CDATA[AND t.pk_id = #{checkStandardItem.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkStandardItem.createUser != null">
+            <![CDATA[AND t.create_user = #{checkStandardItem.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkStandardItem.createTime != null">
+            <![CDATA[AND t.create_time = #{checkStandardItem.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="checkStandardItem.updateUser != null">
+            <![CDATA[AND t.update_user = #{checkStandardItem.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkStandardItem.updateTime != null">
+            <![CDATA[AND t.update_time = #{checkStandardItem.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="checkStandardItem.delMark != null">
+            <![CDATA[AND t.del_mark = #{checkStandardItem.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="checkStandardItem.standardId != null">
+            <![CDATA[AND t.standard_id = #{checkStandardItem.standardId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkStandardItem.checkItem != null and checkStandardItem.checkItem != ''">
+            <![CDATA[AND t.check_item = #{checkStandardItem.checkItem, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkStandardItem.itemStandard != null and checkStandardItem.itemStandard != ''">
+            <![CDATA[AND t.item_standard = #{checkStandardItem.itemStandard, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkStandardItem.upDeviation != null">
+            <![CDATA[AND t.up_deviation = #{checkStandardItem.upDeviation, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.downDeviation != null">
+            <![CDATA[AND t.down_deviation = #{checkStandardItem.downDeviation, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.minimum != null">
+            <![CDATA[AND t.minimum = #{checkStandardItem.minimum, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.maximum != null">
+            <![CDATA[AND t.maximum = #{checkStandardItem.maximum, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.unit != null and checkStandardItem.unit != ''">
+            <![CDATA[AND t.unit = #{checkStandardItem.unit, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkStandardItem.checkType != null">
+            <![CDATA[AND t.check_type = #{checkStandardItem.checkType, jdbcType=INTEGER}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="CheckStandardItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.standard_id AS standard_id,
+            t.check_item AS check_item,
+            t.item_standard AS item_standard,
+            t.up_deviation AS up_deviation,
+            t.down_deviation AS down_deviation,
+            t.minimum AS minimum,
+            t.maximum AS maximum,
+            t.unit AS unit,
+            t.check_type AS check_type
+        FROM
+            t_check_standard_item t
+        ]]>
+		<where>
+			<if test="checkStandardItem.pkId != null">
+            <![CDATA[AND t.pk_id = #{checkStandardItem.pkId, jdbcType=BIGINT}]]>
+			</if>
+			
+            <![CDATA[AND t.del_mark = #{checkStandardItem.delMark, jdbcType=TINYINT}]]>
+			
+			<if test="checkStandardItem.standardId != null">
+            <![CDATA[AND t.standard_id = #{checkStandardItem.standardId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkStandardItem.checkItem != null and checkStandardItem.checkItem != ''">
+            <![CDATA[AND t.check_item = #{checkStandardItem.checkItem, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkStandardItem.itemStandard != null and checkStandardItem.itemStandard != ''">
+            <![CDATA[AND t.item_standard = #{checkStandardItem.itemStandard, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkStandardItem.upDeviation != null">
+            <![CDATA[AND t.up_deviation = #{checkStandardItem.upDeviation, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.downDeviation != null">
+            <![CDATA[AND t.down_deviation = #{checkStandardItem.downDeviation, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.minimum != null">
+            <![CDATA[AND t.minimum = #{checkStandardItem.minimum, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.maximum != null">
+            <![CDATA[AND t.maximum = #{checkStandardItem.maximum, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="checkStandardItem.unit != null and checkStandardItem.unit != ''">
+            <![CDATA[AND t.unit = #{checkStandardItem.unit, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkStandardItem.checkType != null">
+            <![CDATA[AND t.check_type = #{checkStandardItem.checkType, jdbcType=INTEGER}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="CheckStandardItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.standard_id AS standard_id,
+            t.check_item AS check_item,
+            t.item_standard AS item_standard,
+            t.up_deviation AS up_deviation,
+            t.down_deviation AS down_deviation,
+            t.minimum AS minimum,
+            t.maximum AS maximum,
+            t.unit AS unit,
+            t.check_type AS check_type
+        FROM
+            t_check_standard_item t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{checkStandardItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_check_standard_item SET del_mark = 1,update_user=#{checkStandardItem.updateUser, jdbcType=BIGINT},update_time=#{checkStandardItem.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{checkStandardItem.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_check_standard_item]]>
+		<where>
+        <![CDATA[AND pk_id = #{checkStandardItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+
+	<select id="selectByStandardId" parameterType="Map" resultMap="CheckStandardItem">
+        <![CDATA[
+        SELECT           
+            t.standard_id AS standard_id,
+            t.pk_id as pk_id,
+            t.check_item AS check_item,
+            t.item_standard AS item_standard,
+            t.up_deviation AS up_deviation,
+            t.down_deviation AS down_deviation,
+            t.minimum AS minimum,
+            t.maximum AS maximum,
+            t.unit AS unit,
+            t.check_type AS check_type            
+        FROM
+            t_check_standard_item t
+        ]]>
+		<where>			
+		<![CDATA[AND t.standard_id = #{standardId, jdbcType=BIGINT} AND del_mark=0]]>
+		</where>
+	</select>
+
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteByStandardId" parameterType="Map">
+        <![CDATA[UPDATE t_check_standard_item SET del_mark = 1]]>
+		<where>
+        <![CDATA[AND standard_id = #{standardId, jdbcType=BIGINT}]]>
+		</where>
+	</delete>
+</mapper>

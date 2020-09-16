@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixturePurchaseReceiveMapper">
+	<resultMap id="FixturePurchaseApply" type="org.tsinghuatj.fixture.domain.FixturePurchaseApply">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />	
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="CHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="purchaseQty" javaType="Integer" column="purchase_qty" jdbcType="INTEGER" />
+		<result property="demandTime" javaType="Date" column="demand_time" jdbcType="DATE" />
+		<result property="purchaseType" javaType="Integer" column="purchase_type" jdbcType="TINYINT" />
+		<result property="purchaseResion" javaType="Integer" column="purchase_resion" jdbcType="TINYINT" />
+		<result property="inventoryQty" javaType="Integer" column="inventory_qty" jdbcType="INTEGER" />
+		<result property="erpQty" javaType="Integer" column="erp_qty" jdbcType="INTEGER" />
+		<result property="noCheckQty" javaType="Integer" column="no_check_qty" jdbcType="INTEGER" />
+		<result property="applyDepartmentId" javaType="Long" column="apply_department_id" jdbcType="BIGINT" />
+		<result property="applyDepartmentName" javaType="String" column="apply_department_name" jdbcType="CHAR" />
+		<result property="applierId" javaType="Long" column="applier_id" jdbcType="BIGINT" />
+		<result property="applierName" javaType="String" column="applier_name" jdbcType="CHAR" />
+		<result property="applyTime" javaType="Date" column="apply_time" jdbcType="TIMESTAMP" />
+		<result property="applyStatus" javaType="Integer" column="apply_status" jdbcType="TINYINT" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixturePurchaseApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.purchase_qty AS purchase_qty,
+            t.demand_time AS demand_time,
+            t.purchase_type AS purchase_type,
+            t.purchase_resion AS purchase_resion,
+            t.inventory_qty AS inventory_qty,
+            t.erp_qty AS erp_qty,
+            t.no_check_qty AS no_check_qty,
+            t.apply_department_id AS apply_department_id,
+            t.apply_department_name AS apply_department_name,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.apply_status AS apply_status,
+            t.remark AS remark
+        FROM
+            t_fixture_purchase_apply t
+        ]]>
+		<where>			
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.apply_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.apply_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixturePurchaseApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{fixturePurchaseApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixturePurchaseApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.purchase_qty AS purchase_qty,
+            t.demand_time AS demand_time,
+            t.purchase_type AS purchase_type,
+            t.purchase_resion AS purchase_resion,
+            t.inventory_qty AS inventory_qty,
+            t.erp_qty AS erp_qty,
+            t.no_check_qty AS no_check_qty,
+            t.apply_department_id AS apply_department_id,
+            t.apply_department_name AS apply_department_name,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.apply_status AS apply_status,
+            t.remark AS remark
+        FROM
+            t_fixture_purchase_apply t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixturePurchaseApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+
+</mapper>

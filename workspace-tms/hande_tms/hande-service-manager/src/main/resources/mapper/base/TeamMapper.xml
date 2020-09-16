@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.TeamMapper">
+	<resultMap id="Team" type="org.tsinghuatj.base.domain.Team">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="teamName" javaType="String" column="team_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_team (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            department_id,
+            department_name,
+            team_name
+        )
+        VALUES
+            (
+                #{team.pkId, jdbcType = BIGINT},
+                #{team.createUser, jdbcType = BIGINT},
+                #{team.createTime, jdbcType = TIMESTAMP},
+                #{team.updateUser, jdbcType = BIGINT},
+                #{team.updateTime, jdbcType = TIMESTAMP},
+                #{team.delMark, jdbcType = TINYINT},
+                #{team.departmentId, jdbcType = CHAR},
+                #{team.departmentName, jdbcType = CHAR},
+                #{team.teamName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_team]]>
+		<set>
+			<if test="team.createUser != null">
+            <![CDATA[create_user = #{team.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="team.createTime != null">
+            <![CDATA[create_time = #{team.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="team.updateUser != null">
+            <![CDATA[update_user = #{team.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="team.updateTime != null">
+            <![CDATA[update_time = #{team.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="team.delMark != null">
+            <![CDATA[del_mark = #{team.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="team.departmentId != null and team.departmentId != ''">
+            <![CDATA[department_id = #{team.departmentId, jdbcType=CHAR},]]>
+			</if>
+			<if test="team.departmentName != null and team.departmentName != ''">
+            <![CDATA[department_name = #{team.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="team.teamName != null and team.teamName != ''">
+            <![CDATA[team_name = #{team.teamName, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{teamId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Team">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_name AS team_name
+        FROM
+            t_team t
+        ]]>
+		<where>
+			<if test="team.pkId != null">
+            <![CDATA[AND t.pk_id = #{team.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="team.createUser != null">
+            <![CDATA[AND t.create_user = #{team.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="team.createTime != null">
+            <![CDATA[AND t.create_time = #{team.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="team.updateUser != null">
+            <![CDATA[AND t.update_user = #{team.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="team.updateTime != null">
+            <![CDATA[AND t.update_time = #{team.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="team.delMark != null">
+            <![CDATA[AND t.del_mark = #{team.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="team.departmentId != null and team.departmentId != ''">
+            <![CDATA[AND t.department_id = #{team.departmentId, jdbcType=CHAR}]]>
+			</if>
+			<if test="team.departmentName != null and team.departmentName != ''">
+            <![CDATA[AND t.department_name = #{team.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="team.teamName != null and team.teamName != ''">
+            <![CDATA[AND t.team_name = #{team.teamName, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Team">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,      
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,     
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_name AS team_name
+        FROM
+            t_team t
+        ]]>
+		<where>
+			<if test="team.departmentId != null and team.departmentId != ''">
+            <![CDATA[AND t.department_id = #{team.departmentId, jdbcType=CHAR}]]>
+			</if>
+			<if test="team.departmentName != null and team.departmentName != ''">
+            <![CDATA[AND t.department_name = #{team.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="team.teamName != null and team.teamName != ''">
+            <![CDATA[AND t.team_name = #{team.teamName, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[order by t.department_id]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Team">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_name AS team_name
+        FROM
+            t_team t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{teamId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="selectByName" parameterType="Map" resultMap="Team">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_name AS team_name
+        FROM
+            t_team t
+        ]]>
+		<where>
+        <![CDATA[AND t.department_id =#{departmentId, jdbcType=BIGINT} AND t.team_name = #{teamName, jdbcType=CHAR}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据部门id查询 -->
+	<select id="selectByDepartmentId" parameterType="Map" resultMap="Team">
+        <![CDATA[
+        SELECT
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_name AS team_name
+        FROM
+            t_team t
+        ]]>
+		<where>
+        <![CDATA[AND t.department_id = #{departmentId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_team SET del_mark = 1,update_user=#{team.updateUser, jdbcType=BIGINT},update_time=#{team.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{team.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_team]]>
+		<where>
+        <![CDATA[AND pk_id = #{teamId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

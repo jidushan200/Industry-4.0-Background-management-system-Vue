@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.erp.repository.ErpSupplierMapper">
+	<resultMap id="ErpSupplier" type="org.tsinghuatj.erp.domain.ErpSupplier">
+		<result property="supplierCode" javaType="String" column="supply_code" jdbcType="VARCHAR" />
+		<result property="supplierName" javaType="String" column="supply_name" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectBySupplierCode" parameterType="Map" resultMap="ErpSupplier">
+        <![CDATA[
+      	select * from apps.cux_zc_tms_supplier
+  		where supply_code = #{supplierCode,jdbcType=VARCHAR}
+ 		]]>
+
+	</select>
+
+</mapper>

@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolOutboundMapper">
+	<resultMap id="ToolOutbound" type="org.tsinghuatj.tool.domain.ToolOutbound">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="warehouseCode" javaType="String" column="warehouse_code" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="warehouse" javaType="String" column="warehouse" jdbcType="CHAR" />
+		<result property="outType" javaType="Integer" column="out_type" jdbcType="INTEGER" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="teamId" javaType="Long" column="team_id" jdbcType="BIGINT" />
+		<result property="teamName" javaType="String" column="team_name" jdbcType="CHAR" />
+		<result property="staffCode" javaType="String" column="staff_code" jdbcType="CHAR" />
+		<result property="staffName" javaType="String" column="staff_name" jdbcType="CHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="toolAmount" javaType="Integer" column="tool_amount" jdbcType="INTEGER" />
+		<result property="receiveTime" javaType="Date" column="receive_time" jdbcType="TIMESTAMP" />
+		<result property="keeperId" javaType="Long" column="keeper_id" jdbcType="BIGINT" />
+		<result property="keeper" javaType="String" column="keeper" jdbcType="CHAR" />
+		<result property="receiveResion" javaType="String" column="receive_resion" jdbcType="VARCHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_outbound (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_id,           
+            tool_number,
+            warehouse_code,
+            tool_map,
+            warehouse,
+            out_type,
+            department_id,
+            department_name,
+            team_id,
+            team_name,
+            staff_code,
+            staff_name,
+            supplier_id,
+            supplier_name,
+            tool_amount,
+            receive_time,
+            keeper_id,
+            keeper,
+            receive_resion,
+            remark
+        )
+        VALUES
+            (
+                #{toolOutbound.pkId, jdbcType = BIGINT},
+                #{toolOutbound.createUser, jdbcType = BIGINT},
+                #{toolOutbound.createTime, jdbcType = TIMESTAMP},
+                #{toolOutbound.updateUser, jdbcType = BIGINT},
+                #{toolOutbound.updateTime, jdbcType = TIMESTAMP},
+                #{toolOutbound.delMark, jdbcType = TINYINT},
+                #{toolOutbound.toolId, jdbcType = BIGINT},               
+                #{toolOutbound.toolNumber, jdbcType = CHAR},
+                #{toolOutbound.warehouseCode, jdbcType = CHAR},
+                #{toolOutbound.toolMap, jdbcType = CHAR},
+                #{toolOutbound.warehouse, jdbcType = CHAR},
+                #{toolOutbound.outType, jdbcType = INTEGER},
+                #{toolOutbound.departmentId, jdbcType = BIGINT},
+                #{toolOutbound.departmentName, jdbcType = CHAR},
+                #{toolOutbound.teamId, jdbcType = BIGINT},
+                #{toolOutbound.teamName, jdbcType = CHAR},
+                #{toolOutbound.staffCode, jdbcType = CHAR},
+                #{toolOutbound.staffName, jdbcType = CHAR},
+                #{toolOutbound.supplierId, jdbcType = BIGINT},
+                #{toolOutbound.supplierName, jdbcType = CHAR},
+                #{toolOutbound.toolAmount, jdbcType = INTEGER},               
+                #{toolOutbound.receiveTime, jdbcType = TIMESTAMP},
+                #{toolOutbound.keeperId, jdbcType = BIGINT},
+                #{toolOutbound.keeper, jdbcType = CHAR},
+                #{toolOutbound.receiveResion, jdbcType = VARCHAR},
+                #{toolOutbound.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_outbound]]>
+		<set>
+			<if test="toolOutbound.createUser != null">
+            <![CDATA[create_user = #{toolOutbound.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolOutbound.createTime != null">
+            <![CDATA[create_time = #{toolOutbound.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolOutbound.updateUser != null">
+            <![CDATA[update_user = #{toolOutbound.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolOutbound.updateTime != null">
+            <![CDATA[update_time = #{toolOutbound.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolOutbound.delMark != null">
+            <![CDATA[del_mark = #{toolOutbound.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolOutbound.toolId != null">
+            <![CDATA[tool_id = #{toolOutbound.toolId, jdbcType=BIGINT},]]>
+			</if>			
+			<if test="toolOutbound.toolNumber != null and toolOutbound.toolNumber != ''">
+            <![CDATA[tool_number = #{toolOutbound.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.warehouseCode != null and toolOutbound.warehouseCode != ''">
+            <![CDATA[warehouse_code = #{toolOutbound.warehouseCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.toolMap != null and toolOutbound.toolMap != ''">
+            <![CDATA[tool_map = #{toolOutbound.toolMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.warehouse != null and toolOutbound.warehouse != ''">
+            <![CDATA[warehouse = #{toolOutbound.warehouse, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.outType != null">
+            <![CDATA[out_type = #{toolOutbound.outType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolOutbound.departmentId != null">
+            <![CDATA[department_id = #{toolOutbound.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolOutbound.departmentName != null and toolOutbound.departmentName != ''">
+            <![CDATA[department_name = #{toolOutbound.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.supplierId != null">
+            <![CDATA[supplier_id = #{toolOutbound.supplierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolOutbound.supplierName != null and toolOutbound.supplierName != ''">
+            <![CDATA[supplier_name = #{toolOutbound.supplierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.toolAmount != null">
+            <![CDATA[tool_amount = #{toolOutbound.toolAmount, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolOutbound.receiver != null and toolOutbound.receiver != ''">
+            <![CDATA[receiver = #{toolOutbound.receiver, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.receiveTime != null">
+            <![CDATA[receive_time = #{toolOutbound.receiveTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolOutbound.keeperId != null">
+            <![CDATA[keeper_id = #{toolOutbound.keeperId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolOutbound.keeper != null and toolOutbound.keeper != ''">
+            <![CDATA[keeper = #{toolOutbound.keeper, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolOutbound.receiveResion != null and toolOutbound.receiveResion != ''">
+            <![CDATA[receive_resion = #{toolOutbound.receiveResion, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolOutbound.remark != null and toolOutbound.remark != ''">
+            <![CDATA[remark = #{toolOutbound.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolOutboundId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolOutbound">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,         
+            t.tool_number AS tool_number,
+            t.warehouse_code AS warehouse_code,
+            t.tool_map AS tool_map,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.tool_amount AS tool_amount,                   
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_tool_outbound t
+        ]]>
+		<where>
+			<if test="toolOutbound.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolOutbound.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.createUser != null">
+            <![CDATA[AND t.create_user = #{toolOutbound.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.createTime != null">
+            <![CDATA[AND t.create_time = #{toolOutbound.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolOutbound.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolOutbound.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolOutbound.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolOutbound.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolOutbound.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolOutbound.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolOutbound.toolId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolOutbound.toolNumber != null and toolOutbound.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolOutbound.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.warehouseCode != null and toolOutbound.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{toolOutbound.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.toolMap != null and toolOutbound.toolMap != ''">
+            <![CDATA[AND t.tool_map = #{toolOutbound.toolMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.warehouse != null and toolOutbound.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{toolOutbound.warehouse, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.outType != null">
+            <![CDATA[AND t.out_type = #{toolOutbound.outType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolOutbound.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolOutbound.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.departmentName != null and toolOutbound.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolOutbound.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolOutbound.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.supplierName != null and toolOutbound.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{toolOutbound.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.toolAmount != null">
+            <![CDATA[AND t.tool_amount = #{toolOutbound.toolAmount, jdbcType=INTEGER}]]>
+			</if>
+			
+			<if test="toolOutbound.receiveTime != null">
+            <![CDATA[AND t.receive_time = #{toolOutbound.receiveTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolOutbound.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{toolOutbound.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.keeper != null and toolOutbound.keeper != ''">
+            <![CDATA[AND t.keeper = #{toolOutbound.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.receiveResion != null and toolOutbound.receiveResion != ''">
+            <![CDATA[AND t.receive_resion = #{toolOutbound.receiveResion, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolOutbound.remark != null and toolOutbound.remark != ''">
+            <![CDATA[AND t.remark = #{toolOutbound.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolOutbound">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.tool_id AS tool_id,
+            t.tool_name AS tool_name,           
+            t.warehouse_code AS warehouse_code,
+            t.tool_map AS tool_map,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.tool_amount AS tool_amount,            
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_tool_outbound t
+        ]]>
+		<where>
+			<if test="toolOutbound.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolOutbound.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.createUser != null">
+            <![CDATA[AND t.create_user = #{toolOutbound.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.createTime != null">
+            <![CDATA[AND t.create_time = #{toolOutbound.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolOutbound.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolOutbound.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolOutbound.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolOutbound.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolOutbound.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolOutbound.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolOutbound.toolId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolOutbound.toolNumber != null and toolOutbound.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolOutbound.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.warehouseCode != null and toolOutbound.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{toolOutbound.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.toolMap != null and toolOutbound.toolMap != ''">
+            <![CDATA[AND t.tool_map = #{toolOutbound.toolMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.warehouse != null and toolOutbound.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{toolOutbound.warehouse, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.outType != null">
+            <![CDATA[AND t.out_type = #{toolOutbound.outType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolOutbound.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolOutbound.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.departmentName != null and toolOutbound.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolOutbound.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolOutbound.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.supplierName != null and toolOutbound.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{toolOutbound.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.toolAmount != null">
+            <![CDATA[AND t.tool_amount = #{toolOutbound.toolAmount, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolOutbound.receiver != null and toolOutbound.receiver != ''">
+            <![CDATA[AND t.receiver = #{toolOutbound.receiver, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.receiveTime != null">
+            <![CDATA[AND t.receive_time = #{toolOutbound.receiveTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolOutbound.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{toolOutbound.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.keeper != null and toolOutbound.keeper != ''">
+            <![CDATA[AND t.keeper = #{toolOutbound.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolOutbound.receiveResion != null and toolOutbound.receiveResion != ''">
+            <![CDATA[AND t.receive_resion = #{toolOutbound.receiveResion, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolOutbound.remark != null and toolOutbound.remark != ''">
+            <![CDATA[AND t.remark = #{toolOutbound.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolOutbound">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,           
+            t.tool_number AS tool_number,
+            t.warehouse_code AS warehouse_code,
+            t.tool_map AS tool_map,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.tool_amount AS tool_amount,           
+            
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_tool_outbound t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolOutboundId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_outbound SET del_mark = 1,update_user=#{toolOutbound.updateUser, jdbcType=BIGINT},update_time=#{toolOutbound.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolOutbound.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_outbound]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolOutboundId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 根据主键查询 -->
+	<select id="selectByToolId" parameterType="Map" resultMap="ToolOutbound">
+        <![CDATA[
+        SELECT
+             t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+          
+            t.tool_id AS tool_id,         
+            t.tool_number AS tool_number,
+            t.warehouse_code AS warehouse_code,
+            t.tool_map AS tool_map,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.tool_amount AS tool_amount,                  
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_tool_outbound t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectBeginTimeByToolId" parameterType="Map" resultMap="ToolOutbound">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_id AS tool_id,           
+            t.tool_number AS tool_number,
+            t.warehouse_code AS warehouse_code,
+            t.tool_map AS tool_map,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,           
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.receive_class AS receive_class,
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_tool_outbound t
+        ]]>
+		<where>
+			<if test="toolOutbound.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolOutbound.toolId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolOutbound.outType != null">
+            <![CDATA[AND t.out_type = #{toolOutbound.outType, jdbcType=INTEGER}]]>
+			</if>
+        	<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectRowByToolId" parameterType="Map" resultMap="ToolOutbound">
+        <![CDATA[
+        SELECT
+            t.tool_id AS tool_id,           
+            t.tool_number AS tool_number,
+            t.warehouse_code AS warehouse_code,
+            t.tool_map AS tool_map,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.tool_amount AS tool_amount,           
+            t.team_id AS team_id,
+            t.team_name AS team_name,   
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_tool_outbound t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.out_type = 1]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.receive_time DESC]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="selectByToolIdAndOutType" parameterType="Map" resultMap="ToolOutbound">
+        <![CDATA[
+        SELECT
+            t.tool_id AS tool_id,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.tool_amount AS tool_amount,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,   
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_tool_outbound t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.out_type = #{outType, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

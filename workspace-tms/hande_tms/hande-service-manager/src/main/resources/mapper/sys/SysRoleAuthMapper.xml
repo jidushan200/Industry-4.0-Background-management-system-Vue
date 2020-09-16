@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.sys.repository.SysRoleAuthMapper">
+	<resultMap id="SysRoleAuth" type="org.tsinghuatj.sys.domain.SysRoleAuth">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="roleId" javaType="Long" column="role_id" jdbcType="BIGINT" />
+		<result property="authCode" javaType="String" column="auth_code" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->	
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_sys_role_auth (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            role_id,
+            auth_code
+        )
+        VALUES
+            (
+                #{sysRoleAuth.pkId, jdbcType = BIGINT},
+                #{sysRoleAuth.createUser, jdbcType = BIGINT},
+                #{sysRoleAuth.createTime, jdbcType = TIMESTAMP},
+                #{sysRoleAuth.updateUser, jdbcType = BIGINT},
+                #{sysRoleAuth.updateTime, jdbcType = TIMESTAMP},
+                #{sysRoleAuth.delMark, jdbcType = TINYINT},
+                #{sysRoleAuth.roleId, jdbcType = BIGINT},
+                #{sysRoleAuth.authCode, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_role_auth]]>
+		<set>
+			<if test="sysRoleAuth.createUser != null">
+            <![CDATA[create_user = #{sysRoleAuth.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysRoleAuth.createTime != null">
+            <![CDATA[create_time = #{sysRoleAuth.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysRoleAuth.updateUser != null">
+            <![CDATA[update_user = #{sysRoleAuth.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysRoleAuth.updateTime != null">
+            <![CDATA[update_time = #{sysRoleAuth.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysRoleAuth.delMark != null">
+            <![CDATA[del_mark = #{sysRoleAuth.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="sysRoleAuth.roleId != null">
+            <![CDATA[role_id = #{sysRoleAuth.roleId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysRoleAuth.authCode != null and sysRoleAuth.authCode != ''">
+            <![CDATA[auth_code = #{sysRoleAuth.authCode, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{sysRoleAuthId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="SysRoleAuth">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.role_id AS role_id,
+            t.auth_code AS auth_code
+        FROM
+            t_sys_role_auth t
+        ]]>
+		<where>
+			<if test="sysRoleAuth.pkId != null">
+            <![CDATA[AND t.pk_id = #{sysRoleAuth.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.createUser != null">
+            <![CDATA[AND t.create_user = #{sysRoleAuth.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.createTime != null">
+            <![CDATA[AND t.create_time = #{sysRoleAuth.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysRoleAuth.updateUser != null">
+            <![CDATA[AND t.update_user = #{sysRoleAuth.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysRoleAuth.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysRoleAuth.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysRoleAuth.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysRoleAuth.roleId != null">
+            <![CDATA[AND t.role_id = #{sysRoleAuth.roleId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.authCode != null and sysRoleAuth.authCode != ''">
+            <![CDATA[AND t.auth_code = #{sysRoleAuth.authCode, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="SysRoleAuth">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.role_id AS role_id,
+            t.auth_code AS auth_code
+        FROM
+            t_sys_role_auth t
+        ]]>
+		<where>
+			<if test="sysRoleAuth.pkId != null">
+            <![CDATA[AND t.pk_id = #{sysRoleAuth.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.createUser != null">
+            <![CDATA[AND t.create_user = #{sysRoleAuth.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.createTime != null">
+            <![CDATA[AND t.create_time = #{sysRoleAuth.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysRoleAuth.updateUser != null">
+            <![CDATA[AND t.update_user = #{sysRoleAuth.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysRoleAuth.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysRoleAuth.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysRoleAuth.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysRoleAuth.roleId != null">
+            <![CDATA[AND t.role_id = #{sysRoleAuth.roleId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysRoleAuth.authCode != null and sysRoleAuth.authCode != ''">
+            <![CDATA[AND t.auth_code = #{sysRoleAuth.authCode, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="SysRoleAuth">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.role_id AS role_id,
+            t.auth_code AS auth_code
+        FROM
+            t_sys_role_auth t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{sysRoleAuthId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<!-- 按角色Id查询 -->
+	<select id="selectByRoleId" parameterType="Map" resultType="string">
+   <![CDATA[
+        SELECT           
+            t.auth_code AS auth_code
+        FROM
+            t_sys_role_auth t
+        ]]>
+		<where>
+        <![CDATA[AND t.role_id = #{roleId, jdbcType=BIGINT}]]>
+		</where>
+	</select>
+	
+	
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_role_auth SET del_mark = 1,update_user=#{sysRoleAuth.updateUser, jdbcType=BIGINT},update_time=#{sysRoleAuth.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysRoleAuth.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_sys_role_auth]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysRoleAuthId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	
+	<!-- 批量插入数据 -->
+	<insert id="batchInsert" parameterType="Map" useGeneratedKeys="false">
+	 <![CDATA[
+        INSERT INTO t_sys_role_auth (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            role_id,
+            auth_code
+        ) VALUES ]]>
+		<foreach collection="roleAuthList" item="item" index="index"
+			separator=",">  
+        <![CDATA[(
+           	#{item.pkId, jdbcType = BIGINT},
+            #{item.createUser, jdbcType = BIGINT},
+            #{item.createTime, jdbcType = TIMESTAMP},
+            #{item.updateUser, jdbcType = BIGINT},
+            #{item.updateTime, jdbcType = TIMESTAMP},
+            #{item.delMark, jdbcType = TINYINT},
+            #{item.roleId, jdbcType = BIGINT},
+            #{item.authCode, jdbcType = CHAR}
+        ) ]]>
+		</foreach>
+	</insert>
+	
+	<!-- 按角色Id删除 -->
+	<delete id="deleteByRoleId" parameterType="Map">
+        <![CDATA[
+        DELETE FROM t_sys_role_auth
+        ]]>
+		<where>
+        <![CDATA[AND role_id = #{roleId, jdbcType=BIGINT}]]>
+		</where>
+	</delete>
+</mapper>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.measure.repository.MeasureCheckMapper">
+	<resultMap id="MeasureCheck" type="org.tsinghuatj.measure.domain.MeasureCheck">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="measureId" javaType="Long" column="measure_id" jdbcType="BIGINT" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="measureNumber" javaType="String" column="measure_number" jdbcType="CHAR" />
+		<result property="measureName" javaType="String" column="measure_name" jdbcType="CHAR" />
+		<result property="model" javaType="String" column="model" jdbcType="CHAR" />
+		<result property="measureSeq" javaType="String" column="measure_seq" jdbcType="CHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="useDepartmentId" javaType="Long" column="use_department_id" jdbcType="BIGINT" />
+		<result property="useDepartmentName" javaType="String" column="use_department_name" jdbcType="CHAR" />
+		<result property="useTeamName" javaType="String" column="use_team_name" jdbcType="CHAR" />
+		<result property="deliveryer" javaType="String" column="deliveryer" jdbcType="CHAR" />
+		<result property="deliveryTime" javaType="Date" column="delivery_time" jdbcType="TIMESTAMP" />
+		<result property="checkType" javaType="Integer" column="check_type" jdbcType="TINYINT" />
+		<result property="checkResult" javaType="Integer" column="check_result" jdbcType="TINYINT" />
+		<result property="checkTime" javaType="Date" column="check_time" jdbcType="TIMESTAMP" />
+		<result property="checker" javaType="String" column="checker" jdbcType="CHAR" />
+		<result property="receiptId" javaType="Long" column="receipt_id" jdbcType="BIGINT" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="factoryMetrology" javaType="String" column="factory_metrology" jdbcType="CHAR" />
+		<result property="handleResult" javaType="Integer" column="handle_result" jdbcType="TINYINT" />
+		<result property="applyDepartmentId" javaType="Long" column="apply_department_id" jdbcType="BIGINT" />
+		<result property="applyDepartmentName" javaType="String" column="apply_department_name" jdbcType="CHAR" />
+		<result property="applierId" javaType="Long" column="applier_id" jdbcType="BIGINT" />
+		<result property="applierName" javaType="String" column="applier_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_measure_check (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            measure_id,
+            full_number,
+            measure_number,
+            measure_name,
+            model,
+            measure_seq,
+            supplier_id,
+            supplier_name,
+            deliveryer,
+            delivery_time,
+            check_type,
+            check_result,
+            check_time,
+            checker,
+            receipt_id,
+            remark,
+            handle_result
+        )
+        VALUES
+            (
+                #{measureCheck.pkId, jdbcType = BIGINT},
+                #{measureCheck.createUser, jdbcType = BIGINT},
+                #{measureCheck.createTime, jdbcType = TIMESTAMP},
+                #{measureCheck.updateUser, jdbcType = BIGINT},
+                #{measureCheck.updateTime, jdbcType = TIMESTAMP},
+                #{measureCheck.delMark, jdbcType = TINYINT},
+                #{measureCheck.measureId, jdbcType = BIGINT},
+                #{measureCheck.fullNumber, jdbcType = CHAR},
+                #{measureCheck.measureNumber, jdbcType = CHAR},
+                #{measureCheck.measureName, jdbcType = CHAR},
+                #{measureCheck.model, jdbcType = CHAR},
+                #{measureCheck.measureSeq, jdbcType = CHAR},
+                #{measureCheck.supplierId, jdbcType = BIGINT},
+                #{measureCheck.supplierName, jdbcType = CHAR},
+                #{measureCheck.deliveryer, jdbcType = CHAR},
+                #{measureCheck.deliveryTime, jdbcType = TIMESTAMP},
+                #{measureCheck.checkType, jdbcType = TINYINT},
+                #{measureCheck.checkResult, jdbcType = TINYINT},
+                #{measureCheck.checkTime, jdbcType = TIMESTAMP},
+                #{measureCheck.checker, jdbcType = CHAR},
+                #{measureCheck.receiptId, jdbcType = BIGINT},
+                #{measureCheck.remark, jdbcType = VARCHAR},
+                0
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_check]]>
+		<set>
+			<if test="measureCheck.updateUser != null">
+            <![CDATA[update_user = #{measureCheck.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureCheck.updateTime != null">
+            <![CDATA[update_time = #{measureCheck.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureCheck.checkResult != null">
+            <![CDATA[check_result = #{measureCheck.checkResult, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measureCheck.handleResult != null">
+            <![CDATA[handle_result = #{measureCheck.handleResult, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measureCheck.checkTime != null">
+            <![CDATA[check_time = #{measureCheck.checkTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureCheck.checker != null and measureCheck.checker != ''">
+            <![CDATA[checker = #{measureCheck.checker, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureCheck.remark != null and measureCheck.remark != ''">
+            <![CDATA[remark = #{measureCheck.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{measureCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MeasureCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.full_number AS full_number,
+            t.measure_number AS measure_number,
+            t.measure_name AS measure_name,
+            t.model AS model,
+            t.measure_seq AS measure_seq,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliveryer AS deliveryer,
+            t.delivery_time AS delivery_time,
+            t.check_type AS check_type,
+            t.check_result AS check_result,
+            t.check_time AS check_time,
+            t.checker AS checker,
+            t.receipt_id AS receipt_id,
+            t.remark AS remark
+        FROM
+            t_measure_check t
+        ]]>
+		<where>
+			<if test="measureCheck.pkId != null">
+            <![CDATA[AND t.pk_id = #{measureCheck.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCheck.createUser != null">
+            <![CDATA[AND t.create_user = #{measureCheck.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCheck.createTime != null">
+            <![CDATA[AND t.create_time = #{measureCheck.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCheck.updateUser != null">
+            <![CDATA[AND t.update_user = #{measureCheck.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCheck.updateTime != null">
+            <![CDATA[AND t.update_time = #{measureCheck.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCheck.delMark != null">
+            <![CDATA[AND t.del_mark = #{measureCheck.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCheck.measureId != null">
+            <![CDATA[AND t.measure_id = #{measureCheck.measureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCheck.fullNumber != null and measureCheck.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{measureCheck.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.measureNumber != null and measureCheck.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measureCheck.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.measureName != null and measureCheck.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measureCheck.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.model != null and measureCheck.model != ''">
+            <![CDATA[AND t.model = #{measureCheck.model, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.measureSeq != null and measureCheck.measureSeq != ''">
+            <![CDATA[AND t.measure_seq = #{measureCheck.measureSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{measureCheck.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCheck.supplierName != null and measureCheck.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{measureCheck.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.deliveryer != null and measureCheck.deliveryer != ''">
+            <![CDATA[AND t.deliveryer = #{measureCheck.deliveryer, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.deliveryTime != null">
+            <![CDATA[AND t.delivery_time = #{measureCheck.deliveryTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{measureCheck.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCheck.checkResult != null">
+            <![CDATA[AND t.check_result = #{measureCheck.checkResult, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCheck.checkTime != null">
+            <![CDATA[AND t.check_time = #{measureCheck.checkTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCheck.checker != null and measureCheck.checker != ''">
+            <![CDATA[AND t.checker = #{measureCheck.checker, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.receiptId != null">
+            <![CDATA[AND t.receipt_id = #{measureCheck.receiptId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCheck.remark != null and measureCheck.remark != ''">
+            <![CDATA[AND t.remark = #{measureCheck.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MeasureCheck">
+        <![CDATA[
+        SELECT
+			t.pk_id AS pk_id,
+			t.measure_id AS measure_id,
+			t.full_number AS full_number,
+			t.measure_number AS measure_number,
+			t.measure_name AS measure_name,
+			t.model AS model,
+			t.measure_seq AS measure_seq,
+			t.supplier_id AS supplier_id,
+			t.supplier_name AS supplier_name,
+			t.deliveryer AS deliveryer,
+			t.delivery_time AS delivery_time,
+			t.check_type AS check_type,
+			t.check_result AS check_result,
+			t.check_time AS check_time,
+			t.checker AS checker,
+			t.receipt_id AS receipt_id,
+			t.remark AS remark,
+			m.use_department_name,
+			m.use_team_name as use_team_name,
+			m.factory_metrology as factory_metrology
+		FROM
+			t_measure_check t 
+			left JOIN t_measure m ON t.full_number = m.measure_barcode
+        ]]>
+		<where>
+			<if test="measureCheck.fullNumber != null and measureCheck.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{measureCheck.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.measureNumber != null and measureCheck.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measureCheck.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCheck.measureName != null and measureCheck.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measureCheck.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.delivery_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.delivery_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{measureCheck.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCheck.useDepartmentId != null">
+            <![CDATA[AND m.use_department_id = #{measureCheck.useDepartmentId, jdbcType=TINYINT}]]>
+			</if>			
+			<![CDATA[ AND t.del_mark = 0 ]]>
+			<choose>
+				<when test="measureCheck.checkResult == null">
+		   			<![CDATA[AND t.check_result is null ]]>
+				</when>
+				<otherwise>
+					<choose>
+						<when test="measureCheck.checkResult == 3">
+		   					<![CDATA[AND t.check_result is not null ]]>
+						</when>
+						<otherwise>
+						<![CDATA[AND t.check_result = #{measureCheck.checkResult, jdbcType=TINYINT} ]]>
+						</otherwise>
+					</choose>
+				</otherwise>
+			</choose>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectNewPageList" parameterType="Map" resultMap="MeasureCheck">
+        <![CDATA[
+       SELECT
+		t.pk_id AS pk_id,
+		t.measure_number AS measure_number,
+		b.measure_name AS measure_name,
+		b.model AS model,
+		t.measure_seq AS measure_seq,
+		t.supplier_id AS supplier_id,
+		t.supplier_name AS supplier_name,
+		t.deliveryer AS deliveryer,
+		t.delivery_time AS delivery_time,
+		t.check_result AS check_result,
+		t.check_time AS check_time,
+		t.checker AS checker,
+		t.receipt_id AS receipt_id,
+		t.remark AS remark,
+		a.apply_department_id,
+		a.apply_department_name,
+		a.applier_id,
+		a.applier_name
+	FROM
+		t_measure_check t
+		INNER JOIN t_measure_base b ON t.measure_number = b.measure_number
+		INNER JOIN t_measure_purchase_receipt r ON t.receipt_id = r.pk_id
+		INNER JOIN t_measure_purchase_apply a ON r.apply_id = a.pk_id
+        ]]>
+		<where>
+			<if test="measureCheck.measureNumber != null and measureCheck.measureNumber != ''">
+            	<![CDATA[AND t.measure_number = #{measureCheck.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.delivery_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.delivery_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<![CDATA[AND t.check_type = 1 AND handle_result = 0]]>
+			<![CDATA[AND t.check_result = #{measureCheck.checkResult, jdbcType=TINYINT} ]]>
+			<![CDATA[AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MeasureCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.full_number AS full_number,
+            t.measure_number AS measure_number,
+            t.measure_name AS measure_name,
+            t.model AS model,
+            t.measure_seq AS measure_seq,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliveryer AS deliveryer,
+            t.delivery_time AS delivery_time,
+            t.check_type AS check_type,
+            t.check_result AS check_result,
+            t.check_time AS check_time,
+            t.checker AS checker,
+            t.receipt_id AS receipt_id,
+            t.remark AS remark
+        FROM
+            t_measure_check t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{measureCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_check SET del_mark = 1,update_user=#{measureCheck.updateUser, jdbcType=BIGINT},update_time=#{measureCheck.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureCheck.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_measure_check]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<select id="selectByMeasureIdList" parameterType="Map" resultMap="MeasureCheck">
+	 <![CDATA[
+        SELECT  
+        	t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.full_number AS full_number,
+            t.measure_number AS measure_number,
+            t.measure_name AS measure_name,
+            t.model AS model,
+            t.measure_seq AS measure_seq,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliveryer AS deliveryer,
+            t.delivery_time AS delivery_time,
+            t.check_type AS check_type,
+            t.check_result AS check_result,
+            t.check_time AS check_time,
+            t.checker AS checker,
+            t.receipt_id AS receipt_id,
+            t.remark AS remark
+        FROM
+            t_measure_check t
+        ]]>
+		<where>
+			AND measure_id in
+			<foreach collection="measureIdList" open="(" separator="," close=")" item="id">
+				#{id,jdbcType=BIGINT}
+			</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+</mapper>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldReceiptMapper">
+	<resultMap id="MouldReceipt" type="org.tsinghuatj.mould.domain.MouldReceipt">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="VARCHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="CHAR" />
+		<result property="mouldSeq" javaType="String" column="mould_seq" jdbcType="CHAR" />
+		<result property="mouldStatus" javaType="Integer" column="mould_status" jdbcType="TINYINT" />
+		<result property="mouldType" javaType="Integer" column="mould_type" jdbcType="INTEGER" />
+		<result property="lifeMax" javaType="Integer" column="life_max" jdbcType="INTEGER" />
+		<result property="heatNumber" javaType="String" column="heat_number" jdbcType="CHAR" />
+		<result property="surfaceNumber" javaType="String" column="surface_number" jdbcType="CHAR" />
+		<result property="checkType" javaType="Integer" column="check_type" jdbcType="TINYINT" />
+		<result property="embryoCode" javaType="String" column="embryo_code" jdbcType="CHAR" />
+		<result property="embryoName" javaType="String" column="embryo_name" jdbcType="CHAR" />
+		<result property="scripHandler" javaType="String" column="scrip_handler" jdbcType="CHAR" />
+		<result property="scripHandlerTime" javaType="Date" column="scrip_handler_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_receipt (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_number,
+            mould_name,
+            mould_map,
+            mould_seq,
+            mould_status,
+            mould_type,
+            life_max,
+            heat_number,
+            surface_number,
+            check_type,
+            embryo_code,
+            embryo_name,
+            scrip_handler,
+            scrip_handler_time
+        )
+        VALUES
+            (
+                #{mouldReceipt.pkId, jdbcType = BIGINT},
+                #{mouldReceipt.createUser, jdbcType = BIGINT},
+                #{mouldReceipt.createTime, jdbcType = TIMESTAMP},
+                #{mouldReceipt.updateUser, jdbcType = BIGINT},
+                #{mouldReceipt.updateTime, jdbcType = TIMESTAMP},
+                #{mouldReceipt.delMark, jdbcType = TINYINT},
+                #{mouldReceipt.mouldNumber, jdbcType = CHAR},
+                #{mouldReceipt.mouldName, jdbcType = VARCHAR},
+                #{mouldReceipt.mouldMap, jdbcType = CHAR},
+                #{mouldReceipt.mouldSeq, jdbcType = CHAR},
+                #{mouldReceipt.mouldStatus, jdbcType = TINYINT},
+                #{mouldReceipt.mouldType, jdbcType = INTEGER},
+                #{mouldReceipt.lifeMax, jdbcType = INTEGER},
+                #{mouldReceipt.heatNumber, jdbcType = CHAR},
+                #{mouldReceipt.surfaceNumber, jdbcType = CHAR},
+                #{mouldReceipt.checkType, jdbcType = TINYINT},
+                #{mouldReceipt.embryoCode, jdbcType = CHAR},
+                #{mouldReceipt.embryoName, jdbcType = CHAR},
+                #{mouldReceipt.scripHandler, jdbcType = CHAR},
+                #{mouldReceipt.scripHandlerTime, jdbcType = TIMESTAMP}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_receipt]]>
+		<set>
+			<if test="mouldReceipt.createUser != null">
+            <![CDATA[create_user = #{mouldReceipt.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldReceipt.createTime != null">
+            <![CDATA[create_time = #{mouldReceipt.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldReceipt.updateUser != null">
+            <![CDATA[update_user = #{mouldReceipt.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldReceipt.updateTime != null">
+            <![CDATA[update_time = #{mouldReceipt.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldReceipt.delMark != null">
+            <![CDATA[del_mark = #{mouldReceipt.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldReceipt.mouldNumber != null and mouldReceipt.mouldNumber != ''">
+            <![CDATA[mould_number = #{mouldReceipt.mouldNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.mouldName != null and mouldReceipt.mouldName != ''">
+            <![CDATA[mould_name = #{mouldReceipt.mouldName, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="mouldReceipt.mouldMap != null and mouldReceipt.mouldMap != ''">
+            <![CDATA[mould_map = #{mouldReceipt.mouldMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.mouldSeq != null and mouldReceipt.mouldSeq != ''">
+            <![CDATA[mould_seq = #{mouldReceipt.mouldSeq, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.mouldStatus != null">
+            <![CDATA[mould_status = #{mouldReceipt.mouldStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldReceipt.mouldType != null">
+            <![CDATA[mould_type = #{mouldReceipt.mouldType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldReceipt.lifeMax != null">
+            <![CDATA[life_max = #{mouldReceipt.lifeMax, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldReceipt.heatNumber != null and mouldReceipt.heatNumber != ''">
+            <![CDATA[heat_number = #{mouldReceipt.heatNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.surfaceNumber != null and mouldReceipt.surfaceNumber != ''">
+            <![CDATA[surface_number = #{mouldReceipt.surfaceNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.checkType != null">
+            <![CDATA[check_type = #{mouldReceipt.checkType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldReceipt.embryoCode != null and mouldReceipt.embryoCode != ''">
+            <![CDATA[embryo_code = #{mouldReceipt.embryoCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.embryoName != null and mouldReceipt.embryoName != ''">
+            <![CDATA[embryo_name = #{mouldReceipt.embryoName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.scripHandler != null and mouldReceipt.scripHandler != ''">
+            <![CDATA[scrip_handler = #{mouldReceipt.scripHandler, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldReceipt.scripHandlerTime != null">
+            <![CDATA[scrip_handler_time = #{mouldReceipt.scripHandlerTime, jdbcType=TIMESTAMP},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.check_type AS check_type,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time
+        FROM
+            t_mould_receipt t
+        ]]>
+		<where>
+			<if test="mouldReceipt.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldReceipt.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldReceipt.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldReceipt.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldReceipt.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldReceipt.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldReceipt.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldReceipt.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldReceipt.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldReceipt.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldReceipt.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldReceipt.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldReceipt.mouldNumber != null and mouldReceipt.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldReceipt.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.mouldName != null and mouldReceipt.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldReceipt.mouldName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldReceipt.mouldMap != null and mouldReceipt.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldReceipt.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.mouldSeq != null and mouldReceipt.mouldSeq != ''">
+            <![CDATA[AND t.mould_seq = #{mouldReceipt.mouldSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.mouldStatus != null">
+            <![CDATA[AND t.mould_status = #{mouldReceipt.mouldStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldReceipt.mouldType != null">
+            <![CDATA[AND t.mould_type = #{mouldReceipt.mouldType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldReceipt.lifeMax != null">
+            <![CDATA[AND t.life_max = #{mouldReceipt.lifeMax, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldReceipt.heatNumber != null and mouldReceipt.heatNumber != ''">
+            <![CDATA[AND t.heat_number = #{mouldReceipt.heatNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.surfaceNumber != null and mouldReceipt.surfaceNumber != ''">
+            <![CDATA[AND t.surface_number = #{mouldReceipt.surfaceNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.checkType != null">
+            <![CDATA[AND t.check_type = #{mouldReceipt.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldReceipt.embryoCode != null and mouldReceipt.embryoCode != ''">
+            <![CDATA[AND t.embryo_code = #{mouldReceipt.embryoCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.embryoName != null and mouldReceipt.embryoName != ''">
+            <![CDATA[AND t.embryo_name = #{mouldReceipt.embryoName, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.check_type AS check_type,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time
+        FROM
+            t_mould_receipt t
+        ]]>
+		<where>			
+			<if test="mouldReceipt.mouldNumber != null and mouldReceipt.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldReceipt.mouldNumber, jdbcType=CHAR}]]>
+			</if>			
+			<if test="mouldReceipt.mouldMap != null and mouldReceipt.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldReceipt.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.mouldSeq != null and mouldReceipt.mouldSeq != ''">
+            <![CDATA[AND t.mould_seq = #{mouldReceipt.mouldSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.mouldStatus != null">
+            <![CDATA[AND t.mould_status = #{mouldReceipt.mouldStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldReceipt.mouldType != null">
+            <![CDATA[AND t.mould_type = #{mouldReceipt.mouldType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldReceipt.lifeMax != null">
+            <![CDATA[AND t.life_max = #{mouldReceipt.lifeMax, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldReceipt.heatNumber != null and mouldReceipt.heatNumber != ''">
+            <![CDATA[AND t.heat_number = #{mouldReceipt.heatNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.surfaceNumber != null and mouldReceipt.surfaceNumber != ''">
+            <![CDATA[AND t.surface_number = #{mouldReceipt.surfaceNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldReceipt.checkType != null">
+            <![CDATA[AND t.check_type = #{mouldReceipt.checkType, jdbcType=TINYINT}]]>
+			</if>			
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.check_type AS check_type,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time
+        FROM
+            t_mould_receipt t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByMouldNumber" parameterType="Map" resultMap="MouldReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number
+        FROM
+            t_mould_receipt t
+        ]]>
+		<where>
+        <![CDATA[AND t.mould_number = #{mouldNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[order by create_time desc LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_receipt SET del_mark = 1,update_user=#{mouldReceipt.updateUser, jdbcType=BIGINT},update_time=#{mouldReceipt.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldReceipt.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_receipt]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

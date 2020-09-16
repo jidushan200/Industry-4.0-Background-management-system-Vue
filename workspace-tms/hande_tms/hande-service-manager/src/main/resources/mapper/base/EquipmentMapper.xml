@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.EquipmentMapper">
+	<resultMap id="Equipment" type="org.tsinghuatj.base.domain.Equipment">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="equipmentCode" javaType="String" column="equipment_code" jdbcType="CHAR" />
+		<result property="equipmentName" javaType="String" column="equipment_name" jdbcType="CHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="amount" javaType="Integer" column="amount" jdbcType="INTEGER" />
+		<result property="tagNumber" javaType="String" column="tag_number" jdbcType="CHAR" />
+		<result property="manufacturerName" javaType="String" column="manufacturer_name" jdbcType="CHAR" />
+		<result property="modelNumber" javaType="String" column="model_number" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_equipment (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            equipment_code,
+            equipment_name,
+            department_id,
+            department_name,
+            amount,
+            tag_number,
+            manufacturer_name,
+            model_number
+        )
+        VALUES
+            (
+                #{equipment.pkId, jdbcType = BIGINT},
+                #{equipment.createUser, jdbcType = BIGINT},
+                #{equipment.createTime, jdbcType = TIMESTAMP},
+                #{equipment.updateUser, jdbcType = BIGINT},
+                #{equipment.updateTime, jdbcType = TIMESTAMP},
+                #{equipment.delMark, jdbcType = TINYINT},
+                #{equipment.equipmentCode, jdbcType = CHAR},
+                #{equipment.equipmentName, jdbcType = CHAR},
+                #{equipment.departmentId, jdbcType = BIGINT},
+                #{equipment.departmentName, jdbcType = CHAR},
+                #{equipment.amount, jdbcType = INTEGER},
+                #{equipment.tagNumber, jdbcType = CHAR},
+                #{equipment.manufacturerName, jdbcType = CHAR},
+                #{equipment.modelNumber, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_equipment]]>
+		<set>
+			<if test="equipment.createUser != null">
+            <![CDATA[create_user = #{equipment.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="equipment.createTime != null">
+            <![CDATA[create_time = #{equipment.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="equipment.updateUser != null">
+            <![CDATA[update_user = #{equipment.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="equipment.updateTime != null">
+            <![CDATA[update_time = #{equipment.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="equipment.delMark != null">
+            <![CDATA[del_mark = #{equipment.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="equipment.equipmentCode != null and equipment.equipmentCode != ''">
+            <![CDATA[equipment_code = #{equipment.equipmentCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="equipment.equipmentName != null and equipment.equipmentName != ''">
+            <![CDATA[equipment_name = #{equipment.equipmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="equipment.departmentId != null">
+            <![CDATA[department_id = #{equipment.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="equipment.departmentName != null and equipment.departmentName != ''">
+            <![CDATA[department_name = #{equipment.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="equipment.amount != null">
+            <![CDATA[amount = #{equipment.amount, jdbcType=INTEGER},]]>
+			</if>
+			<if test="equipment.tagNumber != null and equipment.tagNumber != ''">
+            <![CDATA[tag_number = #{equipment.tagNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="equipment.manufacturerName != null and equipment.manufacturerName != ''">
+            <![CDATA[manufacturer_name = #{equipment.manufacturerName, jdbcType=CHAR},]]>
+			</if>
+			<if test="equipment.modelNumber != null and equipment.modelNumber != ''">
+            <![CDATA[model_number = #{equipment.modelNumber, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{equipmentId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Equipment">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.amount AS amount,
+            t.tag_number AS tag_number,
+            t.manufacturer_name AS manufacturer_name,
+            t.model_number AS model_number
+        FROM
+            t_equipment t
+        ]]>
+		<where>
+			<if test="equipment.pkId != null">
+            <![CDATA[AND t.pk_id = #{equipment.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="equipment.createUser != null">
+            <![CDATA[AND t.create_user = #{equipment.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="equipment.createTime != null">
+            <![CDATA[AND t.create_time = #{equipment.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="equipment.updateUser != null">
+            <![CDATA[AND t.update_user = #{equipment.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="equipment.updateTime != null">
+            <![CDATA[AND t.update_time = #{equipment.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="equipment.delMark != null">
+            <![CDATA[AND t.del_mark = #{equipment.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="equipment.equipmentCode != null and equipment.equipmentCode != ''">
+            <![CDATA[AND t.equipment_code = #{equipment.equipmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="equipment.equipmentName != null and equipment.equipmentName != ''">
+            <![CDATA[AND t.equipment_name = #{equipment.equipmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="equipment.departmentId != null">
+            <![CDATA[AND t.department_id = #{equipment.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="equipment.departmentName != null and equipment.departmentName != ''">
+            <![CDATA[AND t.department_name = #{equipment.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="equipment.amount != null">
+            <![CDATA[AND t.amount = #{equipment.amount, jdbcType=INTEGER}]]>
+			</if>
+			<if test="equipment.tagNumber != null and equipment.tagNumber != ''">
+            <![CDATA[AND t.tag_number = #{equipment.tagNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="equipment.manufacturerName != null and equipment.manufacturerName != ''">
+            <![CDATA[AND t.manufacturer_name = #{equipment.manufacturerName, jdbcType=CHAR}]]>
+			</if>
+			<if test="equipment.modelNumber != null and equipment.modelNumber != ''">
+            <![CDATA[AND t.model_number = #{equipment.modelNumber, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Equipment">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.amount AS amount,
+            t.tag_number AS tag_number,
+            t.manufacturer_name AS manufacturer_name,
+            t.model_number AS model_number
+        FROM
+            t_equipment t
+        ]]>
+		<where>
+			<if test="equipment.equipmentCode != null and equipment.equipmentCode != ''">
+            <![CDATA[AND t.equipment_code = #{equipment.equipmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="equipment.equipmentName != null and equipment.equipmentName != ''">
+            <![CDATA[AND t.equipment_name LIKE CONCAT(CONCAT('%',#{equipment.equipmentName, jdbcType=CHAR},'%')) ]]>
+			</if>
+			<if test="equipment.departmentName != null and equipment.departmentName != ''">
+            <![CDATA[AND t.department_name = #{equipment.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="equipment.tagNumber != null and equipment.tagNumber != ''">
+            <![CDATA[AND t.tag_number = #{equipment.tagNumber, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Equipment">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.amount AS amount,
+            t.tag_number AS tag_number,
+            t.manufacturer_name AS manufacturer_name,
+            t.model_number AS model_number
+        FROM
+            t_equipment t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{equipmentId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectByEquipmentCode" parameterType="Map" resultMap="Equipment">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.amount AS amount
+        FROM
+            t_equipment t
+        ]]>
+		<where>
+        <![CDATA[AND t.equipment_code = #{equipmentCode, jdbcType=CHAR}]]>
+			<if test="pkId != null">
+            <![CDATA[AND t.pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>       
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_equipment SET del_mark = 1,update_user=#{equipment.updateUser, jdbcType=BIGINT},update_time=#{equipment.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{equipment.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_equipment]]>
+		<where>
+        <![CDATA[AND pk_id = #{equipmentId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

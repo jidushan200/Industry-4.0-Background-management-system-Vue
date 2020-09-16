@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureWarehouseMapper">
+	<resultMap id="FixtureWarehouse" type="org.tsinghuatj.fixture.domain.FixtureWarehouse">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="fixtureBarcode" javaType="String" column="fixture_barcode" jdbcType="CHAR" />
+		<result property="warehouseType" javaType="Integer" column="warehouse_type" jdbcType="TINYINT" />
+		<result property="staffCode" javaType="String" column="staff_code" jdbcType="CHAR" />
+		<result property="staffName" javaType="String" column="staff_name" jdbcType="CHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_warehouse (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            fixture_barcode,
+            warehouse_type,
+            staff_code,
+            staff_name,
+            remark
+        )
+        VALUES
+            (
+                #{fixtureWarehouse.pkId, jdbcType = BIGINT},
+                #{fixtureWarehouse.createUser, jdbcType = BIGINT},
+                #{fixtureWarehouse.createTime, jdbcType = TIMESTAMP},
+                #{fixtureWarehouse.updateUser, jdbcType = BIGINT},
+                #{fixtureWarehouse.updateTime, jdbcType = TIMESTAMP},
+                #{fixtureWarehouse.delMark, jdbcType = TINYINT},
+                #{fixtureWarehouse.fixtureBarcode, jdbcType = CHAR},
+                #{fixtureWarehouse.warehouseType, jdbcType = TINYINT},
+                #{fixtureWarehouse.staffCode, jdbcType = CHAR},
+                #{fixtureWarehouse.staffName, jdbcType = CHAR},
+                #{fixtureWarehouse.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_warehouse]]>
+		<set>
+			<if test="fixtureWarehouse.createUser != null">
+            <![CDATA[create_user = #{fixtureWarehouse.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureWarehouse.createTime != null">
+            <![CDATA[create_time = #{fixtureWarehouse.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureWarehouse.updateUser != null">
+            <![CDATA[update_user = #{fixtureWarehouse.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureWarehouse.updateTime != null">
+            <![CDATA[update_time = #{fixtureWarehouse.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureWarehouse.delMark != null">
+            <![CDATA[del_mark = #{fixtureWarehouse.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureWarehouse.fixtureBarcode != null and fixtureWarehouse.fixtureBarcode != ''">
+            <![CDATA[fixture_barcode = #{fixtureWarehouse.fixtureBarcode, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWarehouse.warehouseType != null">
+            <![CDATA[warehouse_type = #{fixtureWarehouse.warehouseType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureWarehouse.staffCode != null and fixtureWarehouse.staffCode != ''">
+            <![CDATA[staff_code = #{fixtureWarehouse.staffCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWarehouse.staffName != null and fixtureWarehouse.staffName != ''">
+            <![CDATA[staff_name = #{fixtureWarehouse.staffName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWarehouse.remark != null and fixtureWarehouse.remark != ''">
+            <![CDATA[remark = #{fixtureWarehouse.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="FixtureWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_barcode AS fixture_barcode,
+            t.warehouse_type AS warehouse_type,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.remark AS remark
+        FROM
+            t_fixture_warehouse t
+        ]]>
+		<where>
+			<if test="fixtureWarehouse.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureWarehouse.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWarehouse.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureWarehouse.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWarehouse.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureWarehouse.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureWarehouse.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureWarehouse.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWarehouse.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureWarehouse.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureWarehouse.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureWarehouse.fixtureBarcode != null and fixtureWarehouse.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixtureWarehouse.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWarehouse.warehouseType != null">
+            <![CDATA[AND t.warehouse_type = #{fixtureWarehouse.warehouseType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureWarehouse.staffCode != null and fixtureWarehouse.staffCode != ''">
+            <![CDATA[AND t.staff_code = #{fixtureWarehouse.staffCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWarehouse.staffName != null and fixtureWarehouse.staffName != ''">
+            <![CDATA[AND t.staff_name = #{fixtureWarehouse.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWarehouse.remark != null and fixtureWarehouse.remark != ''">
+            <![CDATA[AND t.remark = #{fixtureWarehouse.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixtureWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_barcode AS fixture_barcode,
+            t.warehouse_type AS warehouse_type,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.remark AS remark
+        FROM
+            t_fixture_warehouse t
+        ]]>
+		<where>
+			<if test="fixtureWarehouse.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureWarehouse.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWarehouse.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureWarehouse.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWarehouse.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureWarehouse.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureWarehouse.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureWarehouse.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWarehouse.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureWarehouse.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureWarehouse.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureWarehouse.fixtureBarcode != null and fixtureWarehouse.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixtureWarehouse.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWarehouse.warehouseType != null">
+            <![CDATA[AND t.warehouse_type = #{fixtureWarehouse.warehouseType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureWarehouse.staffCode != null and fixtureWarehouse.staffCode != ''">
+            <![CDATA[AND t.staff_code = #{fixtureWarehouse.staffCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWarehouse.staffName != null and fixtureWarehouse.staffName != ''">
+            <![CDATA[AND t.staff_name = #{fixtureWarehouse.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWarehouse.remark != null and fixtureWarehouse.remark != ''">
+            <![CDATA[AND t.remark = #{fixtureWarehouse.remark, jdbcType=VARCHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixtureWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_barcode AS fixture_barcode,
+            t.warehouse_type AS warehouse_type,
+            t.staff_code AS staff_code,
+            t.staff_name AS staff_name,
+            t.remark AS remark
+        FROM
+            t_fixture_warehouse t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_warehouse SET del_mark = 1,update_user=#{fixtureWarehouse.updateUser, jdbcType=BIGINT},update_time=#{fixtureWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureWarehouse.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_warehouse]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

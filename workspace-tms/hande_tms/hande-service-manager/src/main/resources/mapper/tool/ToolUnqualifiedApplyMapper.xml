@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolUnqualifiedApplyMapper">
+	<resultMap id="ToolUnqualifiedApply" type="org.tsinghuatj.tool.domain.ToolUnqualifiedApply">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="applyType" javaType="Integer" column="apply_type" jdbcType="INTEGER" />
+		<result property="auditStatus" javaType="Integer" column="audit_status" jdbcType="INTEGER" />
+		<result property="applier" javaType="String" column="applier" jdbcType="CHAR" />
+		<result property="applyTime" javaType="Date" column="apply_time" jdbcType="TIMESTAMP" />
+		<result property="applyDesc" javaType="String" column="apply_desc" jdbcType="VARCHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+	</resultMap>
+
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_unqualified_apply (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_id,           
+            tool_number,
+            apply_type,
+            audit_status,
+            applier,
+            apply_time,
+            apply_desc,
+            department_id,
+            department_name
+        )
+        VALUES
+            (
+                #{toolUnqualifiedApply.pkId, jdbcType = BIGINT},
+                #{toolUnqualifiedApply.createUser, jdbcType = BIGINT},
+                #{toolUnqualifiedApply.createTime, jdbcType = TIMESTAMP},
+                #{toolUnqualifiedApply.updateUser, jdbcType = BIGINT},
+                #{toolUnqualifiedApply.updateTime, jdbcType = TIMESTAMP},
+                #{toolUnqualifiedApply.delMark, jdbcType = TINYINT},
+                #{toolUnqualifiedApply.toolId, jdbcType = BIGINT},               
+                #{toolUnqualifiedApply.toolNumber, jdbcType = CHAR},
+                #{toolUnqualifiedApply.applyType, jdbcType = INTEGER},
+                #{toolUnqualifiedApply.auditStatus, jdbcType = INTEGER},
+                #{toolUnqualifiedApply.applier, jdbcType = CHAR},
+                #{toolUnqualifiedApply.applyTime, jdbcType = TIMESTAMP},
+                #{toolUnqualifiedApply.applyDesc, jdbcType = VARCHAR},
+                #{toolUnqualifiedApply.departmentId, jdbcType = BIGINT},
+                #{toolUnqualifiedApply.departmentName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_unqualified_apply]]>
+		<set>
+			
+			<if test="toolUnqualifiedApply.updateUser != null">
+            <![CDATA[update_user = #{toolUnqualifiedApply.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnqualifiedApply.updateTime != null">
+            <![CDATA[update_time = #{toolUnqualifiedApply.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolUnqualifiedApply.delMark != null">
+            <![CDATA[del_mark = #{toolUnqualifiedApply.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolUnqualifiedApply.toolId != null">
+            <![CDATA[tool_id = #{toolUnqualifiedApply.toolId, jdbcType=BIGINT},]]>
+			</if>			
+			<if test="toolUnqualifiedApply.toolNumber != null and toolUnqualifiedApply.toolNumber != ''">
+            <![CDATA[tool_number = #{toolUnqualifiedApply.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyType != null">
+            <![CDATA[apply_type = #{toolUnqualifiedApply.applyType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolUnqualifiedApply.auditStatus != null">
+            <![CDATA[audit_status = #{toolUnqualifiedApply.auditStatus, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolUnqualifiedApply.applier != null and toolUnqualifiedApply.applier != ''">
+            <![CDATA[applier = #{toolUnqualifiedApply.applier, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyTime != null">
+            <![CDATA[apply_time = #{toolUnqualifiedApply.applyTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyDesc != null and toolUnqualifiedApply.applyDesc != ''">
+            <![CDATA[apply_desc = #{toolUnqualifiedApply.applyDesc, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolUnqualifiedApply.departmentId != null">
+            <![CDATA[department_id = #{toolUnqualifiedApply.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnqualifiedApply.departmentName != null and toolUnqualifiedApply.departmentName != ''">
+            <![CDATA[department_name = #{toolUnqualifiedApply.departmentName, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnqualifiedApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolUnqualifiedApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,           
+            t.tool_number AS tool_number,
+            t.apply_type AS apply_type,
+            t.audit_status AS audit_status,
+            t.applier AS applier,
+            t.apply_time AS apply_time,
+            t.apply_desc AS apply_desc,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_tool_unqualified_apply t
+        ]]>
+		<where>
+			<if test="toolUnqualifiedApply.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolUnqualifiedApply.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.createUser != null">
+            <![CDATA[AND t.create_user = #{toolUnqualifiedApply.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.createTime != null">
+            <![CDATA[AND t.create_time = #{toolUnqualifiedApply.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedApply.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolUnqualifiedApply.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolUnqualifiedApply.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedApply.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolUnqualifiedApply.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolUnqualifiedApply.toolId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolUnqualifiedApply.toolNumber != null and toolUnqualifiedApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolUnqualifiedApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyType != null">
+            <![CDATA[AND t.apply_type = #{toolUnqualifiedApply.applyType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolUnqualifiedApply.auditStatus != null">
+            <![CDATA[AND t.audit_status = #{toolUnqualifiedApply.auditStatus, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applier != null and toolUnqualifiedApply.applier != ''">
+            <![CDATA[AND t.applier = #{toolUnqualifiedApply.applier, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyTime != null">
+            <![CDATA[AND t.apply_time = #{toolUnqualifiedApply.applyTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyDesc != null and toolUnqualifiedApply.applyDesc != ''">
+            <![CDATA[AND t.apply_desc = #{toolUnqualifiedApply.applyDesc, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolUnqualifiedApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolUnqualifiedApply.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.departmentName != null and toolUnqualifiedApply.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolUnqualifiedApply.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolUnqualifiedApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            b.tool_name AS tool_name,
+            t.tool_number AS tool_number,
+            t.apply_type AS apply_type,
+            t.audit_status AS audit_status,
+            t.applier AS applier,
+            t.apply_time AS apply_time,
+            t.apply_desc AS apply_desc,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_tool_unqualified_apply t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolUnqualifiedApply.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolUnqualifiedApply.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.createUser != null">
+            <![CDATA[AND t.create_user = #{toolUnqualifiedApply.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.createTime != null">
+            <![CDATA[AND t.create_time = #{toolUnqualifiedApply.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedApply.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolUnqualifiedApply.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolUnqualifiedApply.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedApply.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolUnqualifiedApply.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolUnqualifiedApply.toolId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolUnqualifiedApply.toolNumber != null and toolUnqualifiedApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolUnqualifiedApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyType != null">
+            <![CDATA[AND t.apply_type = #{toolUnqualifiedApply.applyType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolUnqualifiedApply.auditStatus != null">
+            <![CDATA[AND t.audit_status = #{toolUnqualifiedApply.auditStatus, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applier != null and toolUnqualifiedApply.applier != ''">
+            <![CDATA[AND t.applier = #{toolUnqualifiedApply.applier, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyTime != null">
+            <![CDATA[AND t.apply_time = #{toolUnqualifiedApply.applyTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedApply.applyDesc != null and toolUnqualifiedApply.applyDesc != ''">
+            <![CDATA[AND t.apply_desc = #{toolUnqualifiedApply.applyDesc, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolUnqualifiedApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolUnqualifiedApply.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedApply.departmentName != null and toolUnqualifiedApply.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolUnqualifiedApply.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolUnqualifiedApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,         
+            t.tool_number AS tool_number,
+            t.apply_type AS apply_type,
+            t.audit_status AS audit_status,
+            t.applier AS applier,
+            t.apply_time AS apply_time,
+            t.apply_desc AS apply_desc,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_tool_unqualified_apply t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolUnqualifiedApplyId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_unqualified_apply SET del_mark = 1,update_user=#{toolUnqualifiedApply.updateUser, jdbcType=BIGINT},update_time=#{toolUnqualifiedApply.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnqualifiedApply.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_unqualified_apply]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnqualifiedApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

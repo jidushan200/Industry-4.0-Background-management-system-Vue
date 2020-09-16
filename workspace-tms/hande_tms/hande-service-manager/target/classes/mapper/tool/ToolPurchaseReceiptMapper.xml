@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolPurchaseReceiptMapper">
+	<resultMap id="ToolPurchaseReceipt" type="org.tsinghuatj.tool.domain.ToolPurchaseReceipt">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="applyId" javaType="Long" column="apply_id" jdbcType="BIGINT" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolQty" javaType="Integer" column="tool_qty" jdbcType="INTEGER" />
+		<result property="sequenceNumber" javaType="String" column="sequence_number" jdbcType="CHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="deliverer" javaType="String" column="deliverer" jdbcType="CHAR" />
+		<result property="deliveryTime" javaType="Date" column="delivery_time" jdbcType="TIMESTAMP" />
+		<result property="waitCheckId" javaType="Long" column="wait_check_id" jdbcType="BIGINT" />		
+		<result property="checkStatus" javaType="Integer" column="check_status" jdbcType="TINYINT" />
+		<result property="createUserName" javaType="String" column="create_user_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_purchase_receipt (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            apply_id,
+            tool_number,           
+            tool_qty,
+            sequence_number,
+            supplier_id,
+            supplier_name,
+            deliverer,
+            delivery_time,
+            wait_check_id,         
+            check_status
+        )
+        VALUES
+            (
+                #{toolPurchaseReceipt.pkId, jdbcType = BIGINT},
+                #{toolPurchaseReceipt.createUser, jdbcType = BIGINT},
+                #{toolPurchaseReceipt.createTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseReceipt.updateUser, jdbcType = BIGINT},
+                #{toolPurchaseReceipt.updateTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseReceipt.delMark, jdbcType = TINYINT},
+                #{toolPurchaseReceipt.applyId, jdbcType = BIGINT},
+                #{toolPurchaseReceipt.toolNumber, jdbcType = CHAR},              
+                #{toolPurchaseReceipt.toolQty, jdbcType = INTEGER},
+                #{toolPurchaseReceipt.sequenceNumber, jdbcType = TINYINT},
+                #{toolPurchaseReceipt.supplierId, jdbcType = BIGINT},
+                #{toolPurchaseReceipt.supplierName, jdbcType = CHAR},
+                #{toolPurchaseReceipt.deliverer, jdbcType = CHAR},
+                #{toolPurchaseReceipt.deliveryTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseReceipt.waitCheckId, jdbcType = BIGINT},
+                #{toolPurchaseReceipt.checkStatus, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_purchase_receipt]]>
+		<set>
+			<if test="toolPurchaseReceipt.updateUser != null">
+            <![CDATA[update_user = #{toolPurchaseReceipt.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPurchaseReceipt.updateTime != null">
+            <![CDATA[update_time = #{toolPurchaseReceipt.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPurchaseReceipt.delMark != null">
+            <![CDATA[del_mark = #{toolPurchaseReceipt.delMark, jdbcType=TINYINT},]]>
+			</if>			
+			<if test="toolPurchaseReceipt.toolQty != null">
+            <![CDATA[tool_qty = #{toolPurchaseReceipt.toolQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolPurchaseReceipt.sequenceNumber != null">
+            <![CDATA[sequence_number = #{toolPurchaseReceipt.sequenceNumber, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolPurchaseReceipt.supplierId != null">
+            <![CDATA[supplier_id = #{toolPurchaseReceipt.supplierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPurchaseReceipt.supplierName != null and toolPurchaseReceipt.supplierName != ''">
+            <![CDATA[supplier_name = #{toolPurchaseReceipt.supplierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolPurchaseReceipt.deliverer != null and toolPurchaseReceipt.deliverer != ''">
+            <![CDATA[deliverer = #{toolPurchaseReceipt.deliverer, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolPurchaseReceipt.deliveryTime != null">
+            <![CDATA[delivery_time = #{toolPurchaseReceipt.deliveryTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPurchaseReceipt.waitCheckId != null">
+            <![CDATA[wait_check_id = #{toolPurchaseReceipt.waitCheckId, jdbcType=BIGINT},]]>
+			</if>			
+			<if test="toolPurchaseReceipt.checkStatus != null">
+            <![CDATA[check_status = #{toolPurchaseReceipt.checkStatus, jdbcType=TINYINT},]]>
+			</if>			
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolPurchaseReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="selectByApplyId" parameterType="Map" resultMap="ToolPurchaseReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.apply_id AS apply_id,
+            t.tool_number AS tool_number,
+            b.tool_map AS tool_map,
+            b.tool_name AS tool_name,
+            t.tool_qty AS tool_qty,
+            t.sequence_number AS sequence_number,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliverer AS deliverer,
+            t.delivery_time AS delivery_time,
+            t.check_status AS check_status
+        FROM
+            t_tool_purchase_receipt t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>			
+            <![CDATA[AND t.apply_id = #{applyId, jdbcType=BIGINT}]]>
+ 			<![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+	</select>
+
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolPurchaseReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.apply_id AS apply_id,
+            t.tool_number AS tool_number,
+            b.tool_map AS tool_map,
+            b.tool_name AS tool_name,
+            t.tool_seq AS tool_seq,
+            t.sequence_number AS sequence_number,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliverer AS deliverer,
+            t.delivery_time AS delivery_time,
+            t.wait_check_id AS wait_check_id
+        FROM
+            t_tool_purchase_receipt t
+             inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolPurchaseReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByApplyIdList" parameterType="Map" resultMap="ToolPurchaseReceipt">
+		SELECT
+            t.pk_id AS pk_id,
+            t.apply_id AS apply_id,                 
+            t.tool_qty AS tool_qty,
+            t.sequence_number AS sequence_number,           
+            t.supplier_name AS supplier_name,
+            t.deliverer AS deliverer,
+            t.create_time AS create_time,
+            a.real_name as create_user_name
+        FROM
+            t_tool_purchase_receipt t
+         inner join t_user_account a on t.create_user = a.pk_id and a.del_mark = 0
+         <where>
+         	<![CDATA[AND t.del_mark =0 ]]>
+			<![CDATA[AND t.apply_id in ]]>
+			<foreach item="item" index="index" collection="applyIdList" open="(" separator="," close=")">
+				#{item}
+			</foreach>	
+		 </where>
+	</select>
+	
+
+	<select id="selectCountByApplyId" parameterType="Map" resultType="int">
+	 <![CDATA[
+        SELECT
+            count(t.pk_id) AS count
+        FROM
+            t_tool_purchase_receipt t
+        ]]>
+		<where>			
+            <![CDATA[AND t.apply_id = #{applyId, jdbcType=BIGINT}]]>
+ 			<![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_purchase_receipt SET del_mark = 1,update_user=#{toolPurchaseReceipt.updateUser, jdbcType=BIGINT},update_time=#{toolPurchaseReceipt.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolPurchaseReceipt.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_purchase_receipt]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolPurchaseReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

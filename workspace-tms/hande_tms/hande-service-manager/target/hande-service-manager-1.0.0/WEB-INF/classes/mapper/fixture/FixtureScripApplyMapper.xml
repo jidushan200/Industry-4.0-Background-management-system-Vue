@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureScripApplyMapper">
+	<resultMap id="FixtureScripApply" type="org.tsinghuatj.fixture.domain.FixtureScripApply">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="fixtureId" javaType="Long" column="fixture_id" jdbcType="BIGINT" />
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="CHAR" />
+		<result property="overTime" javaType="Date" column="over_time" jdbcType="TIMESTAMP" />
+		<result property="fixtureBarcode" javaType="String" column="fixture_barcode" jdbcType="CHAR" />
+		<result property="scripResion" javaType="Integer" column="scrip_resion" jdbcType="TINYINT" />
+		<result property="applyStatus" javaType="Integer" column="apply_status" jdbcType="TINYINT" />
+		<result property="scripRemark" javaType="String" column="scrip_remark" jdbcType="VARCHAR" />	
+		<result property="applierId" javaType="Long" column="applier_id" jdbcType="BIGINT" />
+		<result property="applierCode" javaType="String" column="applier_code" jdbcType="CHAR" />
+		<result property="applierName" javaType="String" column="applier_name" jdbcType="CHAR" />
+		<result property="applyTime" javaType="Date" column="apply_time" jdbcType="TIMESTAMP" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />	
+		<result property="disagreeRemark" javaType="String" column="disagree_remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_scrip_apply (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            check_id,
+            fixture_id,
+            fixture_number,
+            fixture_map,
+            fixture_name,
+            over_time,
+            fixture_barcode,
+            scrip_resion,
+            apply_status,
+            scrip_remark,           
+            applier_id,          
+            applier_name,
+            apply_time,
+            department_id,
+            department_name,           
+            disagree_remark
+        )
+        VALUES
+            (
+                #{fixtureScripApply.pkId, jdbcType = BIGINT},
+                #{fixtureScripApply.createUser, jdbcType = BIGINT},
+                #{fixtureScripApply.createTime, jdbcType = TIMESTAMP},
+                #{fixtureScripApply.updateUser, jdbcType = BIGINT},
+                #{fixtureScripApply.updateTime, jdbcType = TIMESTAMP},
+                #{fixtureScripApply.delMark, jdbcType = TINYINT},
+                #{fixtureScripApply.checkId, jdbcType = BIGINT},
+                #{fixtureScripApply.fixtureId, jdbcType = BIGINT},
+                #{fixtureScripApply.fixtureNumber, jdbcType = CHAR},
+                #{fixtureScripApply.fixtureMap, jdbcType = CHAR},
+                #{fixtureScripApply.fixtureName, jdbcType = CHAR},
+                #{fixtureScripApply.overTime, jdbcType = TIMESTAMP},
+                #{fixtureScripApply.fixtureBarcode, jdbcType = CHAR},
+                #{fixtureScripApply.scripResion, jdbcType = TINYINT},
+                #{fixtureScripApply.applyStatus, jdbcType = TINYINT},
+                #{fixtureScripApply.scripRemark, jdbcType = VARCHAR},
+                #{fixtureScripApply.applierId, jdbcType = BIGINT},
+                #{fixtureScripApply.applierName, jdbcType = CHAR},
+                #{fixtureScripApply.applyTime, jdbcType = TIMESTAMP},
+                #{fixtureScripApply.departmentId, jdbcType = BIGINT},
+                #{fixtureScripApply.departmentName, jdbcType = CHAR},                     
+                #{fixtureScripApply.disagreeRemark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_scrip_apply]]>
+		<set>
+			<if test="fixtureScripApply.updateUser != null">
+            <![CDATA[update_user = #{fixtureScripApply.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureScripApply.updateTime != null">
+            <![CDATA[update_time = #{fixtureScripApply.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureScripApply.fixtureBarcode != null and fixtureScripApply.fixtureBarcode != ''">
+            <![CDATA[fixture_barcode = #{fixtureScripApply.fixtureBarcode, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureScripApply.scripResion != null">
+            <![CDATA[scrip_resion = #{fixtureScripApply.scripResion, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureScripApply.applyStatus != null">
+            <![CDATA[apply_status = #{fixtureScripApply.applyStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureScripApply.scripRemark != null and fixtureScripApply.scripRemark != ''">
+            <![CDATA[scrip_remark = #{fixtureScripApply.scripRemark, jdbcType=VARCHAR},]]>
+			</if>	
+			<if test="fixtureScripApply.applierId != null">
+            <![CDATA[applier_id = #{fixtureScripApply.applierId, jdbcType=BIGINT},]]>
+			</if>	
+			<if test="fixtureScripApply.disagreeRemark != null and fixtureScripApply.disagreeRemark != ''">
+            <![CDATA[disagree_remark = #{fixtureScripApply.disagreeRemark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<update id="updateActiveByFixtureId"  parameterType="Map">
+	<![CDATA[UPDATE t_fixture_scrip_apply]]>
+		<set>
+			<if test="fixtureScripApply.updateUser != null">
+            <![CDATA[update_user = #{fixtureScripApply.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureScripApply.updateTime != null">
+            <![CDATA[update_time = #{fixtureScripApply.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>			
+			<if test="fixtureScripApply.applyStatus != null">
+            <![CDATA[apply_status = #{fixtureScripApply.applyStatus, jdbcType=TINYINT},]]>
+			</if>			
+		</set>
+		<where>
+        <![CDATA[AND fixture_Id = #{fixtureScripApply.fixtureId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	
+	</update>
+	
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixtureScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_map AS fixture_map,
+            t.fixture_name AS fixture_name,
+            t.over_time AS over_time,
+            t.fixture_barcode AS fixture_barcode,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,      
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_fixture_scrip_apply t
+        ]]>
+		<where>
+			
+			<if test="fixtureScripApply.fixtureNumber != null and fixtureScripApply.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixtureScripApply.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureScripApply.fixtureMap != null and fixtureScripApply.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixtureScripApply.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureScripApply.fixtureName != null and fixtureScripApply.fixtureName != ''">
+            <![CDATA[AND t.fixture_name = #{fixtureScripApply.fixtureName, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND t.del_mark = 0 AND t.apply_status !=3 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixtureScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.check_id AS check_id,
+            t.fixture_id AS fixture_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_map AS fixture_map,
+            t.fixture_name AS fixture_name,
+            t.over_time AS over_time,
+            t.fixture_barcode AS fixture_barcode,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,           
+            t.applier_id AS applier_id,        
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_fixture_scrip_apply t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_scrip_apply SET del_mark = 1,update_user=#{fixtureScripApply.updateUser, jdbcType=BIGINT},update_time=#{fixtureScripApply.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureScripApply.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_scrip_apply]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="applyGetByfullNumber" parameterType="Map" resultMap="FixtureScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.fixture_number AS fixture_number,
+            t.fixture_map AS fixture_map,
+            t.fixture_name AS fixture_name,
+            t.over_time AS over_time,
+            t.fixture_barcode AS fixture_barcode,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,           
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_fixture_scrip_apply t
+        ]]>
+		<where>
+        <![CDATA[AND t.fixture_barcode = #{fixtureBarcode, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

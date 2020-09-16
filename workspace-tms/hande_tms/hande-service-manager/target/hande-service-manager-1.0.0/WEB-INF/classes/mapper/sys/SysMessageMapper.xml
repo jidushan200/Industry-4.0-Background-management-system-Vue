@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.sys.repository.SysMessageMapper">
+	<resultMap id="SysMessage" type="org.tsinghuatj.sys.domain.SysMessage">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="senderId" javaType="Long" column="sender_id" jdbcType="BIGINT" />
+		<result property="senderName" javaType="String" column="sender_name" jdbcType="CHAR" />
+		<result property="sendTime" javaType="Date" column="send_time" jdbcType="TIMESTAMP" />
+		<result property="message" javaType="String" column="message" jdbcType="VARCHAR" />
+		<result property="title" javaType="String" column="title" jdbcType="CHAR" />
+		<result property="receiverId" javaType="Long" column="receiver_id" jdbcType="BIGINT" />
+		<result property="readFlag" javaType="Integer" column="read_flag" jdbcType="TINYINT" />
+		<result property="readTime" javaType="Date" column="read_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="MessageCount" type="org.tsinghuatj.sys.domain.MessageCount">
+		<result property="count" javaType="Integer" column="count" jdbcType="TINYINT" />
+		<result property="readFlag" javaType="Integer" column="read_flag" jdbcType="TINYINT" />
+	</resultMap>
+
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_sys_message (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            sender_id,
+            sender_name,
+            send_time,
+            send_flag,
+            message,
+            title,
+            receiver_id,
+            read_flag,
+            read_time
+        )
+        VALUES
+            (
+                #{sysMessage.pkId, jdbcType = BIGINT},
+                #{sysMessage.createUser, jdbcType = BIGINT},
+                #{sysMessage.createTime, jdbcType = TIMESTAMP},
+                #{sysMessage.updateUser, jdbcType = BIGINT},
+                #{sysMessage.updateTime, jdbcType = TIMESTAMP},
+                #{sysMessage.delMark, jdbcType = TINYINT},
+                #{sysMessage.senderId, jdbcType = BIGINT},
+                #{sysMessage.senderName, jdbcType = CHAR},
+                #{sysMessage.sendTime, jdbcType = TIMESTAMP},
+                0,
+                #{sysMessage.message, jdbcType = VARCHAR},
+                #{sysMessage.title, jdbcType = VARCHAR},
+                #{sysMessage.receiverId, jdbcType = BIGINT},
+              	 0,
+                #{sysMessage.readTime, jdbcType = TIMESTAMP}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_message]]>
+		<set>
+			<if test="sysMessage.updateUser != null">
+            <![CDATA[update_user = #{sysMessage.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysMessage.updateTime != null">
+            <![CDATA[update_time = #{sysMessage.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysMessage.readFlag != null">
+            <![CDATA[read_flag = #{sysMessage.readFlag, jdbcType=TINYINT},]]>
+			</if>
+			<if test="sysMessage.readTime != null">
+            <![CDATA[read_time = #{sysMessage.readTime, jdbcType=TIMESTAMP},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{sysMessageId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="SysMessage">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.create_time AS create_time,   
+            t.sender_id AS sender_id,
+            t.sender_name AS sender_name,
+            t.send_time AS send_time,
+            t.message AS message,
+            t.title AS title,
+            t.receiver_id AS receiver_id,
+            t.read_flag AS read_flag
+        FROM
+            t_sys_message t
+        ]]>
+		<where>		
+           <![CDATA[ AND t.del_mark = 0]]>
+			<if test="sysMessage.receiverId != null">
+            <![CDATA[AND t.receiver_id = #{sysMessage.receiverId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMessage.readFlag != null">
+            <![CDATA[AND t.read_flag = #{sysMessage.readFlag, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="SysMessage">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.sender_id AS sender_id,
+            t.sender_name AS sender_name,
+            t.send_time AS send_time,
+            t.message AS message,
+            t.receiver_id AS receiver_id,
+            t.read_flag AS read_flag,
+            t.read_time AS read_time
+        FROM
+            t_sys_message t
+        ]]>
+		<where>
+			<if test="sysMessage.pkId != null">
+            <![CDATA[AND t.pk_id = #{sysMessage.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMessage.createUser != null">
+            <![CDATA[AND t.create_user = #{sysMessage.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMessage.createTime != null">
+            <![CDATA[AND t.create_time = #{sysMessage.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysMessage.updateUser != null">
+            <![CDATA[AND t.update_user = #{sysMessage.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMessage.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysMessage.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysMessage.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysMessage.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysMessage.senderId != null">
+            <![CDATA[AND t.sender_id = #{sysMessage.senderId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMessage.senderName != null and sysMessage.senderName != ''">
+            <![CDATA[AND t.sender_name = #{sysMessage.senderName, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMessage.sendTime != null">
+            <![CDATA[AND t.send_time = #{sysMessage.sendTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysMessage.message != null and sysMessage.message != ''">
+            <![CDATA[AND t.message = #{sysMessage.message, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="sysMessage.receiverId != null">
+            <![CDATA[AND t.receiver_id = #{sysMessage.receiverId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMessage.readFlag != null">
+            <![CDATA[AND t.read_flag = #{sysMessage.readFlag, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysMessage.readTime != null">
+            <![CDATA[AND t.read_time = #{sysMessage.readTime, jdbcType=TIMESTAMP}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="SysMessage">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.sender_id AS sender_id,
+            t.sender_name AS sender_name,
+            t.send_time AS send_time,
+            t.message AS message,
+            t.receiver_id AS receiver_id,
+            t.read_flag AS read_flag,
+            t.read_time AS read_time
+        FROM
+            t_sys_message t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{sysMessageId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_message SET del_mark = 1,update_user=#{sysMessage.updateUser, jdbcType=BIGINT},update_time=#{sysMessage.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysMessage.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_sys_message]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysMessageId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<select id="selectMessageGroupCount" parameterType="Map" resultMap="MessageCount">
+        <![CDATA[
+        SELECT
+            count(pk_id) as count, t.read_flag as read_flag
+        FROM
+            t_sys_message t
+        ]]>
+		<where>
+        <![CDATA[t.del_mark = 0 AND t.receiver_id = #{receiverId, jdbcType=BIGINT}]]>
+		</where>
+		 <![CDATA[group by read_flag]]>
+	</select>
+
+
+
+
+	<select id="selectImmediateMessageList" parameterType="Map" resultMap="SysMessage">
+		 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.sender_id AS sender_id,
+            t.sender_name AS sender_name,
+            t.send_time AS send_time,
+            t.message AS message
+        FROM
+            t_sys_message t
+        ]]>
+		<where>
+        <![CDATA[AND send_flag=0 AND t.receiver_id = #{receiverId, jdbcType=BIGINT} AND t.send_time >= #{beginTime, jdbcType=TIMESTAMP} ]]>
+		</where>
+	</select>
+
+	<update id="updateSendFlag" parameterType="Map">
+	  <![CDATA[UPDATE t_sys_message set send_flag = 1 where pk_id in ]]>
+		<foreach item="item" index="index" collection="pkIdList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+		<select id="countToAuditToolPruchase" parameterType="Map" resultType="int">
+	   <![CDATA[SELECT count(t.pk_id) as count FROM t_tool_purchase_apply t]]>
+		<where>
+       		<if test="departmentId != null">
+              <![CDATA[AND t.department_id = #{departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="applyStatus != null">
+              <![CDATA[AND t.apply_status = #{applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="purchaseType != null">
+              <![CDATA[AND t.purchase_type = #{purchaseType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="countToAuditMeasurePruchase" parameterType="Map" resultType="int">
+	   <![CDATA[SELECT count(t.pk_id) as count FROM t_measure_purchase_apply t]]>
+		<where>
+       		<if test="departmentId != null">
+              <![CDATA[AND t.apply_department_Id = #{departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="applyStatus != null">
+              <![CDATA[AND t.apply_status = #{applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="purchaseReasion != null and purchaseReasion =1 ">
+              <![CDATA[AND t.purchase_reasion in (1,2)]]>
+			</if>
+			<if test="purchaseReasion != null and purchaseReasion =3 ">
+              <![CDATA[AND t.purchase_reasion in (3,4)]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="countToAuditFixturePruchase" parameterType="Map" resultType="int">
+	   <![CDATA[SELECT count(t.pk_id) as count FROM  t_fixture_purchase_apply t]]>
+		<where>
+       		<if test="departmentId != null">
+              <![CDATA[AND t.apply_department_id = #{departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="applyStatus != null">
+              <![CDATA[AND t.apply_status = #{applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="purchaseType != null">
+              <![CDATA[AND t.purchase_type = #{purchaseType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="countAllToAuditToolPruchase" resultType="int">
+	   <![CDATA[SELECT count(t.pk_id) as count FROM t_tool_purchase_apply t where t.del_mark = 0 and t.apply_status in (1,2,3,4)]]>
+	</select>
+	
+	<select id="countAllToAuditMeasurePruchase" resultType="int">
+	   <![CDATA[SELECT count(t.pk_id) as count FROM t_measure_purchase_apply t where t.del_mark = 0 and t.apply_status in (1,2,3,4,-4,-5)]]>
+	</select>
+	
+	<select id="countAllToAuditFixturePruchase" resultType="int">
+	   <![CDATA[SELECT count(t.pk_id) as count FROM  t_fixture_purchase_apply t where t.del_mark = 0 and t.apply_status in (1,2,3,4,5,6,7)]]>
+	</select>
+
+	
+	
+	
+	
+	
+</mapper>

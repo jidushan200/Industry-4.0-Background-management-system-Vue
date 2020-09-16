@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldScripApplyMapper">
+	<resultMap id="MouldScripApply" type="org.tsinghuatj.mould.domain.MouldScripApply">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="CHAR" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="CHAR" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="overTime" javaType="Date" column="over_time" jdbcType="TIMESTAMP" />
+		<result property="scripResion" javaType="Integer" column="scrip_resion" jdbcType="TINYINT" />
+		<result property="applyStatus" javaType="Integer" column="apply_status" jdbcType="TINYINT" />
+		<result property="scripRemark" javaType="String" column="scrip_remark" jdbcType="VARCHAR" />
+		<result property="resultId" javaType="Long" column="result_id" jdbcType="BIGINT" />
+		<result property="reportNumber" javaType="String" column="report_number" jdbcType="CHAR" />
+		<result property="applierId" javaType="Long" column="applier_id" jdbcType="BIGINT" />
+		<result property="applierCode" javaType="String" column="applier_code" jdbcType="CHAR" />
+		<result property="applierName" javaType="String" column="applier_name" jdbcType="CHAR" />
+		<result property="applyTime" javaType="Date" column="apply_time" jdbcType="TIMESTAMP" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="auiterId" javaType="Long" column="auiter_id" jdbcType="BIGINT" />
+		<result property="auiterName" javaType="String" column="auiter_name" jdbcType="CHAR" />
+		<result property="disagreeRemark" javaType="String" column="disagree_remark" jdbcType="VARCHAR" />
+		<result property="processAmount" javaType="Integer" column="process_amount" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_scrip_apply (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_number,
+            mould_map,
+            mould_name,
+            full_number,
+            over_time,
+            scrip_resion,
+            apply_status,
+            scrip_remark,
+            result_id,
+            report_number,
+            applier_id,
+            applier_code,
+            applier_name,
+            apply_time,
+            department_id,
+            department_name,
+            auiter_id,
+            auiter_name,
+            disagree_remark
+        )
+        VALUES
+            (
+                #{mouldScripApply.pkId, jdbcType = BIGINT},
+                #{mouldScripApply.createUser, jdbcType = BIGINT},
+                #{mouldScripApply.createTime, jdbcType = TIMESTAMP},
+                #{mouldScripApply.updateUser, jdbcType = BIGINT},
+                #{mouldScripApply.updateTime, jdbcType = TIMESTAMP},
+                #{mouldScripApply.delMark, jdbcType = TINYINT},
+                #{mouldScripApply.mouldNumber, jdbcType = CHAR},
+                #{mouldScripApply.mouldMap, jdbcType = CHAR},
+                #{mouldScripApply.mouldName, jdbcType = CHAR},
+                #{mouldScripApply.fullNumber, jdbcType = CHAR},
+                #{mouldScripApply.overTime, jdbcType = TIMESTAMP},
+                #{mouldScripApply.scripResion, jdbcType = TINYINT},
+                #{mouldScripApply.applyStatus, jdbcType = TINYINT},
+                #{mouldScripApply.scripRemark, jdbcType = VARCHAR},
+                #{mouldScripApply.resultId, jdbcType = BIGINT},
+                #{mouldScripApply.reportNumber, jdbcType = CHAR},
+                #{mouldScripApply.applierId, jdbcType = BIGINT},
+                #{mouldScripApply.applierCode, jdbcType = CHAR},
+                #{mouldScripApply.applierName, jdbcType = CHAR},
+                #{mouldScripApply.applyTime, jdbcType = TIMESTAMP},
+                #{mouldScripApply.departmentId, jdbcType = BIGINT},
+                #{mouldScripApply.departmentName, jdbcType = CHAR},
+                #{mouldScripApply.auiterId, jdbcType = BIGINT},
+                #{mouldScripApply.auiterName, jdbcType = CHAR},
+                #{mouldScripApply.disagreeRemark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_scrip_apply]]>
+		<set>
+			<if test="mouldScripApply.createUser != null">
+            <![CDATA[create_user = #{mouldScripApply.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldScripApply.createTime != null">
+            <![CDATA[create_time = #{mouldScripApply.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldScripApply.updateUser != null">
+            <![CDATA[update_user = #{mouldScripApply.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldScripApply.updateTime != null">
+            <![CDATA[update_time = #{mouldScripApply.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldScripApply.delMark != null">
+            <![CDATA[del_mark = #{mouldScripApply.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldScripApply.mouldNumber != null and mouldScripApply.mouldNumber != ''">
+            <![CDATA[mould_number = #{mouldScripApply.mouldNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.mouldMap != null and mouldScripApply.mouldMap != ''">
+            <![CDATA[mould_map = #{mouldScripApply.mouldMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.mouldName != null and mouldScripApply.mouldName != ''">
+            <![CDATA[mould_name = #{mouldScripApply.mouldName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.fullNumber != null and mouldScripApply.fullNumber != ''">
+            <![CDATA[full_number = #{mouldScripApply.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.overTime != null">
+            <![CDATA[over_time = #{mouldScripApply.overTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldScripApply.scripResion != null">
+            <![CDATA[scrip_resion = #{mouldScripApply.scripResion, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldScripApply.applyStatus != null">
+            <![CDATA[apply_status = #{mouldScripApply.applyStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldScripApply.scripRemark != null and mouldScripApply.scripRemark != ''">
+            <![CDATA[scrip_remark = #{mouldScripApply.scripRemark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="mouldScripApply.resultId != null">
+            <![CDATA[result_id = #{mouldScripApply.resultId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldScripApply.reportNumber != null and mouldScripApply.reportNumber != ''">
+            <![CDATA[report_number = #{mouldScripApply.reportNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.applierId != null">
+            <![CDATA[applier_id = #{mouldScripApply.applierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldScripApply.applierCode != null and mouldScripApply.applierCode != ''">
+            <![CDATA[applier_code = #{mouldScripApply.applierCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.applierName != null and mouldScripApply.applierName != ''">
+            <![CDATA[applier_name = #{mouldScripApply.applierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.applyTime != null">
+            <![CDATA[apply_time = #{mouldScripApply.applyTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldScripApply.departmentId != null">
+            <![CDATA[department_id = #{mouldScripApply.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldScripApply.departmentName != null and mouldScripApply.departmentName != ''">
+            <![CDATA[department_name = #{mouldScripApply.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.auiterId != null">
+            <![CDATA[auiter_id = #{mouldScripApply.auiterId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldScripApply.auiterName != null and mouldScripApply.auiterName != ''">
+            <![CDATA[auiter_name = #{mouldScripApply.auiterName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldScripApply.disagreeRemark != null and mouldScripApply.disagreeRemark != ''">
+            <![CDATA[disagree_remark = #{mouldScripApply.disagreeRemark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_number AS mould_number,
+            t.mould_map AS mould_map,
+            t.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.over_time AS over_time,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,
+            t.result_id AS result_id,
+            t.report_number AS report_number,
+            t.applier_id AS applier_id,
+            t.applier_code AS applier_code,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.auiter_id AS auiter_id,
+            t.auiter_name AS auiter_name,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_mould_scrip_apply t
+        ]]>
+		<where>
+			<if test="mouldScripApply.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldScripApply.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldScripApply.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldScripApply.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldScripApply.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldScripApply.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldScripApply.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldScripApply.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldScripApply.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldScripApply.mouldNumber != null and mouldScripApply.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldScripApply.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.mouldMap != null and mouldScripApply.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldScripApply.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.mouldName != null and mouldScripApply.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldScripApply.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.fullNumber != null and mouldScripApply.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldScripApply.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.overTime != null">
+            <![CDATA[AND t.over_time = #{mouldScripApply.overTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldScripApply.scripResion != null">
+            <![CDATA[AND t.scrip_resion = #{mouldScripApply.scripResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldScripApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{mouldScripApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldScripApply.scripRemark != null and mouldScripApply.scripRemark != ''">
+            <![CDATA[AND t.scrip_remark = #{mouldScripApply.scripRemark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldScripApply.resultId != null">
+            <![CDATA[AND t.result_id = #{mouldScripApply.resultId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.reportNumber != null and mouldScripApply.reportNumber != ''">
+            <![CDATA[AND t.report_number = #{mouldScripApply.reportNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.applierId != null">
+            <![CDATA[AND t.applier_id = #{mouldScripApply.applierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.applierCode != null and mouldScripApply.applierCode != ''">
+            <![CDATA[AND t.applier_code = #{mouldScripApply.applierCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.applierName != null and mouldScripApply.applierName != ''">
+            <![CDATA[AND t.applier_name = #{mouldScripApply.applierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.applyTime != null">
+            <![CDATA[AND t.apply_time = #{mouldScripApply.applyTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldScripApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{mouldScripApply.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.departmentName != null and mouldScripApply.departmentName != ''">
+            <![CDATA[AND t.department_name = #{mouldScripApply.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.auiterId != null">
+            <![CDATA[AND t.auiter_id = #{mouldScripApply.auiterId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.auiterName != null and mouldScripApply.auiterName != ''">
+            <![CDATA[AND t.auiter_name = #{mouldScripApply.auiterName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.disagreeRemark != null and mouldScripApply.disagreeRemark != ''">
+            <![CDATA[AND t.disagree_remark = #{mouldScripApply.disagreeRemark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.mould_number AS mould_number,
+            b.mould_map AS mould_map,
+            b.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.over_time AS over_time,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,  
+            t.applier_code AS applier_code,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.auiter_id AS auiter_id,
+            t.auiter_name AS auiter_name,
+            t.disagree_remark AS disagree_remark,
+            d.process_amount AS process_amount
+        FROM
+            t_mould_scrip_apply t
+            inner join t_mould_base b on t.mould_number = b.mould_number
+            inner join t_mould d on t.full_number = d.mould_barcode
+        ]]>
+		<where>			
+			<if test="mouldScripApply.mouldNumber != null and mouldScripApply.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldScripApply.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.mouldMap != null and mouldScripApply.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldScripApply.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.mouldName != null and mouldScripApply.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldScripApply.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldScripApply.fullNumber != null and mouldScripApply.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldScripApply.fullNumber, jdbcType=CHAR}]]>
+			</if>			
+			<if test="mouldScripApply.scripResion != null">
+            <![CDATA[AND t.scrip_resion = #{mouldScripApply.scripResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldScripApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{mouldScripApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>					
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.apply_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.apply_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldScripApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{mouldScripApply.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldScripApply.departmentName != null and mouldScripApply.departmentName != ''">
+            <![CDATA[AND t.department_name = #{mouldScripApply.departmentName, jdbcType=CHAR}]]>
+			</if>	
+			
+			<![CDATA[ AND t.apply_status <3 ]]>
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_number AS mould_number,
+            t.mould_map AS mould_map,
+            t.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.over_time AS over_time,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,
+            t.result_id AS result_id,
+            t.report_number AS report_number,
+            t.applier_id AS applier_id,
+            t.applier_code AS applier_code,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.auiter_id AS auiter_id,
+            t.auiter_name AS auiter_name,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_mould_scrip_apply t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_scrip_apply SET del_mark = 1,update_user=#{mouldScripApply.updateUser, jdbcType=BIGINT},update_time=#{mouldScripApply.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldScripApply.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_scrip_apply]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectByFullNumber" parameterType="Map" resultMap="MouldScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_number AS mould_number,
+            t.mould_map AS mould_map,
+            t.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.over_time AS over_time,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,
+            t.result_id AS result_id,
+            t.report_number AS report_number,
+            t.applier_id AS applier_id,
+            t.applier_code AS applier_code,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_mould_scrip_apply t
+        ]]>
+		<where>
+        <![CDATA[AND t.full_number = #{fullNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

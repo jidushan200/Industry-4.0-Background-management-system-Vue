@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolAppendixMapper">
+	<resultMap id="ToolAppendix" type="org.tsinghuatj.tool.domain.ToolAppendix">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="applyId" javaType="Long" column="apply_id" jdbcType="BIGINT" />
+		<result property="sourceName" javaType="String" column="source_name" jdbcType="VARCHAR" />
+		<result property="newName" javaType="String" column="new_name" jdbcType="VARCHAR" />
+		<result property="appendixSize" javaType="Long" column="appendix_size" jdbcType="DECIMAL" />
+		<result property="fileExt" javaType="String" column="file_ext" jdbcType="CHAR" />
+		<result property="documentType" javaType="String" column="document_type" jdbcType="CHAR" />
+		<result property="appendixTime" javaType="Date" column="appendix_time" jdbcType="TIMESTAMP" />
+		<result property="appdenixType" javaType="Integer" column="appdenix_type" jdbcType="INTEGER" />
+		<result property="toolType" javaType="Integer" column="tool_type" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_appendix (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            check_id,
+            tool_id,
+            source_name,
+            new_name,
+            appendix_size,
+            file_ext,
+            document_type,
+            appendix_time,
+            appdenix_type,
+            tool_type
+        )
+        VALUES
+            (
+                #{toolAppendix.pkId, jdbcType = BIGINT},
+                #{toolAppendix.createUser, jdbcType = BIGINT},
+                #{toolAppendix.createTime, jdbcType = TIMESTAMP},
+                #{toolAppendix.updateUser, jdbcType = BIGINT},
+                #{toolAppendix.updateTime, jdbcType = TIMESTAMP},
+                #{toolAppendix.delMark, jdbcType = TINYINT},
+                #{toolAppendix.checkId, jdbcType = BIGINT},
+                #{toolAppendix.toolId, jdbcType = BIGINT},
+                #{toolAppendix.sourceName, jdbcType = VARCHAR},
+                #{toolAppendix.newName, jdbcType = VARCHAR},
+                #{toolAppendix.appendixSize, jdbcType = DECIMAL},
+                #{toolAppendix.fileExt, jdbcType = CHAR},
+                #{toolAppendix.documentType, jdbcType = CHAR},
+                #{toolAppendix.appendixTime, jdbcType = TIMESTAMP},
+                #{toolAppendix.appdenixType, jdbcType = INTEGER},
+                #{toolAppendix.toolType, jdbcType = INTEGER}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_appendix]]>
+		<set>
+			<if test="toolAppendix.checkId != null">
+            <![CDATA[check_id = #{toolAppendix.checkId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolAppendix.toolId != null">
+            <![CDATA[tool_id = #{toolAppendix.toolId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolAppendix.applyId != null">
+            <![CDATA[apply_id = #{toolAppendix.applyId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolAppendix.toolType != null">
+            <![CDATA[tool_type = #{toolAppendix.toolType, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolAppendixId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolAppendix">
+        <![CDATA[
+        SELECT
+            t.check_id AS check_id,
+            t.tool_id AS tool_id,
+            t.apply_id AS apply_id,
+            t.source_name AS source_name,
+            t.new_name AS new_name,
+            t.appendix_size AS appendix_size,
+            t.file_ext AS file_ext,
+            t.document_type AS document_type,
+            t.appendix_time AS appendix_time,
+            t.appdenix_type AS appdenix_type
+        FROM
+            t_tool_appendix t
+        ]]>
+		<where>
+			
+			<if test="toolAppendix.checkId != null">
+            <![CDATA[AND t.check_id = #{toolAppendix.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolAppendix.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolAppendix.toolId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolAppendix.sourceName != null and toolAppendix.sourceName != ''">
+            <![CDATA[AND t.source_name = #{toolAppendix.sourceName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolAppendix.newName != null and toolAppendix.newName != ''">
+            <![CDATA[AND t.new_name = #{toolAppendix.newName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolAppendix.appendixSize != null">
+            <![CDATA[AND t.appendix_size = #{toolAppendix.appendixSize, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="toolAppendix.fileExt != null and toolAppendix.fileExt != ''">
+            <![CDATA[AND t.file_ext = #{toolAppendix.fileExt, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolAppendix.documentType != null and toolAppendix.documentType != ''">
+            <![CDATA[AND t.document_type = #{toolAppendix.documentType, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolAppendix.appendixTime != null">
+            <![CDATA[AND t.appendix_time = #{toolAppendix.appendixTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolAppendix.appdenixType != null">
+            <![CDATA[AND t.appdenix_type = #{toolAppendix.appdenixType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolAppendix.toolType != null">
+            <![CDATA[AND t.tool_type = #{toolAppendix.toolType, jdbcType=INTEGER}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolAppendix">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.tool_id AS tool_id,
+            t.source_name AS source_name,
+            t.new_name AS new_name,
+            t.appendix_size AS appendix_size,
+            t.file_ext AS file_ext,
+            t.document_type AS document_type,
+            t.appendix_time AS appendix_time,
+            t.appdenix_type AS appdenix_type,
+            t.tool_type AS tool_type
+        FROM
+            t_tool_appendix t
+        ]]>
+		<where>
+			<if test="toolAppendix.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolAppendix.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolAppendix.createUser != null">
+            <![CDATA[AND t.create_user = #{toolAppendix.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolAppendix.createTime != null">
+            <![CDATA[AND t.create_time = #{toolAppendix.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolAppendix.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolAppendix.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolAppendix.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolAppendix.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolAppendix.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolAppendix.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolAppendix.checkId != null">
+            <![CDATA[AND t.check_id = #{toolAppendix.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolAppendix.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolAppendix.toolId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolAppendix.sourceName != null and toolAppendix.sourceName != ''">
+            <![CDATA[AND t.source_name = #{toolAppendix.sourceName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolAppendix.newName != null and toolAppendix.newName != ''">
+            <![CDATA[AND t.new_name = #{toolAppendix.newName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolAppendix.appendixSize != null">
+            <![CDATA[AND t.appendix_size = #{toolAppendix.appendixSize, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="toolAppendix.fileExt != null and toolAppendix.fileExt != ''">
+            <![CDATA[AND t.file_ext = #{toolAppendix.fileExt, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolAppendix.documentType != null and toolAppendix.documentType != ''">
+            <![CDATA[AND t.document_type = #{toolAppendix.documentType, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolAppendix.appendixTime != null">
+            <![CDATA[AND t.appendix_time = #{toolAppendix.appendixTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolAppendix.appdenixType != null">
+            <![CDATA[AND t.appdenix_type = #{toolAppendix.appdenixType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolAppendix.toolType != null">
+            <![CDATA[AND t.tool_type = #{toolAppendix.toolType, jdbcType=INTEGER}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolAppendix">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.tool_id AS tool_id,
+            t.source_name AS source_name,
+            t.new_name AS new_name,
+            t.appendix_size AS appendix_size,
+            t.file_ext AS file_ext,
+            t.document_type AS document_type,
+            t.appendix_time AS appendix_time,
+            t.appdenix_type AS appdenix_type,
+            t.tool_type AS tool_type
+        FROM
+            t_tool_appendix t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolAppendixId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectByCheckId" parameterType="Map" resultMap="ToolAppendix">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,         
+            t.check_id AS check_id,
+            t.tool_id AS tool_id,
+            t.source_name AS source_name,
+            t.new_name AS new_name,
+            t.appendix_size AS appendix_size,          
+            t.document_type AS document_type,
+            t.appendix_time AS appendix_time,
+            t.appdenix_type AS appdenix_type,
+            t.tool_type AS tool_type
+        FROM
+            t_tool_appendix t
+        ]]>
+		<where>
+        <![CDATA[AND del_mark = 0 AND check_id = #{checkId, jdbcType=BIGINT} ]]>
+		</where>      
+	</select>
+	
+	
+	
+	
+	<select id="selectByApplyId" parameterType="Map" resultMap="ToolAppendix">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,         
+            t.apply_id AS apply_id,
+            t.source_name AS source_name,
+            t.new_name AS new_name,
+            t.appendix_size AS appendix_size,          
+            t.document_type AS document_type,
+            t.appendix_time AS appendix_time,
+            t.appdenix_type AS appdenix_type
+        FROM
+            t_tool_appendix t
+        ]]>
+		<where>
+        <![CDATA[AND del_mark = 0 AND apply_id = #{applyId, jdbcType=BIGINT} AND appdenix_type = #{appdenixType, jdbcType=BIGINT}]]>
+		</where>      
+	</select>
+	
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_appendix SET del_mark = 1,update_user=#{toolAppendix.updateUser, jdbcType=BIGINT},update_time=#{toolAppendix.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolAppendix.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_appendix]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolAppendixId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

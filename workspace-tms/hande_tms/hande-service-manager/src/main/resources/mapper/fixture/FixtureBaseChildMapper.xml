@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureBaseChildMapper">
+	<resultMap id="FixtureBaseChild" type="org.tsinghuatj.fixture.domain.FixtureBaseChild">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="parentNumber" javaType="String" column="parent_number" jdbcType="CHAR" />
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="CHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="price" javaType="BigDecimal" column="price" jdbcType="DECIMAL" />
+		<result property="fixtureQty" javaType="Integer" column="fixture_qty" jdbcType="TINYINT" />
+		<result property="baseQty" javaType="Integer" column="base_qty" jdbcType="TINYINT" />
+		
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_base_child (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            parent_number,
+            fixture_number,
+            fixture_qty
+        )
+        VALUES
+            (
+                #{fixtureBaseChild.pkId, jdbcType = BIGINT},
+                #{fixtureBaseChild.createUser, jdbcType = BIGINT},
+                #{fixtureBaseChild.createTime, jdbcType = TIMESTAMP},
+                #{fixtureBaseChild.updateUser, jdbcType = BIGINT},
+                #{fixtureBaseChild.updateTime, jdbcType = TIMESTAMP},
+                #{fixtureBaseChild.delMark, jdbcType = TINYINT},
+                #{fixtureBaseChild.parentNumber, jdbcType = CHAR},
+                #{fixtureBaseChild.fixtureNumber, jdbcType = CHAR},
+                #{fixtureBaseChild.fixtureQty, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_base_child]]>
+		<set>
+			<if test="fixtureBaseChild.createUser != null">
+            <![CDATA[create_user = #{fixtureBaseChild.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureBaseChild.createTime != null">
+            <![CDATA[create_time = #{fixtureBaseChild.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureBaseChild.updateUser != null">
+            <![CDATA[update_user = #{fixtureBaseChild.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureBaseChild.updateTime != null">
+            <![CDATA[update_time = #{fixtureBaseChild.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureBaseChild.delMark != null">
+            <![CDATA[del_mark = #{fixtureBaseChild.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureBaseChild.parentNumber != null and fixtureBaseChild.parentNumber != ''">
+            <![CDATA[parent_number = #{fixtureBaseChild.parentNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureBaseChild.fixtureNumber != null and fixtureBaseChild.fixtureNumber != ''">
+            <![CDATA[fixture_number = #{fixtureBaseChild.fixtureNumber, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureBaseChildId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="FixtureBaseChild">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.parent_number AS parent_number,
+            t.fixture_number AS fixture_number
+        FROM
+            t_fixture_base_child t
+        ]]>
+		<where>
+			<if test="fixtureBaseChild.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureBaseChild.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureBaseChild.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureBaseChild.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureBaseChild.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureBaseChild.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureBaseChild.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureBaseChild.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureBaseChild.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureBaseChild.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureBaseChild.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureBaseChild.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureBaseChild.parentNumber != null and fixtureBaseChild.parentNumber != ''">
+            <![CDATA[AND t.parent_number = #{fixtureBaseChild.parentNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureBaseChild.fixtureNumber != null and fixtureBaseChild.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixtureBaseChild.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixtureBaseChild">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.parent_number AS parent_number,
+            t.fixture_number AS fixture_number
+        FROM
+            t_fixture_base_child t
+        ]]>
+		<where>
+			<if test="fixtureBaseChild.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureBaseChild.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureBaseChild.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureBaseChild.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureBaseChild.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureBaseChild.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureBaseChild.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureBaseChild.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureBaseChild.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureBaseChild.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureBaseChild.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureBaseChild.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureBaseChild.parentNumber != null and fixtureBaseChild.parentNumber != ''">
+            <![CDATA[AND t.parent_number = #{fixtureBaseChild.parentNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureBaseChild.fixtureNumber != null and fixtureBaseChild.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixtureBaseChild.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixtureBaseChild">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.parent_number AS parent_number,
+            t.fixture_number AS fixture_number
+        FROM
+            t_fixture_base_child t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureBaseChildId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByParentList" parameterType="Map" resultMap="FixtureBaseChild">
+	 <![CDATA[
+      SELECT
+			c.parent_number,
+			c.fixture_number,
+			fb.fixture_name,
+			fb.fixture_map,
+			c.fixture_qty,
+			c.fixture_qty AS base_qty,
+			b.price
+		FROM t_fixture_base_child c
+		INNER JOIN t_fixture_base b ON c.parent_number = b.fixture_number
+		INNER JOIN t_fixture_base fb ON c.fixture_number = fb.fixture_number
+        ]]>
+		<where>
+			<![CDATA[AND c.parent_number in ]]>
+			<foreach item="item" index="index" collection="parentList" open="(" separator="," close=")">
+				#{item}
+			</foreach>  
+        <![CDATA[AND b.del_mark = 0 AND c.del_mark = 0 AND fb.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<select id="selectByParenNumber" parameterType="Map" resultMap="FixtureBaseChild">
+	 <![CDATA[
+       SELECT
+			c.parent_number,
+			c.fixture_number,
+			fb.fixture_name,
+			fb.fixture_map,
+			c.fixture_qty,
+			c.fixture_qty AS base_qty,
+			b.price
+		FROM t_fixture_base_child c
+		INNER JOIN t_fixture_base b ON c.parent_number = b.fixture_number
+		INNER JOIN t_fixture_base fb ON c.fixture_number = fb.fixture_number
+        ]]>
+		<where>
+			<![CDATA[AND c.parent_number = #{parentNumber, jdbcType=CHAR}]]>
+        	<![CDATA[AND b.del_mark = 0 AND c.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<select id="countByFixtureNumber" parameterType="Map" resultType="int">
+	 <![CDATA[
+       SELECT count(pk_id) as count FROM t_fixture_base_child 
+      ]]>
+		<where>
+			<![CDATA[AND fixture_number = #{fixtureNumber, jdbcType=CHAR}]]>
+        	<![CDATA[AND del_mark = 0]]>
+		</where>
+	</select>
+	
+
+	<!-- 按主键逻辑删除 -->
+	<update id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_base_child SET del_mark = 1,update_user=#{fixtureBaseChild.updateUser, jdbcType=BIGINT},update_time=#{fixtureBaseChild.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureBaseChild.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+	
+	<update id="deleteByParentNumber" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_base_child SET del_mark = 1,update_user=#{fixtureBaseChild.updateUser, jdbcType=BIGINT},update_time=#{fixtureBaseChild.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND parent_number = #{fixtureBaseChild.parentNumber, jdbcType=CHAR}]]>
+		</where>
+	</update>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_base_child]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureBaseChildId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

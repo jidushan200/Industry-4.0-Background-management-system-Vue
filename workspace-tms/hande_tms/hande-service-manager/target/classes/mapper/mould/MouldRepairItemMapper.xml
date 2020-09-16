@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldRepairItemMapper">
+	<resultMap id="MouldRepairItem" type="org.tsinghuatj.mould.domain.MouldRepairItem">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="repairId" javaType="Long" column="repair_id" jdbcType="BIGINT" />
+		<result property="procedureId" javaType="Long" column="procedure_id" jdbcType="BIGINT" />
+		<result property="procedureName" javaType="String" column="procedure_name" jdbcType="CHAR" />
+		<result property="executorId" javaType="Long" column="executor_id" jdbcType="BIGINT" />
+		<result property="executor" javaType="String" column="executor" jdbcType="CHAR" />
+		<result property="executTime" javaType="Date" column="execut_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_repair_item (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            repair_id,
+            procedure_id,
+            procedure_name,
+            executor_id,
+            executor,
+            execut_time
+        )
+        VALUES
+            (
+                #{mouldRepairItem.pkId, jdbcType = BIGINT},
+                #{mouldRepairItem.createUser, jdbcType = BIGINT},
+                #{mouldRepairItem.createTime, jdbcType = TIMESTAMP},
+                #{mouldRepairItem.updateUser, jdbcType = BIGINT},
+                #{mouldRepairItem.updateTime, jdbcType = TIMESTAMP},
+                #{mouldRepairItem.delMark, jdbcType = TINYINT},
+                #{mouldRepairItem.repairId, jdbcType = BIGINT},
+                #{mouldRepairItem.procedureId, jdbcType = BIGINT},
+                #{mouldRepairItem.procedureName, jdbcType = CHAR},
+                #{mouldRepairItem.executorId, jdbcType = BIGINT},
+                #{mouldRepairItem.executor, jdbcType = CHAR},
+                #{mouldRepairItem.executTime, jdbcType = TIMESTAMP}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_repair_item]]>
+		<set>
+			<if test="mouldRepairItem.createUser != null">
+            <![CDATA[create_user = #{mouldRepairItem.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepairItem.createTime != null">
+            <![CDATA[create_time = #{mouldRepairItem.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldRepairItem.updateUser != null">
+            <![CDATA[update_user = #{mouldRepairItem.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepairItem.updateTime != null">
+            <![CDATA[update_time = #{mouldRepairItem.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldRepairItem.delMark != null">
+            <![CDATA[del_mark = #{mouldRepairItem.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldRepairItem.repairId != null">
+            <![CDATA[repair_id = #{mouldRepairItem.repairId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepairItem.procedureId != null">
+            <![CDATA[procedure_id = #{mouldRepairItem.procedureId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepairItem.procedureName != null and mouldRepairItem.procedureName != ''">
+            <![CDATA[procedure_name = #{mouldRepairItem.procedureName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldRepairItem.executorId != null">
+            <![CDATA[executor_id = #{mouldRepairItem.executorId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepairItem.executor != null and mouldRepairItem.executor != ''">
+            <![CDATA[executor = #{mouldRepairItem.executor, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldRepairItem.executTime != null">
+            <![CDATA[execut_time = #{mouldRepairItem.executTime, jdbcType=TIMESTAMP},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldRepairItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldRepairItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.repair_id AS repair_id,
+            t.procedure_id AS procedure_id,
+            t.procedure_name AS procedure_name,
+            t.executor_id AS executor_id,
+            t.executor AS executor,
+            t.execut_time AS execut_time
+        FROM
+            t_mould_repair_item t
+        ]]>
+		<where>
+			<if test="mouldRepairItem.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldRepairItem.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldRepairItem.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldRepairItem.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepairItem.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldRepairItem.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldRepairItem.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepairItem.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldRepairItem.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldRepairItem.repairId != null">
+            <![CDATA[AND t.repair_id = #{mouldRepairItem.repairId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.procedureId != null">
+            <![CDATA[AND t.procedure_id = #{mouldRepairItem.procedureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.procedureName != null and mouldRepairItem.procedureName != ''">
+            <![CDATA[AND t.procedure_name = #{mouldRepairItem.procedureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldRepairItem.executorId != null">
+            <![CDATA[AND t.executor_id = #{mouldRepairItem.executorId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.executor != null and mouldRepairItem.executor != ''">
+            <![CDATA[AND t.executor = #{mouldRepairItem.executor, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldRepairItem.executTime != null">
+            <![CDATA[AND t.execut_time = #{mouldRepairItem.executTime, jdbcType=TIMESTAMP}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldRepairItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.repair_id AS repair_id,
+            t.procedure_id AS procedure_id,
+            t.procedure_name AS procedure_name,
+            t.executor_id AS executor_id,
+            t.executor AS executor,
+            t.execut_time AS execut_time
+        FROM
+            t_mould_repair_item t
+        ]]>
+		<where>
+			<if test="mouldRepairItem.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldRepairItem.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldRepairItem.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldRepairItem.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepairItem.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldRepairItem.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldRepairItem.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepairItem.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldRepairItem.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldRepairItem.repairId != null">
+            <![CDATA[AND t.repair_id = #{mouldRepairItem.repairId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.procedureId != null">
+            <![CDATA[AND t.procedure_id = #{mouldRepairItem.procedureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.procedureName != null and mouldRepairItem.procedureName != ''">
+            <![CDATA[AND t.procedure_name = #{mouldRepairItem.procedureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldRepairItem.executorId != null">
+            <![CDATA[AND t.executor_id = #{mouldRepairItem.executorId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepairItem.executor != null and mouldRepairItem.executor != ''">
+            <![CDATA[AND t.executor = #{mouldRepairItem.executor, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldRepairItem.executTime != null">
+            <![CDATA[AND t.execut_time = #{mouldRepairItem.executTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldRepairItem">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.repair_id AS repair_id,
+            t.procedure_id AS procedure_id,
+            t.procedure_name AS procedure_name,
+            t.executor_id AS executor_id,
+            t.executor AS executor,
+            t.execut_time AS execut_time
+        FROM
+            t_mould_repair_item t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldRepairItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_repair_item SET del_mark = 1,update_user=#{mouldRepairItem.updateUser, jdbcType=BIGINT},update_time=#{mouldRepairItem.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldRepairItem.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_repair_item]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldRepairItemId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 查询列表 -->
+	<select id="selectByRepairId" parameterType="Map" resultMap="MouldRepairItem">
+        <![CDATA[
+        SELECT
+             t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.repair_id AS repair_id,
+            t.procedure_id AS procedure_id,
+            t.procedure_name AS procedure_name,
+            t.executor_id AS executor_id,
+            t.executor AS executor,
+            t.execut_time AS execut_time
+        FROM
+            t_mould_repair_item t
+        ]]>
+		<where>
+            <![CDATA[AND t.repair_id = #{repairId, jdbcType=BIGINT}]]>
+			<![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id ]]>
+	</select>
+</mapper>

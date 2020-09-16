@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureCheckResultMapper">
+	<resultMap id="FixtureCheckResult" type="org.tsinghuatj.fixture.domain.FixtureCheckResult">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="itemId" javaType="Long" column="item_id" jdbcType="BIGINT" />
+		<result property="checkItem" javaType="String" column="check_item" jdbcType="CHAR" />
+		<result property="itemStandard" javaType="String" column="item_standard" jdbcType="CHAR" />		
+		<result property="upDeviation" javaType="BigDecimal" column="up_deviation" jdbcType="DECIMAL" />
+		<result property="downDeviation" javaType="BigDecimal" column="down_deviation" jdbcType="DECIMAL" />
+		<result property="minimum" javaType="BigDecimal" column="minimum" jdbcType="DECIMAL" />
+		<result property="maximum" javaType="BigDecimal" column="maximum" jdbcType="DECIMAL" />
+		<result property="unit" javaType="String" column="unit" jdbcType="CHAR" />
+		<result property="measuredValue" javaType="String" column="measured_value" jdbcType="CHAR" />
+		<result property="checkResult" javaType="Integer" column="check_result" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_check_result (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            check_id,
+            item_id,
+            measured_value,
+            check_result
+        )
+        VALUES
+            (
+                #{fixtureCheckResult.pkId, jdbcType = BIGINT},
+                #{fixtureCheckResult.createUser, jdbcType = BIGINT},
+                #{fixtureCheckResult.createTime, jdbcType = TIMESTAMP},
+                #{fixtureCheckResult.updateUser, jdbcType = BIGINT},
+                #{fixtureCheckResult.updateTime, jdbcType = TIMESTAMP},
+                #{fixtureCheckResult.delMark, jdbcType = TINYINT},
+                #{fixtureCheckResult.checkId, jdbcType = BIGINT},
+                #{fixtureCheckResult.itemId, jdbcType = BIGINT},
+                #{fixtureCheckResult.measuredValue, jdbcType = CHAR},
+                #{fixtureCheckResult.checkResult, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_check_result]]>
+		<set>
+			<if test="fixtureCheckResult.createUser != null">
+            <![CDATA[create_user = #{fixtureCheckResult.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureCheckResult.createTime != null">
+            <![CDATA[create_time = #{fixtureCheckResult.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureCheckResult.updateUser != null">
+            <![CDATA[update_user = #{fixtureCheckResult.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureCheckResult.updateTime != null">
+            <![CDATA[update_time = #{fixtureCheckResult.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureCheckResult.delMark != null">
+            <![CDATA[del_mark = #{fixtureCheckResult.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureCheckResult.checkId != null">
+            <![CDATA[check_id = #{fixtureCheckResult.checkId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureCheckResult.itemId != null">
+            <![CDATA[item_id = #{fixtureCheckResult.itemId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureCheckResult.measuredValue != null and fixtureCheckResult.measuredValue != ''">
+            <![CDATA[measured_value = #{fixtureCheckResult.measuredValue, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureCheckResult.checkResult != null">
+            <![CDATA[check_result = #{fixtureCheckResult.checkResult, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureCheckResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="FixtureCheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_id AS item_id,
+            t.measured_value AS measured_value,
+            t.check_result AS check_result
+        FROM
+            t_fixture_check_result t
+        ]]>
+		<where>
+			<if test="fixtureCheckResult.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureCheckResult.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureCheckResult.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureCheckResult.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureCheckResult.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureCheckResult.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureCheckResult.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureCheckResult.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureCheckResult.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureCheckResult.checkId != null">
+            <![CDATA[AND t.check_id = #{fixtureCheckResult.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.itemId != null">
+            <![CDATA[AND t.item_id = #{fixtureCheckResult.itemId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.measuredValue != null and fixtureCheckResult.measuredValue != ''">
+            <![CDATA[AND t.measured_value = #{fixtureCheckResult.measuredValue, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureCheckResult.checkResult != null">
+            <![CDATA[AND t.check_result = #{fixtureCheckResult.checkResult, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByCheckId" parameterType="Map" resultMap="FixtureCheckResult">
+ 	<![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.check_id AS check_id,
+            t.item_id AS item_id,
+            c.check_item as check_item,
+			c.item_standard AS item_standard,
+            c.up_deviation AS up_deviation,
+            c.down_deviation AS down_deviation,
+            c.minimum AS minimum,
+            c.maximum AS maximum,
+            c.unit AS unit,
+            t.measured_value AS measured_value,
+            t.check_result AS check_result
+        FROM
+            t_fixture_check_result t
+        INNER JOIN t_check_standard_item c ON t.item_id = c.pk_id
+        ]]>
+		<where>			
+            <![CDATA[AND t.check_id = #{checkId, jdbcType=BIGINT}]]>		
+		</where>
+
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixtureCheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_id AS item_id,
+            t.measured_value AS measured_value,
+            t.check_result AS check_result
+        FROM
+            t_fixture_check_result t
+        ]]>
+		<where>
+			<if test="fixtureCheckResult.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureCheckResult.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureCheckResult.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureCheckResult.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureCheckResult.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureCheckResult.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureCheckResult.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureCheckResult.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureCheckResult.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureCheckResult.checkId != null">
+            <![CDATA[AND t.check_id = #{fixtureCheckResult.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.itemId != null">
+            <![CDATA[AND t.item_id = #{fixtureCheckResult.itemId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureCheckResult.measuredValue != null and fixtureCheckResult.measuredValue != ''">
+            <![CDATA[AND t.measured_value = #{fixtureCheckResult.measuredValue, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureCheckResult.checkResult != null">
+            <![CDATA[AND t.check_result = #{fixtureCheckResult.checkResult, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixtureCheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_id AS item_id,
+            t.measured_value AS measured_value,
+            t.check_result AS check_result
+        FROM
+            t_fixture_check_result t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureCheckResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_check_result SET del_mark = 1,update_user=#{fixtureCheckResult.updateUser, jdbcType=BIGINT},update_time=#{fixtureCheckResult.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureCheckResult.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_check_result]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureCheckResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

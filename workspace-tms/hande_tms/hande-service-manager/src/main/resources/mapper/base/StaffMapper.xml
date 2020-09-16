@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.StaffMapper">
+	<resultMap id="Staff" type="org.tsinghuatj.base.domain.Staff">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="staffName" javaType="String" column="staff_name" jdbcType="CHAR" />
+		<result property="staffCode" javaType="String" column="staff_code" jdbcType="CHAR" />
+		<result property="gender" javaType="Integer" column="gender" jdbcType="INTEGER" />
+		<result property="staffStatus" javaType="Integer" column="staff_status" jdbcType="INTEGER" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="teamId" javaType="Long" column="team_id" jdbcType="BIGINT" />
+		<result property="teamName" javaType="String" column="team_name" jdbcType="CHAR" />
+		<result property="position" javaType="String" column="position" jdbcType="CHAR" />
+		<result property="leader" javaType="Integer" column="leader" jdbcType="TINYINT" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->	
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_staff (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            staff_name,
+            staff_code,
+            gender,
+            staff_status,
+            department_id,
+            department_name,
+            team_id,
+            team_name,
+            position,
+            leader,
+            remark
+        )
+        VALUES
+            (
+                #{staff.pkId, jdbcType = BIGINT},
+                #{staff.createUser, jdbcType = BIGINT},
+                #{staff.createTime, jdbcType = TIMESTAMP},
+                #{staff.updateUser, jdbcType = BIGINT},
+                #{staff.updateTime, jdbcType = TIMESTAMP},
+                #{staff.delMark, jdbcType = TINYINT},
+                #{staff.staffName, jdbcType = CHAR},
+                #{staff.staffCode, jdbcType = CHAR},
+                #{staff.gender, jdbcType = INTEGER},
+                #{staff.staffStatus, jdbcType = INTEGER},
+                #{staff.departmentId, jdbcType = BIGINT},
+                #{staff.departmentName, jdbcType = CHAR},
+                #{staff.teamId, jdbcType = BIGINT},
+                #{staff.teamName, jdbcType = CHAR},
+                #{staff.position, jdbcType = CHAR},
+                #{staff.leader, jdbcType = TINYINT},
+                #{staff.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_staff]]>
+		<set>
+
+			<if test="staff.updateUser != null">
+            <![CDATA[update_user = #{staff.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="staff.updateTime != null">
+            <![CDATA[update_time = #{staff.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="staff.staffName != null and staff.staffName != ''">
+            <![CDATA[staff_name = #{staff.staffName, jdbcType=CHAR},]]>
+			</if>
+			<if test="staff.gender != null">
+            <![CDATA[gender = #{staff.gender, jdbcType=INTEGER},]]>
+			</if>
+			<if test="staff.staffStatus != null">
+            <![CDATA[staff_status = #{staff.staffStatus, jdbcType=INTEGER},]]>
+			</if>
+			<if test="staff.departmentId != null">
+            <![CDATA[department_id = #{staff.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="staff.departmentName != null and staff.departmentName != ''">
+            <![CDATA[department_name = #{staff.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="staff.teamId != null">
+            <![CDATA[team_id = #{staff.teamId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="staff.teamName != null and staff.teamName != ''">
+            <![CDATA[team_name = #{staff.teamName, jdbcType=CHAR},]]>
+			</if>
+			<if test="staff.position != null and staff.position != ''">
+            <![CDATA[position = #{staff.position, jdbcType=CHAR},]]>
+			</if>
+			<if test="staff.leader != null">
+            <![CDATA[leader = #{staff.leader, jdbcType=TINYINT},]]>
+			</if>
+			<if test="staff.remark != null and staff.remark != ''">
+            <![CDATA[remark = #{staff.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{staffId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Staff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.staff_name AS staff_name,
+            t.staff_code AS staff_code,
+            t.gender AS gender,
+            t.staff_status AS staff_status,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.position AS position,
+            t.leader AS leader,
+            t.remark AS remark
+        FROM
+            t_staff t
+        ]]>
+		<where>
+			<if test="staff.staffName != null and staff.staffName != ''">
+            <![CDATA[AND t.staff_name = #{staff.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="staff.staffCode != null and staff.staffCode != ''">
+            <![CDATA[AND t.staff_code = #{staff.staffCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="staff.departmentId != null">
+            <![CDATA[AND t.department_id = #{staff.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="staff.teamId != null">
+            <![CDATA[AND t.team_id = #{staff.teamId, jdbcType=BIGINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Staff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.staff_name AS staff_name,
+            t.staff_code AS staff_code,
+            t.gender AS gender,
+            t.staff_status AS staff_status,
+            t.position AS position,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.remark AS remark,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.leader AS leader
+        FROM
+            t_staff t
+        ]]>
+		<where>
+			<if test="staff.staffName != null and staff.staffName != ''">
+            <![CDATA[AND t.staff_name = #{staff.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="staff.staffCode != null and staff.staffCode != ''">
+            <![CDATA[AND t.staff_code = #{staff.staffCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="staff.gender != null">
+            <![CDATA[AND t.gender = #{staff.gender, jdbcType=INTEGER}]]>
+			</if>
+			<if test="staff.staffStatus != null">
+            <![CDATA[AND t.staff_status = #{staff.staffStatus, jdbcType=INTEGER}]]>
+			</if>
+			<if test="staff.departmentId != null">
+            <![CDATA[AND t.department_id = #{staff.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="staff.teamId != null">
+            <![CDATA[AND t.team_id = #{staff.teamId, jdbcType=BIGINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Staff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.staff_name AS staff_name,
+            t.staff_code AS staff_code,
+            t.gender AS gender,
+            t.staff_status AS staff_status,
+            t.position AS position,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.remark AS remark,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.leader AS leader
+        FROM
+			 t_staff t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{staffId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectByUserId" parameterType="Map" resultMap="Staff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.staff_name AS staff_name,
+            t.staff_code AS staff_code,
+            t.gender AS gender,
+            t.staff_status AS staff_status,
+            t.position AS position,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.remark AS remark,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.leader AS leader
+        FROM
+        	t_user_account u 
+        	INNER JOIN t_staff t
+        	ON u.login_name = t.staff_code
+        ]]>
+		<where>
+        <![CDATA[AND u.pk_id = #{userId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectByStaffCode" parameterType="Map" resultMap="Staff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,            
+            t.staff_name AS staff_name,
+            t.staff_code AS staff_code,
+            t.gender AS gender,          
+            t.staff_status AS staff_status,
+            t.position AS position,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.remark AS remark,
+            t.leader AS leader
+        FROM
+            t_staff t
+        ]]>
+		<where>
+        <![CDATA[AND t.staff_code = #{staffCode, jdbcType=CHAR}]]>
+			<if test="pkId != null">
+            <![CDATA[AND t.pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_staff SET del_mark = 1,update_user=#{staff.updateUser, jdbcType=BIGINT},update_time=#{staff.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{staff.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_staff]]>
+		<where>
+        <![CDATA[AND pk_id = #{staffId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectByStaffName" parameterType="Map" resultMap="Staff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,            
+            t.staff_name AS staff_name,
+            t.staff_code AS staff_code,
+            t.gender AS gender,          
+            t.staff_status AS staff_status,
+            t.position AS position,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.remark AS remark,
+            t.leader AS leader
+        FROM
+            t_staff t
+        ]]>
+		<where>
+        <![CDATA[AND t.staff_name = #{staffName, jdbcType=CHAR}]]>
+			<if test="pkId != null">
+            <![CDATA[AND t.pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolPurchaseApplyMapper">
+	<resultMap id="ToolPurchaseApply" type="org.tsinghuatj.tool.domain.ToolPurchaseApply">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="purchaseType" javaType="Integer" column="purchase_type" jdbcType="TINYINT" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="typeId" javaType="Integer" column="type_id" jdbcType="INTEGER" />
+		<result property="typeName" javaType="String" column="type_name" jdbcType="CHAR" />
+		<result property="inventoryQty" javaType="Integer" column="inventory_qty" jdbcType="INTEGER" />
+		<result property="needQty" javaType="Integer" column="need_qty" jdbcType="INTEGER" />
+		<result property="needTime" javaType="Date" column="need_time" jdbcType="TIMESTAMP" />
+		<result property="purchaseResion" javaType="Integer" column="purchase_resion" jdbcType="TINYINT" />
+		<result property="applyStatus" javaType="Integer" column="apply_status" jdbcType="TINYINT" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="keepQty" javaType="Integer" column="keep_qty" jdbcType="INTEGER" />
+		<result property="applierId" javaType="Long" column="applier_id" jdbcType="BIGINT" />
+		<result property="applierName" javaType="String" column="applier_name" jdbcType="CHAR" />
+		<result property="applyTime" javaType="Date" column="apply_time" jdbcType="TIMESTAMP" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		
+		<result property="erpQty" javaType="Integer" column="erp_qty" jdbcType="INTEGER" />
+		<result property="availableNumber" javaType="String" column="available_number" jdbcType="VARCHAR" />
+		<result property="finishTime" javaType="Date" column="finish_time" jdbcType="TIMESTAMP" />
+		<result property="arrivaledQty" javaType="Integer" column="arrivaled_qty" jdbcType="INTEGER" />
+		<result property="noCheckQty" javaType="Integer" column="no_check_qty" jdbcType="INTEGER" />
+		<result property="auditResult" javaType="String" column="audit_result" jdbcType="CHAR" />
+		<result property="auditorName" javaType="String" column="auditor_name" jdbcType="CHAR" />
+		<result property="partId" javaType="Long" column="part_id" jdbcType="BIGINT" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_purchase_apply (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            purchase_type,
+            tool_number,
+            inventory_qty,
+            need_qty,
+            need_time,
+            purchase_resion,
+            apply_status,
+            remark,
+            keep_qty,
+            applier_id,
+            applier_name,
+            apply_time,
+            department_id,
+            department_name,           
+            erp_qty,
+            available_number,
+            finish_time,
+            arrivaled_qty,
+            no_check_qty,
+            part_id,
+            part_name
+        )
+        VALUES
+            (
+                #{toolPurchaseApply.pkId, jdbcType = BIGINT},
+                #{toolPurchaseApply.createUser, jdbcType = BIGINT},
+                #{toolPurchaseApply.createTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseApply.updateUser, jdbcType = BIGINT},
+                #{toolPurchaseApply.updateTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseApply.delMark, jdbcType = TINYINT},
+                #{toolPurchaseApply.purchaseType, jdbcType = TINYINT},
+                #{toolPurchaseApply.toolNumber, jdbcType = CHAR},
+                #{toolPurchaseApply.inventoryQty, jdbcType = INTEGER},
+                #{toolPurchaseApply.needQty, jdbcType = INTEGER},
+                #{toolPurchaseApply.needTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseApply.purchaseResion, jdbcType = TINYINT},
+                #{toolPurchaseApply.applyStatus, jdbcType = TINYINT},
+                #{toolPurchaseApply.remark, jdbcType = VARCHAR},
+                #{toolPurchaseApply.keepQty, jdbcType = INTEGER},
+                #{toolPurchaseApply.applierId, jdbcType = BIGINT},
+                #{toolPurchaseApply.applierName, jdbcType = CHAR},
+                #{toolPurchaseApply.applyTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseApply.departmentId, jdbcType = BIGINT},
+                #{toolPurchaseApply.departmentName, jdbcType = CHAR},               
+                #{toolPurchaseApply.erpQty, jdbcType = INTEGER},
+                #{toolPurchaseApply.availableNumber, jdbcType = VARCHAR},
+                #{toolPurchaseApply.finishTime, jdbcType = TIMESTAMP},
+                #{toolPurchaseApply.arrivaledQty, jdbcType = INTEGER},
+                #{toolPurchaseApply.noCheckQty, jdbcType = INTEGER},
+                #{toolPurchaseApply.partId, jdbcType = BIGINT},
+                #{toolPurchaseApply.partName, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_purchase_apply]]>
+		<set>
+			<if test="toolPurchaseApply.createUser != null">
+            <![CDATA[create_user = #{toolPurchaseApply.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPurchaseApply.createTime != null">
+            <![CDATA[create_time = #{toolPurchaseApply.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPurchaseApply.updateUser != null">
+            <![CDATA[update_user = #{toolPurchaseApply.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPurchaseApply.updateTime != null">
+            <![CDATA[update_time = #{toolPurchaseApply.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPurchaseApply.delMark != null">
+            <![CDATA[del_mark = #{toolPurchaseApply.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolPurchaseApply.purchaseType != null">
+            <![CDATA[purchase_type = #{toolPurchaseApply.purchaseType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolPurchaseApply.toolNumber != null and toolPurchaseApply.toolNumber != ''">
+            <![CDATA[tool_number = #{toolPurchaseApply.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolPurchaseApply.inventoryQty != null">
+            <![CDATA[inventory_qty = #{toolPurchaseApply.inventoryQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolPurchaseApply.needQty != null">
+            <![CDATA[need_qty = #{toolPurchaseApply.needQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolPurchaseApply.needTime != null">
+            <![CDATA[need_time = #{toolPurchaseApply.needTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPurchaseApply.purchaseResion != null">
+            <![CDATA[purchase_resion = #{toolPurchaseApply.purchaseResion, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolPurchaseApply.applyStatus != null">
+            <![CDATA[apply_status = #{toolPurchaseApply.applyStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolPurchaseApply.remark != null and toolPurchaseApply.remark != ''">
+            <![CDATA[remark = #{toolPurchaseApply.remark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolPurchaseApply.keepQty != null">
+            <![CDATA[keep_qty = #{toolPurchaseApply.keepQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolPurchaseApply.applierId != null">
+            <![CDATA[applier_id = #{toolPurchaseApply.applierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPurchaseApply.applierName != null and toolPurchaseApply.applierName != ''">
+            <![CDATA[applier_name = #{toolPurchaseApply.applierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolPurchaseApply.applyTime != null">
+            <![CDATA[apply_time = #{toolPurchaseApply.applyTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPurchaseApply.departmentId != null">
+            <![CDATA[department_id = #{toolPurchaseApply.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPurchaseApply.departmentName != null and toolPurchaseApply.departmentName != ''">
+            <![CDATA[department_name = #{toolPurchaseApply.departmentName, jdbcType=CHAR},]]>
+			</if>			
+			<if test="toolPurchaseApply.erpQty != null">
+            <![CDATA[erp_qty = #{toolPurchaseApply.erpQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolPurchaseApply.availableNumber != null and toolPurchaseApply.availableNumber != ''">
+            <![CDATA[available_number = #{toolPurchaseApply.availableNumber, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolPurchaseApply.finishTime != null">
+            <![CDATA[finish_time = #{toolPurchaseApply.finishTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPurchaseApply.arrivaledQty != null">
+            <![CDATA[arrivaled_qty = #{toolPurchaseApply.arrivaledQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolPurchaseApply.noCheckQty != null">
+            <![CDATA[no_check_qty = #{toolPurchaseApply.noCheckQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolPurchaseApply.partId != null">
+            <![CDATA[part_id = #{toolPurchaseApply.partId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPurchaseApply.partName != null and toolPurchaseApply.partName != ''">
+            <![CDATA[part_name = #{toolPurchaseApply.partName, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolPurchaseApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolPurchaseApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.purchase_type AS purchase_type,
+            t.tool_number AS tool_number,
+            t.inventory_qty AS inventory_qty,
+            t.need_qty AS need_qty,
+            t.need_time AS need_time,
+            t.purchase_resion AS purchase_resion,
+            t.apply_status AS apply_status,
+            t.remark AS remark,
+            t.keep_qty AS keep_qty,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            b.tool_map AS tool_map,
+            b.tool_name AS tool_name,
+            t.erp_qty AS erp_qty,
+            t.available_number AS available_number,
+            t.finish_time AS finish_time,
+            t.arrivaled_qty AS arrivaled_qty,
+            t.no_check_qty AS no_check_qty,
+            t.part_id AS part_id,
+            t.part_name AS part_name
+        FROM
+            t_tool_purchase_apply t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolPurchaseApply.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolPurchaseApply.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPurchaseApply.createUser != null">
+            <![CDATA[AND t.create_user = #{toolPurchaseApply.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPurchaseApply.createTime != null">
+            <![CDATA[AND t.create_time = #{toolPurchaseApply.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolPurchaseApply.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPurchaseApply.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolPurchaseApply.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolPurchaseApply.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.purchaseType != null">
+            <![CDATA[AND t.purchase_type = #{toolPurchaseApply.purchaseType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.toolNumber != null and toolPurchaseApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolPurchaseApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolPurchaseApply.inventoryQty != null">
+            <![CDATA[AND t.inventory_qty = #{toolPurchaseApply.inventoryQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolPurchaseApply.needQty != null">
+            <![CDATA[AND t.need_qty = #{toolPurchaseApply.needQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolPurchaseApply.needTime != null">
+            <![CDATA[AND t.need_time = #{toolPurchaseApply.needTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.purchaseResion != null">
+            <![CDATA[AND t.purchase_resion = #{toolPurchaseApply.purchaseResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{toolPurchaseApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.remark != null and toolPurchaseApply.remark != ''">
+            <![CDATA[AND t.remark = #{toolPurchaseApply.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolPurchaseApply.keepQty != null">
+            <![CDATA[AND t.keep_qty = #{toolPurchaseApply.keepQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolPurchaseApply.applierId != null">
+            <![CDATA[AND t.applier_id = #{toolPurchaseApply.applierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPurchaseApply.applierName != null and toolPurchaseApply.applierName != ''">
+            <![CDATA[AND t.applier_name = #{toolPurchaseApply.applierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolPurchaseApply.applyTime != null">
+            <![CDATA[AND t.apply_time = #{toolPurchaseApply.applyTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolPurchaseApply.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPurchaseApply.departmentName != null and toolPurchaseApply.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolPurchaseApply.departmentName, jdbcType=CHAR}]]>
+			</if>			
+			<if test="toolPurchaseApply.erpQty != null">
+            <![CDATA[AND t.erp_qty = #{toolPurchaseApply.erpQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolPurchaseApply.availableNumber != null and toolPurchaseApply.availableNumber != ''">
+            <![CDATA[AND t.available_number = #{toolPurchaseApply.availableNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolPurchaseApply.finishTime != null">
+            <![CDATA[AND t.finish_time = #{toolPurchaseApply.finishTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.arrivaledQty != null">
+            <![CDATA[AND t.arrivaled_qty = #{toolPurchaseApply.arrivaledQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolPurchaseApply.noCheckQty != null">
+            <![CDATA[AND t.no_check_qty = #{toolPurchaseApply.noCheckQty, jdbcType=INTEGER}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolPurchaseApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.purchase_type AS purchase_type,
+            t.tool_number AS tool_number,
+            t.inventory_qty AS inventory_qty,
+            t.need_qty AS need_qty,
+            t.need_time AS need_time,
+            t.purchase_resion AS purchase_resion,
+            t.apply_status AS apply_status,
+            t.remark AS remark,
+            t.keep_qty AS keep_qty,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,           
+            t.erp_qty AS erp_qty,
+            t.available_number AS available_number,
+            t.finish_time AS finish_time,
+            t.arrivaled_qty AS arrivaled_qty,
+            t.no_check_qty AS no_check_qty,
+            tb.tool_name AS tool_name,
+            tb.tool_map AS tool_map,
+            tt.type_name AS type_name,
+            t.part_id AS part_id,
+            t.part_name AS part_name
+        FROM
+            t_tool_purchase_apply t
+            inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0
+            left join t_tool_type tt on tt.pk_id = tb.type_id and tt.del_mark = 0
+            ]]>
+		<where>
+            <![CDATA[AND t.del_mark = 0 ]]>
+			<if test="toolPurchaseApply.purchaseType != null">
+            <![CDATA[AND t.purchase_type = #{toolPurchaseApply.purchaseType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.toolNumber != null and toolPurchaseApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolPurchaseApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolPurchaseApply.purchaseResion != null">
+            <![CDATA[AND t.purchase_resion = #{toolPurchaseApply.purchaseResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{toolPurchaseApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.applyStatus == null">
+            <![CDATA[AND t.apply_status <6 ]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.create_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.applierId != null">
+            <![CDATA[AND t.applier_id = #{toolPurchaseApply.applierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.create_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolPurchaseApply.departmentId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolPurchaseApply.statusList != null and toolPurchaseApply.statusList.size()>0" >
+		      AND t.apply_status in 
+		      <foreach collection="toolPurchaseApply.statusList" item="status" open="(" close=")" separator="," >
+		        #{status,jdbcType=TINYINT}
+      			</foreach>
+    		</if>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+	
+	
+	<select id="selectPurchaseReceiptPageList" parameterType="Map" resultMap="ToolPurchaseApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.purchase_type AS purchase_type,
+            t.tool_number AS tool_number,           
+            t.purchase_resion AS purchase_resion,           
+            t.remark AS remark,
+            t.applier_name AS applier_name,
+            t.need_time AS need_time,
+            t.apply_time AS apply_time,  
+            t.arrivaled_qty AS arrivaled_qty, 
+            t.need_qty AS need_qty,        
+            t.department_name AS department_name, 
+            t.finish_time AS finish_time,            
+            tb.tool_name AS tool_name,            
+            tb.tool_map AS tool_map
+        FROM
+            t_tool_purchase_apply t
+            inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0           
+            ]]>
+		<where>
+            <![CDATA[AND t.del_mark = 0 ]]>
+			<if test="toolPurchaseApply.purchaseType != null">
+            <![CDATA[AND t.purchase_type = #{toolPurchaseApply.purchaseType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.toolNumber != null and toolPurchaseApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolPurchaseApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolPurchaseApply.purchaseResion != null">
+            <![CDATA[AND t.purchase_resion = #{toolPurchaseApply.purchaseResion, jdbcType=TINYINT}]]>
+			</if>		
+            <![CDATA[AND t.apply_status = #{toolPurchaseApply.applyStatus, jdbcType=TINYINT} ]]>		
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.create_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>			
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.create_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolPurchaseApply.departmentId, jdbcType=BIGINT}]]>
+			</if>	
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+	
+	
+	
+	
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolPurchaseApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.purchase_type AS purchase_type,
+            t.tool_number AS tool_number,
+            t.inventory_qty AS inventory_qty,
+            t.need_qty AS need_qty,
+            t.need_time AS need_time,
+            t.purchase_resion AS purchase_resion,
+            t.apply_status AS apply_status,
+            t.remark AS remark,
+            t.keep_qty AS keep_qty,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,           
+            t.erp_qty AS erp_qty,
+            t.available_number AS available_number,
+            t.finish_time AS finish_time,
+            t.arrivaled_qty AS arrivaled_qty,
+            t.no_check_qty AS no_check_qty,       
+            tb.tool_name AS tool_name,
+            tb.tool_map AS tool_map,
+            tb.type_id AS type_id,
+            tt.type_name AS type_name,
+            t.part_id AS part_id,
+            t.part_name AS part_name
+        FROM
+            t_tool_purchase_apply t
+            inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0
+            left join t_tool_type tt on tt.pk_id = tb.type_id and tt.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolPurchaseApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_purchase_apply SET del_mark = 1,update_user=#{toolPurchaseApply.updateUser, jdbcType=BIGINT},update_time=#{toolPurchaseApply.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolPurchaseApply.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_purchase_apply]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolPurchaseApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 分页查询 -->
+	<select id="selectAuditedPageList" parameterType="Map" resultMap="ToolPurchaseApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.purchase_type AS purchase_type,
+            t.tool_number AS tool_number,
+            t.inventory_qty AS inventory_qty,
+            t.need_qty AS need_qty,
+            t.need_time AS need_time,
+            t.purchase_resion AS purchase_resion,
+            t.apply_status AS apply_status,
+            t.remark AS remark,
+            t.keep_qty AS keep_qty,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,           
+            t.erp_qty AS erp_qty,
+            t.available_number AS available_number,
+            t.finish_time AS finish_time,
+            t.arrivaled_qty AS arrivaled_qty,
+            t.no_check_qty AS no_check_qty,
+            a.audit_result AS audit_result,
+            a.auditor_name AS auditor_name,     
+            tb.tool_name AS tool_name,
+            tb.tool_map AS tool_map,
+            tt.type_name AS type_name,
+            t.part_id AS part_id,
+            t.part_name AS part_name
+        FROM
+            t_tool_purchase_apply t
+            inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0
+            left join t_tool_type tt on tt.pk_id = tb.type_id and tt.del_mark = 0
+            inner join t_tool_apply_audit a on t.pk_id = a.apply_id
+            ]]>
+		<where>
+            <![CDATA[AND t.del_mark = 0 ]]>
+			<if test="toolPurchaseApply.purchaseType != null">
+            <![CDATA[AND t.purchase_type = #{toolPurchaseApply.purchaseType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.toolNumber != null and toolPurchaseApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolPurchaseApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolPurchaseApply.purchaseResion != null">
+            <![CDATA[AND t.purchase_resion = #{toolPurchaseApply.purchaseResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{toolPurchaseApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPurchaseApply.applyStatus == null">
+            <![CDATA[AND t.apply_status <6 ]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.create_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.applierId != null">
+            <![CDATA[AND t.applier_id = #{toolPurchaseApply.applierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.create_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPurchaseApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolPurchaseApply.departmentId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolPurchaseApply.statusList != null and toolPurchaseApply.statusList.size()>0" >
+		      AND t.apply_status in 
+		      <foreach collection="toolPurchaseApply.statusList" item="status" open="(" close=")" separator="," >
+		        #{status,jdbcType=TINYINT}
+      			</foreach>
+    		</if>
+    		<if test="toolPurchaseApply.auditorId != null">
+            <![CDATA[AND a.auditor_id = #{toolPurchaseApply.auditorId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+</mapper>

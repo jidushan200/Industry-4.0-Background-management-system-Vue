@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldWarehouseMapper">
+	<resultMap id="MouldWarehouse" type="org.tsinghuatj.mould.domain.MouldWarehouse">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldId" javaType="Long" column="mould_id" jdbcType="BIGINT" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="CHAR" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="warehouseCode" javaType="String" column="warehouse_code" jdbcType="CHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="CHAR" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="inType" javaType="Integer" column="in_type" jdbcType="INTEGER" />
+		<result property="keeperId" javaType="Long" column="keeper_id" jdbcType="BIGINT" />
+		<result property="keeper" javaType="String" column="keeper" jdbcType="CHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="warehouse" javaType="String" column="warehouse" jdbcType="VARCHAR" />
+		<result property="warehosingTime" javaType="Date" column="warehosing_time" jdbcType="TIMESTAMP" />
+		<result property="returnResion" javaType="Integer" column="return_resion" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_warehouse (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_id,
+            mould_name,
+            mould_number,
+            warehouse_code,
+            mould_map,
+            full_number,
+            in_type,
+            keeper_id,
+            keeper,
+            remark,
+            warehouse,
+            warehosing_time,
+            return_resion
+        )
+        VALUES
+            (
+                #{mouldWarehouse.pkId, jdbcType = BIGINT},
+                #{mouldWarehouse.createUser, jdbcType = BIGINT},
+                #{mouldWarehouse.createTime, jdbcType = TIMESTAMP},
+                #{mouldWarehouse.updateUser, jdbcType = BIGINT},
+                #{mouldWarehouse.updateTime, jdbcType = TIMESTAMP},
+                #{mouldWarehouse.delMark, jdbcType = TINYINT},
+                #{mouldWarehouse.mouldId, jdbcType = BIGINT},
+                #{mouldWarehouse.mouldName, jdbcType = CHAR},
+                #{mouldWarehouse.mouldNumber, jdbcType = CHAR},
+                #{mouldWarehouse.warehouseCode, jdbcType = CHAR},
+                #{mouldWarehouse.mouldMap, jdbcType = CHAR},
+                #{mouldWarehouse.fullNumber, jdbcType = CHAR},
+                #{mouldWarehouse.inType, jdbcType = INTEGER},
+                #{mouldWarehouse.keeperId, jdbcType = BIGINT},
+                #{mouldWarehouse.keeper, jdbcType = CHAR},
+                #{mouldWarehouse.remark, jdbcType = VARCHAR},
+                #{mouldWarehouse.warehouse, jdbcType = VARCHAR},
+                #{mouldWarehouse.warehosingTime, jdbcType = TIMESTAMP},
+                #{mouldWarehouse.returnResion, jdbcType = INTEGER}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_warehouse]]>
+		<set>
+			<if test="mouldWarehouse.createUser != null">
+            <![CDATA[create_user = #{mouldWarehouse.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldWarehouse.createTime != null">
+            <![CDATA[create_time = #{mouldWarehouse.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldWarehouse.updateUser != null">
+            <![CDATA[update_user = #{mouldWarehouse.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldWarehouse.updateTime != null">
+            <![CDATA[update_time = #{mouldWarehouse.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldWarehouse.delMark != null">
+            <![CDATA[del_mark = #{mouldWarehouse.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldWarehouse.mouldId != null">
+            <![CDATA[mould_id = #{mouldWarehouse.mouldId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldWarehouse.mouldName != null and mouldWarehouse.mouldName != ''">
+            <![CDATA[mould_name = #{mouldWarehouse.mouldName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldWarehouse.mouldNumber != null and mouldWarehouse.mouldNumber != ''">
+            <![CDATA[mould_number = #{mouldWarehouse.mouldNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldWarehouse.warehouseCode != null and mouldWarehouse.warehouseCode != ''">
+            <![CDATA[warehouse_code = #{mouldWarehouse.warehouseCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldWarehouse.mouldMap != null and mouldWarehouse.mouldMap != ''">
+            <![CDATA[mould_map = #{mouldWarehouse.mouldMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldWarehouse.fullNumber != null and mouldWarehouse.fullNumber != ''">
+            <![CDATA[full_number = #{mouldWarehouse.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldWarehouse.inType != null">
+            <![CDATA[in_type = #{mouldWarehouse.inType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldWarehouse.keeperId != null">
+            <![CDATA[keeper_id = #{mouldWarehouse.keeperId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldWarehouse.keeper != null and mouldWarehouse.keeper != ''">
+            <![CDATA[keeper = #{mouldWarehouse.keeper, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldWarehouse.remark != null and mouldWarehouse.remark != ''">
+            <![CDATA[remark = #{mouldWarehouse.remark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="mouldWarehouse.warehouse != null and mouldWarehouse.warehouse != ''">
+            <![CDATA[warehouse = #{mouldWarehouse.warehouse, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="mouldWarehouse.warehosingTime != null">
+            <![CDATA[warehosing_time = #{mouldWarehouse.warehosingTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldWarehouse.returnResion != null">
+            <![CDATA[return_resion = #{mouldWarehouse.returnResion, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_name AS mould_name,
+            t.mould_number AS mould_number,
+            t.warehouse_code AS warehouse_code,
+            t.mould_map AS mould_map,
+            t.full_number AS full_number,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time,
+            t.return_resion AS return_resion
+        FROM
+            t_mould_warehouse t
+        ]]>
+		<where>
+			<if test="mouldWarehouse.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldWarehouse.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldWarehouse.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldWarehouse.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldWarehouse.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldWarehouse.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldWarehouse.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldWarehouse.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldWarehouse.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldWarehouse.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.mouldName != null and mouldWarehouse.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldWarehouse.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.mouldNumber != null and mouldWarehouse.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldWarehouse.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.warehouseCode != null and mouldWarehouse.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{mouldWarehouse.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.mouldMap != null and mouldWarehouse.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldWarehouse.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.fullNumber != null and mouldWarehouse.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldWarehouse.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.inType != null">
+            <![CDATA[AND t.in_type = #{mouldWarehouse.inType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldWarehouse.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{mouldWarehouse.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.keeper != null and mouldWarehouse.keeper != ''">
+            <![CDATA[AND t.keeper = #{mouldWarehouse.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.remark != null and mouldWarehouse.remark != ''">
+            <![CDATA[AND t.remark = #{mouldWarehouse.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldWarehouse.warehouse != null and mouldWarehouse.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{mouldWarehouse.warehouse, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldWarehouse.warehosingTime != null">
+            <![CDATA[AND t.warehosing_time = #{mouldWarehouse.warehosingTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldWarehouse.returnResion != null">
+            <![CDATA[AND t.return_resion = #{mouldWarehouse.returnResion, jdbcType=INTEGER}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_name AS mould_name,
+            t.mould_number AS mould_number,
+            t.warehouse_code AS warehouse_code,
+            t.mould_map AS mould_map,
+            t.full_number AS full_number,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time,
+            t.return_resion AS return_resion
+        FROM
+            t_mould_warehouse t
+        ]]>
+		<where>
+			<if test="mouldWarehouse.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldWarehouse.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldWarehouse.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldWarehouse.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldWarehouse.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldWarehouse.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldWarehouse.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldWarehouse.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldWarehouse.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldWarehouse.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.mouldName != null and mouldWarehouse.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldWarehouse.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.mouldNumber != null and mouldWarehouse.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldWarehouse.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.warehouseCode != null and mouldWarehouse.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{mouldWarehouse.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.mouldMap != null and mouldWarehouse.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldWarehouse.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.fullNumber != null and mouldWarehouse.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldWarehouse.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.inType != null">
+            <![CDATA[AND t.in_type = #{mouldWarehouse.inType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldWarehouse.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{mouldWarehouse.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldWarehouse.keeper != null and mouldWarehouse.keeper != ''">
+            <![CDATA[AND t.keeper = #{mouldWarehouse.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldWarehouse.remark != null and mouldWarehouse.remark != ''">
+            <![CDATA[AND t.remark = #{mouldWarehouse.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldWarehouse.warehouse != null and mouldWarehouse.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{mouldWarehouse.warehouse, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldWarehouse.warehosingTime != null">
+            <![CDATA[AND t.warehosing_time = #{mouldWarehouse.warehosingTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldWarehouse.returnResion != null">
+            <![CDATA[AND t.return_resion = #{mouldWarehouse.returnResion, jdbcType=INTEGER}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_name AS mould_name,
+            t.mould_number AS mould_number,
+            t.warehouse_code AS warehouse_code,
+            t.mould_map AS mould_map,
+            t.full_number AS full_number,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time,
+            t.return_resion AS return_resion
+        FROM
+            t_mould_warehouse t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_warehouse SET del_mark = 1,update_user=#{mouldWarehouse.updateUser, jdbcType=BIGINT},update_time=#{mouldWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldWarehouse.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_warehouse]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<select id="selectByMouldIdList" parameterType="Map" resultMap="MouldWarehouse">
+	 <![CDATA[
+         SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_name AS mould_name,
+            t.mould_number AS mould_number,
+            t.warehouse_code AS warehouse_code,
+            t.mould_map AS mould_map,
+            t.full_number AS full_number,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time,
+            t.return_resion AS return_resion
+        FROM
+            t_mould_warehouse t
+        ]]>
+		<where>
+		AND t.mould_id in
+		<foreach collection="mouldIdList" open="(" separator="," close=")" item="id">
+			#{id,jdbcType=BIGINT}
+		</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+</mapper>

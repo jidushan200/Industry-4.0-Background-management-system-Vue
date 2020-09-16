@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.sys.repository.OperationLogMapper">
+	<resultMap id="OperationLog" type="org.tsinghuatj.sys.domain.OperationLog">
+		<id property="pkId" javaType="String" column="pk_id" jdbcType="CHAR" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="operateId" javaType="Long" column="operate_id" jdbcType="BIGINT" />
+		<result property="operateName" javaType="String" column="operate_name" jdbcType="CHAR" />
+		<result property="ip" javaType="String" column="ip" jdbcType="CHAR" />
+		<result property="operateInfo" javaType="String" column="operate_info" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_operation_log (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            operate_id,
+            operate_name,
+            ip,
+            operate_info
+        )
+        VALUES
+            (
+                #{operationLog.pkId, jdbcType = CHAR},
+                #{operationLog.createUser, jdbcType = BIGINT},
+                #{operationLog.createTime, jdbcType = TIMESTAMP},
+                #{operationLog.updateUser, jdbcType = BIGINT},
+                #{operationLog.updateTime, jdbcType = TIMESTAMP},
+                #{operationLog.delMark, jdbcType = TINYINT},
+                #{operationLog.operateId, jdbcType = BIGINT},
+                #{operationLog.operateName, jdbcType = CHAR},
+                #{operationLog.ip, jdbcType = CHAR},
+                #{operationLog.operateInfo, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="OperationLog">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id, 
+            t.create_time AS create_time,
+            t.operate_id AS operate_id,
+            t.operate_name AS operate_name,
+            t.ip AS ip,
+            t.operate_info AS operate_info
+        FROM
+            t_operation_log t
+        ]]>
+		<where>	
+            <![CDATA[AND t.del_mark = 0]]>
+            <if test="queryDto.beginDate != null">
+            <![CDATA[AND t.create_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>			
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.create_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>	
+			<if test="operationLog.operateName != null and operationLog.operateName != ''">
+            <![CDATA[AND operate_name = #{operationLog.operateName, jdbcType=CHAR}]]>
+			</if>
+			<if test="operationLog.operateInfo != null and operationLog.operateInfo != ''">
+            <![CDATA[AND t.operate_info like CONCAT(CONCAT('%',#{operationLog.operateInfo, jdbcType=CHAR},'%'))]]>
+			</if>		
+		</where>
+		 <![CDATA[ORDER BY t.create_time DESC]]>
+	</select>
+
+	
+	<!-- 按条件删除 -->
+	<delete id="delete" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_operation_log
+        ]]>
+		<where>
+			<if test="where.pkId != null">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.operateId != null">
+            <![CDATA[AND operate_id = #{where.operateId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="where.operateName != null and where.operateName != ''">
+            <![CDATA[AND operate_name = #{where.operateName, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.operateTime != null">
+            <![CDATA[AND operate_time = #{where.operateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.operateInfo != null and where.operateInfo != ''">
+            <![CDATA[AND operate_info = #{where.operateInfo, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</delete>
+
+	<!-- 按主键删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_operation_log
+        ]]>
+		<where>
+        <![CDATA[AND pk_id = #{operationLogId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

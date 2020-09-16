@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldRepairMapper">
+	<resultMap id="MouldRepair" type="org.tsinghuatj.mould.domain.MouldRepair">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldId" javaType="Long" column="mould_id" jdbcType="BIGINT" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="repairUserId" javaType="Long" column="repair_user_id" jdbcType="BIGINT" />
+		<result property="repairUser" javaType="String" column="repair_user" jdbcType="CHAR" />
+		<result property="repairTime" javaType="Date" column="repair_time" jdbcType="TIMESTAMP" />
+		<result property="repairSeq" javaType="Integer" column="repair_seq" jdbcType="INTEGER" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_repair (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_id,
+            full_number,
+            repair_user_id,
+            repair_user,
+            repair_time,
+            repair_seq,
+            remark
+        )
+        VALUES
+            (
+                #{mouldRepair.pkId, jdbcType = BIGINT},
+                #{mouldRepair.createUser, jdbcType = BIGINT},
+                #{mouldRepair.createTime, jdbcType = TIMESTAMP},
+                #{mouldRepair.updateUser, jdbcType = BIGINT},
+                #{mouldRepair.updateTime, jdbcType = TIMESTAMP},
+                #{mouldRepair.delMark, jdbcType = TINYINT},
+                #{mouldRepair.mouldId, jdbcType = BIGINT},
+                #{mouldRepair.fullNumber, jdbcType = CHAR},
+                #{mouldRepair.repairUserId, jdbcType = BIGINT},
+                #{mouldRepair.repairUser, jdbcType = CHAR},
+                #{mouldRepair.repairTime, jdbcType = TIMESTAMP},
+                #{mouldRepair.repairSeq, jdbcType = INTEGER},
+                #{mouldRepair.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_repair]]>
+		<set>
+			<if test="mouldRepair.createUser != null">
+            <![CDATA[create_user = #{mouldRepair.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepair.createTime != null">
+            <![CDATA[create_time = #{mouldRepair.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldRepair.updateUser != null">
+            <![CDATA[update_user = #{mouldRepair.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepair.updateTime != null">
+            <![CDATA[update_time = #{mouldRepair.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldRepair.delMark != null">
+            <![CDATA[del_mark = #{mouldRepair.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldRepair.mouldId != null">
+            <![CDATA[mould_id = #{mouldRepair.mouldId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepair.fullNumber != null and mouldRepair.fullNumber != ''">
+            <![CDATA[full_number = #{mouldRepair.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldRepair.repairUserId != null">
+            <![CDATA[repair_user_id = #{mouldRepair.repairUserId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldRepair.repairUser != null and mouldRepair.repairUser != ''">
+            <![CDATA[repair_user = #{mouldRepair.repairUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldRepair.repairTime != null">
+            <![CDATA[repair_time = #{mouldRepair.repairTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldRepair.repairSeq != null">
+            <![CDATA[repair_seq = #{mouldRepair.repairSeq, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldRepair.remark != null and mouldRepair.remark != ''">
+            <![CDATA[remark = #{mouldRepair.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.full_number AS full_number,
+            t.repair_user_id AS repair_user_id,
+            t.repair_user AS repair_user,
+            t.repair_time AS repair_time,
+            t.repair_seq AS repair_seq,
+            t.remark AS remark
+        FROM
+            t_mould_repair t
+        ]]>
+		<where>
+			<if test="mouldRepair.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldRepair.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldRepair.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldRepair.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepair.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldRepair.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldRepair.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepair.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldRepair.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldRepair.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldRepair.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.fullNumber != null and mouldRepair.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldRepair.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldRepair.repairUserId != null">
+            <![CDATA[AND t.repair_user_id = #{mouldRepair.repairUserId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.repairUser != null and mouldRepair.repairUser != ''">
+            <![CDATA[AND t.repair_user = #{mouldRepair.repairUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldRepair.repairTime != null">
+            <![CDATA[AND t.repair_time = #{mouldRepair.repairTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepair.repairSeq != null">
+            <![CDATA[AND t.repair_seq = #{mouldRepair.repairSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldRepair.remark != null and mouldRepair.remark != ''">
+            <![CDATA[AND t.remark = #{mouldRepair.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.full_number AS full_number,
+            t.repair_user_id AS repair_user_id,
+            t.repair_user AS repair_user,
+            t.repair_time AS repair_time,
+            t.repair_seq AS repair_seq,
+            t.remark AS remark
+        FROM
+            t_mould_repair t
+        ]]>
+		<where>
+			<if test="mouldRepair.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldRepair.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldRepair.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldRepair.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepair.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldRepair.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldRepair.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepair.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldRepair.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldRepair.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldRepair.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.fullNumber != null and mouldRepair.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldRepair.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldRepair.repairUserId != null">
+            <![CDATA[AND t.repair_user_id = #{mouldRepair.repairUserId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldRepair.repairUser != null and mouldRepair.repairUser != ''">
+            <![CDATA[AND t.repair_user = #{mouldRepair.repairUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.repair_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.repair_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldRepair.repairSeq != null">
+            <![CDATA[AND t.repair_seq = #{mouldRepair.repairSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldRepair.remark != null and mouldRepair.remark != ''">
+            <![CDATA[AND t.remark = #{mouldRepair.remark, jdbcType=VARCHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.full_number AS full_number,
+            t.repair_user_id AS repair_user_id,
+            t.repair_user AS repair_user,
+            t.repair_time AS repair_time,
+            t.repair_seq AS repair_seq,
+            t.remark AS remark
+        FROM
+            t_mould_repair t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_repair SET del_mark = 1,update_user=#{mouldRepair.updateUser, jdbcType=BIGINT},update_time=#{mouldRepair.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldRepair.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_repair]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectSeqByMouldId" parameterType="Map" resultMap="MouldRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.full_number AS full_number,
+            t.repair_user_id AS repair_user_id,
+            t.repair_user AS repair_user,
+            t.repair_time AS repair_time,
+            t.repair_seq AS repair_seq,
+            t.remark AS remark
+        FROM
+            t_mould_repair t
+        ]]>
+		<where>
+        <![CDATA[AND t.mould_id = #{mouldId, jdbcType=BIGINT}]]>
+         <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.repair_seq DESC]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

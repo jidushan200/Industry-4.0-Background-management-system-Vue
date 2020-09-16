@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.PartMapper">
+	<resultMap id="Part" type="org.tsinghuatj.base.domain.Part">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+		<result property="price" javaType="BigDecimal" column="price" jdbcType="DECIMAL" />
+		<result property="partType" javaType="Long" column="part_type" jdbcType="BIGINT" />
+		<result property="partTypeName" javaType="String" column="part_type_name" jdbcType="CHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="partCode" javaType="String" column="part_code" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_part (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            part_name,
+            price,
+            part_type,
+            part_type_name,
+            department_id,
+            department_name,
+            remark,
+            part_code
+        )
+        VALUES
+            (
+                #{part.pkId, jdbcType = BIGINT},
+                #{part.createUser, jdbcType = BIGINT},
+                #{part.createTime, jdbcType = TIMESTAMP},
+                #{part.updateUser, jdbcType = BIGINT},
+                #{part.updateTime, jdbcType = TIMESTAMP},
+                #{part.delMark, jdbcType = TINYINT},
+                #{part.partName, jdbcType = CHAR},
+                #{part.price, jdbcType = DECIMAL},
+                #{part.partType, jdbcType = BIGINT},
+                #{part.partTypeName, jdbcType = CHAR},
+                #{part.departmentId, jdbcType = BIGINT},
+                #{part.departmentName, jdbcType = CHAR},
+                #{part.remark, jdbcType = VARCHAR},
+                #{part.partCode, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_part]]>
+		<set>
+			<if test="part.createUser != null">
+            <![CDATA[create_user = #{part.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="part.createTime != null">
+            <![CDATA[create_time = #{part.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="part.updateUser != null">
+            <![CDATA[update_user = #{part.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="part.updateTime != null">
+            <![CDATA[update_time = #{part.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="part.delMark != null">
+            <![CDATA[del_mark = #{part.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="part.partName != null and part.partName != ''">
+            <![CDATA[part_name = #{part.partName, jdbcType=CHAR},]]>
+			</if>
+			<if test="part.price != null">
+            <![CDATA[price = #{part.price, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="part.partType != null">
+            <![CDATA[part_type = #{part.partType, jdbcType=BIGINT},]]>
+			</if>
+			<if test="part.partTypeName != null and part.partTypeName != ''">
+            <![CDATA[part_type_name = #{part.partTypeName, jdbcType=CHAR},]]>
+			</if>
+			<if test="part.departmentId != null">
+            <![CDATA[department_id = #{part.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="part.departmentName != null and part.departmentName != ''">
+            <![CDATA[department_name = #{part.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="part.remark != null and part.remark != ''">
+            <![CDATA[remark = #{part.remark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="part.partCode != null and part.partCode != ''">
+            <![CDATA[part_code = #{part.partCode, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{partId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Part">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.part_name AS part_name,
+            t.price AS price,
+            t.part_type AS part_type,
+            t.part_type_name AS part_type_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.remark AS remark,
+            t.part_code AS part_code
+        FROM
+            t_part t
+        ]]>
+		<where>
+			<if test="part.pkId != null">
+            <![CDATA[AND t.pk_id = #{part.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="part.createUser != null">
+            <![CDATA[AND t.create_user = #{part.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="part.createTime != null">
+            <![CDATA[AND t.create_time = #{part.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="part.updateUser != null">
+            <![CDATA[AND t.update_user = #{part.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="part.updateTime != null">
+            <![CDATA[AND t.update_time = #{part.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="part.delMark != null">
+            <![CDATA[AND t.del_mark = #{part.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="part.partName != null and part.partName != ''">
+            <![CDATA[AND t.part_name = #{part.partName, jdbcType=CHAR}]]>
+			</if>
+			<if test="part.price != null">
+            <![CDATA[AND t.price = #{part.price, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="part.partType != null">
+            <![CDATA[AND t.part_type = #{part.partType, jdbcType=BIGINT}]]>
+			</if>
+			<if test="part.partTypeName != null and part.partTypeName != ''">
+            <![CDATA[AND t.part_type_name = #{part.partTypeName, jdbcType=CHAR}]]>
+			</if>
+			<if test="part.departmentId != null">
+            <![CDATA[AND t.department_id = #{part.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="part.departmentName != null and part.departmentName != ''">
+            <![CDATA[AND t.department_name = #{part.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="part.remark != null and part.remark != ''">
+            <![CDATA[AND t.remark = #{part.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="part.partCode != null and part.partCode != ''">
+            <![CDATA[AND t.part_code = #{part.partCode, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Part">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.part_name AS part_name,
+            t.price AS price,
+            t.part_type AS part_type,
+            t.part_type_name AS part_type_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.remark AS remark,
+            t.part_code AS part_code
+        FROM
+            t_part t
+        ]]>
+		<where>
+			<if test="part.partName != null and part.partName != ''">
+            <![CDATA[AND t.part_name = #{part.partName, jdbcType=CHAR}]]>
+			</if>
+			<if test="part.price != null">
+            <![CDATA[AND t.price = #{part.price, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="part.partType != null">
+            <![CDATA[AND t.part_type = #{part.partType, jdbcType=BIGINT}]]>
+			</if>
+			<if test="part.partTypeName != null and part.partTypeName != ''">
+            <![CDATA[AND t.part_type_name = #{part.partTypeName, jdbcType=CHAR}]]>
+			</if>
+			<if test="part.departmentId != null">
+            <![CDATA[AND t.department_id = #{part.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="part.partCode != null and part.partCode != ''">
+            <![CDATA[AND t.part_code = #{part.partCode, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Part">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.part_name AS part_name,
+            t.price AS price,
+            t.part_type AS part_type,
+            t.part_type_name AS part_type_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.remark AS remark,
+            t.part_code AS part_code
+        FROM
+            t_part t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{partId, jdbcType=BIGINT}]]>
+		</where>
+		<![CDATA[AND t.del_mark = 0]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByPartCode" parameterType="Map" resultMap="Part">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.part_name AS part_name,
+            t.price AS price,
+            t.part_type AS part_type,
+            t.part_type_name AS part_type_name,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.remark AS remark,
+            t.part_code AS part_code
+        FROM
+            t_part t
+        ]]>
+		<where>
+        <![CDATA[AND t.part_code = #{partCode, jdbcType=CHAR}]]>
+        <if test="pkId != null">
+            <![CDATA[AND pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+		<![CDATA[AND t.del_mark = 0]]>
+        <![CDATA[LIMIT 1]]>
+	
+	</select>
+	
+	<select id="selectByPartCodeArray" parameterType="Map" resultMap="Part">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.part_name AS part_name,          
+            t.part_code AS part_code
+        FROM
+            t_part t
+        ]]>
+		<where>
+		 <![CDATA[AND part_code in ]]>
+			<foreach item="item" index="index" collection="codeArray" open="(" separator="," close=")">
+				#{item}
+			</foreach>       
+		<![CDATA[AND t.del_mark = 0]]>
+        </where>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_part SET del_mark = 1,update_user=#{part.updateUser, jdbcType=BIGINT},update_time=#{part.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{part.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_part]]>
+		<where>
+        <![CDATA[AND pk_id = #{partId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

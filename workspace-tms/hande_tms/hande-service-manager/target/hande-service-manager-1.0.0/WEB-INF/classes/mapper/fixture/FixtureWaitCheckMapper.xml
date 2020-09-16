@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureWaitCheckMapper">
+	<resultMap id="FixtureWaitCheck" type="org.tsinghuatj.fixture.domain.FixtureWaitCheck">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="fixtureBarcode" javaType="String" column="fixture_barcode" jdbcType="CHAR" />
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="VARCHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="teamId" javaType="Long" column="team_id" jdbcType="BIGINT" />
+		<result property="teamName" javaType="String" column="team_name" jdbcType="CHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="setCheckTime" javaType="Date" column="set_check_time" jdbcType="TIMESTAMP" />
+		<result property="checkType" javaType="Integer" column="check_type" jdbcType="TINYINT" />
+		<result property="checkStatus" javaType="Integer" column="check_status" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_wait_check (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            fixture_barcode,
+            fixture_number,
+            fixture_name,
+            fixture_map,           
+            department_id,
+            department_name,
+            team_id,
+            team_name,
+            supplier_id,
+            supplier_name,
+            set_check_time,
+            check_type,
+            check_status
+        )
+        VALUES
+            (
+                #{fixtureWaitCheck.pkId, jdbcType = BIGINT},
+                #{fixtureWaitCheck.createUser, jdbcType = BIGINT},
+                #{fixtureWaitCheck.createTime, jdbcType = TIMESTAMP},
+                #{fixtureWaitCheck.updateUser, jdbcType = BIGINT},
+                #{fixtureWaitCheck.updateTime, jdbcType = TIMESTAMP},
+                #{fixtureWaitCheck.delMark, jdbcType = TINYINT},
+                #{fixtureWaitCheck.fixtureBarcode, jdbcType = CHAR},
+                #{fixtureWaitCheck.fixtureNumber, jdbcType = CHAR},
+                #{fixtureWaitCheck.fixtureName, jdbcType = VARCHAR},
+                #{fixtureWaitCheck.fixtureMap, jdbcType = CHAR},
+                #{fixtureWaitCheck.departmentId, jdbcType = BIGINT},
+                #{fixtureWaitCheck.departmentName, jdbcType = CHAR},
+                #{fixtureWaitCheck.teamId, jdbcType = BIGINT},
+                #{fixtureWaitCheck.teamName, jdbcType = CHAR},
+                #{fixtureWaitCheck.supplierId, jdbcType = BIGINT},
+                #{fixtureWaitCheck.supplierName, jdbcType = CHAR},
+                #{fixtureWaitCheck.setCheckTime, jdbcType = TIMESTAMP},
+                #{fixtureWaitCheck.checkType, jdbcType = TINYINT},
+              0
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_wait_check]]>
+		<set>
+			<if test="fixtureWaitCheck.createUser != null">
+            <![CDATA[create_user = #{fixtureWaitCheck.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureWaitCheck.createTime != null">
+            <![CDATA[create_time = #{fixtureWaitCheck.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureWaitCheck.updateUser != null">
+            <![CDATA[update_user = #{fixtureWaitCheck.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureWaitCheck.updateTime != null">
+            <![CDATA[update_time = #{fixtureWaitCheck.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureWaitCheck.delMark != null">
+            <![CDATA[del_mark = #{fixtureWaitCheck.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureBarcode != null and fixtureWaitCheck.fixtureBarcode != ''">
+            <![CDATA[fixture_barcode = #{fixtureWaitCheck.fixtureBarcode, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureNumber != null and fixtureWaitCheck.fixtureNumber != ''">
+            <![CDATA[fixture_number = #{fixtureWaitCheck.fixtureNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureName != null and fixtureWaitCheck.fixtureName != ''">
+            <![CDATA[fixture_name = #{fixtureWaitCheck.fixtureName, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureMap != null and fixtureWaitCheck.fixtureMap != ''">
+            <![CDATA[fixture_map = #{fixtureWaitCheck.fixtureMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWaitCheck.departmentId != null">
+            <![CDATA[department_id = #{fixtureWaitCheck.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureWaitCheck.departmentName != null and fixtureWaitCheck.departmentName != ''">
+            <![CDATA[department_name = #{fixtureWaitCheck.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWaitCheck.teamId != null">
+            <![CDATA[team_id = #{fixtureWaitCheck.teamId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureWaitCheck.teamName != null and fixtureWaitCheck.teamName != ''">
+            <![CDATA[team_name = #{fixtureWaitCheck.teamName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWaitCheck.supplierId != null">
+            <![CDATA[supplier_id = #{fixtureWaitCheck.supplierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureWaitCheck.supplierName != null and fixtureWaitCheck.supplierName != ''">
+            <![CDATA[supplier_name = #{fixtureWaitCheck.supplierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixtureWaitCheck.setCheckTime != null">
+            <![CDATA[set_check_time = #{fixtureWaitCheck.setCheckTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureWaitCheck.checkType != null">
+            <![CDATA[check_type = #{fixtureWaitCheck.checkType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixtureWaitCheck.checkStatus != null">
+            <![CDATA[check_status = #{fixtureWaitCheck.checkStatus, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureWaitCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="FixtureWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status
+        FROM
+            t_fixture_wait_check t
+        ]]>
+		<where>
+			<if test="fixtureWaitCheck.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureWaitCheck.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureWaitCheck.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureWaitCheck.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureWaitCheck.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureWaitCheck.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureWaitCheck.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureWaitCheck.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureWaitCheck.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureBarcode != null and fixtureWaitCheck.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixtureWaitCheck.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureNumber != null and fixtureWaitCheck.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixtureWaitCheck.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureName != null and fixtureWaitCheck.fixtureName != ''">
+            <![CDATA[AND t.fixture_name = #{fixtureWaitCheck.fixtureName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureMap != null and fixtureWaitCheck.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixtureWaitCheck.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.departmentId != null">
+            <![CDATA[AND t.department_id = #{fixtureWaitCheck.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.departmentName != null and fixtureWaitCheck.departmentName != ''">
+            <![CDATA[AND t.department_name = #{fixtureWaitCheck.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.teamId != null">
+            <![CDATA[AND t.team_id = #{fixtureWaitCheck.teamId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.teamName != null and fixtureWaitCheck.teamName != ''">
+            <![CDATA[AND t.team_name = #{fixtureWaitCheck.teamName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{fixtureWaitCheck.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.supplierName != null and fixtureWaitCheck.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{fixtureWaitCheck.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.setCheckTime != null">
+            <![CDATA[AND t.set_check_time = #{fixtureWaitCheck.setCheckTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureWaitCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{fixtureWaitCheck.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.checkStatus != null">
+            <![CDATA[AND t.check_status = #{fixtureWaitCheck.checkStatus, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixtureWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status
+        FROM
+            t_fixture_wait_check t
+        ]]>
+		<where>
+			<if test="fixtureWaitCheck.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureWaitCheck.pkId, jdbcType=BIGINT}]]>
+			</if>
+
+			<if test="fixtureWaitCheck.fixtureBarcode != null and fixtureWaitCheck.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixtureWaitCheck.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureWaitCheck.fixtureNumber != null and fixtureWaitCheck.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixtureWaitCheck.fixtureNumber, jdbcType=CHAR}]]>
+			</if>				
+			<if test="fixtureWaitCheck.fixtureMap != null and fixtureWaitCheck.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixtureWaitCheck.fixtureMap, jdbcType=CHAR}]]>
+			</if>			
+			<if test="fixtureWaitCheck.departmentId != null">
+            <![CDATA[AND t.department_id = #{fixtureWaitCheck.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{fixtureWaitCheck.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureWaitCheck.checkStatus != null">
+            <![CDATA[AND t.check_status = #{fixtureWaitCheck.checkStatus, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixtureWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_number AS fixture_number,
+            t.fixture_name AS fixture_name,
+            t.fixture_map AS fixture_map,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status
+        FROM
+            t_fixture_wait_check t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureWaitCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_wait_check SET del_mark = 1,update_user=#{fixtureWaitCheck.updateUser, jdbcType=BIGINT},update_time=#{fixtureWaitCheck.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureWaitCheck.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_wait_check]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureWaitCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

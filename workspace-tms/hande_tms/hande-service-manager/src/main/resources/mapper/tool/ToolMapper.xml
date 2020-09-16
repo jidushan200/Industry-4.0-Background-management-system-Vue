@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolMapper">
+	<resultMap id="Tool" type="org.tsinghuatj.tool.domain.Tool">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="typeId" javaType="Integer" column="type_id" jdbcType="INTEGER" />
+		<result property="typeName" javaType="String" column="type_name" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolState" javaType="Integer" column="tool_state" jdbcType="INTEGER" />
+		<result property="processPart" javaType="String" column="process_part" jdbcType="VARCHAR" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="VARCHAR" />
+		<result property="processTotal" javaType="Integer" column="process_total" jdbcType="INTEGER" />
+		<result property="processEach" javaType="Integer" column="process_each" jdbcType="INTEGER" />
+		<result property="availableTimes" javaType="Integer" column="available_times" jdbcType="INTEGER" />
+		<result property="grindingMax" javaType="BigDecimal" column="grinding_max" jdbcType="DECIMAL" />
+		<result property="coatMax" javaType="Integer" column="coat_max" jdbcType="INTEGER" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="price" javaType="BigDecimal" column="price" jdbcType="DECIMAL" />
+		<result property="processAmount" javaType="Integer" column="process_amount" jdbcType="INTEGER" />
+		<result property="processTimes" javaType="Integer" column="process_times" jdbcType="INTEGER" />
+		<result property="repairTimes" javaType="Integer" column="repair_times" jdbcType="INTEGER" />
+		<result property="repairAmount" javaType="BigDecimal" column="repair_amount" jdbcType="DECIMAL" />
+		<result property="repairAmountCur" javaType="BigDecimal" column="repair_amount_cur" jdbcType="DECIMAL" />
+		<result property="repairor" javaType="String" column="repairor" jdbcType="CHAR" />
+		<result property="repairTime" javaType="Date" column="repair_time" jdbcType="TINYINT" />
+		<result property="coatTimes" javaType="Integer" column="coat_times" jdbcType="INTEGER" />
+		<result property="compromiseFlag" javaType="Integer" column="compromise_flag" jdbcType="INTEGER" />
+		<result property="toolSeq" javaType="Integer" column="tool_seq" jdbcType="INTEGER" />
+		<result property="sequenceNumber" javaType="String" column="sequence_number" jdbcType="CHAR" />
+		<result property="warehouseCode" javaType="String" column="warehouse_code" jdbcType="CHAR" />
+		<result property="warehouse" javaType="String" column="warehouse" jdbcType="CHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="toolAmount" javaType="Integer" column="tool_amount" jdbcType="INTEGER" />
+		
+		<result property="scripApplicant" javaType="String" column="scrip_applicant" jdbcType="CHAR" />
+		<result property="scripApplicantTime" javaType="Date" column="scrip_applicant_time" jdbcType="TIMESTAMP" />
+		<result property="scripAuditor" javaType="String" column="scrip_auditor" jdbcType="CHAR" />
+		<result property="scripAuditTime" javaType="Date" column="scrip_audit_time" jdbcType="TIMESTAMP" />
+		<result property="scripHandler" javaType="String" column="scrip_handler" jdbcType="CHAR" />
+		<result property="scripHandlerTime" javaType="Date" column="scrip_handler_time" jdbcType="TIMESTAMP" />
+		<result property="keeper" javaType="String" column="keeper" jdbcType="CHAR" />
+		<result property="grinderName" javaType="String" column="grinder_name" jdbcType="CHAR" />
+		<result property="grinderTime" javaType="Date" column="grinder_time" jdbcType="TIMESTAMP" />
+		<result property="staffDepartmentName" javaType="String" column="staff_department_name" jdbcType="CHAR" />
+		<result property="checkType" javaType="Integer" column="check_type" jdbcType="INTEGER" />
+		<result property="checkStatus" javaType="Integer" column="check_status" jdbcType="INTEGER" />
+		<result property="checkResult" javaType="Integer" column="check_result" jdbcType="INTEGER" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="isScrip" javaType="Integer" column="is_scrip" jdbcType="TINYINT" />
+		<result property="processCur" javaType="Integer" column="process_cur" jdbcType="INTEGER" />
+		<result property="repairCordon" javaType="BigDecimal" column="repair_cordon" jdbcType="DECIMAL" />	
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            full_number,
+            tool_number,
+            type_id,          
+            tool_state,
+            process_part,
+            part_name,
+            available_times,
+            grinding_max,
+            coat_max,
+            supplier_id,
+            supplier_name,
+            price,
+            process_amount,
+            process_times,
+            repair_times,
+            repair_amount,
+            repair_amount_cur,
+            repairor,
+            repair_time,
+            coat_times,
+            compromise_flag,
+            tool_seq,
+            warehouse_code,
+            warehouse,
+            department_id,
+            department_Name,
+            tool_amount,
+            check_type,
+            scrip_applicant,
+            scrip_applicant_time,
+            scrip_auditor,
+            scrip_audit_time,
+            scrip_handler,
+            scrip_handler_time,
+            keeper,
+            grinder_name,
+            grinder_time,
+            staff_department_name,
+            is_scrip
+        )
+        VALUES
+            (
+                #{tool.pkId, jdbcType = BIGINT},
+                #{tool.createUser, jdbcType = BIGINT},
+                #{tool.createTime, jdbcType = TIMESTAMP},
+                #{tool.updateUser, jdbcType = BIGINT},
+                #{tool.updateTime, jdbcType = TIMESTAMP},
+                #{tool.delMark, jdbcType = TINYINT},
+                #{tool.fullNumber, jdbcType = CHAR},
+                #{tool.toolNumber, jdbcType = CHAR},
+                #{tool.typeId, jdbcType = INTEGER},                
+                #{tool.toolState, jdbcType = INTEGER},
+                #{tool.processPart, jdbcType = VARCHAR},
+                #{tool.partName, jdbcType = VARCHAR},
+                #{tool.availableTimes, jdbcType = INTEGER},
+                #{tool.grindingMax, jdbcType = REAL},
+                #{tool.coatMax, jdbcType = INTEGER},
+                #{tool.supplierId, jdbcType = BIGINT},
+                #{tool.supplierName, jdbcType = CHAR},
+                #{tool.price, jdbcType = DECIMAL},
+                #{tool.processAmount, jdbcType = INTEGER},
+                #{tool.processTimes, jdbcType = INTEGER},
+                #{tool.repairTimes, jdbcType = INTEGER},
+                #{tool.repairAmount, jdbcType = REAL},
+                #{tool.repairAmountCur, jdbcType = REAL},
+                #{tool.repairor, jdbcType = CHAR},
+                #{tool.repairTime, jdbcType = TIMESTAMP},
+                #{tool.coatTimes, jdbcType = INTEGER},
+                #{tool.compromiseFlag, jdbcType = INTEGER},
+                #{tool.toolSeq, jdbcType = INTEGER},              
+                #{tool.warehouseCode, jdbcType = CHAR},
+                #{tool.warehouse, jdbcType = CHAR},
+                #{tool.departmentId, jdbcType = BIGINT},
+                #{tool.departmentName, jdbcType = CHAR},
+                #{tool.toolAmount, jdbcType = INTEGER},
+                #{tool.checkType, jdbcType = INTEGER},
+                #{tool.scripApplicant, jdbcType = CHAR},
+                #{tool.scripApplicantTime, jdbcType = TIMESTAMP},
+                #{tool.scripAuditor, jdbcType = CHAR},
+                #{tool.scripAuditTime, jdbcType = TIMESTAMP},
+                #{tool.scripHandler, jdbcType = CHAR},
+                #{tool.scripHandlerTime, jdbcType = TIMESTAMP},
+                #{tool.keeper, jdbcType = CHAR},
+                #{tool.grinderName, jdbcType = CHAR},
+                #{tool.grinderTime, jdbcType = TIMESTAMP},
+                #{tool.staffDepartmentName, jdbcType = CHAR},
+                #{tool.isScrip, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool]]>
+		<set>			
+			<if test="tool.updateUser != null">
+            <![CDATA[update_user = #{tool.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="tool.updateTime != null">
+            <![CDATA[update_time = #{tool.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>			
+			<if test="tool.toolState != null">
+            <![CDATA[tool_state = #{tool.toolState, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.typeId != null">
+            <![CDATA[type_id = #{tool.typeId, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.processPart != null and tool.processPart != ''">
+            <![CDATA[process_part = #{tool.processPart, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="tool.partName != null and tool.partName != ''">
+            <![CDATA[part_name = #{tool.partName, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="tool.availableTimes != null">
+            <![CDATA[available_times = #{tool.availableTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.grindingMax != null">
+            <![CDATA[grinding_max = #{tool.grindingMax, jdbcType=REAL},]]>
+			</if>
+			<if test="tool.coatMax != null">
+            <![CDATA[coat_max = #{tool.coatMax, jdbcType=INTEGER},]]>
+			</if>		
+			<if test="tool.price != null">
+            <![CDATA[price = #{tool.price, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="tool.processAmount != null">
+            <![CDATA[process_amount = #{tool.processAmount, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.processTimes != null">
+            <![CDATA[process_times = #{tool.processTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.repairAmount != null">
+            <![CDATA[repair_amount = #{tool.repairAmount, jdbcType = REAL},]]>
+			</if>
+			<if test="tool.repairAmountCur != null">
+            <![CDATA[repair_amount_cur = #{tool.repairAmountCur, jdbcType = REAL},]]>
+			</if>
+			<if test="tool.repairor != null">
+            <![CDATA[repairor = #{tool.repairor, jdbcType = CHAR},]]>
+			</if>
+			<if test="tool.repairTime != null">
+            <![CDATA[repair_time = #{tool.repairTime, jdbcType = TIMESTAMP},]]>
+			</if>
+			<if test="tool.repairTimes != null">
+            <![CDATA[repair_times = #{tool.repairTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.coatTimes != null">
+            <![CDATA[coat_times = #{tool.coatTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.compromiseFlag != null">
+            <![CDATA[compromise_flag = #{tool.compromiseFlag, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.warehouse != null and tool.warehouse != ''">
+            <![CDATA[warehouse = #{tool.warehouse, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.departmentId != null">
+            <![CDATA[department_id = #{tool.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="tool.departmentName != null">
+            <![CDATA[department_name = #{tool.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.checkType != null">
+            <![CDATA[check_type = #{tool.checkType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.scripApplicant != null and tool.scripApplicant != ''">
+            <![CDATA[scrip_applicant = #{tool.scripApplicant, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.scripApplicantTime != null">
+            <![CDATA[scrip_applicant_time = #{tool.scripApplicantTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="tool.scripAuditor != null and tool.scripAuditor != ''">
+            <![CDATA[scrip_auditor = #{tool.scripAuditor, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.scripAuditTime != null">
+            <![CDATA[scrip_audit_time = #{tool.scripAuditTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="tool.scripHandler != null and tool.scripHandler != ''">
+            <![CDATA[scrip_handler = #{tool.scripHandler, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.scripHandlerTime != null">
+            <![CDATA[scrip_handler_time = #{tool.scripHandlerTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="tool.keeper != null and tool.keeper != ''">
+            <![CDATA[keeper = #{tool.keeper, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.grinderName != null and tool.grinderName != ''">
+            <![CDATA[grinder_name = #{tool.grinderName, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.grinderTime != null">
+            <![CDATA[grinder_time = #{tool.grinderTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="tool.staffDepartmentName != null and tool.staffDepartmentName != ''">
+            <![CDATA[staff_department_name = #{tool.staffDepartmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="tool.isScrip != null">
+            <![CDATA[is_scrip = #{tool.isScrip, jdbcType=TINYINT},]]>
+			</if>
+			<if test="tool.processCur != null">
+            <![CDATA[process_cur = #{tool.processCur, jdbcType=INTEGER},]]>
+			</if>
+			<if test="tool.repairCordon != null">
+            <![CDATA[repair_cordon = #{tool.repairCordon, jdbcType=DECIMAL},]]>
+			</if>			
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+
+	<update id="updateActiveByNumber" parameterType="Map">
+        <![CDATA[UPDATE t_tool]]>
+		<set>
+			<if test="tool.updateUser != null">
+            <![CDATA[update_user = #{tool.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="tool.updateTime != null">
+            <![CDATA[update_time = #{tool.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="tool.toolState != null">
+            <![CDATA[tool_state = #{tool.toolState, jdbcType=INTEGER},]]>
+			</if>			
+			<if test="tool.checkResult != null">
+            <![CDATA[check_result = #{tool.checkResult, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+          <![CDATA[full_number = #{tool.fullNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,    
+            t.update_user AS update_user,
+            t.update_time AS update_time,      
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_state AS tool_state,
+            t.process_part AS process_part,
+            t.part_name AS part_name,
+            b.process_total AS process_total,
+            b.process_each AS process_each,
+            t.available_times AS available_times,
+            t.grinding_max AS grinding_max,
+            t.coat_max AS coat_max,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            b.price AS price,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_amount AS repair_amount,
+            t.repair_amount_cur AS repair_amount_cur,
+            t.repairor AS repairor,
+            t.repair_time AS repair_time,
+            t.coat_times AS coat_times,
+            t.compromise_flag AS compromise_flag,
+            t.tool_seq AS tool_seq,          
+            t.warehouse_code AS warehouse_code,
+            t.warehouse AS warehouse,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.tool_amount AS tool_amount,
+            t.check_type AS check_type,
+            t.scrip_applicant AS scrip_applicant,
+            t.scrip_applicant_time AS scrip_applicant_time,
+            t.scrip_auditor AS scrip_auditor,
+            t.scrip_audit_time AS scrip_audit_time,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time,
+            t.keeper AS keeper,
+            t.grinder_name AS grinder_name,
+            t.grinder_time AS grinder_time,
+            t.staff_department_name AS staff_department_name,
+         	tt.type_name as type_name,
+            t.is_scrip AS is_scrip,
+            t.process_cur AS process_cur,
+            b.grinding_cordon AS repair_cordon
+        FROM
+            t_tool t 
+			inner join t_tool_type tt on t.type_id = tt.pk_id 
+			inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>			
+			<if test="tool.fullNumber != null and tool.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{tool.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="tool.number != null and tool.number != ''">            
+            <![CDATA[AND t.tool_number LIKE CONCAT(CONCAT('%',#{tool.number, jdbcType=CHAR},'%'))]]>
+			</if>
+			<if test="tool.toolNumber != null and tool.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{tool.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="tool.typeId != null">
+            <![CDATA[AND t.type_id = #{tool.typeId, jdbcType=INTEGER}]]>
+			</if>		
+			<if test="tool.toolState != null">
+            <![CDATA[AND t.tool_state = #{tool.toolState, jdbcType=INTEGER}]]>
+			</if>		
+			<if test="tool.coatMax != null">
+            <![CDATA[AND t.coat_max = #{tool.coatMax, jdbcType=INTEGER}]]>
+			</if>
+			<if test="tool.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{tool.supplierId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="tool.departmentId != null">
+            <![CDATA[AND t.department_id = #{tool.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="tool.scripHandler != null and tool.scripHandler != ''">
+            <![CDATA[AND t.scrip_handler = #{tool.scripHandler, jdbcType=CHAR}]]>
+			</if>
+			<if test="tool.isHead == 1 ">
+            <![CDATA[AND t.type_id = 3]]>
+			</if>
+			<if test="tool.isHead != 1">
+            <![CDATA[AND t.type_id != 3]]>
+			</if>				
+			<![CDATA[AND t.del_mark = 0 AND t.tool_state <10]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,    
+            t.update_user AS update_user,
+            t.update_time AS update_time,      
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            b.price AS price,
+            t.tool_state AS tool_state,
+            t.process_part AS process_part,
+            t.part_name AS part_name,
+            b.process_total AS process_total,
+            b.process_each AS process_each,
+            t.available_times AS available_times,
+            t.grinding_max AS grinding_max,
+            t.coat_max AS coat_max,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,           
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_amount AS repair_amount,
+            t.repair_amount_cur AS repair_amount_cur,
+            t.repairor AS repairor,
+            t.repair_time AS repair_time,
+            t.coat_times AS coat_times,
+            t.compromise_flag AS compromise_flag,
+            t.tool_seq AS tool_seq,          
+            t.warehouse_code AS warehouse_code,
+            t.warehouse AS warehouse,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.tool_amount AS tool_amount,
+            t.check_type AS check_type,
+            t.scrip_applicant AS scrip_applicant,
+            t.scrip_applicant_time AS scrip_applicant_time,
+            t.scrip_auditor AS scrip_auditor,
+            t.scrip_audit_time AS scrip_audit_time,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time,
+            t.keeper AS keeper,
+            t.grinder_name AS grinder_name,
+            t.grinder_time AS grinder_time,
+            t.staff_department_name AS staff_department_name,
+         	tt.type_name as type_name,
+            t.is_scrip AS is_scrip,
+            t.process_cur AS process_cur,
+            b.grinding_cordon AS repair_cordon
+        FROM
+            t_tool t 
+            inner join t_tool_type tt on t.type_id = tt.pk_id 
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			<if test="tool.fullNumber != null and tool.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{tool.fullNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="tool.toolNumber != null and tool.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{tool.toolNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="tool.toolMap != null and tool.toolMap != ''">
+            <![CDATA[AND b.tool_map = #{tool.toolMap, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="tool.number != null and tool.number != ''">            
+            <![CDATA[AND t.tool_number LIKE CONCAT(CONCAT('%',#{tool.number, jdbcType=CHAR},'%'))]]>
+			</if>
+			<if test="tool.typeId != null">
+            <![CDATA[AND t.type_id = #{tool.typeId, jdbcType=INTEGER}]]>
+			</if>
+			<if test="tool.warehouseCode != null and tool.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{tool.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="tool.toolState != null">
+            <![CDATA[AND t.tool_state = #{tool.toolState, jdbcType=INTEGER}]]>
+			</if>		
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.update_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.update_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="tool.isHead != null and tool.isLife == null">
+            <![CDATA[AND t.type_id = 3]]>
+			</if>
+			<if test="tool.isHead == null and tool.isLife == null">
+            <![CDATA[AND t.type_id != 3]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0 AND t.tool_state <10]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 分页刀具待刃磨查询 -->
+	<select id="selectWaitRepairPageList" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,  
+            t.update_time AS update_time,     
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_state AS tool_state,
+            t.grinding_max AS grinding_max,
+          	t.repair_times AS repair_times,
+          	t.repair_amount AS repair_amount,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+           	t.grinder_time AS grinder_time,
+           	t.grinder_name AS grinder_name,
+            t.check_type AS check_type,
+            t.repair_amount_cur as repair_amount_cur,
+            t.repairor AS repairor,
+            t.repair_time AS repair_time,
+            t.warehouse_code AS warehouse_code,
+            t.staff_department_name AS staff_department_name,
+         	tt.type_name as type_name,
+            t.is_scrip AS is_scrip,
+            t.process_cur AS process_cur,
+            b.grinding_cordon AS repair_cordon
+        FROM
+            t_tool t 
+            inner join t_tool_type tt on t.type_id = tt.pk_id
+           	inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0            
+        ]]>
+		<where>
+			<if test="tool.fullNumber != null and tool.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{tool.fullNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="tool.toolNumber != null and tool.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{tool.toolNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="tool.toolState != null">
+            <![CDATA[AND t.tool_state = #{tool.toolState, jdbcType=INTEGER}]]>
+			</if>
+			<if test="tool.typeId != null">
+            <![CDATA[AND t.type_id = 3]]>
+			</if>
+			<if test="tool.typeId == null">
+            <![CDATA[AND t.type_id != 3]]>
+			</if>
+			<if test="tool.warehouseCode != null and tool.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{tool.warehouseCode, jdbcType=CHAR}]]>
+			</if>			
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+
+	
+
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id, 
+            t.create_time as create_time,         
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_state AS tool_state,
+            t.process_part AS process_part,
+            t.part_name AS part_name,
+            b.process_total AS process_total,
+            b.process_each AS process_each,
+            t.available_times AS available_times,
+            t.grinding_max AS grinding_max,
+            t.coat_max AS coat_max,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.price AS price,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_amount AS repair_amount,
+            t.repair_amount_cur AS repair_amount_cur,
+            t.repairor AS repairor,
+            t.repair_time AS repair_time,
+            t.coat_times AS coat_times,
+            t.compromise_flag AS compromise_flag,
+            t.tool_seq AS tool_seq,          
+            t.warehouse_code AS warehouse_code,
+            t.warehouse AS warehouse,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.tool_amount AS tool_amount,
+            t.check_type AS check_type,
+            t.scrip_applicant AS scrip_applicant,
+            t.scrip_applicant_time AS scrip_applicant_time,
+            t.scrip_auditor AS scrip_auditor,
+            t.scrip_audit_time AS scrip_audit_time,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time,
+            t.keeper AS keeper,
+            t.grinder_name AS grinder_name,
+            t.grinder_time AS grinder_time,
+            t.staff_department_name AS staff_department_name,
+            t.is_scrip AS is_scrip,
+            t.process_cur AS process_cur,
+            b.grinding_cordon AS repair_cordon
+        FROM
+            t_tool t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolId, jdbcType=BIGINT}]]>
+         <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据编号查询 -->
+	<select id="selectByFullNumber" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_state AS tool_state,
+            t.process_part AS process_part,
+            t.part_name AS part_name,
+            b.process_total AS process_total,
+            b.process_each AS process_each,
+            t.available_times AS available_times,
+            t.grinding_max AS grinding_max,
+            t.coat_max AS coat_max,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.price AS price,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_amount AS repair_amount,
+            t.repair_amount_cur AS repair_amount_cur,
+            t.repairor AS repairor,
+            t.repair_time AS repair_time,
+            t.coat_times AS coat_times,
+            t.compromise_flag AS compromise_flag,
+            t.tool_seq AS tool_seq,            
+            t.warehouse_code AS warehouse_code,
+            t.warehouse AS warehouse,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.tool_amount AS tool_amount,
+            t.check_type AS check_type,
+            t.scrip_applicant AS scrip_applicant,
+            t.scrip_applicant_time AS scrip_applicant_time,
+            t.scrip_auditor AS scrip_auditor,
+            t.scrip_audit_time AS scrip_audit_time,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time,
+            t.keeper AS keeper,
+            t.grinder_name AS grinder_name,
+            t.grinder_time AS grinder_time,
+            t.staff_department_name AS staff_department_name,
+            t.is_scrip AS is_scrip,
+            t.process_cur AS process_cur,
+            b.grinding_cordon AS repair_cordon
+        FROM
+            t_tool t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.full_number = #{fullNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool SET del_mark = 1,update_user=#{tool.updateUser, jdbcType=BIGINT},update_time=#{tool.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{tool.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 查询列表 -->
+	<select id="selectSeqMax" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            t.tool_name AS tool_name,
+            t.tool_seq AS tool_seq
+        FROM
+            t_tool t
+        ]]>
+		<where>
+			<if test="tool.toolNumber != null and tool.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{tool.toolNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.tool_seq DESC]]>
+		<![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 查询删除标识列表 -->
+	<select id="selectBydelMark" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_state AS tool_state,            
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_amount AS repair_amount,
+            t.repair_amount_cur AS repair_amount_cur,
+            t.repairor AS repairor,
+            t.repair_time AS repair_time,
+            t.coat_times AS coat_times,
+            t.scrip_applicant AS scrip_applicant,
+            t.scrip_applicant_time AS scrip_applicant_time,
+            t.scrip_auditor AS scrip_auditor,
+            t.scrip_audit_time AS scrip_audit_time,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handler_time AS scrip_handler_time,
+            t.keeper AS keeper,         
+            t.is_scrip AS is_scrip,
+            t.process_cur AS process_cur,
+            b.grinding_cordon AS repair_cordon
+        FROM
+            t_tool t
+             inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>			
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.update_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.update_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="tool.toolNumber != null and tool.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{tool.toolNumber, jdbcType=VARCHAR}]]>
+			</if>			
+			<if test="tool.toolMap != null and tool.toolMap != ''">
+            <![CDATA[AND b.tool_map = #{tool.toolMap, jdbcType=VARCHAR}]]>
+			</if>
+            <![CDATA[AND t.tool_state = 10]]>
+		</where>
+		<![CDATA[ORDER BY t.update_time DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="toolGetSeqByToolNumber" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            tb.type_id AS type_id,
+            tb.tool_number AS tool_number,
+            tb.tool_name AS tool_name,
+            tb.tool_map AS tool_map,
+            t.tool_state AS tool_state,
+            t.tool_seq AS tool_seq
+        FROM
+           t_tool_base tb left join  t_tool t ON t.tool_number = tb.tool_number and t.del_mark =0
+        ]]>
+		<where>
+        <![CDATA[AND tb.tool_number = #{toolNumber, jdbcType=VARCHAR}]]>
+        <![CDATA[AND tb.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.tool_seq DESC]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="toolGetByToolNumber" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_state AS tool_state,
+            t.tool_seq AS tool_seq
+        FROM
+            t_tool t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_number = #{toolNumber, jdbcType=VARCHAR}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.tool_seq DESC]]>
+	</select>
+
+	<select id="countByToolNumber" parameterType="Map" resultType="int">
+        <![CDATA[
+        SELECT
+           COUNT(t.pk_id) AS count
+        FROM
+            t_tool t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_number = #{toolNumber, jdbcType=VARCHAR}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectStatisticsPageList" parameterType="Map" resultMap="Tool">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+           	t.create_time AS create_time,   
+            t.update_user AS update_user,
+            t.update_time AS update_time,      
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.type_id AS type_id,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_state AS tool_state,
+            t.process_part AS process_part,
+            t.grinding_max AS grinding_max,
+            t.coat_max AS coat_max,
+            t.price AS price,
+            t.process_amount AS process_amount,
+            t.warehouse_code AS warehouse_code,
+            t.tool_amount AS tool_amount,
+            t.check_type AS check_type,
+            t.process_cur AS process_cur,
+            b.grinding_cordon AS repair_cordon
+        FROM
+            t_tool t 
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>			
+			<if test="tool.fullNumber != null and tool.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{tool.fullNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="tool.toolNumber != null and tool.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{tool.toolNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="tool.toolName != null and tool.toolName != ''">
+            <![CDATA[AND b.tool_name like concat('%',#{tool.toolName, jdbcType=VARCHAR},'%') ]]>
+			</if>
+			<if test="tool.typeId != null">
+            <![CDATA[AND t.type_id = #{tool.typeId, jdbcType=INTEGER}]]>
+			</if>
+			<if test="tool.warehouseCode != null and tool.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{tool.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="tool.toolState != null">
+            <![CDATA[AND t.tool_state = #{tool.toolState, jdbcType=INTEGER}]]>
+			</if>
+			
+			<if test="tool.isCoatStatistics != null">
+            AND t.type_id in (4,14)
+			</if>
+            <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[order by t.pk_id desc]]>
+	</select>
+</mapper>

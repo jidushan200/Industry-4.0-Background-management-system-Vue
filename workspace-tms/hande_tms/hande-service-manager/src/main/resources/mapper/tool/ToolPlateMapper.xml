@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolPlateMapper">
+	<resultMap id="ToolPlate" type="org.tsinghuatj.tool.domain.ToolPlate">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="plateNumber" javaType="String" column="plate_number" jdbcType="CHAR" />
+		<result property="plateName" javaType="String" column="plate_name" jdbcType="CHAR" />
+		<result property="useStatus" javaType="Integer" column="use_status" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_plate (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            plate_number,
+            plate_name,
+            use_status
+        )
+        VALUES
+            (
+                #{toolPlate.pkId, jdbcType = BIGINT},
+                #{toolPlate.createUser, jdbcType = BIGINT},
+                #{toolPlate.createTime, jdbcType = TIMESTAMP},
+                #{toolPlate.updateUser, jdbcType = BIGINT},
+                #{toolPlate.updateTime, jdbcType = TIMESTAMP},
+                #{toolPlate.delMark, jdbcType = TINYINT},
+                #{toolPlate.plateNumber, jdbcType = CHAR},
+                #{toolPlate.plateName, jdbcType = CHAR},
+                #{toolPlate.useStatus, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_plate]]>
+		<set>
+			<if test="toolPlate.createUser != null">
+            <![CDATA[create_user = #{toolPlate.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPlate.createTime != null">
+            <![CDATA[create_time = #{toolPlate.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPlate.updateUser != null">
+            <![CDATA[update_user = #{toolPlate.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPlate.updateTime != null">
+            <![CDATA[update_time = #{toolPlate.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPlate.delMark != null">
+            <![CDATA[del_mark = #{toolPlate.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolPlate.plateNumber != null and toolPlate.plateNumber != ''">
+            <![CDATA[plate_number = #{toolPlate.plateNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolPlate.plateName != null and toolPlate.plateName != ''">
+            <![CDATA[plate_name = #{toolPlate.plateName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolPlate.useStatus != null">
+            <![CDATA[use_status = #{toolPlate.useStatus, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolPlateId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+	
+	
+		<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveByNumber" parameterType="Map">
+        <![CDATA[UPDATE t_tool_plate]]>
+		<set>
+			<if test="toolPlate.updateUser != null">
+            <![CDATA[update_user = #{toolPlate.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolPlate.updateTime != null">
+            <![CDATA[update_time = #{toolPlate.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolPlate.useStatus != null">
+            <![CDATA[use_status = #{toolPlate.useStatus, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND plate_number = #{plateNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+	
+	
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolPlate">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.plate_number AS plate_number,
+            t.plate_name AS plate_name,
+            t.use_status AS use_status
+        FROM
+            t_tool_plate t
+        ]]>
+		<where>		
+			<if test="toolPlate.useStatus != null">
+            <![CDATA[AND t.use_status = #{toolPlate.useStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPlate.plateName != null and toolPlate.plateName != ''">
+            <![CDATA[AND t.plate_name = #{toolPlate.plateName, jdbcType=CHAR}]]>
+			</if>
+            <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		 <![CDATA[ ORDER BY t.plate_number  ]]>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolPlate">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.plate_number AS plate_number,
+            t.plate_name AS plate_name,
+            t.use_status AS use_status
+        FROM
+            t_tool_plate t
+        ]]>
+		<where>
+			<if test="toolPlate.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolPlate.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPlate.createUser != null">
+            <![CDATA[AND t.create_user = #{toolPlate.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPlate.createTime != null">
+            <![CDATA[AND t.create_time = #{toolPlate.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPlate.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolPlate.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolPlate.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolPlate.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolPlate.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolPlate.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolPlate.plateNumber != null and toolPlate.plateNumber != ''">
+            <![CDATA[AND t.plate_number = #{toolPlate.plateNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolPlate.plateName != null and toolPlate.plateName != ''">
+            <![CDATA[AND t.plate_name = #{toolPlate.plateName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolPlate.useStatus != null">
+            <![CDATA[AND t.use_status = #{toolPlate.useStatus, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolPlate">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.plate_number AS plate_number,
+            t.plate_name AS plate_name,
+            t.use_status AS use_status
+        FROM
+            t_tool_plate t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolPlateId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByPlateNumber" parameterType="Map" resultMap="ToolPlate">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.plate_number AS plate_number,
+            t.plate_name AS plate_name,
+            t.use_status AS use_status
+        FROM
+            t_tool_plate t
+        ]]>
+		<where>
+        <![CDATA[AND t.plate_number = #{plateNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_plate SET del_mark = 1,update_user=#{toolPlate.updateUser, jdbcType=BIGINT},update_time=#{toolPlate.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolPlate.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_plate]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolPlateId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

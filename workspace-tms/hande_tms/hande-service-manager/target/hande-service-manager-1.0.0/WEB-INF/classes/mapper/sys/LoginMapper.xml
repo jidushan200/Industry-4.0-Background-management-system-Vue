@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.sys.repository.LoginMapper">
+	<resultMap id="UserAccount" type="org.tsinghuatj.sys.domain.UserAccount">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="loginName" javaType="String" column="login_name" jdbcType="CHAR" />
+		<result property="loginPwd" javaType="String" column="login_pwd" jdbcType="CHAR" />
+		<result property="realName" javaType="String" column="real_name" jdbcType="CHAR" />
+		<result property="mobile" javaType="String" column="mobile" jdbcType="CHAR" />
+		<result property="email" javaType="String" column="email" jdbcType="CHAR" />
+		<result property="roleId" javaType="Long" column="role_id" jdbcType="BIGINT" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="roleName" javaType="String" column="role_name" jdbcType="CHAR" />
+		<result property="authCode" javaType="String" column="auth_code" jdbcType="CHAR" />
+	</resultMap>
+
+	<select id="getUserInfoByName" parameterType="Map" resultMap="UserAccount">	
+	 <![CDATA[
+       SELECT 
+       	t.pk_id,
+       	t.login_name,
+       	t.login_pwd,
+       	t.real_name,
+       	t.role_id,
+       	s.department_id
+       	FROM t_user_account t left join t_staff s on t.login_name = s.staff_code and s.del_mark = 0
+        WHERE t.login_name = #{loginName,jdbcType=CHAR} AND t.del_mark = 0 Limit 1
+        ]]>
+	</select>
+	
+	<select id="getUserInfoById" parameterType="Map" resultMap="UserAccount">	
+	 <![CDATA[
+       SELECT pk_id,login_name,login_pwd FROM t_user_account WHERE pk_id = #{pkId,jdbcType=BIGINT} AND del_mark = 0 Limit 1
+        ]]>
+	</select>
+	
+	<select id="listUserAuths" parameterType="Map" resultType="string">	
+	 <![CDATA[
+      SELECT auth_code FROM t_sys_user_auth WHERE user_id = #{userId,jdbcType=BIGINT}
+        ]]>
+	</select>
+	
+	
+	
+
+
+</mapper>

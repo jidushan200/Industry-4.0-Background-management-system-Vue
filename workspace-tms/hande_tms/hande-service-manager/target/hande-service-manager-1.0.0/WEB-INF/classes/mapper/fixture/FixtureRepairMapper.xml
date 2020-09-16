@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixtureRepairMapper">
+	<resultMap id="FixtureRepair" type="org.tsinghuatj.fixture.domain.FixtureRepair">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="fixtureId" javaType="Long" column="fixture_id" jdbcType="BIGINT" />
+		<result property="fixtureBarcode" javaType="String" column="fixture_barcode" jdbcType="CHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="CHAR" />
+		<result property="repairMeasure" javaType="BigDecimal" column="repair_measure" jdbcType="DECIMAL" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_repair (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            fixture_id,
+            fixture_barcode,
+            fixture_name,
+            repair_measure,
+            remark
+        )
+        VALUES
+            (
+                #{fixtureRepair.pkId, jdbcType = BIGINT},
+                #{fixtureRepair.createUser, jdbcType = BIGINT},
+                #{fixtureRepair.createTime, jdbcType = TIMESTAMP},
+                #{fixtureRepair.updateUser, jdbcType = BIGINT},
+                #{fixtureRepair.updateTime, jdbcType = TIMESTAMP},
+                #{fixtureRepair.delMark, jdbcType = TINYINT},
+                #{fixtureRepair.fixtureId, jdbcType = BIGINT},
+                #{fixtureRepair.fixtureBarcode, jdbcType = CHAR},
+                #{fixtureRepair.fixtureName, jdbcType = CHAR},
+                #{fixtureRepair.repairMeasure, jdbcType = DECIMAL},
+                #{fixtureRepair.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_repair]]>
+		<set>		
+			<if test="fixtureRepair.updateUser != null">
+            <![CDATA[update_user = #{fixtureRepair.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixtureRepair.updateTime != null">
+            <![CDATA[update_time = #{fixtureRepair.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixtureRepair.repairMeasure != null">
+            <![CDATA[repair_measure = #{fixtureRepair.repairMeasure, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="fixtureRepair.remark != null and fixtureRepair.remark != ''">
+            <![CDATA[remark = #{fixtureRepair.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="FixtureRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_id AS fixture_id,
+            t.fixture_barcode AS fixture_barcode,
+            t.repair_measure AS repair_measure,
+            t.remark AS remark
+        FROM
+            t_fixture_repair t
+        ]]>
+		<where>
+			<if test="fixtureRepair.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixtureRepair.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureRepair.createUser != null">
+            <![CDATA[AND t.create_user = #{fixtureRepair.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureRepair.createTime != null">
+            <![CDATA[AND t.create_time = #{fixtureRepair.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureRepair.updateUser != null">
+            <![CDATA[AND t.update_user = #{fixtureRepair.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureRepair.updateTime != null">
+            <![CDATA[AND t.update_time = #{fixtureRepair.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="fixtureRepair.delMark != null">
+            <![CDATA[AND t.del_mark = #{fixtureRepair.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="fixtureRepair.fixtureId != null">
+            <![CDATA[AND t.fixture_id = #{fixtureRepair.fixtureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixtureRepair.fixtureBarcode != null and fixtureRepair.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixtureRepair.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureRepair.repairMeasure != null">
+            <![CDATA[AND t.repair_measure = #{fixtureRepair.repairMeasure, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="fixtureRepair.remark != null and fixtureRepair.remark != ''">
+            <![CDATA[AND t.remark = #{fixtureRepair.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixtureRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.fixture_id AS fixture_id,
+            t.fixture_barcode AS fixture_barcode,
+            t.fixture_name AS fixture_name,
+            f.fixture_map AS fixture_map,
+            t.repair_measure AS repair_measure,
+            t.remark AS remark
+        FROM
+            t_fixture_repair t inner join t_fixture f on t.fixture_id = f.pk_id
+        ]]>
+		<where>	
+			<if test="fixtureRepair.fixtureBarcode != null and fixtureRepair.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixtureRepair.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureRepair.fixtureMap != null and fixtureRepair.fixtureMap != ''">
+            <![CDATA[AND t.fixture_map = #{fixtureRepair.fixtureMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixtureRepair.fixtureName != null and fixtureRepair.fixtureName != ''">
+             <![CDATA[AND t.fixture_name LIKE CONCAT(CONCAT('%',#{fixtureRepair.fixtureName, jdbcType=CHAR},'%'))]]>
+			</if>
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixtureRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.fixture_id AS fixture_id,
+            t.fixture_barcode AS fixture_barcode,
+            t.repair_measure AS repair_measure,
+            t.remark AS remark
+        FROM
+            t_fixture_repair t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixtureRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_repair SET del_mark = 1,update_user=#{fixtureRepair.updateUser, jdbcType=BIGINT},update_time=#{fixtureRepair.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureRepair.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_repair]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixtureRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

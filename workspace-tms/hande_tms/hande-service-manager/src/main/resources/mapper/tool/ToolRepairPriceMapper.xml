@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolRepairPriceMapper">
+	<resultMap id="ToolRepairPrice" type="org.tsinghuatj.tool.domain.ToolRepairPrice">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="VARCHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierCode" javaType="String" column="supplier_code" jdbcType="CHAR" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="VARCHAR" />
+		<result property="price" javaType="BigDecimal" column="price" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_repair_price (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_id,
+            supplier_id,
+            price
+        )
+        VALUES
+            (
+                #{toolRepairPrice.pkId, jdbcType = BIGINT},
+                #{toolRepairPrice.createUser, jdbcType = BIGINT},
+                #{toolRepairPrice.createTime, jdbcType = TIMESTAMP},
+                #{toolRepairPrice.updateUser, jdbcType = BIGINT},
+                #{toolRepairPrice.updateTime, jdbcType = TIMESTAMP},
+                #{toolRepairPrice.delMark, jdbcType = TINYINT},
+                #{toolRepairPrice.toolId, jdbcType = BIGINT},
+                #{toolRepairPrice.supplierId, jdbcType = BIGINT},
+                #{toolRepairPrice.price, jdbcType = DECIMAL}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_repair_price]]>
+		<set>
+			<if test="toolRepairPrice.createUser != null">
+            <![CDATA[create_user = #{toolRepairPrice.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolRepairPrice.createTime != null">
+            <![CDATA[create_time = #{toolRepairPrice.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolRepairPrice.updateUser != null">
+            <![CDATA[update_user = #{toolRepairPrice.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolRepairPrice.updateTime != null">
+            <![CDATA[update_time = #{toolRepairPrice.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolRepairPrice.delMark != null">
+            <![CDATA[del_mark = #{toolRepairPrice.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolRepairPrice.toolId != null">
+            <![CDATA[tool_id = #{toolRepairPrice.toolId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolRepairPrice.supplierId != null">
+            <![CDATA[supplier_id = #{toolRepairPrice.supplierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolRepairPrice.price != null">
+            <![CDATA[price = #{toolRepairPrice.price, jdbcType=DECIMAL},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolRepairPriceId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolRepairPrice">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.supplier_id AS supplier_id,
+            t.price AS price,
+            b.tool_number as tool_number,
+            b.tool_name as tool_name,
+            s.supplier_code as supplier_code,
+            s.supplier_name as supplier_name
+        FROM
+            t_tool_repair_price t
+            inner join t_tool_base b on t.tool_id = b.pk_id and b.del_mark = 0
+            inner join t_supplier s on t.supplier_id = s.pk_id and s.del_mark = 0
+        ]]>
+		<where>
+			<![CDATA[AND t.del_mark = 0]]>
+			<if test="toolRepairPrice.toolNumber != null and toolRepairPrice.toolNumber != ''">
+            <![CDATA[AND b.tool_number = #{toolRepairPrice.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepairPrice.supplierCode != null and toolRepairPrice.supplierCode != ''">
+            <![CDATA[AND s.supplier_code = #{toolRepairPrice.supplierCode, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolRepairPrice">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.tool_id AS tool_id,
+            t.supplier_id AS supplier_id,
+            t.price AS price,
+            b.tool_number as tool_number,
+            b.tool_name as tool_name,
+            s.supplier_code as supplier_code,
+            s.supplier_name as supplier_name
+            
+        FROM
+            t_tool_repair_price t
+            inner join t_tool_base b on t.tool_id = b.pk_id
+            inner join t_supplier s on t.supplier_id = s.pk_id    
+        ]]>
+		<where>
+			<![CDATA[AND t.del_mark = 0]]>
+			<if test="toolRepairPrice.toolNumber != null and toolRepairPrice.toolNumber != ''">
+            <![CDATA[AND b.tool_number = #{toolRepairPrice.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepairPrice.supplierCode != null and toolRepairPrice.supplierCode != ''">
+            <![CDATA[AND s.supplier_code = #{toolRepairPrice.supplierCode, jdbcType=CHAR}]]>
+			</if>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolRepairPrice">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.supplier_id AS supplier_id,
+            t.price AS price
+        FROM
+            t_tool_repair_price t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolRepairPriceId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<!-- 根据主键查询 -->
+	<select id="repairPriceCheck" parameterType="Map" resultMap="ToolRepairPrice">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_id AS tool_id,
+            t.supplier_id AS supplier_id,
+            t.price AS price
+        FROM
+            t_tool_repair_price t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.supplier_id = #{supplierId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_repair_price SET del_mark = 1,update_user=#{toolRepairPrice.updateUser, jdbcType=BIGINT},update_time=#{toolRepairPrice.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolRepairPrice.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_repair_price]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolRepairPriceId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectBySupplierId" parameterType="Map" resultMap="ToolRepairPrice">
+        <![CDATA[
+        SELECT
+             t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.supplier_id AS supplier_id,
+            t.price AS price,
+            b.tool_number as tool_number,
+            b.tool_name as tool_name
+        FROM
+            t_tool_repair_price t
+            inner join t_tool_base b on t.tool_id = b.pk_id and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND b.tool_number = #{toolNumber, jdbcType=CHAR}]]>
+        <![CDATA[AND t.supplier_id = #{supplierId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

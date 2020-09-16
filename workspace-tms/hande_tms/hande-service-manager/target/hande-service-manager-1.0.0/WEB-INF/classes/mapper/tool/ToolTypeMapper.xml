@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolTypeMapper">
+	<resultMap id="ToolType" type="org.tsinghuatj.tool.domain.ToolType">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="typeCode" javaType="String" column="type_code" jdbcType="CHAR" />
+		<result property="typeName" javaType="String" column="type_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_type (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            type_code,
+            type_name
+        )
+        VALUES
+            (
+                #{toolType.pkId, jdbcType = BIGINT},
+                #{toolType.createUser, jdbcType = BIGINT},
+                #{toolType.createTime, jdbcType = TIMESTAMP},
+                #{toolType.updateUser, jdbcType = BIGINT},
+                #{toolType.updateTime, jdbcType = TIMESTAMP},
+                #{toolType.delMark, jdbcType = TINYINT},
+                #{toolType.typeCode, jdbcType = CHAR},
+                #{toolType.typeName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_type]]>
+		<set>
+			<if test="toolType.createUser != null">
+            <![CDATA[create_user = #{toolType.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolType.createTime != null">
+            <![CDATA[create_time = #{toolType.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolType.updateUser != null">
+            <![CDATA[update_user = #{toolType.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolType.updateTime != null">
+            <![CDATA[update_time = #{toolType.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolType.delMark != null">
+            <![CDATA[del_mark = #{toolType.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolType.typeCode != null and toolType.typeCode != ''">
+            <![CDATA[type_code = #{toolType.typeCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolType.typeName != null and toolType.typeName != ''">
+            <![CDATA[type_name = #{toolType.typeName, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolTypeId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolType">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.type_code AS type_code,
+            t.type_name AS type_name
+        FROM
+            t_tool_type t
+        ]]>
+		<where>
+            <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolType">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.type_code AS type_code,
+            t.type_name AS type_name
+        FROM
+            t_tool_type t
+        ]]>
+		<where>
+			<if test="toolType.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolType.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolType.createUser != null">
+            <![CDATA[AND t.create_user = #{toolType.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolType.createTime != null">
+            <![CDATA[AND t.create_time = #{toolType.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolType.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolType.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolType.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolType.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolType.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolType.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolType.typeCode != null and toolType.typeCode != ''">
+            <![CDATA[AND t.type_code = #{toolType.typeCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolType.typeName != null and toolType.typeName != ''">
+            <![CDATA[AND t.type_name = #{toolType.typeName, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolType">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.type_code AS type_code,
+            t.type_name AS type_name
+        FROM
+            t_tool_type t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolTypeId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_type SET del_mark = 1,update_user=#{toolType.updateUser, jdbcType=BIGINT},update_time=#{toolType.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolType.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_type]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolTypeId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

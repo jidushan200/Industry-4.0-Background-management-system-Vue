@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.CheckResultMapper">
+	<resultMap id="CheckResult" type="org.tsinghuatj.tool.domain.CheckResult">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="colId" javaType="Long" column="col_id" jdbcType="BIGINT" />
+		<result property="checkCol" javaType="String" column="check_col" jdbcType="CHAR" />
+		<result property="checkResult" javaType="String" column="check_result" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_check_result (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            col_id,
+            check_col,
+            check_result
+        )
+        VALUES
+            (
+                #{checkResult.pkId, jdbcType = BIGINT},
+                #{checkResult.createUser, jdbcType = BIGINT},
+                #{checkResult.createTime, jdbcType = TIMESTAMP},
+                #{checkResult.updateUser, jdbcType = BIGINT},
+                #{checkResult.updateTime, jdbcType = TIMESTAMP},
+                #{checkResult.delMark, jdbcType = TINYINT},
+                #{checkResult.colId, jdbcType = BIGINT},
+                #{checkResult.checkCol, jdbcType = CHAR},
+                #{checkResult.checkResult, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_check_result]]>
+		<set>
+			<if test="checkResult.createUser != null">
+            <![CDATA[create_user = #{checkResult.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="checkResult.createTime != null">
+            <![CDATA[create_time = #{checkResult.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="checkResult.updateUser != null">
+            <![CDATA[update_user = #{checkResult.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="checkResult.updateTime != null">
+            <![CDATA[update_time = #{checkResult.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="checkResult.delMark != null">
+            <![CDATA[del_mark = #{checkResult.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="checkResult.colId != null">
+            <![CDATA[col_id = #{checkResult.colId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="checkResult.checkCol != null and checkResult.checkCol != ''">
+            <![CDATA[check_col = #{checkResult.checkCol, jdbcType=CHAR},]]>
+			</if>
+			<if test="checkResult.checkResult != null and checkResult.checkResult != ''">
+            <![CDATA[check_result = #{checkResult.checkResult, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{checkResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="CheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.col_id AS col_id,
+            t.check_col AS check_col,
+            t.check_result AS check_result
+        FROM
+            t_check_result t
+        ]]>
+		<where>
+			<if test="checkResult.pkId != null">
+            <![CDATA[AND t.pk_id = #{checkResult.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.createUser != null">
+            <![CDATA[AND t.create_user = #{checkResult.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.createTime != null">
+            <![CDATA[AND t.create_time = #{checkResult.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="checkResult.updateUser != null">
+            <![CDATA[AND t.update_user = #{checkResult.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.updateTime != null">
+            <![CDATA[AND t.update_time = #{checkResult.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="checkResult.delMark != null">
+            <![CDATA[AND t.del_mark = #{checkResult.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="checkResult.colId != null">
+            <![CDATA[AND t.col_id = #{checkResult.colId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.checkCol != null and checkResult.checkCol != ''">
+            <![CDATA[AND t.check_col = #{checkResult.checkCol, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkResult.checkResult != null and checkResult.checkResult != ''">
+            <![CDATA[AND t.check_result = #{checkResult.checkResult, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="CheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.col_id AS col_id,
+            t.check_col AS check_col,
+            t.check_result AS check_result
+        FROM
+            t_check_result t
+        ]]>
+		<where>
+			<if test="checkResult.pkId != null">
+            <![CDATA[AND t.pk_id = #{checkResult.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.createUser != null">
+            <![CDATA[AND t.create_user = #{checkResult.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.createTime != null">
+            <![CDATA[AND t.create_time = #{checkResult.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="checkResult.updateUser != null">
+            <![CDATA[AND t.update_user = #{checkResult.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.updateTime != null">
+            <![CDATA[AND t.update_time = #{checkResult.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="checkResult.delMark != null">
+            <![CDATA[AND t.del_mark = #{checkResult.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="checkResult.colId != null">
+            <![CDATA[AND t.col_id = #{checkResult.colId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="checkResult.checkCol != null and checkResult.checkCol != ''">
+            <![CDATA[AND t.check_col = #{checkResult.checkCol, jdbcType=CHAR}]]>
+			</if>
+			<if test="checkResult.checkResult != null and checkResult.checkResult != ''">
+            <![CDATA[AND t.check_result = #{checkResult.checkResult, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="CheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.col_id AS col_id,
+            t.check_col AS check_col,
+            t.check_result AS check_result
+        FROM
+            t_check_result t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{checkResultId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_check_result SET del_mark = 1,update_user=#{checkResult.updateUser, jdbcType=BIGINT},update_time=#{checkResult.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{checkResult.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_check_result]]>
+		<where>
+        <![CDATA[AND pk_id = #{checkResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

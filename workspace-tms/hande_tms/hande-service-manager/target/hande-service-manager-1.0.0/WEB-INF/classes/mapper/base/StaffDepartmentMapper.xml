@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.StaffDepartmentMapper">
+	<resultMap id="StaffDepartment" type="org.tsinghuatj.base.domain.StaffDepartment">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="departmentCode" javaType="String" column="department_code" jdbcType="CHAR" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_staff_department (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            department_code,
+            department_name
+        )
+        VALUES
+            (
+                #{staffDepartment.pkId, jdbcType = BIGINT},
+                #{staffDepartment.createUser, jdbcType = BIGINT},
+                #{staffDepartment.createTime, jdbcType = TIMESTAMP},
+                #{staffDepartment.updateUser, jdbcType = BIGINT},
+                #{staffDepartment.updateTime, jdbcType = TIMESTAMP},
+                #{staffDepartment.delMark, jdbcType = TINYINT},
+                #{staffDepartment.departmentCode, jdbcType = CHAR},
+                #{staffDepartment.departmentName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_staff_department]]>
+		<set>
+			<if test="staffDepartment.createUser != null">
+            <![CDATA[create_user = #{staffDepartment.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="staffDepartment.createTime != null">
+            <![CDATA[create_time = #{staffDepartment.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="staffDepartment.updateUser != null">
+            <![CDATA[update_user = #{staffDepartment.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="staffDepartment.updateTime != null">
+            <![CDATA[update_time = #{staffDepartment.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="staffDepartment.delMark != null">
+            <![CDATA[del_mark = #{staffDepartment.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="staffDepartment.departmentCode != null and staffDepartment.departmentCode != ''">
+            <![CDATA[department_code = #{staffDepartment.departmentCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="staffDepartment.departmentName != null and staffDepartment.departmentName != ''">
+            <![CDATA[department_name = #{staffDepartment.departmentName, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{staffDepartmentId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="StaffDepartment">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.department_code AS department_code,
+            t.department_name AS department_name
+        FROM
+            t_staff_department t
+        ]]>
+		<where>
+			<if test="staffDepartment.pkId != null">
+            <![CDATA[AND t.pk_id = #{staffDepartment.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="staffDepartment.createUser != null">
+            <![CDATA[AND t.create_user = #{staffDepartment.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="staffDepartment.createTime != null">
+            <![CDATA[AND t.create_time = #{staffDepartment.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="staffDepartment.updateUser != null">
+            <![CDATA[AND t.update_user = #{staffDepartment.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="staffDepartment.updateTime != null">
+            <![CDATA[AND t.update_time = #{staffDepartment.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="staffDepartment.delMark != null">
+            <![CDATA[AND t.del_mark = #{staffDepartment.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="staffDepartment.departmentCode != null and staffDepartment.departmentCode != ''">
+            <![CDATA[AND t.department_code = #{staffDepartment.departmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="staffDepartment.departmentName != null and staffDepartment.departmentName != ''">
+            <![CDATA[AND t.department_name = #{staffDepartment.departmentName, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="StaffDepartment">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.department_code AS department_code,
+            t.department_name AS department_name
+        FROM
+            t_staff_department t
+        ]]>
+		<where>
+			<if test="staffDepartment.departmentCode != null and staffDepartment.departmentCode != ''">
+            <![CDATA[AND t.department_code = #{staffDepartment.departmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="staffDepartment.departmentName != null and staffDepartment.departmentName != ''">
+            <![CDATA[AND t.department_name = #{staffDepartment.departmentName, jdbcType=CHAR}]]>
+			</if>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="StaffDepartment">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.department_code AS department_code,
+            t.department_name AS department_name
+        FROM
+            t_staff_department t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{staffDepartmentId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByName" parameterType="Map" resultMap="StaffDepartment">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.department_code AS department_code,
+            t.department_name AS department_name
+        FROM
+            t_staff_department t
+        ]]>
+		<where>
+        <![CDATA[AND t.department_name = #{departmentName, jdbcType=CHAR}]]>
+        	<if test="pkId != null">
+            <![CDATA[AND t.pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+        <![CDATA[LIMIT 1]]>	
+	</select>
+	
+	
+	<select id="selectByNameList" parameterType="Map" resultMap="StaffDepartment">
+	<![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.department_code AS department_code,
+            t.department_name AS department_name
+        FROM
+            t_staff_department t
+        ]]>
+        <where>
+		<![CDATA[AND t.department_name in ]]>
+			<foreach item="item" index="index" collection="nameList" open="(" separator="," close=")">
+				#{item}
+			</foreach>  
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_staff_department SET del_mark = 1,update_user=#{staffDepartment.updateUser, jdbcType=BIGINT},update_time=#{staffDepartment.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{staffDepartment.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_staff_department]]>
+		<where>
+        <![CDATA[AND pk_id = #{staffDepartmentId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

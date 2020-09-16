@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.sys.repository.SysAuthInfoMapper">
+	<resultMap id="SysAuthInfo" type="org.tsinghuatj.sys.domain.SysAuthInfo">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="parentId" javaType="Long" column="parent_id" jdbcType="BIGINT" />
+		<result property="authorCode" javaType="String" column="author_code" jdbcType="CHAR" />
+		<result property="authorName" javaType="String" column="author_name" jdbcType="CHAR" />
+		<result property="parentCode" javaType="String" column="parent_code" jdbcType="CHAR" />
+		<result property="title" javaType="String" column="title" jdbcType="CHAR" />
+		<result property="level" javaType="Integer" column="level" jdbcType="TINYINT" />
+	</resultMap>
+
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_sys_auth_info (
+            pk_id,
+            parent_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            author_code,
+            parent_code,
+            author_name,
+            level
+        )
+        VALUES
+            (
+                #{sysAuthInfo.pkId, jdbcType = BIGINT},
+                #{sysAuthInfo.parentId, jdbcType = BIGINT},
+                #{sysAuthInfo.createUser, jdbcType = BIGINT},
+                #{sysAuthInfo.createTime, jdbcType = TIMESTAMP},
+                #{sysAuthInfo.updateUser, jdbcType = BIGINT},
+                #{sysAuthInfo.updateTime, jdbcType = TIMESTAMP},
+                #{sysAuthInfo.delMark, jdbcType = TINYINT},
+                #{sysAuthInfo.authorCode, jdbcType = CHAR},
+                #{sysAuthInfo.parentCode, jdbcType = CHAR},
+                #{sysAuthInfo.authorName, jdbcType = CHAR},
+                #{sysAuthInfo.level, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_auth_info]]>
+		<set>
+			<if test="sysAuthInfo.createUser != null">
+            <![CDATA[create_user = #{sysAuthInfo.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysAuthInfo.createTime != null">
+            <![CDATA[create_time = #{sysAuthInfo.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysAuthInfo.updateUser != null">
+            <![CDATA[update_user = #{sysAuthInfo.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysAuthInfo.updateTime != null">
+            <![CDATA[update_time = #{sysAuthInfo.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysAuthInfo.delMark != null">
+            <![CDATA[del_mark = #{sysAuthInfo.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="sysAuthInfo.authorCode != null and sysAuthInfo.authorCode != ''">
+            <![CDATA[author_code = #{sysAuthInfo.authorCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.authorName != null and sysAuthInfo.authorName != ''">
+            <![CDATA[author_name = #{sysAuthInfo.authorName, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{sysAuthInfoId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="SysAuthInfo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,            
+            t.parent_id AS parent_id,
+            t.author_code AS author_code,
+            t.author_name AS title
+        FROM
+            t_sys_auth_info t
+        ]]>
+		<where>			
+			 <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="SysAuthInfo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.author_code AS author_code,
+            t.author_name AS author_name
+        FROM
+            t_sys_auth_info t
+        ]]>
+		<where>
+			<if test="sysAuthInfo.pkId != null">
+            <![CDATA[AND t.pk_id = #{sysAuthInfo.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysAuthInfo.createUser != null">
+            <![CDATA[AND t.create_user = #{sysAuthInfo.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysAuthInfo.createTime != null">
+            <![CDATA[AND t.create_time = #{sysAuthInfo.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysAuthInfo.updateUser != null">
+            <![CDATA[AND t.update_user = #{sysAuthInfo.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysAuthInfo.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysAuthInfo.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysAuthInfo.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysAuthInfo.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysAuthInfo.authorCode != null and sysAuthInfo.authorCode != ''">
+            <![CDATA[AND t.author_code = #{sysAuthInfo.authorCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysAuthInfo.authorName != null and sysAuthInfo.authorName != ''">
+            <![CDATA[AND t.author_name = #{sysAuthInfo.authorName, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="SysAuthInfo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.author_code AS author_code,
+            t.author_name AS author_name
+        FROM
+            t_sys_auth_info t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{sysAuthInfoId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_auth_info SET del_mark = 1,update_user=#{sysAuthInfo.updateUser, jdbcType=BIGINT},update_time=#{sysAuthInfo.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysAuthInfo.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_sys_auth_info]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysAuthInfoId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<select id="selectByRoleId"  parameterType="Map" resultMap="SysAuthInfo">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,            
+            t.parent_id AS parent_id,
+            t.author_code AS author_code,
+            t.author_name AS title
+        FROM
+            t_sys_auth_info t 
+        INNER JOIN t_sys_role_auth r on t.author_code = r.auth_code  
+      ]]>
+	  <where>
+        <![CDATA[AND r.role_id = #{roleId, jdbcType=BIGINT}]]>
+	  </where>	
+	</select>
+	
+	
+	<select id="selectByUserId"  parameterType="Map" resultMap="SysAuthInfo">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,            
+            t.parent_id AS parent_id,
+            t.author_code AS author_code,
+            t.author_name AS title
+        FROM
+            t_sys_auth_info t 
+        INNER JOIN t_sys_user_auth r on t.author_code = r.auth_code  
+      ]]>
+	  <where>
+        <![CDATA[AND r.user_id = #{userId, jdbcType=BIGINT}]]>
+	  </where>	
+	</select>
+	
+</mapper>

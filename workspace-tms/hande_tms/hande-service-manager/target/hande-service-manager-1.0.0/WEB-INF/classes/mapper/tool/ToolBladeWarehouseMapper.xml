@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolBladeWarehouseMapper">
+	<resultMap id="ToolBladeWarehouse" type="org.tsinghuatj.tool.domain.ToolBladeWarehouse">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="composeNumber" javaType="String" column="compose_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolQty" javaType="Integer" column="tool_qty" jdbcType="INTEGER" />
+		<result property="isNew" javaType="Integer" column="is_new" jdbcType="TINYINT" />
+		<result property="receiptId" javaType="Long" column="receipt_id" jdbcType="BIGINT" />
+		<result property="warehouse" javaType="String" column="warehouse" jdbcType="VARCHAR" />
+		<result property="warehouseType" javaType="Integer" column="warehouse_type" jdbcType="INTEGER" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="deliever" javaType="String" column="deliever" jdbcType="CHAR" />
+		<result property="handleResult" javaType="Integer" column="handle_result" jdbcType="TINYINT" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_blade_warehouse (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            compose_number,
+            tool_number,
+            tool_qty,
+            is_new,
+            receipt_id,
+            warehouse,
+            warehouse_type,
+            department_id,
+            supplier_id,
+            supplier_name,
+            deliever,
+            handle_result,
+            remark
+        )
+        VALUES
+            (
+                #{toolBladeWarehouse.pkId, jdbcType = BIGINT},
+                #{toolBladeWarehouse.createUser, jdbcType = BIGINT},
+                #{toolBladeWarehouse.createTime, jdbcType = TIMESTAMP},
+                #{toolBladeWarehouse.updateUser, jdbcType = BIGINT},
+                #{toolBladeWarehouse.updateTime, jdbcType = TIMESTAMP},
+                #{toolBladeWarehouse.delMark, jdbcType = TINYINT},
+                #{toolBladeWarehouse.composeNumber, jdbcType = CHAR},
+                #{toolBladeWarehouse.toolNumber, jdbcType = CHAR},
+                #{toolBladeWarehouse.toolQty, jdbcType = INTEGER},
+                #{toolBladeWarehouse.isNew, jdbcType = TINYINT},
+                #{toolBladeWarehouse.receiptId, jdbcType = BIGINT},
+                #{toolBladeWarehouse.warehouse, jdbcType = VARCHAR},
+                #{toolBladeWarehouse.warehouseType, jdbcType = INTEGER},
+                #{toolBladeWarehouse.departmentId, jdbcType = BIGINT},
+                #{toolBladeWarehouse.supplierId, jdbcType = BIGINT},
+                #{toolBladeWarehouse.supplierName, jdbcType = CHAR},
+                #{toolBladeWarehouse.deliever, jdbcType = CHAR},
+                #{toolBladeWarehouse.handleResult, jdbcType = TINYINT},
+                #{toolBladeWarehouse.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_warehouse]]>
+		<set>
+			<if test="toolBladeWarehouse.createUser != null">
+            <![CDATA[create_user = #{toolBladeWarehouse.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeWarehouse.createTime != null">
+            <![CDATA[create_time = #{toolBladeWarehouse.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeWarehouse.updateUser != null">
+            <![CDATA[update_user = #{toolBladeWarehouse.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeWarehouse.updateTime != null">
+            <![CDATA[update_time = #{toolBladeWarehouse.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeWarehouse.delMark != null">
+            <![CDATA[del_mark = #{toolBladeWarehouse.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolBladeWarehouse.toolNumber != null and toolBladeWarehouse.toolNumber != ''">
+            <![CDATA[tool_number = #{toolBladeWarehouse.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolBladeWarehouse.toolQty != null">
+            <![CDATA[tool_qty = #{toolBladeWarehouse.toolQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeWarehouse.warehouse != null and toolBladeWarehouse.warehouse != ''">
+            <![CDATA[warehouse = #{toolBladeWarehouse.warehouse, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolBladeWarehouse.warehouseType != null">
+            <![CDATA[warehouse_type = #{toolBladeWarehouse.warehouseType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeWarehouse.departmentId != null">
+            <![CDATA[department_id = #{toolBladeWarehouse.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeWarehouse.supplierId != null">
+            <![CDATA[supplier_id = #{toolBladeWarehouse.supplierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeWarehouse.supplierName != null">
+            <![CDATA[supplier_name = #{toolBladeWarehouse.supplierName, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeWarehouse.deliever != null and toolBladeWarehouse.deliever != ''">
+            <![CDATA[deliever = #{toolBladeWarehouse.deliever, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolBladeWarehouse.remark != null and toolBladeWarehouse.remark != ''">
+            <![CDATA[remark = #{toolBladeWarehouse.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolBladeWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_number AS tool_number,
+            t.tool_qty AS tool_qty,
+            t.warehouse AS warehouse,
+            t.warehouse_type AS warehouse_type,
+            t.department_id AS department_id,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliever AS deliever,
+            t.remark AS remark
+        FROM
+            t_tool_blade_warehouse t
+        ]]>
+		<where>
+			<if test="toolBladeWarehouse.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolBladeWarehouse.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeWarehouse.createUser != null">
+            <![CDATA[AND t.create_user = #{toolBladeWarehouse.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeWarehouse.createTime != null">
+            <![CDATA[AND t.create_time = #{toolBladeWarehouse.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeWarehouse.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolBladeWarehouse.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeWarehouse.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolBladeWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeWarehouse.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolBladeWarehouse.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeWarehouse.toolNumber != null and toolBladeWarehouse.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolBladeWarehouse.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeWarehouse.toolQty != null">
+            <![CDATA[AND t.tool_qty = #{toolBladeWarehouse.toolQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolBladeWarehouse.warehouse != null and toolBladeWarehouse.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{toolBladeWarehouse.warehouse, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolBladeWarehouse.warehouseType != null">
+            <![CDATA[AND t.warehouse_type = #{toolBladeWarehouse.warehouseType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolBladeWarehouse.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolBladeWarehouse.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeWarehouse.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolBladeWarehouse.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeWarehouse.supplierName != null">
+            <![CDATA[AND t.supplier_name = #{toolBladeWarehouse.supplierName, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeWarehouse.deliever != null and toolBladeWarehouse.deliever != ''">
+            <![CDATA[AND t.deliever = #{toolBladeWarehouse.deliever, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeWarehouse.remark != null and toolBladeWarehouse.remark != ''">
+            <![CDATA[AND t.remark = #{toolBladeWarehouse.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolBladeWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            tb.tool_name AS tool_name,
+            tb.tool_map AS tool_map,
+            t.tool_qty AS tool_qty,
+            t.warehouse AS warehouse,
+            t.is_new AS is_new,
+            t.warehouse_type AS warehouse_type,
+            t.department_id AS department_id,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliever AS deliever,
+            t.remark AS remark
+        FROM
+            t_tool_blade_warehouse t inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0
+        ]]>
+		<where>
+			
+			<if test="toolBladeWarehouse.toolNumber != null and toolBladeWarehouse.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolBladeWarehouse.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			
+			<if test="toolBladeWarehouse.warehouseType != null">
+            <![CDATA[AND t.warehouse_type = #{toolBladeWarehouse.warehouseType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolBladeWarehouse.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolBladeWarehouse.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolBladeWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_number AS tool_number,
+            t.tool_qty AS tool_qty,
+            t.warehouse AS warehouse,
+            t.warehouse_type AS warehouse_type,
+            t.department_id AS department_id,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliever AS deliever,
+            t.remark AS remark
+        FROM
+            t_tool_blade_warehouse t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolBladeWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_warehouse SET del_mark = 1,update_user=#{toolBladeWarehouse.updateUser, jdbcType=BIGINT},update_time=#{toolBladeWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeWarehouse.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_blade_warehouse]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

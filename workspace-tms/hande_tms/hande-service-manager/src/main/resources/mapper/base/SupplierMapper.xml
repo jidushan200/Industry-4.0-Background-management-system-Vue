@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.SupplierMapper">
+	<resultMap id="Supplier" type="org.tsinghuatj.base.domain.Supplier">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="supplierCode" javaType="String" column="supplier_code" jdbcType="CHAR" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="evaluation" javaType="String" column="evaluation" jdbcType="VARCHAR" />
+		<result property="isNewTool" javaType="Integer" column="is_new_tool" jdbcType="TINYINT" />
+		<result property="isRepair" javaType="Integer" column="is_repair" jdbcType="TINYINT" />
+		<result property="isCoat" javaType="Integer" column="is_coat" jdbcType="TINYINT" />
+		<result property="isMeasure" javaType="Integer" column="is_measure" jdbcType="TINYINT" />
+		<result property="isFixture" javaType="Integer" column="is_fixture" jdbcType="TINYINT" />
+		<result property="isMould" javaType="Integer" column="is_mould" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_supplier (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            supplier_code,
+            supplier_name,
+            evaluation,
+            is_new_tool,
+            is_repair,
+            is_coat,
+            is_measure,
+            is_fixture,
+            is_mould
+        )
+        VALUES
+            (
+                #{supplier.pkId, jdbcType = BIGINT},
+                #{supplier.createUser, jdbcType = BIGINT},
+                #{supplier.createTime, jdbcType = TIMESTAMP},
+                #{supplier.updateUser, jdbcType = BIGINT},
+                #{supplier.updateTime, jdbcType = TIMESTAMP},
+                #{supplier.delMark, jdbcType = TINYINT},
+                #{supplier.supplierCode, jdbcType = CHAR},
+                #{supplier.supplierName, jdbcType = CHAR},
+                #{supplier.evaluation, jdbcType = VARCHAR},
+                #{supplier.isNewTool, jdbcType = INTEGER},
+                #{supplier.isRepair, jdbcType = INTEGER},
+                #{supplier.isCoat, jdbcType = INTEGER},
+                #{supplier.isMeasure, jdbcType = INTEGER},
+                #{supplier.isFixture, jdbcType = INTEGER},
+                #{supplier.isMould, jdbcType = INTEGER}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_supplier]]>
+		<set>
+			<if test="supplier.createUser != null">
+            <![CDATA[create_user = #{supplier.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="supplier.createTime != null">
+            <![CDATA[create_time = #{supplier.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="supplier.updateUser != null">
+            <![CDATA[update_user = #{supplier.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="supplier.updateTime != null">
+            <![CDATA[update_time = #{supplier.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="supplier.delMark != null">
+            <![CDATA[del_mark = #{supplier.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="supplier.supplierCode != null and supplier.supplierCode != ''">
+            <![CDATA[supplier_code = #{supplier.supplierCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="supplier.supplierName != null and supplier.supplierName != ''">
+            <![CDATA[supplier_name = #{supplier.supplierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="supplier.evaluation != null and supplier.evaluation != ''">
+            <![CDATA[evaluation = #{supplier.evaluation, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="supplier.isNewTool != null">
+            <![CDATA[is_new_tool = #{supplier.isNewTool, jdbcType=INTEGER},]]>
+			</if>
+			<if test="supplier.isRepair != null">
+            <![CDATA[is_repair = #{supplier.isRepair, jdbcType=INTEGER},]]>
+			</if>
+			<if test="supplier.isCoat != null">
+            <![CDATA[is_coat = #{supplier.isCoat, jdbcType=INTEGER},]]>
+			</if>
+			<if test="supplier.isMeasure != null">
+            <![CDATA[is_measure = #{supplier.isMeasure, jdbcType=INTEGER},]]>
+			</if>
+			<if test="supplier.isFixture != null">
+            <![CDATA[is_fixture = #{supplier.isFixture, jdbcType=INTEGER},]]>
+			</if>
+			<if test="supplier.isMould != null">
+            <![CDATA[is_Mould = #{supplier.isMould, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{supplierId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Supplier">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.supplier_code AS supplier_code,
+            t.supplier_name AS supplier_name,
+            t.evaluation AS evaluation,
+            t.is_new_tool AS is_new_tool,
+            t.is_repair AS is_repair,
+            t.is_coat AS is_coat,
+            t.is_measure AS is_measure,
+            t.is_fixture AS is_fixture,
+            t.is_mould AS is_mould
+        FROM
+            t_supplier t
+        ]]>
+		<where>
+			<if test="supplier.pkId != null">
+            <![CDATA[AND t.pk_id = #{supplier.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="supplier.createUser != null">
+            <![CDATA[AND t.create_user = #{supplier.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="supplier.createTime != null">
+            <![CDATA[AND t.create_time = #{supplier.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="supplier.updateUser != null">
+            <![CDATA[AND t.update_user = #{supplier.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="supplier.updateTime != null">
+            <![CDATA[AND t.update_time = #{supplier.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="supplier.delMark != null">
+            <![CDATA[AND t.del_mark = #{supplier.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="supplier.supplierCode != null and supplier.supplierCode != ''">
+            <![CDATA[AND t.supplier_code = #{supplier.supplierCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="supplier.supplierName != null and supplier.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{supplier.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="supplier.evaluation != null and supplier.evaluation != ''">
+            <![CDATA[AND t.evaluation = #{supplier.evaluation, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="supplier.isNewTool != null">
+            <![CDATA[AND t.is_new_tool = #{supplier.isNewTool, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isRepair != null">
+            <![CDATA[AND t.is_repair = #{supplier.isRepair, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isCoat != null">
+            <![CDATA[AND t.is_coat = #{supplier.isCoat, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isMeasure != null">
+            <![CDATA[AND t.is_measure = #{supplier.isMeasure, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isFixture != null">
+            <![CDATA[AND t.is_fixture = #{supplier.isFixture, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isMould != null">
+            <![CDATA[AND t.is_mould = #{supplier.isMould, jdbcType=INTEGER}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Supplier">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.supplier_code AS supplier_code,
+            t.supplier_name AS supplier_name,
+            t.evaluation AS evaluation,
+            t.is_new_tool AS is_new_tool,
+            t.is_repair AS is_repair,
+            t.is_coat AS is_coat,
+            t.is_measure AS is_measure,
+            t.is_fixture AS is_fixture,
+            t.is_mould AS is_mould
+        FROM
+            t_supplier t
+        ]]>
+		<where>			
+			<if test="supplier.supplierCode != null and supplier.supplierCode != ''">
+            <![CDATA[AND t.supplier_code = #{supplier.supplierCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="supplier.supplierName != null and supplier.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{supplier.supplierName, jdbcType=CHAR}]]>
+			</if>			
+			<if test="supplier.isNewTool != null">
+            <![CDATA[AND t.is_new_tool = #{supplier.isNewTool, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isRepair != null">
+            <![CDATA[AND t.is_repair = #{supplier.isRepair, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isCoat != null">
+            <![CDATA[AND t.is_coat = #{supplier.isCoat, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isMeasure != null">
+            <![CDATA[AND t.is_measure = #{supplier.isMeasure, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isFixture != null">
+            <![CDATA[AND t.is_fixture = #{supplier.isFixture, jdbcType=INTEGER}]]>
+			</if>
+			<if test="supplier.isMould != null">
+            <![CDATA[AND t.is_mould = #{supplier.isMould, jdbcType=INTEGER}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Supplier">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.supplier_code AS supplier_code,
+            t.supplier_name AS supplier_name,
+            t.evaluation AS evaluation,
+            t.is_new_tool AS is_new_tool,
+            t.is_repair AS is_repair,
+            t.is_coat AS is_coat,
+            t.is_measure AS is_measure,
+            t.is_fixture AS is_fixture,
+            t.is_mould AS is_mould
+        FROM
+            t_supplier t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{supplierId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectBySupplierCode" parameterType="Map" resultMap="Supplier">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.supplier_code AS supplier_code,
+            t.supplier_name AS supplier_name,
+            t.evaluation AS evaluation,
+            t.is_new_tool AS is_new_tool,
+            t.is_repair AS is_repair,
+            t.is_coat AS is_coat,
+            t.is_fixture AS is_fixture,
+            t.is_mould AS is_mould
+        FROM
+            t_supplier t
+        ]]>
+		<where>
+        	<![CDATA[AND t.supplier_code = #{supplierCode, jdbcType=CHAR}]]>
+			<if test="pkId != null">
+            <![CDATA[AND t.pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+    <select id="selectCodeList" parameterType="Map" resultMap="Supplier">
+	<![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.supplier_code AS supplier_code,
+            t.supplier_name AS supplier_name,
+            t.evaluation AS evaluation,
+            t.is_new_tool AS is_new_tool,
+            t.is_repair AS is_repair,
+            t.is_coat AS is_coat,
+            t.is_fixture AS is_fixture,
+            t.is_mould AS is_mould
+        FROM
+            t_supplier t
+        ]]>
+        <where>
+		<![CDATA[AND t.supplier_code in ]]>
+			<foreach item="item" index="index" collection="codeList" open="(" separator="," close=")">
+				#{item}
+			</foreach>  
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_supplier SET del_mark = 1,update_user=#{supplier.updateUser, jdbcType=BIGINT},update_time=#{supplier.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{supplier.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_supplier]]>
+		<where>
+        <![CDATA[AND pk_id = #{supplierId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

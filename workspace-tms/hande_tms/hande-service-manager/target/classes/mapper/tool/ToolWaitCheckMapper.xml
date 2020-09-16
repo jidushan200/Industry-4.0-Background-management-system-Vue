@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolWaitCheckMapper">
+	<resultMap id="ToolWaitCheck" type="org.tsinghuatj.tool.domain.ToolWaitCheck">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="VARCHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolSeq" javaType="String" column="tool_seq" jdbcType="CHAR" />
+		<result property="typeId" javaType="Integer" column="type_id" jdbcType="INTEGER" />
+		<result property="typeName" javaType="String" column="type_name" jdbcType="CHAR" />
+		<result property="toolQty" javaType="Integer" column="tool_qty" jdbcType="INTEGER" />
+		<result property="receiptId" javaType="Long" column="receipt_id" jdbcType="BIGINT" />
+		<result property="isNew" javaType="Integer" column="is_new" jdbcType="TINYINT" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="teamId" javaType="Long" column="team_id" jdbcType="BIGINT" />
+		<result property="teamName" javaType="String" column="team_name" jdbcType="CHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="setCheckTime" javaType="Date" column="set_check_time" jdbcType="TIMESTAMP" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="checkType" javaType="Integer" column="check_type" jdbcType="TINYINT" />
+		<result property="checkStatus" javaType="Integer" column="check_status" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_wait_check (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            full_number,
+            tool_number,           
+            tool_seq,
+            type_id,
+            tool_qty,
+            is_new,
+            receipt_id,
+            department_id,
+            department_name,
+            team_id,
+            team_name,
+            supplier_id,
+            supplier_name,
+            set_check_time,
+            check_type,
+            check_status
+        )
+        VALUES
+            (
+                #{toolWaitCheck.pkId, jdbcType = BIGINT},
+                #{toolWaitCheck.createUser, jdbcType = BIGINT},
+                #{toolWaitCheck.createTime, jdbcType = TIMESTAMP},
+                #{toolWaitCheck.updateUser, jdbcType = BIGINT},
+                #{toolWaitCheck.updateTime, jdbcType = TIMESTAMP},
+                #{toolWaitCheck.delMark, jdbcType = TINYINT},
+                #{toolWaitCheck.fullNumber, jdbcType = CHAR},               
+                #{toolWaitCheck.toolNumber, jdbcType = CHAR},
+                #{toolWaitCheck.toolSeq, jdbcType = CHAR},
+                #{toolWaitCheck.typeId, jdbcType = INTEGER},
+                #{toolWaitCheck.toolQty, jdbcType = INTEGER},
+                #{toolWaitCheck.isNew, jdbcType = TINYINT},
+                #{toolWaitCheck.receiptId, jdbcType = BIGINT},
+                #{toolWaitCheck.departmentId, jdbcType = BIGINT},
+                #{toolWaitCheck.departmentName, jdbcType = CHAR},
+                #{toolWaitCheck.teamId, jdbcType = BIGINT},
+                #{toolWaitCheck.teamName, jdbcType = CHAR},
+                #{toolWaitCheck.supplierId, jdbcType = BIGINT},
+                #{toolWaitCheck.supplierName, jdbcType = CHAR},
+                #{toolWaitCheck.setCheckTime, jdbcType = TIMESTAMP},
+                #{toolWaitCheck.checkType, jdbcType = TINYINT},
+                #{toolWaitCheck.checkStatus, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_wait_check]]>
+		<set>
+			<if test="toolWaitCheck.createUser != null">
+            <![CDATA[create_user = #{toolWaitCheck.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolWaitCheck.createTime != null">
+            <![CDATA[create_time = #{toolWaitCheck.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolWaitCheck.updateUser != null">
+            <![CDATA[update_user = #{toolWaitCheck.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolWaitCheck.updateTime != null">
+            <![CDATA[update_time = #{toolWaitCheck.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolWaitCheck.delMark != null">
+            <![CDATA[del_mark = #{toolWaitCheck.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolWaitCheck.fullNumber != null and toolWaitCheck.fullNumber != ''">
+            <![CDATA[full_number = #{toolWaitCheck.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolWaitCheck.toolNumber != null and toolWaitCheck.toolNumber != ''">
+            <![CDATA[tool_number = #{toolWaitCheck.toolNumber, jdbcType=CHAR},]]>
+			</if>			
+			<if test="toolWaitCheck.toolSeq != null and toolWaitCheck.toolSeq != ''">
+            <![CDATA[tool_seq = #{toolWaitCheck.toolSeq, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolWaitCheck.typeId != null">
+            <![CDATA[type_id = #{toolWaitCheck.typeId, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolWaitCheck.toolQty != null">
+            <![CDATA[tool_qty = #{toolWaitCheck.toolQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolWaitCheck.departmentId != null">
+            <![CDATA[department_id = #{toolWaitCheck.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolWaitCheck.departmentName != null and toolWaitCheck.departmentName != ''">
+            <![CDATA[department_name = #{toolWaitCheck.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolWaitCheck.teamId != null">
+            <![CDATA[team_id = #{toolWaitCheck.teamId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolWaitCheck.teamName != null and toolWaitCheck.teamName != ''">
+            <![CDATA[team_name = #{toolWaitCheck.teamName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolWaitCheck.supplierId != null">
+            <![CDATA[supplier_id = #{toolWaitCheck.supplierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolWaitCheck.supplierName != null and toolWaitCheck.supplierName != ''">
+            <![CDATA[supplier_name = #{toolWaitCheck.supplierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolWaitCheck.setCheckTime != null">
+            <![CDATA[set_check_time = #{toolWaitCheck.setCheckTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolWaitCheck.checkType != null">
+            <![CDATA[check_type = #{toolWaitCheck.checkType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolWaitCheck.checkStatus != null">
+            <![CDATA[check_status = #{toolWaitCheck.checkStatus, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolWaitCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+	
+	<update id="updateActiveByFullNumber" parameterType="Map">
+	  <![CDATA[UPDATE t_tool_wait_check ]]>
+	<set>
+		<if test="toolWaitCheck.checkStatus != null">
+            <![CDATA[check_status = #{toolWaitCheck.checkStatus, jdbcType=TINYINT}]]>
+		</if>
+	</set>
+	<where>
+        <![CDATA[AND full_number = #{toolWaitCheck.fullNumber, jdbcType=CHAR} AND check_type = #{toolWaitCheck.checkType, jdbcType=TINYINT}  ]]>
+	</where>
+        <![CDATA[order by pk_id desc LIMIT 1]]>		
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,            
+            t.tool_seq AS tool_seq,
+            t.type_id AS type_id,
+            t.tool_qty AS tool_qty,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status
+        FROM
+            t_tool_wait_check t
+        ]]>
+		<where>
+			<if test="toolWaitCheck.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolWaitCheck.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolWaitCheck.createUser != null">
+            <![CDATA[AND t.create_user = #{toolWaitCheck.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolWaitCheck.createTime != null">
+            <![CDATA[AND t.create_time = #{toolWaitCheck.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolWaitCheck.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolWaitCheck.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolWaitCheck.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolWaitCheck.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolWaitCheck.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolWaitCheck.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolWaitCheck.fullNumber != null and toolWaitCheck.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolWaitCheck.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolWaitCheck.toolNumber != null and toolWaitCheck.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolWaitCheck.toolNumber, jdbcType=CHAR}]]>
+			</if>			
+			<if test="toolWaitCheck.toolSeq != null and toolWaitCheck.toolSeq != ''">
+            <![CDATA[AND t.tool_seq = #{toolWaitCheck.toolSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolWaitCheck.typeId != null">
+            <![CDATA[AND t.type_id = #{toolWaitCheck.typeId, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolWaitCheck.toolQty != null">
+            <![CDATA[AND t.tool_qty = #{toolWaitCheck.toolQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolWaitCheck.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolWaitCheck.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolWaitCheck.departmentName != null and toolWaitCheck.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolWaitCheck.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolWaitCheck.teamId != null">
+            <![CDATA[AND t.team_id = #{toolWaitCheck.teamId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolWaitCheck.teamName != null and toolWaitCheck.teamName != ''">
+            <![CDATA[AND t.team_name = #{toolWaitCheck.teamName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolWaitCheck.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolWaitCheck.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolWaitCheck.supplierName != null and toolWaitCheck.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{toolWaitCheck.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolWaitCheck.setCheckTime != null">
+            <![CDATA[AND t.set_check_time = #{toolWaitCheck.setCheckTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolWaitCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{toolWaitCheck.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolWaitCheck.checkStatus != null">
+            <![CDATA[AND t.check_status = #{toolWaitCheck.checkStatus, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_seq AS tool_seq,
+            t.type_id AS type_id,
+            t.tool_qty AS tool_qty,
+            t.is_new AS is_new,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status,
+            tt.type_name AS type_name
+        FROM
+            t_tool_wait_check t 
+            inner join t_tool_type tt on t.type_id = tt.pk_id
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0          
+        ]]>
+		<where>			
+			<if test="toolWaitCheck.fullNumber != null and toolWaitCheck.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolWaitCheck.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolWaitCheck.toolNumber != null and toolWaitCheck.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolWaitCheck.toolNumber, jdbcType=CHAR}]]>
+			</if>			
+			<if test="toolWaitCheck.typeId != null">
+            <![CDATA[AND t.type_id = #{toolWaitCheck.typeId, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolWaitCheck.toolQty != null">
+            <![CDATA[AND t.tool_qty = #{toolWaitCheck.toolQty, jdbcType=INTEGER}]]>
+			</if>			
+			<if test="toolWaitCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{toolWaitCheck.checkType, jdbcType=TINYINT}]]>
+			</if>		
+            <![CDATA[AND t.check_status = 0]]>
+			 <![CDATA[AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+	
+	<select id="selectComposePageList" parameterType="Map" resultMap="ToolWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.full_number AS full_number,  
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status
+        FROM
+            t_tool_wait_check t            
+        ]]>
+		<where>			
+			<if test="toolWaitCheck.fullNumber != null and toolWaitCheck.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolWaitCheck.fullNumber, jdbcType=CHAR}]]>
+			</if>				
+			<if test="toolWaitCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{toolWaitCheck.checkType, jdbcType=TINYINT}]]>
+			</if>		
+            <![CDATA[AND t.check_status = 0]]>
+			<![CDATA[AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+	
+	
+	
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number, 
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,          
+            t.tool_seq AS tool_seq,
+            t.is_new AS is_new,
+            t.receipt_id AS receipt_id,
+            t.type_id AS type_id,
+            t.tool_qty AS tool_qty,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status
+        FROM
+            t_tool_wait_check t
+            left join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolWaitCheckId, jdbcType=BIGINT} ]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByFullNumber" parameterType="Map" resultMap="ToolWaitCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.tool_seq AS tool_seq,
+            t.type_id AS type_id,
+            t.tool_qty AS tool_qty,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.team_id AS team_id,
+            t.team_name AS team_name,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.set_check_time AS set_check_time,
+            t.check_type AS check_type,
+            t.check_status AS check_status
+        FROM
+            t_tool_wait_check t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.full_number = #{fullNumber, jdbcType=CHAR} AND t.check_type = #{checkType, jdbcType=INTEGER} AND check_status <>2 ]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByUnusualReportId" parameterType="Map" resultMap="ToolWaitCheck">
+        <![CDATA[
+        SELECT
+            wc.pk_id AS pk_id,
+            wc.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            wc.tool_seq AS tool_seq,
+          	wc.type_id AS type_id,
+            wc.tool_qty AS tool_qty,
+            wc.department_id AS department_id,
+            wc.department_name AS department_name,
+            wc.team_id AS team_id,
+            wc.team_name AS team_name,
+            wc.supplier_id AS supplier_id,
+            wc.supplier_name AS supplier_name,
+            wc.set_check_time AS set_check_time,
+            wc.check_type AS check_type,
+            wc.check_status AS check_status,
+            wc.receipt_id as receipt_id
+        FROM
+			t_tool_unqualified_report r
+		INNER JOIN t_tool_check c ON r.check_id = c.pk_id AND c.check_type = 1
+		INNER JOIN t_tool_wait_check wc ON c.wait_check_id = wc.pk_id AND wc.check_type = 1
+		INNER JOIN t_tool_base b ON wc.tool_number = b.tool_number AND b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND r.pk_id = #{reportId, jdbcType=BIGINT} ]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_wait_check SET del_mark = 1,update_user=#{toolWaitCheck.updateUser, jdbcType=BIGINT},update_time=#{toolWaitCheck.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolWaitCheck.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_wait_check]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolWaitCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

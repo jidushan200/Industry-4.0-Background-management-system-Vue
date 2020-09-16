@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.PartNameMapper">
+	<resultMap id="PartName" type="org.tsinghuatj.base.domain.PartName">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="partTypeName" javaType="String" column="part_type_name" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_part_name (
+            pk_id,
+            part_type_name
+        )
+        VALUES
+            (
+                #{partName.pkId, jdbcType = BIGINT},
+                #{partName.partTypeName, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_part_name]]>
+		<set>
+			<if test="partName.partTypeName != null and partName.partTypeName != ''">
+            <![CDATA[part_type_name = #{partName.partTypeName, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{partNameId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="PartName">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.part_type_name AS part_type_name
+        FROM
+            t_part_name t
+        ]]>
+		<where>
+			<if test="partName.pkId != null">
+            <![CDATA[AND t.pk_id = #{partName.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="partName.partTypeName != null and partName.partTypeName != ''">
+            <![CDATA[AND t.part_type_name = #{partName.partTypeName, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="PartName">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.part_type_name AS part_type_name
+        FROM
+            t_part_name t
+        ]]>
+		<where>
+			<if test="partName.pkId != null">
+            <![CDATA[AND t.pk_id = #{partName.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="partName.partTypeName != null and partName.partTypeName != ''">
+            <![CDATA[AND t.part_type_name = #{partName.partTypeName, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="PartName">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.part_type_name AS part_type_name
+        FROM
+            t_part_name t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{partNameId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="selectByNameList" parameterType="Map" resultMap="PartName">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.part_type_name AS part_type_name
+        FROM
+            t_part_name t
+        ]]>
+		<where>
+         <![CDATA[AND t.part_type_name in ]]>
+			<foreach item="item" index="index" collection="nameList" open="(" separator="," close=")">
+				#{item}
+			</foreach>  
+		</where>		
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_part_name SET del_mark = 1,update_user=#{partName.updateUser, jdbcType=BIGINT},update_time=#{partName.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{partName.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_part_name]]>
+		<where>
+        <![CDATA[AND pk_id = #{partNameId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

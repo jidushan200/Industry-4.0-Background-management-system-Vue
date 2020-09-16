@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolProcessMapper">
+	<resultMap id="ToolProcess" type="org.tsinghuatj.tool.domain.ToolProcess">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="typeId" javaType="Integer" column="type_id" jdbcType="INTEGER" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="equipmentCode" javaType="String" column="equipment_code" jdbcType="CHAR" />
+		<result property="tagNumber" javaType="String" column="tag_number" jdbcType="CHAR" />
+		<result property="equipmentName" javaType="String" column="equipment_name" jdbcType="CHAR" />
+		<result property="partCode" javaType="String" column="part_code" jdbcType="CHAR" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+		<result property="beginTime" javaType="Date" column="begin_time" jdbcType="TIMESTAMP" />
+		<result property="endTime" javaType="Date" column="end_time" jdbcType="TIMESTAMP" />
+		<result property="theoreticalQty" javaType="Integer" column="theoretical_qty" jdbcType="INTEGER" />
+		<result property="processSeq" javaType="Integer" column="process_seq" jdbcType="INTEGER" />
+		<result property="processQty" javaType="Integer" column="process_qty" jdbcType="INTEGER" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="teamId" javaType="Long" column="team_id" jdbcType="BIGINT" />
+		<result property="teamName" javaType="String" column="team_name" jdbcType="CHAR" />
+		<result property="staffCode" javaType="String" column="staff_code" jdbcType="CHAR" />
+		<result property="staffName" javaType="String" column="staff_name" jdbcType="CHAR" />		
+		<result property="upToStandard" javaType="Integer" column="up_to_standard" jdbcType="TINYINT" />
+		<result property="returnResion" javaType="Integer" column="return_resion" jdbcType="INTEGER" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="coatTime" javaType="Date" column="coat_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_process (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_id,
+            tool_number,           
+            full_number,           
+            type_id,
+            equipment_code,
+            equipment_name,
+            part_code,
+            part_name,
+            begin_time,
+            end_time,
+            theoretical_qty,
+            process_seq,
+            process_qty,
+            department_id,
+            department_name,
+            team_id,
+            team_name,
+            staff_code,
+            staff_name,           
+            up_to_standard,
+            return_resion,
+            remark
+        )
+        VALUES
+            (
+                #{toolProcess.pkId, jdbcType = BIGINT},
+                #{toolProcess.createUser, jdbcType = BIGINT},
+                #{toolProcess.createTime, jdbcType = TIMESTAMP},
+                #{toolProcess.updateUser, jdbcType = BIGINT},
+                #{toolProcess.updateTime, jdbcType = TIMESTAMP},
+                #{toolProcess.delMark, jdbcType = TINYINT},
+                #{toolProcess.toolId, jdbcType = BIGINT},
+                #{toolProcess.toolNumber, jdbcType = CHAR},              
+                #{toolProcess.fullNumber, jdbcType = CHAR},                
+                #{toolProcess.typeId, jdbcType = INTEGER},
+                #{toolProcess.equipmentCode, jdbcType = CHAR},
+                #{toolProcess.equipmentName, jdbcType = CHAR},
+                #{toolProcess.partCode, jdbcType = CHAR},
+                #{toolProcess.partName, jdbcType = CHAR},
+                #{toolProcess.beginTime, jdbcType = TIMESTAMP},
+                #{toolProcess.endTime, jdbcType = TIMESTAMP},
+                #{toolProcess.theoreticalQty, jdbcType = INTEGER},
+                #{toolProcess.processSeq, jdbcType = INTEGER},
+                #{toolProcess.processQty, jdbcType = INTEGER},
+                #{toolProcess.departmentId, jdbcType = BIGINT},
+                #{toolProcess.departmentName, jdbcType = CHAR},
+                #{toolProcess.teamId, jdbcType = BIGINT},
+                #{toolProcess.teamName, jdbcType = CHAR},
+                #{toolProcess.staffCode, jdbcType = CHAR},
+                #{toolProcess.staffName, jdbcType = CHAR},               
+                #{toolProcess.upToStandard, jdbcType = TINYINT},
+                #{toolProcess.returnResion, jdbcType = INTEGER},
+                #{toolProcess.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_process]]>
+		<set>
+			<if test="toolProcess.createUser != null">
+            <![CDATA[create_user = #{toolProcess.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolProcess.createTime != null">
+            <![CDATA[create_time = #{toolProcess.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolProcess.updateUser != null">
+            <![CDATA[update_user = #{toolProcess.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolProcess.updateTime != null">
+            <![CDATA[update_time = #{toolProcess.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolProcess.delMark != null">
+            <![CDATA[del_mark = #{toolProcess.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolProcess.toolId != null">
+            <![CDATA[tool_id = #{toolProcess.toolId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolProcess.toolNumber != null and toolProcess.toolNumber != ''">
+            <![CDATA[tool_number = #{toolProcess.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolProcess.fullNumber != null and toolProcess.fullNumber != ''">
+            <![CDATA[full_number = #{toolProcess.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolProcess.equipmentCode != null and toolProcess.equipmentCode != ''">
+            <![CDATA[equipment_code = #{toolProcess.equipmentCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolProcess.equipmentName != null and toolProcess.equipmentName != ''">
+            <![CDATA[equipment_name = #{toolProcess.equipmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolProcess.partCode != null and toolProcess.partCode != ''">
+            <![CDATA[part_code = #{toolProcess.partCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolProcess.partName != null and toolProcess.partName != ''">
+            <![CDATA[part_name = #{toolProcess.partName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolProcess.beginTime != null">
+            <![CDATA[begin_time = #{toolProcess.beginTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolProcess.endTime != null">
+            <![CDATA[end_time = #{toolProcess.endTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolProcess.theoreticalQty != null">
+            <![CDATA[theoretical_qty = #{toolProcess.theoreticalQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolProcess.processSeq != null">
+            <![CDATA[process_seq = #{toolProcess.processSeq, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolProcess.processQty != null">
+            <![CDATA[process_qty = #{toolProcess.processQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolProcess.departmentId != null">
+            <![CDATA[department_id = #{toolProcess.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolProcess.departmentName != null and toolProcess.departmentName != ''">
+            <![CDATA[department_name = #{toolProcess.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolProcess.staffCode != null and toolProcess.staffCode != ''">
+            <![CDATA[staff_code = #{toolProcess.staffCode, jdbcType=CHAR},]]>
+			</if>			
+			<if test="toolProcess.upToStandard != null">
+            <![CDATA[up_to_standard = #{toolProcess.upToStandard, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolProcess.returnResion != null">
+            <![CDATA[return_resion = #{toolProcess.returnResion, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolProcess.remark != null and toolProcess.remark != ''">
+            <![CDATA[remark = #{toolProcess.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.tool_number AS tool_number,
+            t.type_id as type_id,
+            b.tool_name AS tool_name,
+            t.full_number AS full_number,
+            b.tool_map AS tool_map,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.part_code AS part_code,
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.theoretical_qty AS theoretical_qty,
+            t.process_seq AS process_seq,
+            t.process_qty AS process_qty,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.staff_code AS staff_code,           
+            t.up_to_standard AS up_to_standard,
+            t.return_resion AS return_resion,
+            t.remark AS remark
+        FROM
+            t_tool_process t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolProcess.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolProcess.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolProcess.createUser != null">
+            <![CDATA[AND t.create_user = #{toolProcess.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolProcess.createTime != null">
+            <![CDATA[AND t.create_time = #{toolProcess.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolProcess.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolProcess.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolProcess.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolProcess.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolProcess.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolProcess.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolProcess.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolProcess.toolId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolProcess.toolNumber != null and toolProcess.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolProcess.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.fullNumber != null and toolProcess.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolProcess.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.equipmentCode != null and toolProcess.equipmentCode != ''">
+            <![CDATA[AND t.equipment_code = #{toolProcess.equipmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.equipmentName != null and toolProcess.equipmentName != ''">
+            <![CDATA[AND t.equipment_name = #{toolProcess.equipmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.partCode != null and toolProcess.partCode != ''">
+            <![CDATA[AND t.part_code = #{toolProcess.partCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.partName != null and toolProcess.partName != ''">
+            <![CDATA[AND t.part_name = #{toolProcess.partName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.beginTime != null">
+            <![CDATA[AND t.begin_time = #{toolProcess.beginTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolProcess.endTime != null">
+            <![CDATA[AND t.end_time = #{toolProcess.endTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolProcess.theoreticalQty != null">
+            <![CDATA[AND t.theoretical_qty = #{toolProcess.theoreticalQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolProcess.processSeq != null">
+            <![CDATA[AND t.process_seq = #{toolProcess.processSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolProcess.processQty != null">
+            <![CDATA[AND t.process_qty = #{toolProcess.processQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolProcess.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolProcess.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolProcess.departmentName != null and toolProcess.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolProcess.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.staffCode != null and toolProcess.staffCode != ''">
+            <![CDATA[AND t.staff_code = #{toolProcess.staffCode, jdbcType=CHAR}]]>
+			</if>			
+			<if test="toolProcess.upToStandard != null">
+            <![CDATA[AND t.up_to_standard = #{toolProcess.upToStandard, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolProcess.returnResion != null">
+            <![CDATA[AND t.return_resion = #{toolProcess.returnResion, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolProcess.remark != null and toolProcess.remark != ''">
+            <![CDATA[AND t.remark = #{toolProcess.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.full_number AS full_number,
+            b.tool_map AS tool_map,
+            t.type_id AS type_id,          
+            e.tag_number as tag_number,
+            t.equipment_name AS equipment_name,  
+            t.part_code AS part_code,        
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.theoretical_qty AS theoretical_qty,           
+            t.process_qty AS process_qty,
+            t.department_name AS department_name,
+            t.team_name AS team_name,
+            t.staff_name AS staff_name,
+            t.up_to_standard AS up_to_standard,
+            t.return_resion AS return_resion,
+            t.remark AS remark
+        FROM
+            t_tool_process t
+            left join t_equipment e on t.equipment_code = e.equipment_code
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolProcess.toolNumber != null and toolProcess.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolProcess.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.fullNumber != null and toolProcess.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolProcess.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.partCode != null and toolProcess.partCode != ''">
+            <![CDATA[AND t.part_code = #{toolProcess.partCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolProcess.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.end_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.end_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+
+	<!-- 分页查询 -->
+	<select id="selectCoatProcessPageList" parameterType="Map" resultMap="ToolProcess">
+        <![CDATA[
+        SELECT
+			p.full_number,
+			b.tool_name,
+			b.tool_map,
+			c.supplier_id,
+			c.coat_supplier as supplier_name,
+			c.create_time as coat_time,
+			p.part_name,
+			p.theoretical_qty,
+			p.process_qty,
+			p.up_to_standard,
+			p.return_resion,
+			p.remark,
+			p.create_time as create_time
+		FROM
+			t_tool_coat c 
+			INNER JOIN t_tool_process p ON c.process_id = p.pk_id and p.del_mark = 0
+			inner join t_tool_base b on p.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolProcess.toolNumber != null and toolProcess.toolNumber != ''">
+            <![CDATA[AND p.tool_number = #{toolProcess.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.fullNumber != null and toolProcess.fullNumber != ''">
+            <![CDATA[AND p.full_number = #{toolProcess.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolProcess.supplierId != null">
+            <![CDATA[AND c.supplier_id = #{toolProcess.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolProcess.beginTime != null">
+            <![CDATA[AND c.create_time >= #{toolProcess.beginTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolProcess.endTime != null">
+            <![CDATA[AND c.create_time <= #{toolProcess.endTime, jdbcType=TIMESTAMP}]]>
+			</if>		
+			 <![CDATA[ AND c.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY c.pk_id desc ]]>
+	</select>
+
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.full_number AS full_number,
+            b.tool_map AS tool_map,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.part_code AS part_code,
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.theoretical_qty AS theoretical_qty,
+            t.process_seq AS process_seq,
+            t.process_qty AS process_qty,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.staff_code AS staff_code,
+            t.up_to_standard AS up_to_standard,
+            t.return_resion AS return_resion,
+            t.remark AS remark
+        FROM
+            t_tool_process t
+             inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="selectLatestProcess" parameterType="Map" resultMap="ToolProcess">
+        <![CDATA[
+        SELECT t.pk_id AS pk_id,
+            t.full_number AS full_number,           
+            t.process_qty AS process_qty           
+         FROM
+            t_tool_process t           
+        ]]>
+		<where>
+        	<![CDATA[AND t.full_number = #{toolProcess.fullNumber, jdbcType=CHAR}]]>			
+            <![CDATA[AND t.create_time > #{toolProcess.createTime, jdbcType=TIMESTAMP}]]>
+			<![CDATA[order by t.create_time limit 1]]>
+		</where>
+	</select>
+
+
+
+	<!-- 根据主键查询 -->
+	<select id="selectByToolId" parameterType="Map" resultMap="ToolProcess">
+        <![CDATA[
+        SELECT t.pk_id AS pk_id,
+            t.tool_id AS tool_id,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.full_number AS full_number,
+            b.tool_map AS tool_map,
+            t.equipment_name AS equipment_name,          
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_qty AS process_qty,
+            t.theoretical_qty AS theoretical_qty,
+            t.return_resion AS return_resion,
+            t.remark AS remark,
+            t.department_name AS department_name
+         FROM
+            t_tool_process t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+			<if test="queryDto.beginDate != null">
+           <![CDATA[AND t.create_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+           <![CDATA[AND t.create_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<select id="selectSeqByToolId" parameterType="Map" resultMap="ToolProcess">
+        <![CDATA[
+        SELECT
+        	t.pk_id AS pk_id,
+            t.tool_id AS tool_id,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.full_number AS full_number,
+            b.tool_map AS tool_map,
+            t.equipment_name AS equipment_name,          
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_qty AS process_qty,
+            t.theoretical_qty AS theoretical_qty,
+            t.return_resion AS return_resion,
+            t.remark AS remark,
+            t.department_name AS department_name
+         FROM
+            t_tool_process t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.process_seq DESC]]>
+		<![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="selectBytoolIdList" parameterType="Map" resultMap="ToolProcess">
+	 <![CDATA[
+        SELECT
+        	t.pk_id AS pk_id,
+            t.tool_id AS tool_id,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.full_number AS full_number,
+            b.tool_map AS tool_map,
+            t.equipment_name AS equipment_name,
+            t.part_code AS part_code,          
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_qty AS process_qty,
+            t.theoretical_qty AS theoretical_qty,
+            t.return_resion AS return_resion,
+            t.remark AS remark,
+            t.department_name AS department_name
+        FROM
+            t_tool_process t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			AND tool_id in
+			<foreach collection="toolIdList" open="(" separator="," close=")" item="id">
+				#{id,jdbcType=BIGINT}
+			</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.process_seq DESC]]>
+	</select>
+
+	<select id="sumProcessQtyByToolId" parameterType="Map" resultType="Integer">
+	<![CDATA[ 
+		SELECT sum(process_qty) FROM t_tool_process WHERE tool_id =  #{toolId, jdbcType=BIGINT}
+	]]>
+	</select>
+
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_process SET del_mark = 1,update_user=#{toolProcess.updateUser, jdbcType=BIGINT},update_time=#{toolProcess.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolProcess.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_process]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

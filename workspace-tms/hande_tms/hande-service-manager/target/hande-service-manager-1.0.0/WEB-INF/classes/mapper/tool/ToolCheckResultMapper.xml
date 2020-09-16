@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolCheckResultMapper">
+	<resultMap id="ToolCheckResult" type="org.tsinghuatj.tool.domain.ToolCheckResult">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="itemId" javaType="Long" column="item_id" jdbcType="BIGINT" />
+		<result property="checkItem" javaType="String" column="check_item" jdbcType="CHAR" />
+		<result property="itemStandard" javaType="String" column="item_standard" jdbcType="CHAR" />		
+		<result property="upDeviation" javaType="BigDecimal" column="up_deviation" jdbcType="DECIMAL" />
+		<result property="downDeviation" javaType="BigDecimal" column="down_deviation" jdbcType="DECIMAL" />
+		<result property="minimum" javaType="BigDecimal" column="minimum" jdbcType="DECIMAL" />
+		<result property="maximum" javaType="BigDecimal" column="maximum" jdbcType="DECIMAL" />
+		<result property="unit" javaType="String" column="unit" jdbcType="CHAR" />
+		<result property="measuredValue" javaType="String" column="measured_value" jdbcType="CHAR" />
+		<result property="checkResult" javaType="Integer" column="check_result" jdbcType="TINYINT" />
+	</resultMap>
+
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_check_result (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            check_id,
+            item_id,           
+            measured_value,
+            check_result
+        )
+        VALUES
+            (
+                #{toolCheckResult.pkId, jdbcType = BIGINT},
+                #{toolCheckResult.createUser, jdbcType = BIGINT},
+                #{toolCheckResult.createTime, jdbcType = TIMESTAMP},
+                #{toolCheckResult.updateUser, jdbcType = BIGINT},
+                #{toolCheckResult.updateTime, jdbcType = TIMESTAMP},
+                #{toolCheckResult.delMark, jdbcType = TINYINT},
+                #{toolCheckResult.checkId, jdbcType = BIGINT},
+                #{toolCheckResult.itemId, jdbcType = BIGINT},              
+                #{toolCheckResult.measuredValue, jdbcType = CHAR},
+                #{toolCheckResult.checkResult, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_check_result]]>
+		<set>			
+			<if test="toolCheckResult.updateUser != null">
+            <![CDATA[update_user = #{toolCheckResult.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolCheckResult.updateTime != null">
+            <![CDATA[update_time = #{toolCheckResult.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolCheckResult.delMark != null">
+            <![CDATA[del_mark = #{toolCheckResult.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolCheckResult.checkId != null">
+            <![CDATA[check_id = #{toolCheckResult.checkId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolCheckResult.itemId != null">
+            <![CDATA[item_id = #{toolCheckResult.itemId, jdbcType=BIGINT},]]>
+			</if>			
+			<if test="toolCheckResult.measuredValue != null and toolCheckResult.measuredValue != ''">
+            <![CDATA[measured_value = #{toolCheckResult.measuredValue, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolCheckResult.checkResult != null">
+            <![CDATA[check_result = #{toolCheckResult.checkResult, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolCheckResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="selectByCheckId" parameterType="Map" resultMap="ToolCheckResult">
+        <![CDATA[
+       SELECT
+			t.pk_id AS pk_id,
+			t.check_id AS check_id,
+			t.item_id AS item_id,
+			c.check_item as check_item,
+			c.item_standard AS item_standard,
+            c.up_deviation AS up_deviation,
+            c.down_deviation AS down_deviation,
+            c.minimum AS minimum,
+            c.maximum AS maximum,
+            c.unit AS unit,
+			t.measured_value AS measured_value,
+			t.check_result AS check_result
+		FROM
+			t_tool_check_result t
+		INNER JOIN t_check_standard_item c ON t.item_id = c.pk_id
+        ]]>
+		<where>			
+            <![CDATA[AND t.check_id = #{checkId, jdbcType=BIGINT}]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolCheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,  
+            t.check_id AS check_id,
+            t.item_id AS item_id,           
+            t.measured_value AS measured_value,
+            t.check_result AS check_result
+        FROM
+            t_tool_check_result t
+        ]]>
+		<where>
+			<if test="toolCheckResult.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolCheckResult.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCheckResult.createUser != null">
+            <![CDATA[AND t.create_user = #{toolCheckResult.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCheckResult.createTime != null">
+            <![CDATA[AND t.create_time = #{toolCheckResult.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCheckResult.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolCheckResult.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCheckResult.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolCheckResult.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCheckResult.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolCheckResult.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolCheckResult.checkId != null">
+            <![CDATA[AND t.check_id = #{toolCheckResult.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCheckResult.itemId != null">
+            <![CDATA[AND t.item_id = #{toolCheckResult.itemId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolCheckResult.measuredValue != null and toolCheckResult.measuredValue != ''">
+            <![CDATA[AND t.measured_value = #{toolCheckResult.measuredValue, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolCheckResult.checkResult != null">
+            <![CDATA[AND t.check_result = #{toolCheckResult.checkResult, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolCheckResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.item_id AS item_id,
+            t.measured_value AS measured_value,
+            t.check_result AS check_result
+        FROM
+            t_tool_check_result t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolCheckResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_check_result SET del_mark = 1,update_user=#{toolCheckResult.updateUser, jdbcType=BIGINT},update_time=#{toolCheckResult.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolCheckResult.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_check_result]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolCheckResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

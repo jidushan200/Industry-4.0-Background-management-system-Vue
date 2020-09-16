@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.erp.repository.ErpDepartmentMapper">
+	<resultMap id="ErpDepartment" type="org.tsinghuatj.erp.domain.ErpDepartment">
+		<result property="departmentCode" javaType="String" column="department_code" jdbcType="VARCHAR" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<select id="selectByDepartmentNumber" parameterType="Map" resultMap="ErpDepartment">
+      <![CDATA[
+       select * from apps.cux_zc_tms_department 
+ 	   where bumen_code = #{departmentCode, jdbcType=VARCHAR} 	
+	]]>
+	</select>
+</mapper>

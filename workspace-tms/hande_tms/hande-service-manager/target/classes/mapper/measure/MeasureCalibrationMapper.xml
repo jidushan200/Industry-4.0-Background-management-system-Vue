@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.measure.repository.MeasureCalibrationMapper">
+	<resultMap id="MeasureCalibration" type="org.tsinghuatj.measure.domain.MeasureCalibration">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="measureId" javaType="Long" column="measure_Id" jdbcType="BIGINT" />
+		<result property="useDepartmentId" javaType="Long" column="use_department_Id" jdbcType="BIGINT" />
+		<result property="useDepartmentName" javaType="String" column="use_department_Name" jdbcType="CHAR" />
+		<result property="useTeamId" javaType="Long" column="use_team_id" jdbcType="BIGINT" />
+		<result property="useTeamName" javaType="String" column="use_team_name" jdbcType="CHAR" />
+		<result property="userId" javaType="Long" column="user_id" jdbcType="BIGINT" />
+		<result property="userName" javaType="String" column="user_name" jdbcType="CHAR" />
+		<result property="manufacturer" javaType="String" column="manufacturer" jdbcType="CHAR" />
+		<result property="manufacturingNumber" javaType="String" column="manufacturing_number" jdbcType="CHAR" />
+		<result property="internalNumber" javaType="String" column="Internal_number" jdbcType="CHAR" />
+		<result property="calibrationDate" javaType="Date" column="calibration_date" jdbcType="TIMESTAMP" />
+		<result property="calibrationCycle" javaType="Integer" column="calibration_cycle" jdbcType="TINYINT" />
+		<result property="expiryDate" javaType="Date" column="expiry_date" jdbcType="TIMESTAMP" />
+		<result property="calibrationResult" javaType="Integer" column="calibration_result" jdbcType="TINYINT" />
+		<result property="measureStatus" javaType="Integer" column="measure_status" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_measure_calibration (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            measure_Id,
+            use_department_Id,
+            use_department_Name,
+            use_team_id,
+            use_team_name,
+            user_id,
+            user_name,
+            manufacturer,
+            manufacturing_number,
+            Internal_number,
+            calibration_date,
+            calibration_cycle,
+            expiry_date,
+            calibration_result,
+            measure_status
+        )
+        VALUES
+            (
+                #{measureCalibration.pkId, jdbcType = BIGINT},
+                #{measureCalibration.createUser, jdbcType = BIGINT},
+                #{measureCalibration.createTime, jdbcType = TIMESTAMP},
+                #{measureCalibration.updateUser, jdbcType = BIGINT},
+                #{measureCalibration.updateTime, jdbcType = TIMESTAMP},
+                #{measureCalibration.delMark, jdbcType = TINYINT},
+                #{measureCalibration.measureId, jdbcType = BIGINT},
+                #{measureCalibration.useDepartmentId, jdbcType = BIGINT},
+                #{measureCalibration.useDepartmentName, jdbcType = CHAR},
+                #{measureCalibration.useTeamId, jdbcType = BIGINT},
+                #{measureCalibration.useTeamName, jdbcType = CHAR},
+                #{measureCalibration.userId, jdbcType = BIGINT},
+                #{measureCalibration.userName, jdbcType = CHAR},
+                #{measureCalibration.manufacturer, jdbcType = CHAR},
+                #{measureCalibration.manufacturingNumber, jdbcType = CHAR},
+                #{measureCalibration.internalNumber, jdbcType = CHAR},
+                #{measureCalibration.calibrationDate, jdbcType = TIMESTAMP},
+                #{measureCalibration.calibrationCycle, jdbcType = TINYINT},
+                #{measureCalibration.expiryDate, jdbcType = TIMESTAMP},
+                #{measureCalibration.calibrationResult, jdbcType = TINYINT},
+                #{measureCalibration.measureStatus, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_calibration]]>
+		<set>
+			<if test="measureCalibration.createUser != null">
+            <![CDATA[create_user = #{measureCalibration.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureCalibration.createTime != null">
+            <![CDATA[create_time = #{measureCalibration.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureCalibration.updateUser != null">
+            <![CDATA[update_user = #{measureCalibration.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureCalibration.updateTime != null">
+            <![CDATA[update_time = #{measureCalibration.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureCalibration.delMark != null">
+            <![CDATA[del_mark = #{measureCalibration.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measureCalibration.measureId != null">
+            <![CDATA[measure_Id = #{measureCalibration.measureId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureCalibration.useDepartmentId != null">
+            <![CDATA[use_department_Id = #{measureCalibration.useDepartmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureCalibration.useDepartmentName != null and measureCalibration.useDepartmentName != ''">
+            <![CDATA[use_department_Name = #{measureCalibration.useDepartmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureCalibration.useTeamId != null">
+            <![CDATA[use_team_id = #{measureCalibration.useTeamId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureCalibration.useTeamName != null and measureCalibration.useTeamName != ''">
+            <![CDATA[use_team_name = #{measureCalibration.useTeamName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureCalibration.userId != null">
+            <![CDATA[user_id = #{measureCalibration.userId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureCalibration.userName != null and measureCalibration.userName != ''">
+            <![CDATA[user_name = #{measureCalibration.userName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureCalibration.manufacturer != null and measureCalibration.manufacturer != ''">
+            <![CDATA[manufacturer = #{measureCalibration.manufacturer, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureCalibration.manufacturingNumber != null and measureCalibration.manufacturingNumber != ''">
+            <![CDATA[manufacturing_number = #{measureCalibration.manufacturingNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureCalibration.internalNumber != null and measureCalibration.internalNumber != ''">
+            <![CDATA[Internal_number = #{measureCalibration.internalNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureCalibration.calibrationDate != null">
+            <![CDATA[calibration_date = #{measureCalibration.calibrationDate, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureCalibration.calibrationCycle != null">
+            <![CDATA[calibration_cycle = #{measureCalibration.calibrationCycle, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measureCalibration.expiryDate != null">
+            <![CDATA[expiry_date = #{measureCalibration.expiryDate, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureCalibration.calibrationResult != null">
+            <![CDATA[calibration_result = #{measureCalibration.calibrationResult, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measureCalibration.measureStatus != null">
+            <![CDATA[measure_status = #{measureCalibration.measureStatus, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{measureCalibrationId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MeasureCalibration">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_Id AS measure_Id,
+            t.use_department_Id AS use_department_Id,
+            t.use_department_Name AS use_department_Name,
+            t.use_team_id AS use_team_id,
+            t.use_team_name AS use_team_name,
+            t.user_id AS user_id,
+            t.user_name AS user_name,
+            t.manufacturer AS manufacturer,
+            t.manufacturing_number AS manufacturing_number,
+            t.Internal_number AS Internal_number,
+            t.calibration_date AS calibration_date,
+            t.calibration_cycle AS calibration_cycle,
+            t.expiry_date AS expiry_date,
+            t.calibration_result AS calibration_result,
+            t.measure_status AS measure_status
+        FROM
+            t_measure_calibration t
+        ]]>
+		<where>
+			<if test="measureCalibration.pkId != null">
+            <![CDATA[AND t.pk_id = #{measureCalibration.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.createUser != null">
+            <![CDATA[AND t.create_user = #{measureCalibration.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.createTime != null">
+            <![CDATA[AND t.create_time = #{measureCalibration.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.updateUser != null">
+            <![CDATA[AND t.update_user = #{measureCalibration.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.updateTime != null">
+            <![CDATA[AND t.update_time = #{measureCalibration.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.delMark != null">
+            <![CDATA[AND t.del_mark = #{measureCalibration.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCalibration.measureId != null">
+            <![CDATA[AND t.measure_Id = #{measureCalibration.measureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.useDepartmentId != null">
+            <![CDATA[AND t.use_department_Id = #{measureCalibration.useDepartmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.useDepartmentName != null and measureCalibration.useDepartmentName != ''">
+            <![CDATA[AND t.use_department_Name = #{measureCalibration.useDepartmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.useTeamId != null">
+            <![CDATA[AND t.use_team_id = #{measureCalibration.useTeamId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.useTeamName != null and measureCalibration.useTeamName != ''">
+            <![CDATA[AND t.use_team_name = #{measureCalibration.useTeamName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.userId != null">
+            <![CDATA[AND t.user_id = #{measureCalibration.userId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.userName != null and measureCalibration.userName != ''">
+            <![CDATA[AND t.user_name = #{measureCalibration.userName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.manufacturer != null and measureCalibration.manufacturer != ''">
+            <![CDATA[AND t.manufacturer = #{measureCalibration.manufacturer, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.manufacturingNumber != null and measureCalibration.manufacturingNumber != ''">
+            <![CDATA[AND t.manufacturing_number = #{measureCalibration.manufacturingNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.internalNumber != null and measureCalibration.internalNumber != ''">
+            <![CDATA[AND t.Internal_number = #{measureCalibration.internalNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.calibrationDate != null">
+            <![CDATA[AND t.calibration_date = #{measureCalibration.calibrationDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.calibrationCycle != null">
+            <![CDATA[AND t.calibration_cycle = #{measureCalibration.calibrationCycle, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCalibration.expiryDate != null">
+            <![CDATA[AND t.expiry_date = #{measureCalibration.expiryDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.calibrationResult != null">
+            <![CDATA[AND t.calibration_result = #{measureCalibration.calibrationResult, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCalibration.measureStatus != null">
+            <![CDATA[AND t.measure_status = #{measureCalibration.measureStatus, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MeasureCalibration">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_Id AS measure_Id,
+            t.use_department_Id AS use_department_Id,
+            t.use_department_Name AS use_department_Name,
+            t.use_team_id AS use_team_id,
+            t.use_team_name AS use_team_name,
+            t.user_id AS user_id,
+            t.user_name AS user_name,
+            t.manufacturer AS manufacturer,
+            t.manufacturing_number AS manufacturing_number,
+            t.Internal_number AS Internal_number,
+            t.calibration_date AS calibration_date,
+            t.calibration_cycle AS calibration_cycle,
+            t.expiry_date AS expiry_date,
+            t.calibration_result AS calibration_result,
+            t.measure_status AS measure_status
+        FROM
+            t_measure_calibration t
+        ]]>
+		<where>
+			<if test="measureCalibration.pkId != null">
+            <![CDATA[AND t.pk_id = #{measureCalibration.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.createUser != null">
+            <![CDATA[AND t.create_user = #{measureCalibration.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.createTime != null">
+            <![CDATA[AND t.create_time = #{measureCalibration.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.updateUser != null">
+            <![CDATA[AND t.update_user = #{measureCalibration.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.updateTime != null">
+            <![CDATA[AND t.update_time = #{measureCalibration.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.delMark != null">
+            <![CDATA[AND t.del_mark = #{measureCalibration.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCalibration.measureId != null">
+            <![CDATA[AND t.measure_Id = #{measureCalibration.measureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.useDepartmentId != null">
+            <![CDATA[AND t.use_department_Id = #{measureCalibration.useDepartmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.useDepartmentName != null and measureCalibration.useDepartmentName != ''">
+            <![CDATA[AND t.use_department_Name = #{measureCalibration.useDepartmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.useTeamId != null">
+            <![CDATA[AND t.use_team_id = #{measureCalibration.useTeamId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.useTeamName != null and measureCalibration.useTeamName != ''">
+            <![CDATA[AND t.use_team_name = #{measureCalibration.useTeamName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.userId != null">
+            <![CDATA[AND t.user_id = #{measureCalibration.userId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureCalibration.userName != null and measureCalibration.userName != ''">
+            <![CDATA[AND t.user_name = #{measureCalibration.userName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.manufacturer != null and measureCalibration.manufacturer != ''">
+            <![CDATA[AND t.manufacturer = #{measureCalibration.manufacturer, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.manufacturingNumber != null and measureCalibration.manufacturingNumber != ''">
+            <![CDATA[AND t.manufacturing_number = #{measureCalibration.manufacturingNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.internalNumber != null and measureCalibration.internalNumber != ''">
+            <![CDATA[AND t.Internal_number = #{measureCalibration.internalNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureCalibration.calibrationDate != null">
+            <![CDATA[AND t.calibration_date = #{measureCalibration.calibrationDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.calibrationCycle != null">
+            <![CDATA[AND t.calibration_cycle = #{measureCalibration.calibrationCycle, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCalibration.expiryDate != null">
+            <![CDATA[AND t.expiry_date = #{measureCalibration.expiryDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureCalibration.calibrationResult != null">
+            <![CDATA[AND t.calibration_result = #{measureCalibration.calibrationResult, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureCalibration.measureStatus != null">
+            <![CDATA[AND t.measure_status = #{measureCalibration.measureStatus, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MeasureCalibration">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_Id AS measure_Id,
+            t.use_department_Id AS use_department_Id,
+            t.use_department_Name AS use_department_Name,
+            t.use_team_id AS use_team_id,
+            t.use_team_name AS use_team_name,
+            t.user_id AS user_id,
+            t.user_name AS user_name,
+            t.manufacturer AS manufacturer,
+            t.manufacturing_number AS manufacturing_number,
+            t.Internal_number AS Internal_number,
+            t.calibration_date AS calibration_date,
+            t.calibration_cycle AS calibration_cycle,
+            t.expiry_date AS expiry_date,
+            t.calibration_result AS calibration_result,
+            t.measure_status AS measure_status
+        FROM
+            t_measure_calibration t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{measureCalibrationId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_calibration SET del_mark = 1,update_user=#{measureCalibration.updateUser, jdbcType=BIGINT},update_time=#{measureCalibration.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureCalibration.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_measure_calibration]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureCalibrationId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolRepairMapper">
+	<resultMap id="ToolRepair" type="org.tsinghuatj.tool.domain.ToolRepair">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />	
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />	
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />			
+		<result property="toolQty" javaType="Integer" column="tool_qty" jdbcType="INTEGER" />
+		<result property="typeId" javaType="Integer" column="type_id" jdbcType="INTEGER" />
+		<result property="repairSeq" javaType="Integer" column="repair_seq" jdbcType="INTEGER" />
+		<result property="repairMeasure" javaType="BigDecimal" column="repair_measure" jdbcType="DECIMAL" />
+		<result property="executor" javaType="String" column="executor" jdbcType="CHAR" />
+		<result property="executTime" javaType="Date" column="execut_time" jdbcType="TIMESTAMP" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="repairPrice" javaType="BigDecimal" column="repair_price" jdbcType="DECIMAL" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+	</resultMap>
+
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_repair (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_id,
+            full_number,
+            tool_number,
+            tool_qty,
+            repair_seq,
+            repair_measure,
+            executor,
+            execut_time,
+            remark,
+            repair_price,
+            supplier_id,
+            supplier_name
+        )
+        VALUES
+            (
+                #{toolRepair.pkId, jdbcType = BIGINT},
+                #{toolRepair.createUser, jdbcType = BIGINT},
+                #{toolRepair.createTime, jdbcType = TIMESTAMP},
+                #{toolRepair.updateUser, jdbcType = BIGINT},
+                #{toolRepair.updateTime, jdbcType = TIMESTAMP},
+                #{toolRepair.delMark, jdbcType = TINYINT},
+                #{toolRepair.toolId, jdbcType = BIGINT},
+                #{toolRepair.fullNumber, jdbcType = CHAR},
+                #{toolRepair.toolNumber, jdbcType = CHAR},
+                #{toolRepair.toolQty, jdbcType = INTEGER},
+                #{toolRepair.repairSeq, jdbcType = INTEGER},
+                #{toolRepair.repairMeasure, jdbcType = REAL},
+                #{toolRepair.executor, jdbcType = CHAR},
+                #{toolRepair.executTime, jdbcType = TIMESTAMP},
+                #{toolRepair.remark, jdbcType = VARCHAR},
+                #{toolRepair.repairPrice, jdbcType = DECIMAL},
+                #{toolRepair.supplierId, jdbcType = BIGINT},
+                #{toolRepair.supplierName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_repair]]>
+		<set>
+			<if test="toolRepair.createUser != null">
+            <![CDATA[create_user = #{toolRepair.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolRepair.createTime != null">
+            <![CDATA[create_time = #{toolRepair.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolRepair.updateUser != null">
+            <![CDATA[update_user = #{toolRepair.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolRepair.updateTime != null">
+            <![CDATA[update_time = #{toolRepair.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolRepair.delMark != null">
+            <![CDATA[del_mark = #{toolRepair.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolRepair.toolId != null">
+            <![CDATA[tool_id = #{toolRepair.toolId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolRepair.fullNumber != null and toolRepair.fullNumber != ''">
+            <![CDATA[full_number = #{toolRepair.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolRepair.repairSeq != null">
+            <![CDATA[repair_seq = #{toolRepair.repairSeq, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolRepair.repairMeasure != null">
+            <![CDATA[repair_measure = #{toolRepair.repairMeasure, jdbcType=REAL},]]>
+			</if>
+			<if test="toolRepair.executor != null and toolRepair.executor != ''">
+            <![CDATA[executor = #{toolRepair.executor, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolRepair.executTime != null">
+            <![CDATA[execut_time = #{toolRepair.executTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolRepair.remark != null and toolRepair.remark != ''">
+            <![CDATA[remark = #{toolRepair.remark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolRepair.repairPrice != null">
+            <![CDATA[repair_price = #{toolRepair.repairPrice, jdbcType=DECIMAL},]]>
+			</if>						
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            T.tool_number as tool_number,
+            t.repair_seq AS repair_seq,
+            t.repair_measure AS repair_measure,
+            t.executor AS executor,
+            t.execut_time AS execut_time,
+            t.remark AS remark,
+            t.repair_price AS repair_price,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t
+        ]]>
+		<where>
+			<if test="toolRepair.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolRepair.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolRepair.createUser != null">
+            <![CDATA[AND t.create_user = #{toolRepair.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolRepair.createTime != null">
+            <![CDATA[AND t.create_time = #{toolRepair.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolRepair.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolRepair.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolRepair.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolRepair.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolRepair.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolRepair.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolRepair.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolRepair.toolId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolRepair.fullNumber != null and toolRepair.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolRepair.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepair.repairSeq != null">
+            <![CDATA[AND t.repair_seq = #{toolRepair.repairSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolRepair.repairMeasure != null">
+            <![CDATA[AND t.repair_measure = #{toolRepair.repairMeasure, jdbcType=REAL}]]>
+			</if>
+			<if test="toolRepair.executor != null and toolRepair.executor != ''">
+            <![CDATA[AND t.executor = #{toolRepair.executor, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepair.executTime != null">
+            <![CDATA[AND t.execut_time = #{toolRepair.executTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolRepair.remark != null and toolRepair.remark != ''">
+            <![CDATA[AND t.remark = #{toolRepair.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.repair_seq AS repair_seq,
+            t.repair_measure AS repair_measure,
+            tb.tool_number AS tool_number,
+            tb.tool_name AS tool_name,
+            tb.tool_map AS tool_map,
+            t.repair_measure as repair_measure,
+            t.executor AS executor,
+            t.execut_time AS execut_time,
+            t.remark AS remark,
+            t.repair_price AS repair_price,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t
+        inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolRepair.fullNumber != null and toolRepair.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolRepair.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepair.toolNumber != null and toolRepair.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolRepair.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepair.executor != null and toolRepair.executor != ''">
+            <![CDATA[AND t.executor = #{toolRepair.executor, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepair.typeId == null ">
+            <![CDATA[AND tb.type_id <>3 AND tb.type_id <>4]]>
+			</if>
+			<if test="toolRepair.typeId != null ">
+            <![CDATA[AND tb.type_id = 3]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.execut_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.execut_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0 and t.full_number is not null]]>
+		</where>
+		<![CDATA[order by pk_id desc]]>
+	</select>
+	
+	
+	<select id="selectBladePageList" parameterType="Map" resultMap="ToolRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.full_number as full_number,
+            t.tool_number AS tool_number,
+            tb.tool_name AS tool_name,
+            tb.tool_map AS tool_map,
+            t.tool_qty AS tool_qty,
+            t.repair_measure as repair_measure,
+            t.executor AS executor,
+            t.execut_time AS execut_time,
+            t.remark AS remark,
+            t.repair_price AS repair_price,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0  AND tb.type_id = 4 
+        ]]>
+		<where>			
+			<if test="toolRepair.fullNumber != null and toolRepair.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolRepair.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepair.toolNumber != null and toolRepair.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolRepair.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolRepair.executor != null and toolRepair.executor != ''">
+            <![CDATA[AND t.executor = #{toolRepair.executor, jdbcType=CHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.execut_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.execut_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[order by pk_id desc]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolRepair">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.repair_seq AS repair_seq,
+            t.repair_measure AS repair_measure,
+            t.executor AS executor,
+            t.execut_time AS execut_time,
+            t.remark AS remark,
+            t.repair_price AS repair_price,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolRepairId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_repair SET del_mark = 1,update_user=#{toolRepair.updateUser, jdbcType=BIGINT},update_time=#{toolRepair.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolRepair.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_repair]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolRepairId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<select id="selectByToolId" parameterType="Map" resultMap="ToolRepair">
+        <![CDATA[
+        SELECT
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.repair_seq AS repair_seq,
+            t.repair_measure AS repair_measure,
+            t.executor AS executor,
+            t.execut_time AS execut_time,
+            t.remark AS remark,
+            t.repair_price AS repair_price,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <if test="queryDto.beginDate != null">
+           <![CDATA[AND t.create_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+		</if>
+		<if test="queryDto.endDate != null">
+           <![CDATA[AND t.create_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+		</if>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<select id="selectSeqByToolId" parameterType="Map" resultMap="ToolRepair">
+        <![CDATA[
+        SELECT
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.repair_seq AS repair_seq,
+            t.repair_measure AS repair_measure,
+            t.executor AS executor,
+            t.repair_price AS repair_price,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.repair_seq DESC]]>
+		<![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectBytoolIdList" parameterType="Map" resultMap="ToolRepair">
+	 <![CDATA[
+        SELECT   
+        	t.tool_Id AS tool_Id,
+        	t.full_number AS full_number,       
+            t.repair_seq AS repair_seq,
+            t.repair_measure AS repair_measure,
+            t.execut_time AS execut_time,
+            t.repair_price AS repair_price,
+            t.executor AS executor,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t
+        ]]>
+		<where>
+		AND tool_Id in
+		<foreach collection="toolIdList" open="(" separator="," close=")" item="id">
+			#{id,jdbcType=BIGINT}
+		</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.execut_time DESC]]>
+	</select>
+	
+	<select id="selectByFullNumberList" parameterType="Map" resultMap="ToolRepair">
+	 <![CDATA[
+        SELECT   
+        	t.full_number as full_number,
+        	t.tool_number as tool_number,
+            t.repair_measure AS repair_measure,
+            t.execut_time AS execut_time,
+            t.repair_price AS repair_price,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name
+        FROM
+            t_tool_repair t
+        ]]>
+		<where>
+		AND full_number in
+		<foreach collection="fullNumberList" open="(" separator="," close=")" item="number">
+			#{number,jdbcType=CHAR}
+		</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.execut_time DESC]]>
+	</select>
+	
+	<select id="sumRepairPriceByToolId" parameterType="Map" resultType="decimal">	
+	<![CDATA[ 
+		SELECT sum(t.repair_price) FROM t_tool_repair t WHERE t.tool_id =  #{toolId, jdbcType=BIGINT}
+	]]>
+	</select>
+	
+	<select id="countRepairQtyByToolId" parameterType="Map" resultType="int">	
+	<![CDATA[ 
+		SELECT count(t.pk_id) as count FROM t_tool_repair t WHERE t.tool_id =  #{toolId, jdbcType=BIGINT}
+	]]>
+	</select>
+	
+</mapper>

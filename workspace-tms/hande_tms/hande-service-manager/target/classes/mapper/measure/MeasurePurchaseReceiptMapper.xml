@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.measure.repository.MeasurePurchaseReceiptMapper">
+	<resultMap id="MeasurePurchaseReceipt" type="org.tsinghuatj.measure.domain.MeasurePurchaseReceipt">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="applyId" javaType="Long" column="apply_id" jdbcType="BIGINT" />
+		<result property="measureNumber" javaType="String" column="measure_number" jdbcType="CHAR" />
+		<result property="model" javaType="String" column="model" jdbcType="CHAR" />
+		<result property="measureName" javaType="String" column="measure_name" jdbcType="CHAR" />
+		<result property="sequenceNumber" javaType="String" column="sequence_number" jdbcType="CHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="deliverer" javaType="String" column="deliverer" jdbcType="CHAR" />
+		<result property="deliveryTime" javaType="Date" column="delivery_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_measure_purchase_receipt (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            apply_id,
+            measure_number,
+            model,
+            measure_name,
+            sequence_number,
+            supplier_id,
+            supplier_name,
+            deliverer,
+            delivery_time
+        )
+        VALUES
+            (
+                #{measurePurchaseReceipt.pkId, jdbcType = BIGINT},
+                #{measurePurchaseReceipt.createUser, jdbcType = BIGINT},
+                #{measurePurchaseReceipt.createTime, jdbcType = TIMESTAMP},
+                #{measurePurchaseReceipt.updateUser, jdbcType = BIGINT},
+                #{measurePurchaseReceipt.updateTime, jdbcType = TIMESTAMP},
+                #{measurePurchaseReceipt.delMark, jdbcType = TINYINT},
+                #{measurePurchaseReceipt.applyId, jdbcType = BIGINT},
+                #{measurePurchaseReceipt.measureNumber, jdbcType = CHAR},
+                #{measurePurchaseReceipt.model, jdbcType = CHAR},
+                #{measurePurchaseReceipt.measureName, jdbcType = CHAR},
+                #{measurePurchaseReceipt.sequenceNumber, jdbcType = CHAR},
+                #{measurePurchaseReceipt.supplierId, jdbcType = BIGINT},
+                #{measurePurchaseReceipt.supplierName, jdbcType = CHAR},
+                #{measurePurchaseReceipt.deliverer, jdbcType = CHAR},
+                #{measurePurchaseReceipt.deliveryTime, jdbcType = TIMESTAMP}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_purchase_receipt]]>
+		<set>
+			<if test="measurePurchaseReceipt.createUser != null">
+            <![CDATA[create_user = #{measurePurchaseReceipt.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measurePurchaseReceipt.createTime != null">
+            <![CDATA[create_time = #{measurePurchaseReceipt.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measurePurchaseReceipt.updateUser != null">
+            <![CDATA[update_user = #{measurePurchaseReceipt.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measurePurchaseReceipt.updateTime != null">
+            <![CDATA[update_time = #{measurePurchaseReceipt.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measurePurchaseReceipt.delMark != null">
+            <![CDATA[del_mark = #{measurePurchaseReceipt.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measurePurchaseReceipt.applyId != null">
+            <![CDATA[apply_id = #{measurePurchaseReceipt.applyId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measurePurchaseReceipt.measureNumber != null and measurePurchaseReceipt.measureNumber != ''">
+            <![CDATA[measure_number = #{measurePurchaseReceipt.measureNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="measurePurchaseReceipt.model != null and measurePurchaseReceipt.model != ''">
+            <![CDATA[model = #{measurePurchaseReceipt.model, jdbcType=CHAR},]]>
+			</if>
+			<if test="measurePurchaseReceipt.measureName != null and measurePurchaseReceipt.measureName != ''">
+            <![CDATA[measure_name = #{measurePurchaseReceipt.measureName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measurePurchaseReceipt.sequenceNumber != null and measurePurchaseReceipt.sequenceNumber != ''">
+            <![CDATA[sequence_number = #{measurePurchaseReceipt.sequenceNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="measurePurchaseReceipt.supplierId != null">
+            <![CDATA[supplier_id = #{measurePurchaseReceipt.supplierId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measurePurchaseReceipt.supplierName != null and measurePurchaseReceipt.supplierName != ''">
+            <![CDATA[supplier_name = #{measurePurchaseReceipt.supplierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measurePurchaseReceipt.deliverer != null and measurePurchaseReceipt.deliverer != ''">
+            <![CDATA[deliverer = #{measurePurchaseReceipt.deliverer, jdbcType=CHAR},]]>
+			</if>
+			<if test="measurePurchaseReceipt.deliveryTime != null">
+            <![CDATA[delivery_time = #{measurePurchaseReceipt.deliveryTime, jdbcType=TIMESTAMP},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{measurePurchaseReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MeasurePurchaseReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_name AS measure_name,
+            t.sequence_number AS sequence_number,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliverer AS deliverer,
+            t.delivery_time AS delivery_time
+        FROM
+            t_measure_purchase_receipt t
+        ]]>
+		<where>
+			<if test="measurePurchaseReceipt.pkId != null">
+            <![CDATA[AND t.pk_id = #{measurePurchaseReceipt.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.createUser != null">
+            <![CDATA[AND t.create_user = #{measurePurchaseReceipt.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.createTime != null">
+            <![CDATA[AND t.create_time = #{measurePurchaseReceipt.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measurePurchaseReceipt.updateUser != null">
+            <![CDATA[AND t.update_user = #{measurePurchaseReceipt.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.updateTime != null">
+            <![CDATA[AND t.update_time = #{measurePurchaseReceipt.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measurePurchaseReceipt.delMark != null">
+            <![CDATA[AND t.del_mark = #{measurePurchaseReceipt.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.applyId != null">
+            <![CDATA[AND t.apply_id = #{measurePurchaseReceipt.applyId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.measureNumber != null and measurePurchaseReceipt.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measurePurchaseReceipt.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.model != null and measurePurchaseReceipt.model != ''">
+            <![CDATA[AND t.model = #{measurePurchaseReceipt.model, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.measureName != null and measurePurchaseReceipt.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measurePurchaseReceipt.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.sequenceNumber != null and measurePurchaseReceipt.sequenceNumber != ''">
+            <![CDATA[AND t.sequence_number = #{measurePurchaseReceipt.sequenceNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{measurePurchaseReceipt.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.supplierName != null and measurePurchaseReceipt.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{measurePurchaseReceipt.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.deliverer != null and measurePurchaseReceipt.deliverer != ''">
+            <![CDATA[AND t.deliverer = #{measurePurchaseReceipt.deliverer, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.deliveryTime != null">
+            <![CDATA[AND t.delivery_time = #{measurePurchaseReceipt.deliveryTime, jdbcType=TIMESTAMP}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MeasurePurchaseReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_name AS measure_name,
+            t.sequence_number AS sequence_number,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliverer AS deliverer,
+            t.delivery_time AS delivery_time
+        FROM
+            t_measure_purchase_receipt t
+        ]]>
+		<where>
+			<if test="measurePurchaseReceipt.pkId != null">
+            <![CDATA[AND t.pk_id = #{measurePurchaseReceipt.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.createUser != null">
+            <![CDATA[AND t.create_user = #{measurePurchaseReceipt.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.createTime != null">
+            <![CDATA[AND t.create_time = #{measurePurchaseReceipt.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measurePurchaseReceipt.updateUser != null">
+            <![CDATA[AND t.update_user = #{measurePurchaseReceipt.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.updateTime != null">
+            <![CDATA[AND t.update_time = #{measurePurchaseReceipt.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measurePurchaseReceipt.delMark != null">
+            <![CDATA[AND t.del_mark = #{measurePurchaseReceipt.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.applyId != null">
+            <![CDATA[AND t.apply_id = #{measurePurchaseReceipt.applyId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.measureNumber != null and measurePurchaseReceipt.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measurePurchaseReceipt.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.model != null and measurePurchaseReceipt.model != ''">
+            <![CDATA[AND t.model = #{measurePurchaseReceipt.model, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.measureName != null and measurePurchaseReceipt.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measurePurchaseReceipt.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.sequenceNumber != null and measurePurchaseReceipt.sequenceNumber != ''">
+            <![CDATA[AND t.sequence_number = #{measurePurchaseReceipt.sequenceNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{measurePurchaseReceipt.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measurePurchaseReceipt.supplierName != null and measurePurchaseReceipt.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{measurePurchaseReceipt.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.deliverer != null and measurePurchaseReceipt.deliverer != ''">
+            <![CDATA[AND t.deliverer = #{measurePurchaseReceipt.deliverer, jdbcType=CHAR}]]>
+			</if>
+			<if test="measurePurchaseReceipt.deliveryTime != null">
+            <![CDATA[AND t.delivery_time = #{measurePurchaseReceipt.deliveryTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MeasurePurchaseReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_name AS measure_name,
+            t.sequence_number AS sequence_number,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliverer AS deliverer,
+            t.delivery_time AS delivery_time
+        FROM
+            t_measure_purchase_receipt t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{measurePurchaseReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_purchase_receipt SET del_mark = 1,update_user=#{measurePurchaseReceipt.updateUser, jdbcType=BIGINT},update_time=#{measurePurchaseReceipt.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{measurePurchaseReceipt.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_measure_purchase_receipt]]>
+		<where>
+        <![CDATA[AND pk_id = #{measurePurchaseReceiptId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 查询列表 -->
+	<select id="selectByApplyId" parameterType="Map" resultMap="MeasurePurchaseReceipt">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.apply_id AS apply_id,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_name AS measure_name,
+            t.sequence_number AS sequence_number,
+            t.supplier_id AS supplier_id,
+            t.supplier_name AS supplier_name,
+            t.deliverer AS deliverer,
+            t.delivery_time AS delivery_time
+        FROM
+            t_measure_purchase_receipt t
+        ]]>
+		<where>			
+            <![CDATA[AND t.apply_id = #{applyId, jdbcType=BIGINT}]]>
+ 			<![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+	</select>
+	
+	<select id="selectCountByApplyId" parameterType="Map" resultType="int">
+	 <![CDATA[
+        SELECT
+            count(t.pk_id) AS count
+        FROM
+            t_measure_purchase_receipt t
+        ]]>
+		<where>			
+            <![CDATA[AND t.apply_id = #{applyId, jdbcType=BIGINT}]]>
+ 			<![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+	</select>
+</mapper>

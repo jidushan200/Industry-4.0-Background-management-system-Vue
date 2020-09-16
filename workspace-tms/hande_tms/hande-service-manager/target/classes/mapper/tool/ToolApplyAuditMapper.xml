@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolApplyAuditMapper">
+	<resultMap id="ToolApplyAudit" type="org.tsinghuatj.tool.domain.ToolApplyAudit">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="applyId" javaType="Long" column="apply_id" jdbcType="BIGINT" />
+		<result property="applyType" javaType="Integer" column="apply_type" jdbcType="INTEGER" />
+		<result property="auditResult" javaType="String" column="audit_result" jdbcType="CHAR" />
+		<result property="auditorId" javaType="Long" column="auditor_id" jdbcType="BIGINT" />
+		<result property="auditorName" javaType="String" column="auditor_name" jdbcType="CHAR" />
+		<result property="auditDepartmentId" javaType="Long" column="audit_department_id" jdbcType="BIGINT" />
+		<result property="auditDepartmentName" javaType="String" column="audit_department_name" jdbcType="CHAR" />
+		<result property="auditSeq" javaType="Integer" column="audit_seq" jdbcType="TINYINT" />
+		<result property="auditStatus" javaType="Integer" column="audit_status" jdbcType="TINYINT" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_apply_audit (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            apply_id,
+            apply_type,
+            audit_result,
+            auditor_id,
+            auditor_name,
+            audit_department_id,
+            audit_department_name,
+            audit_seq,
+            audit_status,
+            remark
+        )
+        VALUES
+            (
+                #{toolApplyAudit.pkId, jdbcType = BIGINT},
+                #{toolApplyAudit.createUser, jdbcType = BIGINT},
+                #{toolApplyAudit.createTime, jdbcType = TIMESTAMP},
+                #{toolApplyAudit.updateUser, jdbcType = BIGINT},
+                #{toolApplyAudit.updateTime, jdbcType = TIMESTAMP},
+                #{toolApplyAudit.delMark, jdbcType = TINYINT},
+                #{toolApplyAudit.applyId, jdbcType = BIGINT},
+                #{toolApplyAudit.applyType, jdbcType = INTEGER},
+                #{toolApplyAudit.auditResult, jdbcType = CHAR},
+                #{toolApplyAudit.auditorId, jdbcType = BIGINT},
+                #{toolApplyAudit.auditorName, jdbcType = CHAR},
+                #{toolApplyAudit.auditDepartmentId, jdbcType = BIGINT},
+                #{toolApplyAudit.auditDepartmentName, jdbcType = CHAR},
+                #{toolApplyAudit.auditSeq, jdbcType = TINYINT},
+                #{toolApplyAudit.auditStatus, jdbcType = TINYINT},
+                #{toolApplyAudit.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolApplyAudit">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+           	t.create_time AS create_time,
+            t.apply_id AS apply_id,
+            t.apply_type AS apply_type,
+            t.audit_result AS audit_result,
+            t.auditor_id AS auditor_id,
+            t.auditor_name AS auditor_name,
+            t.audit_department_id AS audit_department_id,
+            t.audit_department_name AS audit_department_name,
+            t.audit_seq AS audit_seq,
+            t.audit_status AS audit_status,
+            t.remark AS remark
+        FROM
+            t_tool_apply_audit t
+        ]]>
+		<where>
+			<![CDATA[AND t.apply_id = #{applyId, jdbcType=BIGINT}]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolApplyAudit">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.apply_type AS apply_type,
+            t.audit_result AS audit_result,
+            t.auditor_id AS auditor_id,
+            t.auditor_name AS auditor_name,
+            t.remark AS remark,
+            t.audit_department_id AS audit_department_id,
+            t.audit_department_name AS audit_department_name,
+            t.audit_seq AS audit_seq
+        FROM
+            t_tool_apply_audit t
+        ]]>
+		<where>
+			<if test="toolApplyAudit.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolApplyAudit.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyAudit.createUser != null">
+            <![CDATA[AND t.create_user = #{toolApplyAudit.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyAudit.createTime != null">
+            <![CDATA[AND t.create_time = #{toolApplyAudit.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolApplyAudit.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolApplyAudit.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyAudit.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolApplyAudit.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolApplyAudit.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolApplyAudit.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolApplyAudit.applyId != null">
+            <![CDATA[AND t.apply_id = #{toolApplyAudit.applyId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyAudit.applyType != null">
+            <![CDATA[AND t.apply_type = #{toolApplyAudit.applyType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolApplyAudit.auditResult != null and toolApplyAudit.auditResult != ''">
+            <![CDATA[AND t.audit_result = #{toolApplyAudit.auditResult, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolApplyAudit.auditorId != null">
+            <![CDATA[AND t.auditor_id = #{toolApplyAudit.auditorId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyAudit.auditorName != null and toolApplyAudit.auditorName != ''">
+            <![CDATA[AND t.auditor_name = #{toolApplyAudit.auditorName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolApplyAudit.remark != null and toolApplyAudit.remark != ''">
+            <![CDATA[AND t.remark = #{toolApplyAudit.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolApplyAudit.auditDepartmentId != null">
+            <![CDATA[AND t.audit_department_id = #{toolApplyAudit.auditDepartmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyAudit.auditDepartmentName != null and toolApplyAudit.auditDepartmentName != ''">
+            <![CDATA[AND t.audit_department_name = #{toolApplyAudit.auditDepartmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolApplyAudit.auditSeq != null">
+            <![CDATA[AND t.audit_seq = #{toolApplyAudit.auditSeq, jdbcType=INTEGER}]]>
+			</if>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolApplyAudit">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.apply_type AS apply_type,
+            t.audit_result AS audit_result,
+            t.auditor_id AS auditor_id,
+            t.auditor_name AS auditor_name,
+            t.remark AS remark,            
+            t.audit_department_id AS audit_department_id,
+            t.audit_department_name AS audit_department_name,
+            t.audit_seq AS audit_seq
+        FROM
+            t_tool_apply_audit t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolApplyAuditId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_apply_audit SET del_mark = 1,update_user=#{toolApplyAudit.updateUser, jdbcType=BIGINT},update_time=#{toolApplyAudit.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolApplyAudit.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_apply_audit]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolApplyAuditId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 查询列表 -->
+	<select id="selectSeqByApplyId" parameterType="Map" resultMap="ToolApplyAudit">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.del_mark AS del_mark,
+            t.apply_id AS apply_id,
+            t.apply_type AS apply_type,
+            t.audit_result AS audit_result,
+            t.auditor_id AS auditor_id,
+            t.auditor_name AS auditor_name,
+            t.audit_department_id AS audit_department_id,
+            t.audit_department_name AS audit_department_name,
+            t.audit_seq AS audit_seq,
+            t.audit_status AS audit_status,
+            t.remark AS remark
+        FROM
+            t_tool_apply_audit t
+        ]]>
+		<where>
+			<![CDATA[AND t.apply_id = #{applyId, jdbcType=BIGINT}]]>
+		</where>
+		<![CDATA[ORDER BY t.audit_seq DESC]]>
+		<![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

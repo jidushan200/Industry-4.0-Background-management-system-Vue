@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolUnqualifiedReportMapper">
+	<resultMap id="ToolUnqualifiedReport" type="org.tsinghuatj.tool.domain.ToolUnqualifiedReport">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="checkId" javaType="Long" column="check_id" jdbcType="BIGINT" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolSeq" javaType="String" column="tool_seq" jdbcType="CHAR" />
+		<result property="reportType" javaType="Integer" column="report_type" jdbcType="TINYINT" />
+		<result property="newAuditStatus" javaType="Integer" column="new_audit_status" jdbcType="TINYINT" />
+		<result property="repairAuditStatus" javaType="Integer" column="repair_audit_status" jdbcType="TINYINT" />
+		<result property="coatAuditStatus" javaType="Integer" column="coat_audit_status" jdbcType="TINYINT" />
+		<result property="reporterId" javaType="Long" column="reporter_id" jdbcType="BIGINT" />
+		<result property="reporterName" javaType="String" column="reporter_name" jdbcType="CHAR" />
+		<result property="reportTime" javaType="Date" column="report_time" jdbcType="TIMESTAMP" />
+		<result property="reportDesc" javaType="String" column="report_desc" jdbcType="VARCHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_unqualified_report (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            check_id,
+            full_number,
+            tool_number,
+            tool_seq,
+            report_type,
+            new_audit_status,
+            repair_audit_status,
+            coat_audit_status,
+            reporter_id,
+            reporter_name,
+            report_time,
+            report_desc,
+            supplier_id
+        )
+        VALUES
+            (
+                #{toolUnqualifiedReport.pkId, jdbcType = BIGINT},
+                #{toolUnqualifiedReport.createUser, jdbcType = BIGINT},
+                #{toolUnqualifiedReport.createTime, jdbcType = TIMESTAMP},
+                #{toolUnqualifiedReport.updateUser, jdbcType = BIGINT},
+                #{toolUnqualifiedReport.updateTime, jdbcType = TIMESTAMP},
+                #{toolUnqualifiedReport.delMark, jdbcType = TINYINT},
+                #{toolUnqualifiedReport.checkId, jdbcType = BIGINT},
+                #{toolUnqualifiedReport.fullNumber, jdbcType = CHAR},
+                #{toolUnqualifiedReport.toolNumber, jdbcType = CHAR},
+                #{toolUnqualifiedReport.toolSeq, jdbcType = CHAR},
+                #{toolUnqualifiedReport.reportType, jdbcType = TINYINT},
+                #{toolUnqualifiedReport.newAuditStatus, jdbcType = TINYINT},
+                #{toolUnqualifiedReport.repairAuditStatus, jdbcType = TINYINT},
+                #{toolUnqualifiedReport.coatAuditStatus, jdbcType = TINYINT},
+                #{toolUnqualifiedReport.reporterId, jdbcType = BIGINT},
+                #{toolUnqualifiedReport.reporterName, jdbcType = CHAR},
+                #{toolUnqualifiedReport.reportTime, jdbcType = TIMESTAMP},
+                #{toolUnqualifiedReport.reportDesc, jdbcType = VARCHAR},
+                #{toolUnqualifiedReport.supplierId, jdbcType = BIGINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_unqualified_report]]>
+		<set>
+			<if test="toolUnqualifiedReport.createUser != null">
+            <![CDATA[create_user = #{toolUnqualifiedReport.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.createTime != null">
+            <![CDATA[create_time = #{toolUnqualifiedReport.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolUnqualifiedReport.updateUser != null">
+            <![CDATA[update_user = #{toolUnqualifiedReport.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.updateTime != null">
+            <![CDATA[update_time = #{toolUnqualifiedReport.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolUnqualifiedReport.delMark != null">
+            <![CDATA[del_mark = #{toolUnqualifiedReport.delMark, jdbcType=TINYINT},]]>
+			</if>			
+			<if test="toolUnqualifiedReport.checkId != null">
+            <![CDATA[check_id = #{toolUnqualifiedReport.checkId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.fullNumber != null and toolUnqualifiedReport.fullNumber != ''">
+            <![CDATA[full_number = #{toolUnqualifiedReport.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnqualifiedReport.toolNumber != null and toolUnqualifiedReport.toolNumber != ''">
+            <![CDATA[tool_number = #{toolUnqualifiedReport.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnqualifiedReport.toolSeq != null and toolUnqualifiedReport.toolSeq != ''">
+            <![CDATA[tool_seq = #{toolUnqualifiedReport.toolSeq, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnqualifiedReport.reportType != null">
+            <![CDATA[report_type = #{toolUnqualifiedReport.reportType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.newAuditStatus != null">
+            <![CDATA[new_audit_status = #{toolUnqualifiedReport.newAuditStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.repairAuditStatus != null">
+            <![CDATA[repair_audit_status = #{toolUnqualifiedReport.repairAuditStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.coatAuditStatus != null">
+            <![CDATA[coat_audit_status = #{toolUnqualifiedReport.coatAuditStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.reporterId != null">
+            <![CDATA[reporter_id = #{toolUnqualifiedReport.reporterId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnqualifiedReport.reporterName != null and toolUnqualifiedReport.reporterName != ''">
+            <![CDATA[reporter_name = #{toolUnqualifiedReport.reporterName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnqualifiedReport.reportTime != null">
+            <![CDATA[report_time = #{toolUnqualifiedReport.reportTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolUnqualifiedReport.reportDesc != null and toolUnqualifiedReport.reportDesc != ''">
+            <![CDATA[report_desc = #{toolUnqualifiedReport.reportDesc, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolUnqualifiedReport.supplierId != null">
+            <![CDATA[supplier_id = #{toolUnqualifiedReport.supplierId, jdbcType=BIGINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnqualifiedReportId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolUnqualifiedReport">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.tool_seq AS tool_seq,
+            t.report_type AS report_type,
+            t.new_audit_status AS new_audit_status,
+            t.repair_audit_status AS repair_audit_status,
+            t.coat_audit_status AS coat_audit_status,
+            t.reporter_id AS reporter_id,
+            t.reporter_name AS reporter_name,
+            t.report_time AS report_time,
+            t.report_desc AS report_desc,
+            t.supplier_id AS supplier_id
+        FROM
+            t_tool_unqualified_report t
+        ]]>
+		<where>
+			<if test="toolUnqualifiedReport.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolUnqualifiedReport.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.createUser != null">
+            <![CDATA[AND t.create_user = #{toolUnqualifiedReport.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.createTime != null">
+            <![CDATA[AND t.create_time = #{toolUnqualifiedReport.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedReport.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolUnqualifiedReport.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolUnqualifiedReport.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedReport.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolUnqualifiedReport.delMark, jdbcType=TINYINT}]]>
+			</if>			
+			<if test="toolUnqualifiedReport.checkId != null">
+            <![CDATA[AND t.check_id = #{toolUnqualifiedReport.checkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.fullNumber != null and toolUnqualifiedReport.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolUnqualifiedReport.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedReport.toolNumber != null and toolUnqualifiedReport.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolUnqualifiedReport.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedReport.toolSeq != null and toolUnqualifiedReport.toolSeq != ''">
+            <![CDATA[AND t.tool_seq = #{toolUnqualifiedReport.toolSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedReport.reportType != null">
+            <![CDATA[AND t.report_type = #{toolUnqualifiedReport.reportType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.newAuditStatus != null">
+            <![CDATA[AND t.new_audit_status = #{toolUnqualifiedReport.newAuditStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.repairAuditStatus != null">
+            <![CDATA[AND t.repair_audit_status = #{toolUnqualifiedReport.repairAuditStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.coatAuditStatus != null">
+            <![CDATA[AND t.coat_audit_status = #{toolUnqualifiedReport.coatAuditStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.reporterId != null">
+            <![CDATA[AND t.reporter_id = #{toolUnqualifiedReport.reporterId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.reporterName != null and toolUnqualifiedReport.reporterName != ''">
+            <![CDATA[AND t.reporter_name = #{toolUnqualifiedReport.reporterName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedReport.reportTime != null">
+            <![CDATA[AND t.report_time = #{toolUnqualifiedReport.reportTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnqualifiedReport.reportDesc != null and toolUnqualifiedReport.reportDesc != ''">
+            <![CDATA[AND t.report_desc = #{toolUnqualifiedReport.reportDesc, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolUnqualifiedReport.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolUnqualifiedReport.supplierId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolUnqualifiedReport">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.check_id AS check_id,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.tool_seq AS tool_seq,
+            t.report_type AS report_type,
+            t.new_audit_status AS new_audit_status,
+            t.repair_audit_status AS repair_audit_status,
+            t.coat_audit_status AS coat_audit_status,
+            t.reporter_id AS reporter_id,
+            t.reporter_name AS reporter_name,
+            t.report_time AS report_time,
+            t.report_desc AS report_desc,
+            t.supplier_id AS supplier_id
+        FROM
+            t_tool_unqualified_report t
+        ]]>
+		<where>
+
+			<if test="toolUnqualifiedReport.fullNumber != null and toolUnqualifiedReport.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolUnqualifiedReport.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnqualifiedReport.toolNumber != null and toolUnqualifiedReport.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolUnqualifiedReport.toolNumber, jdbcType=CHAR}]]>
+			</if>		
+            <![CDATA[AND t.report_type = #{toolUnqualifiedReport.reportType, jdbcType=TINYINT}]]>
+
+			<if test="toolUnqualifiedReport.newAuditStatus != null">
+            <![CDATA[AND t.new_audit_status = #{toolUnqualifiedReport.newAuditStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.repairAuditStatus != null">
+            <![CDATA[AND t.repair_audit_status = #{toolUnqualifiedReport.repairAuditStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.coatAuditStatus != null">
+            <![CDATA[AND t.coat_audit_status = #{toolUnqualifiedReport.coatAuditStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnqualifiedReport.statusList != null and toolUnqualifiedReport.statusList.size > 0">
+				<if test="toolUnqualifiedReport.reportType == 1">
+					<![CDATA[AND t.new_audit_status in ]]>
+				</if>
+				<if test="toolUnqualifiedReport.reportType == 3">
+				 	<![CDATA[AND t.coat_audit_status in ]]>
+				</if>
+				<foreach item="item" index="index" collection="toolUnqualifiedReport.statusList" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+
+			<if test="toolUnqualifiedReport.toolSeq != null and toolUnqualifiedReport.toolSeq != ''">
+            <![CDATA[AND t.tool_seq = #{toolUnqualifiedReport.toolSeq, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolUnqualifiedReport">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.check_id AS check_id,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.tool_seq AS tool_seq,
+            t.report_type AS report_type,
+            t.new_audit_status AS new_audit_status,
+            t.repair_audit_status AS repair_audit_status,
+            t.coat_audit_status AS coat_audit_status,
+            t.reporter_id AS reporter_id,
+            t.reporter_name AS reporter_name,
+            t.report_time AS report_time,
+            t.report_desc AS report_desc,
+            t.supplier_id AS supplier_id
+        FROM
+            t_tool_unqualified_report t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolUnqualifiedReportId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectFullNumberReportType" parameterType="Map" resultMap="ToolUnqualifiedReport">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.check_id AS check_id,
+            t.full_number AS full_number,          
+            t.report_type AS report_type,
+            t.new_audit_status AS new_audit_status,
+            t.repair_audit_status AS repair_audit_status,
+            t.coat_audit_status AS coat_audit_status,           
+            t.report_time AS report_time,
+            t.report_desc AS report_desc,
+            t.supplier_id AS supplier_id
+        FROM
+            t_tool_unqualified_report t
+        ]]>
+		<where>
+        <![CDATA[AND t.full_number = #{fullNumber, jdbcType=CHAR}]]>
+        <![CDATA[AND t.report_type = #{reportType, jdbcType=TINYINT}]]>
+		</where>
+		<![CDATA[order by create_time desc]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	
+	
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_unqualified_report SET del_mark = 1,update_user=#{toolUnqualifiedReport.updateUser, jdbcType=BIGINT},update_time=#{toolUnqualifiedReport.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnqualifiedReport.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_unqualified_report]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnqualifiedReportId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

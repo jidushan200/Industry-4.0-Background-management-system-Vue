@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.measure.repository.MeasureOutboundMapper">
+	<resultMap id="MeasureOutbound" type="org.tsinghuatj.measure.domain.MeasureOutbound">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="measureId" javaType="Long" column="measure_id" jdbcType="BIGINT" />
+		<result property="measureName" javaType="String" column="measure_name" jdbcType="CHAR" />
+		<result property="measureNumber" javaType="String" column="measure_number" jdbcType="CHAR" />
+		<result property="model" javaType="String" column="model" jdbcType="CHAR" />
+		<result property="warehouse" javaType="String" column="warehouse" jdbcType="CHAR" />
+		<result property="outType" javaType="Integer" column="out_type" jdbcType="INTEGER" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="receiver" javaType="String" column="receiver" jdbcType="CHAR" />
+		<result property="receiveClass" javaType="String" column="receive_class" jdbcType="CHAR" />
+		<result property="receiveTime" javaType="Date" column="receive_time" jdbcType="TIMESTAMP" />
+		<result property="keeperId" javaType="Long" column="keeper_id" jdbcType="BIGINT" />
+		<result property="keeper" javaType="String" column="keeper" jdbcType="CHAR" />
+		<result property="receiveResion" javaType="String" column="receive_resion" jdbcType="VARCHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_measure_outbound (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            measure_id,
+            measure_name,
+            measure_number,
+            model,
+            warehouse,
+            out_type,
+            department_id,
+            department_name,
+            receiver,
+            receive_class,
+            receive_time,
+            keeper_id,
+            keeper,
+            receive_resion,
+            remark
+        )
+        VALUES
+            (
+                #{measureOutbound.pkId, jdbcType = BIGINT},
+                #{measureOutbound.createUser, jdbcType = BIGINT},
+                #{measureOutbound.createTime, jdbcType = TIMESTAMP},
+                #{measureOutbound.updateUser, jdbcType = BIGINT},
+                #{measureOutbound.updateTime, jdbcType = TIMESTAMP},
+                #{measureOutbound.delMark, jdbcType = TINYINT},
+                #{measureOutbound.measureId, jdbcType = BIGINT},
+                #{measureOutbound.measureName, jdbcType = CHAR},
+                #{measureOutbound.measureNumber, jdbcType = CHAR},
+                #{measureOutbound.model, jdbcType = CHAR},
+                #{measureOutbound.warehouse, jdbcType = CHAR},
+                #{measureOutbound.outType, jdbcType = INTEGER},
+                #{measureOutbound.departmentId, jdbcType = BIGINT},
+                #{measureOutbound.departmentName, jdbcType = CHAR},
+                #{measureOutbound.receiver, jdbcType = CHAR},
+                #{measureOutbound.receiveClass, jdbcType = CHAR},
+                #{measureOutbound.receiveTime, jdbcType = TIMESTAMP},
+                #{measureOutbound.keeperId, jdbcType = BIGINT},
+                #{measureOutbound.keeper, jdbcType = CHAR},
+                #{measureOutbound.receiveResion, jdbcType = VARCHAR},
+                #{measureOutbound.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_outbound]]>
+		<set>
+			<if test="measureOutbound.createUser != null">
+            <![CDATA[create_user = #{measureOutbound.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureOutbound.createTime != null">
+            <![CDATA[create_time = #{measureOutbound.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureOutbound.updateUser != null">
+            <![CDATA[update_user = #{measureOutbound.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureOutbound.updateTime != null">
+            <![CDATA[update_time = #{measureOutbound.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureOutbound.delMark != null">
+            <![CDATA[del_mark = #{measureOutbound.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measureOutbound.measureId != null">
+            <![CDATA[measure_id = #{measureOutbound.measureId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureOutbound.measureName != null and measureOutbound.measureName != ''">
+            <![CDATA[measure_name = #{measureOutbound.measureName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.measureNumber != null and measureOutbound.measureNumber != ''">
+            <![CDATA[measure_number = #{measureOutbound.measureNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.model != null and measureOutbound.model != ''">
+            <![CDATA[model = #{measureOutbound.model, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.warehouse != null and measureOutbound.warehouse != ''">
+            <![CDATA[warehouse = #{measureOutbound.warehouse, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.outType != null">
+            <![CDATA[out_type = #{measureOutbound.outType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="measureOutbound.departmentId != null">
+            <![CDATA[department_id = #{measureOutbound.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureOutbound.departmentName != null and measureOutbound.departmentName != ''">
+            <![CDATA[department_name = #{measureOutbound.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.receiver != null and measureOutbound.receiver != ''">
+            <![CDATA[receiver = #{measureOutbound.receiver, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.receiveClass != null and measureOutbound.receiveClass != ''">
+            <![CDATA[receive_class = #{measureOutbound.receiveClass, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.receiveTime != null">
+            <![CDATA[receive_time = #{measureOutbound.receiveTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureOutbound.keeperId != null">
+            <![CDATA[keeper_id = #{measureOutbound.keeperId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureOutbound.keeper != null and measureOutbound.keeper != ''">
+            <![CDATA[keeper = #{measureOutbound.keeper, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureOutbound.receiveResion != null and measureOutbound.receiveResion != ''">
+            <![CDATA[receive_resion = #{measureOutbound.receiveResion, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="measureOutbound.remark != null and measureOutbound.remark != ''">
+            <![CDATA[remark = #{measureOutbound.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{measureOutboundId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MeasureOutbound">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.receiver AS receiver,
+            t.receive_class AS receive_class,
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_measure_outbound t
+        ]]>
+		<where>
+			<if test="measureOutbound.pkId != null">
+            <![CDATA[AND t.pk_id = #{measureOutbound.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.createUser != null">
+            <![CDATA[AND t.create_user = #{measureOutbound.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.createTime != null">
+            <![CDATA[AND t.create_time = #{measureOutbound.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureOutbound.updateUser != null">
+            <![CDATA[AND t.update_user = #{measureOutbound.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.updateTime != null">
+            <![CDATA[AND t.update_time = #{measureOutbound.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureOutbound.delMark != null">
+            <![CDATA[AND t.del_mark = #{measureOutbound.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureOutbound.measureId != null">
+            <![CDATA[AND t.measure_id = #{measureOutbound.measureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.measureName != null and measureOutbound.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measureOutbound.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.measureNumber != null and measureOutbound.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measureOutbound.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.model != null and measureOutbound.model != ''">
+            <![CDATA[AND t.model = #{measureOutbound.model, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.warehouse != null and measureOutbound.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{measureOutbound.warehouse, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.outType != null">
+            <![CDATA[AND t.out_type = #{measureOutbound.outType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="measureOutbound.departmentId != null">
+            <![CDATA[AND t.department_id = #{measureOutbound.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.departmentName != null and measureOutbound.departmentName != ''">
+            <![CDATA[AND t.department_name = #{measureOutbound.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiver != null and measureOutbound.receiver != ''">
+            <![CDATA[AND t.receiver = #{measureOutbound.receiver, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiveClass != null and measureOutbound.receiveClass != ''">
+            <![CDATA[AND t.receive_class = #{measureOutbound.receiveClass, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiveTime != null">
+            <![CDATA[AND t.receive_time = #{measureOutbound.receiveTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureOutbound.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{measureOutbound.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.keeper != null and measureOutbound.keeper != ''">
+            <![CDATA[AND t.keeper = #{measureOutbound.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiveResion != null and measureOutbound.receiveResion != ''">
+            <![CDATA[AND t.receive_resion = #{measureOutbound.receiveResion, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="measureOutbound.remark != null and measureOutbound.remark != ''">
+            <![CDATA[AND t.remark = #{measureOutbound.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MeasureOutbound">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.receiver AS receiver,
+            t.receive_class AS receive_class,
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_measure_outbound t
+        ]]>
+		<where>
+			<if test="measureOutbound.pkId != null">
+            <![CDATA[AND t.pk_id = #{measureOutbound.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.createUser != null">
+            <![CDATA[AND t.create_user = #{measureOutbound.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.createTime != null">
+            <![CDATA[AND t.create_time = #{measureOutbound.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureOutbound.updateUser != null">
+            <![CDATA[AND t.update_user = #{measureOutbound.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.updateTime != null">
+            <![CDATA[AND t.update_time = #{measureOutbound.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureOutbound.delMark != null">
+            <![CDATA[AND t.del_mark = #{measureOutbound.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureOutbound.measureId != null">
+            <![CDATA[AND t.measure_id = #{measureOutbound.measureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.measureName != null and measureOutbound.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measureOutbound.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.measureNumber != null and measureOutbound.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measureOutbound.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.model != null and measureOutbound.model != ''">
+            <![CDATA[AND t.model = #{measureOutbound.model, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.warehouse != null and measureOutbound.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{measureOutbound.warehouse, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.outType != null">
+            <![CDATA[AND t.out_type = #{measureOutbound.outType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="measureOutbound.departmentId != null">
+            <![CDATA[AND t.department_id = #{measureOutbound.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.departmentName != null and measureOutbound.departmentName != ''">
+            <![CDATA[AND t.department_name = #{measureOutbound.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiver != null and measureOutbound.receiver != ''">
+            <![CDATA[AND t.receiver = #{measureOutbound.receiver, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiveClass != null and measureOutbound.receiveClass != ''">
+            <![CDATA[AND t.receive_class = #{measureOutbound.receiveClass, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiveTime != null">
+            <![CDATA[AND t.receive_time = #{measureOutbound.receiveTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureOutbound.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{measureOutbound.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureOutbound.keeper != null and measureOutbound.keeper != ''">
+            <![CDATA[AND t.keeper = #{measureOutbound.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureOutbound.receiveResion != null and measureOutbound.receiveResion != ''">
+            <![CDATA[AND t.receive_resion = #{measureOutbound.receiveResion, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="measureOutbound.remark != null and measureOutbound.remark != ''">
+            <![CDATA[AND t.remark = #{measureOutbound.remark, jdbcType=VARCHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MeasureOutbound">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.receiver AS receiver,
+            t.receive_class AS receive_class,
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_measure_outbound t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{measureOutboundId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_outbound SET del_mark = 1,update_user=#{measureOutbound.updateUser, jdbcType=BIGINT},update_time=#{measureOutbound.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureOutbound.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_measure_outbound]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureOutboundId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<select id="selectByMeasureIdList" parameterType="Map" resultMap="MeasureOutbound">
+	 <![CDATA[
+        SELECT  
+        	t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.warehouse AS warehouse,
+            t.out_type AS out_type,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.receiver AS receiver,
+            t.receive_class AS receive_class,
+            t.receive_time AS receive_time,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.receive_resion AS receive_resion,
+            t.remark AS remark
+        FROM
+            t_measure_outbound t
+        ]]>
+		<where>
+		AND measure_id in
+		<foreach collection="measureIdList" open="(" separator="," close=")" item="id">
+			#{id,jdbcType=BIGINT}
+		</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+</mapper>

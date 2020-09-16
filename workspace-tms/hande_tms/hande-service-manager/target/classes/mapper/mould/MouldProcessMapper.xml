@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldProcessMapper">
+	<resultMap id="MouldProcess" type="org.tsinghuatj.mould.domain.MouldProcess">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldId" javaType="Long" column="mould_id" jdbcType="BIGINT" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="CHAR" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="CHAR" />
+		<result property="equipmentId" javaType="Long" column="equipment_id" jdbcType="BIGINT" />
+		<result property="equipmentCode" javaType="String" column="equipment_code" jdbcType="CHAR" />
+		<result property="equipmentName" javaType="String" column="equipment_name" jdbcType="CHAR" />
+		<result property="partId" javaType="Long" column="part_id" jdbcType="BIGINT" />
+		<result property="partCode" javaType="String" column="part_code" jdbcType="CHAR" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+		<result property="beginTime" javaType="Date" column="begin_time" jdbcType="TIMESTAMP" />
+		<result property="endTime" javaType="Date" column="end_time" jdbcType="TIMESTAMP" />
+		<result property="processSeq" javaType="Integer" column="process_seq" jdbcType="INTEGER" />
+		<result property="processAmount" javaType="Integer" column="process_amount" jdbcType="INTEGER" />
+		<result property="returnResion" javaType="Integer" column="return_resion" jdbcType="INTEGER" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_process (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_id,
+            mould_number,
+            mould_name,
+            full_number,
+            mould_map,
+            equipment_id,
+            equipment_code,
+            equipment_name,
+            part_id,
+            part_code,
+            part_name,
+            begin_time,
+            end_time,
+            process_seq,
+            process_amount,
+            return_resion,
+            remark,
+            department_id,
+            department_name
+        )
+        VALUES
+            (
+                #{mouldProcess.pkId, jdbcType = BIGINT},
+                #{mouldProcess.createUser, jdbcType = BIGINT},
+                #{mouldProcess.createTime, jdbcType = TIMESTAMP},
+                #{mouldProcess.updateUser, jdbcType = BIGINT},
+                #{mouldProcess.updateTime, jdbcType = TIMESTAMP},
+                #{mouldProcess.delMark, jdbcType = TINYINT},
+                #{mouldProcess.mouldId, jdbcType = BIGINT},
+                #{mouldProcess.mouldNumber, jdbcType = CHAR},
+                #{mouldProcess.mouldName, jdbcType = CHAR},
+                #{mouldProcess.fullNumber, jdbcType = CHAR},
+                #{mouldProcess.mouldMap, jdbcType = CHAR},
+                #{mouldProcess.equipmentId, jdbcType = BIGINT},
+                #{mouldProcess.equipmentCode, jdbcType = CHAR},
+                #{mouldProcess.equipmentName, jdbcType = CHAR},
+                #{mouldProcess.partId, jdbcType = BIGINT},
+                #{mouldProcess.partCode, jdbcType = CHAR},
+                #{mouldProcess.partName, jdbcType = CHAR},
+                #{mouldProcess.beginTime, jdbcType = TIMESTAMP},
+                #{mouldProcess.endTime, jdbcType = TIMESTAMP},
+                #{mouldProcess.processSeq, jdbcType = INTEGER},
+                #{mouldProcess.processAmount, jdbcType = INTEGER},
+                #{mouldProcess.returnResion, jdbcType = INTEGER},
+                #{mouldProcess.remark, jdbcType = VARCHAR},
+                #{mouldProcess.departmentId, jdbcType = BIGINT},
+                #{mouldProcess.departmentName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_process]]>
+		<set>
+			<if test="mouldProcess.createUser != null">
+            <![CDATA[create_user = #{mouldProcess.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldProcess.createTime != null">
+            <![CDATA[create_time = #{mouldProcess.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldProcess.updateUser != null">
+            <![CDATA[update_user = #{mouldProcess.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldProcess.updateTime != null">
+            <![CDATA[update_time = #{mouldProcess.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldProcess.delMark != null">
+            <![CDATA[del_mark = #{mouldProcess.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldProcess.mouldId != null">
+            <![CDATA[mould_id = #{mouldProcess.mouldId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldProcess.mouldNumber != null and mouldProcess.mouldNumber != ''">
+            <![CDATA[mould_number = #{mouldProcess.mouldNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.mouldName != null and mouldProcess.mouldName != ''">
+            <![CDATA[mould_name = #{mouldProcess.mouldName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.fullNumber != null and mouldProcess.fullNumber != ''">
+            <![CDATA[full_number = #{mouldProcess.fullNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.mouldMap != null and mouldProcess.mouldMap != ''">
+            <![CDATA[mould_map = #{mouldProcess.mouldMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.equipmentId != null">
+            <![CDATA[equipment_id = #{mouldProcess.equipmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldProcess.equipmentCode != null and mouldProcess.equipmentCode != ''">
+            <![CDATA[equipment_code = #{mouldProcess.equipmentCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.equipmentName != null and mouldProcess.equipmentName != ''">
+            <![CDATA[equipment_name = #{mouldProcess.equipmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.partId != null">
+            <![CDATA[part_id = #{mouldProcess.partId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldProcess.partCode != null and mouldProcess.partCode != ''">
+            <![CDATA[part_code = #{mouldProcess.partCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.partName != null and mouldProcess.partName != ''">
+            <![CDATA[part_name = #{mouldProcess.partName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldProcess.beginTime != null">
+            <![CDATA[begin_time = #{mouldProcess.beginTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldProcess.endTime != null">
+            <![CDATA[end_time = #{mouldProcess.endTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldProcess.processSeq != null">
+            <![CDATA[process_seq = #{mouldProcess.processSeq, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldProcess.processAmount != null">
+            <![CDATA[process_amount = #{mouldProcess.processAmount, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldProcess.returnResion != null">
+            <![CDATA[return_resion = #{mouldProcess.returnResion, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldProcess.remark != null and mouldProcess.remark != ''">
+            <![CDATA[remark = #{mouldProcess.remark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="mouldProcess.departmentId != null">
+            <![CDATA[department_id = #{mouldProcess.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldProcess.departmentName != null and mouldProcess.departmentName != ''">
+            <![CDATA[department_name = #{mouldProcess.departmentName, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.mould_map AS mould_map,
+            t.equipment_id AS equipment_id,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.part_id AS part_id,
+            t.part_code AS part_code,
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_amount AS process_amount,
+            t.return_resion AS return_resion,
+            t.remark AS remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_mould_process t
+        ]]>
+		<where>
+			<if test="mouldProcess.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldProcess.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldProcess.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldProcess.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldProcess.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldProcess.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldProcess.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldProcess.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldProcess.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.mouldNumber != null and mouldProcess.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldProcess.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.mouldName != null and mouldProcess.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldProcess.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.fullNumber != null and mouldProcess.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldProcess.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.mouldMap != null and mouldProcess.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldProcess.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.equipmentId != null">
+            <![CDATA[AND t.equipment_id = #{mouldProcess.equipmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.equipmentCode != null and mouldProcess.equipmentCode != ''">
+            <![CDATA[AND t.equipment_code = #{mouldProcess.equipmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.equipmentName != null and mouldProcess.equipmentName != ''">
+            <![CDATA[AND t.equipment_name = #{mouldProcess.equipmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.partId != null">
+            <![CDATA[AND t.part_id = #{mouldProcess.partId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.partCode != null and mouldProcess.partCode != ''">
+            <![CDATA[AND t.part_code = #{mouldProcess.partCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.partName != null and mouldProcess.partName != ''">
+            <![CDATA[AND t.part_name = #{mouldProcess.partName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.beginTime != null">
+            <![CDATA[AND t.begin_time = #{mouldProcess.beginTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.endTime != null">
+            <![CDATA[AND t.end_time = #{mouldProcess.endTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.processSeq != null">
+            <![CDATA[AND t.process_seq = #{mouldProcess.processSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldProcess.processAmount != null">
+            <![CDATA[AND t.process_amount = #{mouldProcess.processAmount, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldProcess.returnResion != null">
+            <![CDATA[AND t.return_resion = #{mouldProcess.returnResion, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldProcess.remark != null and mouldProcess.remark != ''">
+            <![CDATA[AND t.remark = #{mouldProcess.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldProcess.departmentId != null">
+            <![CDATA[AND t.department_id = #{mouldProcess.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.departmentName != null and mouldProcess.departmentName != ''">
+            <![CDATA[AND t.department_name = #{mouldProcess.departmentName, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.mould_map AS mould_map,
+            t.equipment_id AS equipment_id,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.part_id AS part_id,
+            t.part_code AS part_code,
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_amount AS process_amount,
+            t.return_resion AS return_resion,
+            t.remark AS remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_mould_process t
+        ]]>
+		<where>
+			<if test="mouldProcess.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldProcess.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldProcess.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldProcess.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldProcess.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldProcess.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldProcess.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldProcess.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldProcess.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.mouldNumber != null and mouldProcess.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldProcess.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.mouldName != null and mouldProcess.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldProcess.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.fullNumber != null and mouldProcess.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{mouldProcess.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.mouldMap != null and mouldProcess.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldProcess.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.equipmentId != null">
+            <![CDATA[AND t.equipment_id = #{mouldProcess.equipmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.equipmentCode != null and mouldProcess.equipmentCode != ''">
+            <![CDATA[AND t.equipment_code = #{mouldProcess.equipmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.equipmentName != null and mouldProcess.equipmentName != ''">
+            <![CDATA[AND t.equipment_name = #{mouldProcess.equipmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.partId != null">
+            <![CDATA[AND t.part_id = #{mouldProcess.partId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.partCode != null and mouldProcess.partCode != ''">
+            <![CDATA[AND t.part_code = #{mouldProcess.partCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.partName != null and mouldProcess.partName != ''">
+            <![CDATA[AND t.part_name = #{mouldProcess.partName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldProcess.beginTime != null">
+            <![CDATA[AND t.begin_time = #{mouldProcess.beginTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.endTime != null">
+            <![CDATA[AND t.end_time = #{mouldProcess.endTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldProcess.processSeq != null">
+            <![CDATA[AND t.process_seq = #{mouldProcess.processSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldProcess.processAmount != null">
+            <![CDATA[AND t.process_amount = #{mouldProcess.processAmount, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldProcess.returnResion != null">
+            <![CDATA[AND t.return_resion = #{mouldProcess.returnResion, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldProcess.remark != null and mouldProcess.remark != ''">
+            <![CDATA[AND t.remark = #{mouldProcess.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mouldProcess.departmentId != null">
+            <![CDATA[AND t.department_id = #{mouldProcess.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldProcess.departmentName != null and mouldProcess.departmentName != ''">
+            <![CDATA[AND t.department_name = #{mouldProcess.departmentName, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.mould_map AS mould_map,
+            t.equipment_id AS equipment_id,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.part_id AS part_id,
+            t.part_code AS part_code,
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_amount AS process_amount,
+            t.return_resion AS return_resion,
+            t.remark AS remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_mould_process t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_process SET del_mark = 1,update_user=#{mouldProcess.updateUser, jdbcType=BIGINT},update_time=#{mouldProcess.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldProcess.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_process]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectSeqByMouldId" parameterType="Map" resultMap="MouldProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.full_number AS full_number,
+            t.mould_map AS mould_map,
+            t.equipment_id AS equipment_id,
+            t.equipment_code AS equipment_code,
+            t.equipment_name AS equipment_name,
+            t.part_id AS part_id,
+            t.part_code AS part_code,
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_amount AS process_amount,
+            t.return_resion AS return_resion,
+            t.remark AS remark,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_mould_process t
+        ]]>
+		<where>
+        <![CDATA[AND t.mould_id = #{mouldId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.process_seq DESC]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	
+	<select id="selectSumProcessAmount" parameterType="Map" resultType="Integer">
+        <![CDATA[
+        SELECT            
+            SUM(t.process_amount) as sum           
+        FROM
+            t_mould_process t
+        ]]>
+		<where>
+        <![CDATA[AND t.full_number = #{fullNumber, jdbcType=CHAR}]]>      
+		</where>		
+	</select>
+	
+	
+	
+	<select id="selectByMouldIdList" parameterType="Map" resultMap="MouldProcess">
+	 <![CDATA[
+        SELECT           
+            t.mould_id AS mould_id,
+            t.mould_number AS mould_number,  
+            t.part_code AS part_code,
+            t.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_amount AS process_amount
+        FROM
+            t_mould_process t
+        ]]>
+		<where>
+		AND t.mould_id in
+		<foreach collection="mouldIdList" open="(" separator="," close=")" item="id">
+			#{id,jdbcType=BIGINT}
+		</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+</mapper>

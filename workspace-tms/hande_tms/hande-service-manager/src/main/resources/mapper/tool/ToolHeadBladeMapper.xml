@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolHeadBladeMapper">
+	<resultMap id="ToolHeadBlade" type="org.tsinghuatj.tool.domain.ToolHeadBlade">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="headNumber" javaType="String" column="head_number" jdbcType="CHAR" />
+		<result property="headName" javaType="String" column="head_name" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolQty" javaType="Integer" column="tool_qty" jdbcType="TINYINT" />
+		<result property="inventoryQty" javaType="Integer" column="inventory_qty" jdbcType="TINYINT" />
+		<result property="eachProcessQty" javaType="Integer" column="each_process_qty" jdbcType="TINYINT" />
+		<result property="processTimes" javaType="Integer" column="process_times" jdbcType="TINYINT" />
+		<result property="grindingMax" javaType="BigDecimal" column="grinding_max" jdbcType="DECIMAL" />
+		<result property="grindingCordon" javaType="BigDecimal" column="grinding_cordon" jdbcType="DECIMAL" />
+		<result property="inventoryQty" javaType="Integer" column="inventory_qty" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_head_blade (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            head_number,         
+            tool_number,          
+            tool_qty,
+            each_process_qty,
+            process_times,
+            grinding_max,
+            grinding_cordon
+        )
+        VALUES
+            (
+                #{toolHeadBlade.pkId, jdbcType = BIGINT},
+                #{toolHeadBlade.createUser, jdbcType = BIGINT},
+                #{toolHeadBlade.createTime, jdbcType = TIMESTAMP},
+                #{toolHeadBlade.updateUser, jdbcType = BIGINT},
+                #{toolHeadBlade.updateTime, jdbcType = TIMESTAMP},
+                #{toolHeadBlade.delMark, jdbcType = TINYINT},
+                #{toolHeadBlade.headNumber, jdbcType = CHAR},               
+                #{toolHeadBlade.toolNumber, jdbcType = CHAR},               
+                #{toolHeadBlade.toolQty, jdbcType = TINYINT},
+                #{toolHeadBlade.eachProcessQty, jdbcType = TINYINT},
+                #{toolHeadBlade.processTimes, jdbcType = TINYINT},
+                #{toolHeadBlade.grindingMax, jdbcType = DECIMAL},               
+                #{toolHeadBlade.grindingCordon, jdbcType = DECIMAL}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_head_blade]]>
+		<set>
+			<if test="toolHeadBlade.createUser != null">
+            <![CDATA[create_user = #{toolHeadBlade.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolHeadBlade.createTime != null">
+            <![CDATA[create_time = #{toolHeadBlade.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolHeadBlade.updateUser != null">
+            <![CDATA[update_user = #{toolHeadBlade.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolHeadBlade.updateTime != null">
+            <![CDATA[update_time = #{toolHeadBlade.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolHeadBlade.delMark != null">
+            <![CDATA[del_mark = #{toolHeadBlade.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolHeadBlade.headNumber != null and toolHeadBlade.headNumber != ''">
+            <![CDATA[head_number = #{toolHeadBlade.headNumber, jdbcType=CHAR},]]>
+			</if>			
+			<if test="toolHeadBlade.toolNumber != null and toolHeadBlade.toolNumber != ''">
+            <![CDATA[tool_number = #{toolHeadBlade.toolNumber, jdbcType=CHAR},]]>
+			</if>			
+			<if test="toolHeadBlade.toolQty != null">
+            <![CDATA[tool_qty = #{toolHeadBlade.toolQty, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolHeadBlade.eachProcessQty != null">
+            <![CDATA[each_process_qty = #{toolHeadBlade.eachProcessQty, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolHeadBlade.processTimes != null">
+            <![CDATA[process_times = #{toolHeadBlade.processTimes, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolHeadBlade.grindingMax != null">
+            <![CDATA[grinding_max = #{toolHeadBlade.grindingMax, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="toolHeadBlade.grindingCordon != null">
+            <![CDATA[grinding_cordon = #{toolHeadBlade.grindingCordon, jdbcType=DECIMAL},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolHeadBladeId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolHeadBlade">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.head_number AS head_number,
+            h.head_name AS head_name,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.grinding_max AS grinding_max,
+            t.grinding_cordon AS grinding_cordon,
+            b.tool_map AS tool_map,
+            t.tool_qty AS tool_qty,
+            t.each_process_qty AS each_process_qty,
+            t.process_times AS process_times,
+            tb.inventory_qty AS inventory_qty
+        FROM
+            t_tool_head_blade t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+            inner join t_tool_head h on t.head_number = h.head_number and h.del_mark = 0
+            left join t_tool_blade tb on t.tool_number = tb.tool_number
+        ]]>
+		<where>
+			<if test="toolHeadBlade.headNumber != null and toolHeadBlade.headNumber != ''">
+            <![CDATA[AND t.head_number = #{toolHeadBlade.headNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolHeadBlade.toolNumber != null and toolHeadBlade.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolHeadBlade.toolNumber, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="selectComplexheadBladeList" parameterType="Map" resultMap="ToolHeadBlade">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.head_number AS head_number,
+            h.head_name AS head_name,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.grinding_max AS grinding_max,
+            t.grinding_cordon AS grinding_cordon,
+            b.tool_map AS tool_map,
+            t.tool_qty AS tool_qty,
+            t.each_process_qty AS each_process_qty,
+            t.process_times AS process_times,
+            tb.inventory_qty as inventory_qty
+        FROM
+            t_tool_head_blade t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+            inner join t_tool_head h on t.head_number = h.head_number and h.del_mark = 0
+            left join t_tool_blade tb on tb.tool_number = t.tool_number
+        ]]>
+		<where>
+			<if test="toolHeadBlade.headNumber != null and toolHeadBlade.headNumber != ''">
+            <![CDATA[AND t.head_number = #{toolHeadBlade.headNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolHeadBlade.toolNumber != null and toolHeadBlade.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolHeadBlade.toolNumber, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	
+	
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolHeadBlade">
+        <![CDATA[
+         SELECT
+            t.pk_id AS pk_id, 
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,         
+            t.head_number AS head_number,
+            h.head_name AS head_name,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            b.tool_map AS tool_map,
+            t.grinding_max AS grinding_max,
+            t.grinding_cordon AS grinding_cordon,
+            t.tool_qty AS tool_qty,
+            t.each_process_qty AS each_process_qty,
+            t.process_times AS process_times
+        FROM
+            t_tool_head_blade t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+            inner join t_tool_head h on t.head_number = h.head_number and h.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolHeadBlade.headNumber != null and toolHeadBlade.headNumber != ''">
+            <![CDATA[AND t.head_number = #{toolHeadBlade.headNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolHeadBlade.toolNumber != null and toolHeadBlade.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolHeadBlade.toolNumber, jdbcType=CHAR}]]>
+			</if>			
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolHeadBlade">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.head_number AS head_number,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.grinding_max AS grinding_max,
+            t.grinding_cordon AS grinding_cordon,
+            t.tool_qty AS tool_qty,
+            t.each_process_qty AS each_process_qty,
+            t.process_times AS process_times
+        FROM
+            t_tool_head_blade t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolHeadBladeId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="selectByToolHead" parameterType="Map" resultMap="ToolHeadBlade">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.head_number AS head_number,
+            t.tool_number AS tool_number,
+            b.tool_name AS tool_name,
+            t.grinding_max AS grinding_max,
+            t.grinding_cordon AS grinding_cordon,
+            t.tool_qty AS tool_qty,
+            t.each_process_qty AS each_process_qty,
+            t.process_times AS process_times
+        FROM
+            t_tool_head_blade t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+		 	<![CDATA[AND t.head_number = #{headNumber, jdbcType=CHAR}]]>
+		 	<![CDATA[AND t.tool_number = #{toolNumber, jdbcType=CHAR}]]>
+		 	<![CDATA[AND t.del_mark = 0 ]]>
+			<if test="pkId != null">
+           <![CDATA[AND t.pk_id <> #{pkId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_head_blade SET del_mark = 1,update_user=#{toolHeadBlade.updateUser, jdbcType=BIGINT},update_time=#{toolHeadBlade.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolHeadBlade.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_head_blade]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolHeadBladeId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

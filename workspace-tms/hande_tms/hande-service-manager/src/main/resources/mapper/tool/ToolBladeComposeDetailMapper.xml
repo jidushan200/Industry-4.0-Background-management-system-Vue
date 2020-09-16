@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolBladeComposeDetailMapper">
+	<resultMap id="ToolBladeComposeDetail" type="org.tsinghuatj.tool.domain.ToolBladeComposeDetail">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="composeNumber" javaType="String" column="compose_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolQty" javaType="Integer" column="tool_qty" jdbcType="INTEGER" />
+		<result property="coatQty" javaType="Integer" column="coat_qty" jdbcType="INTEGER" />
+		<result property="supplementQty" javaType="Integer" column="supplement_qty" jdbcType="INTEGER" />
+		<result property="supplementTimes" javaType="Integer" column="supplement_times" jdbcType="INTEGER" />
+
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_blade_compose_detail (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            compose_number,
+            tool_number,
+            tool_qty,
+            supplement_qty,
+            supplement_times
+        )
+        VALUES
+            (
+                #{toolBladeComposeDetail.pkId, jdbcType = BIGINT},
+                #{toolBladeComposeDetail.createUser, jdbcType = BIGINT},
+                #{toolBladeComposeDetail.createTime, jdbcType = TIMESTAMP},
+                #{toolBladeComposeDetail.updateUser, jdbcType = BIGINT},
+                #{toolBladeComposeDetail.updateTime, jdbcType = TIMESTAMP},
+                #{toolBladeComposeDetail.delMark, jdbcType = TINYINT},
+                #{toolBladeComposeDetail.composeNumber, jdbcType = CHAR},
+                #{toolBladeComposeDetail.toolNumber, jdbcType = CHAR},
+                #{toolBladeComposeDetail.toolQty, jdbcType = INTEGER},
+                #{toolBladeComposeDetail.supplementQty, jdbcType = INTEGER},
+                #{toolBladeComposeDetail.supplementTimes, jdbcType = INTEGER}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_compose_detail]]>
+		<set>
+			<if test="toolBladeComposeDetail.updateUser != null">
+            <![CDATA[update_user = #{toolBladeComposeDetail.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeComposeDetail.updateTime != null">
+            <![CDATA[update_time = #{toolBladeComposeDetail.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeComposeDetail.supplementQty != null">
+            <![CDATA[supplement_qty = #{toolBladeComposeDetail.supplementQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeComposeDetail.supplementTimes != null">
+            <![CDATA[supplement_times = #{toolBladeComposeDetail.supplementTimes, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeComposeDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveByNumber" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_compose_detail]]>
+		<set>
+			<if test="toolBladeComposeDetail.updateUser != null">
+            <![CDATA[update_user = #{toolBladeComposeDetail.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeComposeDetail.updateTime != null">
+            <![CDATA[update_time = #{toolBladeComposeDetail.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeComposeDetail.toolQty != null">
+            <![CDATA[tool_qty = #{toolBladeComposeDetail.toolQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeComposeDetail.supplementQty != null">
+            <![CDATA[supplement_qty = #{toolBladeComposeDetail.supplementQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeComposeDetail.supplementTimes != null">
+            <![CDATA[supplement_times = #{toolBladeComposeDetail.supplementTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeComposeDetail.coatQty != null">
+            <![CDATA[coat_qty = #{toolBladeComposeDetail.coatQty, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+       <![CDATA[AND compose_number = #{toolBladeComposeDetail.composeNumber, jdbcType=CHAR}]]>
+       <![CDATA[AND tool_number = #{toolBladeComposeDetail.toolNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+
+
+
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolBladeComposeDetail">
+        <![CDATA[
+         SELECT
+            t.pk_id AS pk_id,          
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.tool_qty AS tool_qty,
+            t.supplement_qty AS supplement_qty,
+            t.supplement_times AS supplement_times,
+            t.coat_qty AS coat_qty,
+            b.tool_name as tool_name,
+            b.tool_map as tool_map
+        FROM
+            t_tool_blade_compose_detail t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0 
+        ]]>
+		<where>
+			<if test="toolBladeComposeDetail.composeNumber != null and toolBladeComposeDetail.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeComposeDetail.composeNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeComposeDetail.toolNumber != null and toolBladeComposeDetail.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolBladeComposeDetail.toolNumber, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+
+
+	<select id="selectByComposeList" parameterType="Map" resultMap="ToolBladeComposeDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.tool_qty AS tool_qty,
+            t.coat_qty AS coat_qty,
+            t.supplement_qty AS supplement_qty,
+            t.supplement_times AS supplement_times,
+            b.tool_name as tool_name,
+            b.tool_map as tool_map
+        FROM
+            t_tool_blade_compose_detail t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0 
+        ]]>
+		<where>
+            <![CDATA[AND t.compose_number in ]]>
+			<foreach item="item" index="index" collection="numberList" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+
+	<select id="selectByComposeNumberToolNumber" parameterType="Map" resultMap="ToolBladeComposeDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.tool_qty AS tool_qty,
+            t.coat_qty AS coat_qty,
+            t.supplement_qty AS supplement_qty,
+            t.supplement_times AS supplement_times
+        FROM
+            t_tool_blade_compose_detail t
+        ]]>
+		<where>
+            <![CDATA[AND t.compose_number = #{composeNumber, jdbcType=CHAR}]]>
+			<if test="toolNumber != null and toolNumber != ''">
+             <![CDATA[AND t.tool_number = #{toolNumber, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+
+
+
+
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolBladeComposeDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.tool_qty AS tool_qty,
+            t.coat_qty AS coat_qty,
+            t.supplement_qty AS supplement_qty,
+            t.supplement_times AS supplement_times
+        FROM
+            t_tool_blade_compose_detail t
+        ]]>
+		<where>
+			<if test="toolBladeComposeDetail.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolBladeComposeDetail.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeComposeDetail.createUser != null">
+            <![CDATA[AND t.create_user = #{toolBladeComposeDetail.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeComposeDetail.createTime != null">
+            <![CDATA[AND t.create_time = #{toolBladeComposeDetail.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeComposeDetail.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolBladeComposeDetail.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeComposeDetail.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolBladeComposeDetail.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeComposeDetail.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolBladeComposeDetail.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeComposeDetail.composeNumber != null and toolBladeComposeDetail.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeComposeDetail.composeNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeComposeDetail.toolNumber != null and toolBladeComposeDetail.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolBladeComposeDetail.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeComposeDetail.toolQty != null">
+            <![CDATA[AND t.tool_qty = #{toolBladeComposeDetail.toolQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolBladeComposeDetail.supplementQty != null">
+            <![CDATA[AND t.supplement_qty = #{toolBladeComposeDetail.supplementQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolBladeComposeDetail.supplementTimes != null">
+            <![CDATA[AND t.supplement_times = #{toolBladeComposeDetail.supplementTimes, jdbcType=INTEGER}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolBladeComposeDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,
+            t.tool_number AS tool_number,
+            t.tool_qty AS tool_qty,
+            t.coat_qty AS coat_qty,
+            t.supplement_qty AS supplement_qty,
+            t.supplement_times AS supplement_times
+        FROM
+            t_tool_blade_compose_detail t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolBladeComposeDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_compose_detail SET del_mark = 1,update_user=#{toolBladeComposeDetail.updateUser, jdbcType=BIGINT},update_time=#{toolBladeComposeDetail.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeComposeDetail.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_blade_compose_detail]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeComposeDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

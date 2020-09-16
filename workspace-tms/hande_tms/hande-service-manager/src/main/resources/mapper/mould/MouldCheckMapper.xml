@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldCheckMapper">
+	<resultMap id="MouldCheck" type="org.tsinghuatj.mould.domain.MouldCheck">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldId" javaType="Long" column="mould_id" jdbcType="BIGINT" />
+		<result property="receiptId" javaType="Long" column="receipt_id" jdbcType="BIGINT" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="CHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="CHAR" />
+		<result property="mouldSeq" javaType="String" column="mould_seq" jdbcType="CHAR" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="supplierName" javaType="String" column="supplier_name" jdbcType="CHAR" />
+		<result property="selfCheckReport" javaType="Integer" column="self_check_report" jdbcType="TINYINT" />
+		<result property="checkerId" javaType="Long" column="checker_id" jdbcType="BIGINT" />
+		<result property="checker" javaType="String" column="checker" jdbcType="CHAR" />
+		<result property="checkTime" javaType="Date" column="check_time" jdbcType="TIMESTAMP" />
+		<result property="checkStatus" javaType="Integer" column="check_status" jdbcType="TINYINT" />
+		<result property="checkType" javaType="Integer" column="check_type" jdbcType="TINYINT" />
+		<result property="reportStatus" javaType="Integer" column="report_status" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_check (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_id,
+            receipt_id,
+            mould_number,
+            mould_name,
+            mould_map,
+            mould_seq,
+            supplier_id,
+            supplier_name,
+            self_check_report,
+            checker_id,
+            checker,
+            check_time,
+            check_status,
+            check_type,
+            report_status
+        )
+        VALUES
+            (
+                #{mouldCheck.pkId, jdbcType = BIGINT},
+                #{mouldCheck.createUser, jdbcType = BIGINT},
+                #{mouldCheck.createTime, jdbcType = TIMESTAMP},
+                #{mouldCheck.updateUser, jdbcType = BIGINT},
+                #{mouldCheck.updateTime, jdbcType = TIMESTAMP},
+                #{mouldCheck.delMark, jdbcType = TINYINT},
+                #{mouldCheck.mouldId, jdbcType = BIGINT},
+                #{mouldCheck.receiptId, jdbcType = BIGINT},
+                #{mouldCheck.mouldNumber, jdbcType = CHAR},
+                #{mouldCheck.mouldName, jdbcType = CHAR},
+                #{mouldCheck.mouldMap, jdbcType = CHAR},
+                #{mouldCheck.mouldSeq, jdbcType = CHAR},
+                #{mouldCheck.supplierId, jdbcType = BIGINT},
+                #{mouldCheck.supplierName, jdbcType = CHAR},
+                #{mouldCheck.selfCheckReport, jdbcType = TINYINT},
+                #{mouldCheck.checkerId, jdbcType = BIGINT},
+                #{mouldCheck.checker, jdbcType = CHAR},
+                #{mouldCheck.checkTime, jdbcType = TIMESTAMP},
+                #{mouldCheck.checkStatus, jdbcType = TINYINT},
+                #{mouldCheck.checkType, jdbcType = TINYINT},
+                #{mouldCheck.reportStatus, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_check]]>
+		<set>
+			<if test="mouldCheck.createUser != null">
+            <![CDATA[create_user = #{mouldCheck.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheck.createTime != null">
+            <![CDATA[create_time = #{mouldCheck.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldCheck.updateUser != null">
+            <![CDATA[update_user = #{mouldCheck.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheck.updateTime != null">
+            <![CDATA[update_time = #{mouldCheck.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldCheck.delMark != null">
+            <![CDATA[del_mark = #{mouldCheck.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldCheck.mouldId != null">
+            <![CDATA[mould_id = #{mouldCheck.mouldId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheck.receiptId != null">
+            <![CDATA[receipt_id = #{mouldCheck.receiptId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheck.mouldNumber != null and mouldCheck.mouldNumber != ''">
+            <![CDATA[mould_number = #{mouldCheck.mouldNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheck.mouldName != null and mouldCheck.mouldName != ''">
+            <![CDATA[mould_name = #{mouldCheck.mouldName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheck.mouldMap != null and mouldCheck.mouldMap != ''">
+            <![CDATA[mould_map = #{mouldCheck.mouldMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheck.mouldSeq != null and mouldCheck.mouldSeq != ''">
+            <![CDATA[mould_seq = #{mouldCheck.mouldSeq, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheck.supplierName != null and mouldCheck.supplierName != ''">
+            <![CDATA[supplier_name = #{mouldCheck.supplierName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheck.selfCheckReport != null">
+            <![CDATA[self_check_report = #{mouldCheck.selfCheckReport, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldCheck.checkerId != null">
+            <![CDATA[checker_id = #{mouldCheck.checkerId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldCheck.checker != null and mouldCheck.checker != ''">
+            <![CDATA[checker = #{mouldCheck.checker, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldCheck.checkTime != null">
+            <![CDATA[check_time = #{mouldCheck.checkTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldCheck.checkStatus != null">
+            <![CDATA[check_status = #{mouldCheck.checkStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldCheck.checkType != null">
+            <![CDATA[check_type = #{mouldCheck.checkType, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldCheck.reportStatus != null">
+            <![CDATA[report_status = #{mouldCheck.reportStatus, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.receipt_id AS receipt_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.supplier_name AS supplier_name,
+            t.self_check_report AS self_check_report,
+            t.checker_id AS checker_id,
+            t.checker AS checker,
+            t.check_time AS check_time,
+            t.check_status AS check_status,
+            t.check_type AS check_type,
+            t.report_status AS report_status
+        FROM
+            t_mould_check t
+        ]]>
+		<where>
+			<if test="mouldCheck.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldCheck.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldCheck.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldCheck.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldCheck.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldCheck.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldCheck.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldCheck.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldCheck.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheck.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldCheck.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.receiptId != null">
+            <![CDATA[AND t.receipt_id = #{mouldCheck.receiptId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.mouldNumber != null and mouldCheck.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldCheck.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheck.mouldName != null and mouldCheck.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldCheck.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheck.mouldMap != null and mouldCheck.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldCheck.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheck.mouldSeq != null and mouldCheck.mouldSeq != ''">
+            <![CDATA[AND t.mould_seq = #{mouldCheck.mouldSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheck.supplierName != null and mouldCheck.supplierName != ''">
+            <![CDATA[AND t.supplier_name = #{mouldCheck.supplierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheck.selfCheckReport != null">
+            <![CDATA[AND t.self_check_report = #{mouldCheck.selfCheckReport, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheck.checkerId != null">
+            <![CDATA[AND t.checker_id = #{mouldCheck.checkerId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.checker != null and mouldCheck.checker != ''">
+            <![CDATA[AND t.checker = #{mouldCheck.checker, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheck.checkTime != null">
+            <![CDATA[AND t.check_time = #{mouldCheck.checkTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldCheck.checkStatus != null">
+            <![CDATA[AND t.check_status = #{mouldCheck.checkStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{mouldCheck.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheck.reportStatus != null">
+            <![CDATA[AND t.report_status = #{mouldCheck.reportStatus, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.mould_id AS mould_id,
+            t.receipt_id AS receipt_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.supplier_name AS supplier_name,
+            t.self_check_report AS self_check_report,
+            t.checker_id AS checker_id,
+            t.checker AS checker,
+            t.check_time AS check_time,
+            t.check_status AS check_status,
+            t.check_type AS check_type,
+            t.report_status AS report_status
+        FROM
+            t_mould_check t
+        ]]>
+		<where>
+			
+			<if test="mouldCheck.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldCheck.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.receiptId != null">
+            <![CDATA[AND t.receipt_id = #{mouldCheck.receiptId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.mouldNumber != null and mouldCheck.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldCheck.mouldNumber, jdbcType=CHAR}]]>
+			</if>			
+			<if test="mouldCheck.mouldMap != null and mouldCheck.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldCheck.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldCheck.checkerId != null">
+            <![CDATA[AND t.checker_id = #{mouldCheck.checkerId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldCheck.checker != null and mouldCheck.checker != ''">
+            <![CDATA[AND t.checker = #{mouldCheck.checker, jdbcType=CHAR}]]>
+			</if>
+		
+			<if test="mouldCheck.checkStatus != null">
+            <![CDATA[AND t.check_status = #{mouldCheck.checkStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheck.checkType != null">
+            <![CDATA[AND t.check_type = #{mouldCheck.checkType, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldCheck.reportStatus != null">
+            <![CDATA[AND t.report_status = #{mouldCheck.reportStatus, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldCheck">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.receipt_id AS receipt_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.supplier_name AS supplier_name,
+            t.self_check_report AS self_check_report,
+            t.checker_id AS checker_id,
+            t.checker AS checker,
+            t.check_time AS check_time,
+            t.check_status AS check_status,
+            t.check_type AS check_type,
+            t.report_status AS report_status
+        FROM
+            t_mould_check t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_check SET del_mark = 1,update_user=#{mouldCheck.updateUser, jdbcType=BIGINT},update_time=#{mouldCheck.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldCheck.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_check]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldCheckId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<select id="selectByMouldIdList" parameterType="Map" resultMap="MouldCheck">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.receipt_id AS receipt_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.supplier_name AS supplier_name,
+            t.self_check_report AS self_check_report,
+            t.checker_id AS checker_id,
+            t.checker AS checker,
+            t.check_time AS check_time,
+            t.check_status AS check_status,
+            t.check_type AS check_type,
+            t.report_status AS report_status
+        FROM
+            t_mould_check t
+        ]]>
+		<where>
+		AND t.mould_id in
+		<foreach collection="mouldIdList" open="(" separator="," close=")" item="id">
+			#{id,jdbcType=BIGINT}
+		</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+</mapper>

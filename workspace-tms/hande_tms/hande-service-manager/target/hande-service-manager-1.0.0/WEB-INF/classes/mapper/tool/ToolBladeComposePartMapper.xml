@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolBladeComposePartMapper">
+	<resultMap id="ToolBladeComposePart" type="org.tsinghuatj.tool.domain.ToolBladeComposePart">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="composeNumber" javaType="String" column="compose_number" jdbcType="CHAR" />
+		<result property="partCode" javaType="String" column="part_code" jdbcType="CHAR" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+		<result property="partQty" javaType="Integer" column="part_qty" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_blade_compose_part (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            compose_number,
+            part_code,
+            part_qty
+        )
+        VALUES
+            (
+                #{toolBladeComposePart.pkId, jdbcType = BIGINT},
+                #{toolBladeComposePart.createUser, jdbcType = BIGINT},
+                #{toolBladeComposePart.createTime, jdbcType = TIMESTAMP},
+                #{toolBladeComposePart.updateUser, jdbcType = BIGINT},
+                #{toolBladeComposePart.updateTime, jdbcType = TIMESTAMP},
+                #{toolBladeComposePart.delMark, jdbcType = TINYINT},
+                #{toolBladeComposePart.composeNumber, jdbcType = CHAR},
+                #{toolBladeComposePart.partCode, jdbcType = CHAR},
+                #{toolBladeComposePart.partQty, jdbcType = INTEGER}
+            )
+        ]]>
+	</insert>
+
+	<!-- 查询列表 -->
+	<select id="selectByComposeNumber" parameterType="Map" resultMap="ToolBladeComposePart">
+        <![CDATA[
+        SELECT  
+        	t.pk_id AS pk_id,
+            t.compose_number AS compose_number,
+            t.part_code AS part_code,
+            p.part_name AS part_name,
+            t.part_qty AS part_qty
+        FROM
+            t_tool_blade_compose_part t
+            inner join t_part p on t.part_code = p.part_code
+        ]]>
+		<where>		
+            <![CDATA[AND t.compose_number = #{composeNumber, jdbcType=CHAR}]]>
+		</where>
+	</select>
+
+	<select id="selectByComposeList" parameterType="Map" resultMap="ToolBladeComposePart">
+        <![CDATA[
+        SELECT  
+        	t.pk_id AS pk_id,
+            t.compose_number AS compose_number,
+            t.part_code AS part_code,
+            p.part_name AS part_name,
+            t.part_qty AS part_qty
+        FROM
+            t_tool_blade_compose_part t
+            inner join t_part p on t.part_code = p.part_code
+        ]]>
+		 <![CDATA[AND t.compose_number in ]]>
+		<foreach item="item" index="index" collection="numberList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+
+
+	<!-- 查询列表 -->
+	<select id="selectByHeadNumber" parameterType="Map" resultMap="ToolBladeComposePart">
+        <![CDATA[
+        SELECT  
+            t.part_code AS part_code,
+            p.part_name AS part_name
+        FROM
+            t_tool_head_part t
+            inner join t_part p on t.part_code = p.part_code
+        ]]>
+		<where>		
+            <![CDATA[AND t.head_number = #{headNumber, jdbcType=CHAR}]]>
+		</where>
+	</select>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_compose_part]]>
+		<set>
+			<if test="toolBladeComposePart.updateUser != null">
+            <![CDATA[update_user = #{toolBladeComposePart.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeComposePart.updateTime != null">
+            <![CDATA[update_time = #{toolBladeComposePart.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeComposePart.partQty != null">
+            <![CDATA[part_qty = #{toolBladeComposePart.partQty, jdbcType=INTEGER},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeComposePartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_compose_part SET del_mark = 1,update_user=#{toolBladeComposePart.updateUser, jdbcType=BIGINT},update_time=#{toolBladeComposePart.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeComposePart.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_blade_compose_part]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeComposePartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.measure.repository.MeasureWarehouseMapper">
+	<resultMap id="MeasureWarehouse" type="org.tsinghuatj.measure.domain.MeasureWarehouse">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="measureId" javaType="Long" column="measure_id" jdbcType="BIGINT" />
+		<result property="measureName" javaType="String" column="measure_name" jdbcType="CHAR" />
+		<result property="measureNumber" javaType="String" column="measure_number" jdbcType="CHAR" />
+		<result property="model" javaType="String" column="model" jdbcType="CHAR" />
+		<result property="measureBarcode" javaType="String" column="measure_barcode" jdbcType="CHAR" />
+		<result property="inType" javaType="Integer" column="in_type" jdbcType="INTEGER" />
+		<result property="keeperId" javaType="Long" column="keeper_id" jdbcType="BIGINT" />
+		<result property="keeper" javaType="String" column="keeper" jdbcType="CHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="warehouse" javaType="String" column="warehouse" jdbcType="VARCHAR" />
+		<result property="warehosingTime" javaType="Date" column="warehosing_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_measure_warehouse (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            measure_id,
+            measure_name,
+            measure_number,
+            model,
+            measure_barcode,
+            in_type,
+            keeper_id,
+            keeper,
+            remark,
+            warehouse,
+            warehosing_time
+        )
+        VALUES
+            (
+                #{measureWarehouse.pkId, jdbcType = BIGINT},
+                #{measureWarehouse.createUser, jdbcType = BIGINT},
+                #{measureWarehouse.createTime, jdbcType = TIMESTAMP},
+                #{measureWarehouse.updateUser, jdbcType = BIGINT},
+                #{measureWarehouse.updateTime, jdbcType = TIMESTAMP},
+                #{measureWarehouse.delMark, jdbcType = TINYINT},
+                #{measureWarehouse.measureId, jdbcType = BIGINT},
+                #{measureWarehouse.measureName, jdbcType = CHAR},
+                #{measureWarehouse.measureNumber, jdbcType = CHAR},
+                #{measureWarehouse.model, jdbcType = CHAR},
+                #{measureWarehouse.measureBarcode, jdbcType = CHAR},
+                #{measureWarehouse.inType, jdbcType = INTEGER},
+                #{measureWarehouse.keeperId, jdbcType = BIGINT},
+                #{measureWarehouse.keeper, jdbcType = CHAR},
+                #{measureWarehouse.remark, jdbcType = VARCHAR},
+                #{measureWarehouse.warehouse, jdbcType = VARCHAR},
+                #{measureWarehouse.warehosingTime, jdbcType = TIMESTAMP}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_warehouse]]>
+		<set>
+			<if test="measureWarehouse.createUser != null">
+            <![CDATA[create_user = #{measureWarehouse.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureWarehouse.createTime != null">
+            <![CDATA[create_time = #{measureWarehouse.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureWarehouse.updateUser != null">
+            <![CDATA[update_user = #{measureWarehouse.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureWarehouse.updateTime != null">
+            <![CDATA[update_time = #{measureWarehouse.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="measureWarehouse.delMark != null">
+            <![CDATA[del_mark = #{measureWarehouse.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="measureWarehouse.measureId != null">
+            <![CDATA[measure_id = #{measureWarehouse.measureId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureWarehouse.measureName != null and measureWarehouse.measureName != ''">
+            <![CDATA[measure_name = #{measureWarehouse.measureName, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureWarehouse.measureNumber != null and measureWarehouse.measureNumber != ''">
+            <![CDATA[measure_number = #{measureWarehouse.measureNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureWarehouse.model != null and measureWarehouse.model != ''">
+            <![CDATA[model = #{measureWarehouse.model, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureWarehouse.measureBarcode != null and measureWarehouse.measureBarcode != ''">
+            <![CDATA[measure_barcode = #{measureWarehouse.measureBarcode, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureWarehouse.inType != null">
+            <![CDATA[in_type = #{measureWarehouse.inType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="measureWarehouse.keeperId != null">
+            <![CDATA[keeper_id = #{measureWarehouse.keeperId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="measureWarehouse.keeper != null and measureWarehouse.keeper != ''">
+            <![CDATA[keeper = #{measureWarehouse.keeper, jdbcType=CHAR},]]>
+			</if>
+			<if test="measureWarehouse.remark != null and measureWarehouse.remark != ''">
+            <![CDATA[remark = #{measureWarehouse.remark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="measureWarehouse.warehouse != null and measureWarehouse.warehouse != ''">
+            <![CDATA[warehouse = #{measureWarehouse.warehouse, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="measureWarehouse.warehosingTime != null">
+            <![CDATA[warehosing_time = #{measureWarehouse.warehosingTime, jdbcType=TIMESTAMP},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{measureWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MeasureWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_barcode AS measure_barcode,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time
+        FROM
+            t_measure_warehouse t
+        ]]>
+		<where>
+			<if test="measureWarehouse.pkId != null">
+            <![CDATA[AND t.pk_id = #{measureWarehouse.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.createUser != null">
+            <![CDATA[AND t.create_user = #{measureWarehouse.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.createTime != null">
+            <![CDATA[AND t.create_time = #{measureWarehouse.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureWarehouse.updateUser != null">
+            <![CDATA[AND t.update_user = #{measureWarehouse.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.updateTime != null">
+            <![CDATA[AND t.update_time = #{measureWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureWarehouse.delMark != null">
+            <![CDATA[AND t.del_mark = #{measureWarehouse.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureWarehouse.measureId != null">
+            <![CDATA[AND t.measure_id = #{measureWarehouse.measureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.measureName != null and measureWarehouse.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measureWarehouse.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.measureNumber != null and measureWarehouse.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measureWarehouse.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.model != null and measureWarehouse.model != ''">
+            <![CDATA[AND t.model = #{measureWarehouse.model, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.measureBarcode != null and measureWarehouse.measureBarcode != ''">
+            <![CDATA[AND t.measure_barcode = #{measureWarehouse.measureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.inType != null">
+            <![CDATA[AND t.in_type = #{measureWarehouse.inType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="measureWarehouse.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{measureWarehouse.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.keeper != null and measureWarehouse.keeper != ''">
+            <![CDATA[AND t.keeper = #{measureWarehouse.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.remark != null and measureWarehouse.remark != ''">
+            <![CDATA[AND t.remark = #{measureWarehouse.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="measureWarehouse.warehouse != null and measureWarehouse.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{measureWarehouse.warehouse, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="measureWarehouse.warehosingTime != null">
+            <![CDATA[AND t.warehosing_time = #{measureWarehouse.warehosingTime, jdbcType=TIMESTAMP}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MeasureWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_barcode AS measure_barcode,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time
+        FROM
+            t_measure_warehouse t
+        ]]>
+		<where>
+			<if test="measureWarehouse.pkId != null">
+            <![CDATA[AND t.pk_id = #{measureWarehouse.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.createUser != null">
+            <![CDATA[AND t.create_user = #{measureWarehouse.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.createTime != null">
+            <![CDATA[AND t.create_time = #{measureWarehouse.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureWarehouse.updateUser != null">
+            <![CDATA[AND t.update_user = #{measureWarehouse.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.updateTime != null">
+            <![CDATA[AND t.update_time = #{measureWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="measureWarehouse.delMark != null">
+            <![CDATA[AND t.del_mark = #{measureWarehouse.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="measureWarehouse.measureId != null">
+            <![CDATA[AND t.measure_id = #{measureWarehouse.measureId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.measureName != null and measureWarehouse.measureName != ''">
+            <![CDATA[AND t.measure_name = #{measureWarehouse.measureName, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.measureNumber != null and measureWarehouse.measureNumber != ''">
+            <![CDATA[AND t.measure_number = #{measureWarehouse.measureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.model != null and measureWarehouse.model != ''">
+            <![CDATA[AND t.model = #{measureWarehouse.model, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.measureBarcode != null and measureWarehouse.measureBarcode != ''">
+            <![CDATA[AND t.measure_barcode = #{measureWarehouse.measureBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.inType != null">
+            <![CDATA[AND t.in_type = #{measureWarehouse.inType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="measureWarehouse.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{measureWarehouse.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="measureWarehouse.keeper != null and measureWarehouse.keeper != ''">
+            <![CDATA[AND t.keeper = #{measureWarehouse.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="measureWarehouse.remark != null and measureWarehouse.remark != ''">
+            <![CDATA[AND t.remark = #{measureWarehouse.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="measureWarehouse.warehouse != null and measureWarehouse.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{measureWarehouse.warehouse, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="measureWarehouse.warehosingTime != null">
+            <![CDATA[AND t.warehosing_time = #{measureWarehouse.warehosingTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MeasureWarehouse">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_barcode AS measure_barcode,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time
+        FROM
+            t_measure_warehouse t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{measureWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_measure_warehouse SET del_mark = 1,update_user=#{measureWarehouse.updateUser, jdbcType=BIGINT},update_time=#{measureWarehouse.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureWarehouse.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_measure_warehouse]]>
+		<where>
+        <![CDATA[AND pk_id = #{measureWarehouseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<select id="selectByMeasureIdList" parameterType="Map" resultMap="MeasureWarehouse">
+	 <![CDATA[
+        SELECT  
+        	 t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.measure_id AS measure_id,
+            t.measure_name AS measure_name,
+            t.measure_number AS measure_number,
+            t.model AS model,
+            t.measure_barcode AS measure_barcode,
+            t.in_type AS in_type,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.remark AS remark,
+            t.warehouse AS warehouse,
+            t.warehosing_time AS warehosing_time
+        FROM
+            t_measure_warehouse t
+        ]]>
+		<where>
+		AND measure_id in
+		<foreach collection="measureIdList" open="(" separator="," close=")" item="id">
+			#{id,jdbcType=BIGINT}
+		</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+</mapper>

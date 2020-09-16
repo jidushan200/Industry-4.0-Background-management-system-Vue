@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldPartMapper">
+	<resultMap id="MouldPart" type="org.tsinghuatj.mould.domain.MouldPart">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldId" javaType="Long" column="mould_id" jdbcType="BIGINT" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="VARCHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="VARCHAR" />
+		<result property="partId" javaType="Long" column="part_id" jdbcType="BIGINT" />
+		<result property="partCode" javaType="String" column="part_code" jdbcType="CHAR" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_part (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_id,
+            part_id
+        )
+        VALUES
+            (
+                #{mouldPart.pkId, jdbcType = BIGINT},
+                #{mouldPart.createUser, jdbcType = BIGINT},
+                #{mouldPart.createTime, jdbcType = TIMESTAMP},
+                #{mouldPart.updateUser, jdbcType = BIGINT},
+                #{mouldPart.updateTime, jdbcType = TIMESTAMP},
+                #{mouldPart.delMark, jdbcType = TINYINT},
+                #{mouldPart.mouldId, jdbcType = BIGINT},
+                #{mouldPart.partId, jdbcType = BIGINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_part]]>
+		<set>
+			<if test="mouldPart.createUser != null">
+            <![CDATA[create_user = #{mouldPart.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldPart.createTime != null">
+            <![CDATA[create_time = #{mouldPart.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldPart.updateUser != null">
+            <![CDATA[update_user = #{mouldPart.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldPart.updateTime != null">
+            <![CDATA[update_time = #{mouldPart.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldPart.delMark != null">
+            <![CDATA[del_mark = #{mouldPart.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldPart.mouldId != null">
+            <![CDATA[mould_id = #{mouldPart.mouldId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldPart.partId != null">
+            <![CDATA[part_id = #{mouldPart.partId, jdbcType=BIGINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldPartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldPart">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.part_id AS part_id,
+            b.mould_number as mould_number,
+            b.mould_name as mould_name,
+            b.mould_map as mould_map,
+            p.part_code as part_code,
+            p.part_name as part_name
+        FROM
+            t_mould_part t
+            inner join t_mould_base b on t.mould_id = b.pk_id
+            inner join t_part p on t.part_id = p.pk_id
+        ]]>
+		<where>
+			<if test="mouldPart.mouldId != null">
+            <![CDATA[AND t.mould_id = #{mouldPart.mouldId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldPart.partId != null">
+            <![CDATA[AND t.part_id = #{mouldPart.partId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldPart.mouldNumber != null and mouldPart.mouldNumber != ''">
+            <![CDATA[AND b.mould_number = #{mouldPart.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldPart.partCode != null and mouldPart.partCode != ''">
+            <![CDATA[AND p.part_code = #{toolPart.partCode, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldPart">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.mould_id AS mould_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.part_id AS part_id,
+            b.mould_number as mould_number,
+            b.mould_name as mould_name,
+            p.part_code as part_code,
+            p.part_name as part_name
+        FROM
+            t_mould_part t
+            inner join t_mould_base b on t.mould_id = b.pk_id
+            inner join t_part p on t.part_id = p.pk_id  
+        ]]>
+		<where>
+			<if test="mouldPart.mouldNumber != null  and mouldPart.mouldNumber != ''">
+            <![CDATA[AND b.mould_number = #{mouldPart.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldPart.partCode != null and mouldPart.partCode != ''">
+            <![CDATA[AND p.part_code = #{mouldPart.partCode, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldPart">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_id AS mould_id,
+            t.part_id AS part_id
+        FROM
+            t_mould_part t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldPartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_part SET del_mark = 1,update_user=#{mouldPart.updateUser, jdbcType=BIGINT},update_time=#{mouldPart.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldPart.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_part]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldPartId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="checkMouldPart" parameterType="Map" resultMap="MouldPart">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,          
+            t.mould_id AS mould_id,
+            t.part_id AS part_id
+        FROM
+            t_mould_part t
+        ]]>
+		<where>
+        <![CDATA[AND t.mould_id = #{mouldId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.part_id = #{partId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+			<if test="pkId != null">
+            <![CDATA[AND pk_Id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolScripApplyMapper">
+	<resultMap id="ToolScripApply" type="org.tsinghuatj.tool.domain.ToolScripApply">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="scripResion" javaType="Integer" column="scrip_resion" jdbcType="TINYINT" />
+		<result property="applyStatus" javaType="Integer" column="apply_status" jdbcType="TINYINT" />
+		<result property="scripRemark" javaType="String" column="scrip_remark" jdbcType="VARCHAR" />
+		<result property="resultId" javaType="Long" column="result_id" jdbcType="BIGINT" />
+		<result property="reportNumber" javaType="String" column="report_number" jdbcType="CHAR" />
+		<result property="applierId" javaType="Long" column="applier_id" jdbcType="BIGINT" />	
+		<result property="applierName" javaType="String" column="applier_name" jdbcType="CHAR" />
+		<result property="applyTime" javaType="Date" column="apply_time" jdbcType="TIMESTAMP" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="overTime" javaType="Date" column="over_time" jdbcType="TIMESTAMP" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="warehouseCode" javaType="String" column="warehouse_code" jdbcType="CHAR" />
+		<result property="disagreeRemark" javaType="String" column="disagree_remark" jdbcType="VARCHAR" />
+		<result property="processAmount" javaType="Integer" column="process_amount" jdbcType="INTEGER" />
+		
+	</resultMap>
+
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_scrip_apply (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_number,
+            scrip_resion,
+            apply_status,
+            scrip_remark,
+            applier_id,          
+            applier_name,
+            apply_time,
+            department_id,
+            department_name,  
+            over_time,
+            full_number,
+            warehouse_code,
+            disagree_remark
+        )
+        VALUES
+            (
+                #{toolScripApply.pkId, jdbcType = BIGINT},
+                #{toolScripApply.createUser, jdbcType = BIGINT},
+                #{toolScripApply.createTime, jdbcType = TIMESTAMP},
+                #{toolScripApply.updateUser, jdbcType = BIGINT},
+                #{toolScripApply.updateTime, jdbcType = TIMESTAMP},
+                #{toolScripApply.delMark, jdbcType = TINYINT},
+                #{toolScripApply.toolNumber, jdbcType = CHAR},
+                #{toolScripApply.scripResion, jdbcType = TINYINT},
+                #{toolScripApply.applyStatus, jdbcType = TINYINT},
+                #{toolScripApply.scripRemark, jdbcType = VARCHAR},              
+                #{toolScripApply.applierId, jdbcType = BIGINT},
+                #{toolScripApply.applierName, jdbcType = CHAR},
+                #{toolScripApply.applyTime, jdbcType = TIMESTAMP},
+                #{toolScripApply.departmentId, jdbcType = BIGINT},
+                #{toolScripApply.departmentName, jdbcType = CHAR},              
+                #{toolScripApply.overTime, jdbcType = TIMESTAMP},
+                #{toolScripApply.fullNumber, jdbcType = CHAR},
+                #{toolScripApply.warehouseCode, jdbcType = CHAR},
+                #{toolScripApply.disagreeRemark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_scrip_apply]]>
+		<set>			
+			<if test="toolScripApply.updateUser != null">
+            <![CDATA[update_user = #{toolScripApply.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolScripApply.updateTime != null">
+            <![CDATA[update_time = #{toolScripApply.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolScripApply.toolNumber != null and toolScripApply.toolNumber != ''">
+            <![CDATA[tool_number = #{toolScripApply.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolScripApply.scripResion != null">
+            <![CDATA[scrip_resion = #{toolScripApply.scripResion, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolScripApply.applyStatus != null">
+            <![CDATA[apply_status = #{toolScripApply.applyStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolScripApply.scripRemark != null and toolScripApply.scripRemark != ''">
+            <![CDATA[scrip_remark = #{toolScripApply.scripRemark, jdbcType=VARCHAR},]]>
+			</if>			
+			<if test="toolScripApply.overTime != null">
+            <![CDATA[over_time = #{toolScripApply.overTime, jdbcType=TIMESTAMP},]]>
+			</if>			
+			<if test="toolScripApply.disagreeRemark != null and toolScripApply.disagreeRemark != ''">
+            <![CDATA[disagree_remark = #{toolScripApply.disagreeRemark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_number AS tool_number,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,
+            t.result_id AS result_id,
+            t.report_number AS report_number,
+            t.applier_id AS applier_id,           
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.departmentId AS departmentId,
+            t.departmentName AS departmentName,
+            b.tool_map AS tool_map,
+            b.tool_name AS tool_name,
+            t.over_time AS over_time,
+            t.full_number AS full_number,
+            t.warehouse_code AS warehouse_code,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_tool_scrip_apply t
+             inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+			
+			<if test="toolScripApply.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolScripApply.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolScripApply.toolNumber != null and toolScripApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolScripApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.scripResion != null">
+            <![CDATA[AND t.scrip_resion = #{toolScripApply.scripResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolScripApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{toolScripApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolScripApply.scripRemark != null and toolScripApply.scripRemark != ''">
+            <![CDATA[AND t.scrip_remark = #{toolScripApply.scripRemark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolScripApply.resultId != null">
+            <![CDATA[AND t.result_id = #{toolScripApply.resultId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolScripApply.reportNumber != null and toolScripApply.reportNumber != ''">
+            <![CDATA[AND t.report_number = #{toolScripApply.reportNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.applierId != null">
+            <![CDATA[AND t.applier_id = #{toolScripApply.applierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolScripApply.applierName != null and toolScripApply.applierName != ''">
+            <![CDATA[AND t.applier_name = #{toolScripApply.applierName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.applyTime != null">
+            <![CDATA[AND t.apply_time = #{toolScripApply.applyTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolScripApply.departmentId != null">
+            <![CDATA[AND t.departmentId = #{toolScripApply.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolScripApply.departmentName != null and toolScripApply.departmentName != ''">
+            <![CDATA[AND t.departmentName = #{toolScripApply.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.toolMap != null and toolScripApply.toolMap != ''">
+            <![CDATA[AND t.tool_map = #{toolScripApply.toolMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.toolName != null and toolScripApply.toolName != ''">
+            <![CDATA[AND t.tool_name = #{toolScripApply.toolName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.overTime != null">
+            <![CDATA[AND t.over_time = #{toolScripApply.overTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolScripApply.fullNumber != null and toolScripApply.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolScripApply.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.warehouseCode != null and toolScripApply.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{toolScripApply.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.disagreeRemark != null and toolScripApply.disagreeRemark != ''">
+            <![CDATA[AND t.disagree_remark = #{toolScripApply.disagreeRemark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.tool_number AS tool_number,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,            
+            t.applier_id AS applier_id,          
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            b.tool_map AS tool_map,
+            b.tool_name AS tool_name,
+            t.over_time AS over_time,
+            t.full_number AS full_number,
+            t.warehouse_code AS warehouse_code,
+            t.disagree_remark AS disagree_remark,
+            tt.process_amount  as process_amount
+        FROM
+            t_tool_scrip_apply t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+            inner join t_tool tt on t.full_number = tt.full_number and t.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolScripApply.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolScripApply.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolScripApply.toolNumber != null and toolScripApply.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolScripApply.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.scripResion != null">
+            <![CDATA[AND t.scrip_resion = #{toolScripApply.scripResion, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolScripApply.applyStatus != null">
+            <![CDATA[AND t.apply_status = #{toolScripApply.applyStatus, jdbcType=TINYINT}]]>
+			</if>
+			
+			<if test="toolScripApply.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolScripApply.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolScripApply.departmentName != null and toolScripApply.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolScripApply.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolScripApply.statusList != null and toolScripApply.statusList.size()>0" >
+		      AND t.apply_status in 
+		      <foreach collection="toolScripApply.statusList" item="status" open="(" close=")" separator="," >
+		        #{status,jdbcType=TINYINT}
+      			</foreach>
+    		</if>
+			<if test="toolScripApply.fullNumber != null and toolScripApply.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolScripApply.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.apply_status < 3]]>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[order by t.pk_id desc]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_number AS tool_number,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,           
+            t.applier_id AS applier_id,          
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            b.tool_map AS tool_map,
+            b.tool_name AS tool_name,
+            t.over_time AS over_time,
+            t.full_number AS full_number,
+            t.warehouse_code AS warehouse_code,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_tool_scrip_apply t
+            inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_scrip_apply SET del_mark = 1,update_user=#{toolScripApply.updateUser, jdbcType=BIGINT},update_time=#{toolScripApply.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolScripApply.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_scrip_apply]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolScripApplyId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="applyGetByfullNumber" parameterType="Map" resultMap="ToolScripApply">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_number AS tool_number,
+            t.scrip_resion AS scrip_resion,
+            t.apply_status AS apply_status,
+            t.scrip_remark AS scrip_remark,
+            t.applier_id AS applier_id,
+            t.applier_name AS applier_name,
+            t.apply_time AS apply_time,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            b.tool_map AS tool_map,
+            b.tool_name AS tool_name,
+            t.over_time AS over_time,
+            t.full_number AS full_number,
+            t.warehouse_code AS warehouse_code,
+            t.disagree_remark AS disagree_remark
+        FROM
+            t_tool_scrip_apply t
+             inner join t_tool_base b on t.tool_number = b.tool_number and b.del_mark = 0
+        ]]>
+		<where>
+        <![CDATA[AND t.full_number = #{fullNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolApplyResultMapper">
+	<resultMap id="ToolApplyResult" type="org.tsinghuatj.tool.domain.ToolApplyResult">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="result" javaType="Integer" column="result" jdbcType="TINYINT" />
+		<result property="approverId" javaType="Long" column="approver_id" jdbcType="BIGINT" />
+		<result property="approverName" javaType="String" column="approver_name" jdbcType="CHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+		<result property="applyType" javaType="Integer" column="apply_type" jdbcType="INTEGER" />
+		<result property="applyId" javaType="Long" column="apply_id" jdbcType="BIGINT" />
+	</resultMap>
+
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_apply_result (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            result,
+            approver_id,
+            approver_name,
+            remark,
+            apply_type,
+            apply_id
+        )
+        VALUES
+            (
+                #{toolApplyResult.pkId, jdbcType = BIGINT},
+                #{toolApplyResult.createUser, jdbcType = BIGINT},
+                #{toolApplyResult.createTime, jdbcType = TIMESTAMP},
+                #{toolApplyResult.updateUser, jdbcType = BIGINT},
+                #{toolApplyResult.updateTime, jdbcType = TIMESTAMP},
+                #{toolApplyResult.delMark, jdbcType = TINYINT},
+                #{toolApplyResult.result, jdbcType = TINYINT},
+                #{toolApplyResult.approverId, jdbcType = BIGINT},
+                #{toolApplyResult.approverName, jdbcType = CHAR},
+                #{toolApplyResult.remark, jdbcType = VARCHAR},
+                #{toolApplyResult.applyType, jdbcType = INTEGER},
+                #{toolApplyResult.applyId, jdbcType = BIGINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_apply_result]]>
+		<set>
+			<if test="toolApplyResult.createUser != null">
+            <![CDATA[create_user = #{toolApplyResult.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolApplyResult.createTime != null">
+            <![CDATA[create_time = #{toolApplyResult.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolApplyResult.updateUser != null">
+            <![CDATA[update_user = #{toolApplyResult.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolApplyResult.updateTime != null">
+            <![CDATA[update_time = #{toolApplyResult.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolApplyResult.delMark != null">
+            <![CDATA[del_mark = #{toolApplyResult.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolApplyResult.result != null">
+            <![CDATA[result = #{toolApplyResult.result, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolApplyResult.approverId != null">
+            <![CDATA[approver_id = #{toolApplyResult.approverId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolApplyResult.approverName != null and toolApplyResult.approverName != ''">
+            <![CDATA[approver_name = #{toolApplyResult.approverName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolApplyResult.remark != null and toolApplyResult.remark != ''">
+            <![CDATA[remark = #{toolApplyResult.remark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolApplyResult.applyType != null">
+            <![CDATA[apply_type = #{toolApplyResult.applyType, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolApplyResult.applyId != null">
+            <![CDATA[apply_id = #{toolApplyResult.applyId, jdbcType=BIGINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolApplyResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolApplyResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.result AS result,
+            t.approver_id AS approver_id,
+            t.approver_name AS approver_name,
+            t.remark AS remark,
+            t.apply_type AS apply_type,
+            t.apply_id AS apply_id
+        FROM
+            t_tool_apply_result t
+        ]]>
+		<where>
+			<if test="toolApplyResult.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolApplyResult.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.createUser != null">
+            <![CDATA[AND t.create_user = #{toolApplyResult.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.createTime != null">
+            <![CDATA[AND t.create_time = #{toolApplyResult.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolApplyResult.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolApplyResult.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolApplyResult.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolApplyResult.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolApplyResult.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolApplyResult.result != null">
+            <![CDATA[AND t.result = #{toolApplyResult.result, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolApplyResult.approverId != null">
+            <![CDATA[AND t.approver_id = #{toolApplyResult.approverId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.approverName != null and toolApplyResult.approverName != ''">
+            <![CDATA[AND t.approver_name = #{toolApplyResult.approverName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolApplyResult.remark != null and toolApplyResult.remark != ''">
+            <![CDATA[AND t.remark = #{toolApplyResult.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolApplyResult.applyType != null">
+            <![CDATA[AND t.apply_type = #{toolApplyResult.applyType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolApplyResult.applyId != null">
+            <![CDATA[AND t.apply_id = #{toolApplyResult.applyId, jdbcType=BIGINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolApplyResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.result AS result,
+            t.approver_id AS approver_id,
+            t.approver_name AS approver_name,
+            t.remark AS remark,
+            t.apply_type AS apply_type,
+            t.apply_id AS apply_id
+        FROM
+            t_tool_apply_result t
+        ]]>
+		<where>
+			<if test="toolApplyResult.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolApplyResult.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.createUser != null">
+            <![CDATA[AND t.create_user = #{toolApplyResult.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.createTime != null">
+            <![CDATA[AND t.create_time = #{toolApplyResult.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolApplyResult.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolApplyResult.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolApplyResult.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolApplyResult.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolApplyResult.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolApplyResult.result != null">
+            <![CDATA[AND t.result = #{toolApplyResult.result, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolApplyResult.approverId != null">
+            <![CDATA[AND t.approver_id = #{toolApplyResult.approverId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolApplyResult.approverName != null and toolApplyResult.approverName != ''">
+            <![CDATA[AND t.approver_name = #{toolApplyResult.approverName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolApplyResult.remark != null and toolApplyResult.remark != ''">
+            <![CDATA[AND t.remark = #{toolApplyResult.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolApplyResult.applyType != null">
+            <![CDATA[AND t.apply_type = #{toolApplyResult.applyType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolApplyResult.applyId != null">
+            <![CDATA[AND t.apply_id = #{toolApplyResult.applyId, jdbcType=BIGINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolApplyResult">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.result AS result,
+            t.approver_id AS approver_id,
+            t.approver_name AS approver_name,
+            t.remark AS remark,
+            t.apply_type AS apply_type,
+            t.apply_id AS apply_id
+        FROM
+            t_tool_apply_result t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolApplyResultId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_apply_result SET del_mark = 1,update_user=#{toolApplyResult.updateUser, jdbcType=BIGINT},update_time=#{toolApplyResult.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolApplyResult.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_apply_result]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolApplyResultId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolBladeProcessMapper">
+	<resultMap id="ToolBladeProcess" type="org.tsinghuatj.tool.domain.ToolBladeProcess">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="composeNumber" javaType="String" column="compose_number" jdbcType="CHAR" />
+		<result property="headNumber" javaType="String" column="head_number" jdbcType="CHAR" />
+		<result property="headName" javaType="String" column="head_name" jdbcType="CHAR" />		
+		<result property="equipmentCode" javaType="String" column="equipment_code" jdbcType="CHAR" />
+		<result property="tagNumber" javaType="String" column="tag_number" jdbcType="CHAR" />
+		<result property="equipmentName" javaType="String" column="equipment_name" jdbcType="CHAR" />
+		<result property="partCode" javaType="String" column="part_code" jdbcType="CHAR" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+		<result property="beginTime" javaType="Date" column="begin_time" jdbcType="TIMESTAMP" />
+		<result property="endTime" javaType="Date" column="end_time" jdbcType="TIMESTAMP" />
+		<result property="processSeq" javaType="Integer" column="process_seq" jdbcType="INTEGER" />
+		<result property="theoreticalQty" javaType="Integer" column="theoretical_qty" jdbcType="INTEGER" />
+		<result property="processQty" javaType="Integer" column="process_qty" jdbcType="INTEGER" />
+		<result property="upToStandard" javaType="Integer" column="up_to_standard" jdbcType="TINYINT" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />		
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="staffCode" javaType="String" column="staff_code" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_blade_process (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            compose_number,           
+            equipment_code,
+            part_code,
+            begin_time,
+            end_time,
+            process_seq,
+            process_qty,
+            theoretical_qty,
+            up_to_standard,
+            department_id,
+            department_name,
+            staff_code
+        )
+        VALUES
+            (
+                #{toolBladeProcess.pkId, jdbcType = BIGINT},
+                #{toolBladeProcess.createUser, jdbcType = BIGINT},
+                #{toolBladeProcess.createTime, jdbcType = TIMESTAMP},
+                #{toolBladeProcess.updateUser, jdbcType = BIGINT},
+                #{toolBladeProcess.updateTime, jdbcType = TIMESTAMP},
+                #{toolBladeProcess.delMark, jdbcType = TINYINT},
+                #{toolBladeProcess.composeNumber, jdbcType = CHAR},             
+                #{toolBladeProcess.equipmentCode, jdbcType = CHAR},
+                #{toolBladeProcess.partCode, jdbcType = CHAR},
+                #{toolBladeProcess.beginTime, jdbcType = TIMESTAMP},
+                #{toolBladeProcess.endTime, jdbcType = TIMESTAMP},
+                #{toolBladeProcess.processSeq, jdbcType = INTEGER},
+                #{toolBladeProcess.processQty, jdbcType = INTEGER},
+                #{toolBladeProcess.theoreticalQty, jdbcType = INTEGER},
+                #{toolBladeProcess.upToStandard, jdbcType = TINYINT},
+                #{toolBladeProcess.departmentId, jdbcType = BIGINT},
+                #{toolBladeProcess.departmentName, jdbcType = CHAR},
+                #{toolBladeProcess.staffCode, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_process]]>
+		<set>
+			<if test="toolBladeProcess.createUser != null">
+            <![CDATA[create_user = #{toolBladeProcess.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeProcess.createTime != null">
+            <![CDATA[create_time = #{toolBladeProcess.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeProcess.updateUser != null">
+            <![CDATA[update_user = #{toolBladeProcess.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeProcess.updateTime != null">
+            <![CDATA[update_time = #{toolBladeProcess.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeProcess.delMark != null">
+            <![CDATA[del_mark = #{toolBladeProcess.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolBladeProcess.composeNumber != null and toolBladeProcess.composeNumber != ''">
+            <![CDATA[compose_number = #{toolBladeProcess.composeNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolBladeProcess.equipmentCode != null and toolBladeProcess.equipmentCode != ''">
+            <![CDATA[equipment_code = #{toolBladeProcess.equipmentCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolBladeProcess.partCode != null and toolBladeProcess.partCode != ''">
+            <![CDATA[part_code = #{toolBladeProcess.partCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolBladeProcess.beginTime != null">
+            <![CDATA[begin_time = #{toolBladeProcess.beginTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeProcess.endTime != null">
+            <![CDATA[end_time = #{toolBladeProcess.endTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolBladeProcess.processSeq != null">
+            <![CDATA[process_seq = #{toolBladeProcess.processSeq, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeProcess.processQty != null">
+            <![CDATA[process_qty = #{toolBladeProcess.processQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolBladeProcess.departmentId != null">
+            <![CDATA[department_id = #{toolBladeProcess.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolBladeProcess.departmentName != null and toolBladeProcess.departmentName != ''">
+            <![CDATA[department_name = #{toolBladeProcess.departmentName, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolBladeProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,           
+            t.equipment_code AS equipment_code,
+            t.part_code AS part_code,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_qty AS process_qty,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_tool_blade_process t
+        ]]>
+		<where>
+			<if test="toolBladeProcess.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolBladeProcess.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeProcess.createUser != null">
+            <![CDATA[AND t.create_user = #{toolBladeProcess.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeProcess.createTime != null">
+            <![CDATA[AND t.create_time = #{toolBladeProcess.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeProcess.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolBladeProcess.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeProcess.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolBladeProcess.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeProcess.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolBladeProcess.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolBladeProcess.composeNumber != null and toolBladeProcess.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeProcess.composeNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeProcess.equipmentCode != null and toolBladeProcess.equipmentCode != ''">
+            <![CDATA[AND t.equipment_code = #{toolBladeProcess.equipmentCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeProcess.partCode != null and toolBladeProcess.partCode != ''">
+            <![CDATA[AND t.part_code = #{toolBladeProcess.partCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolBladeProcess.beginTime != null">
+            <![CDATA[AND t.begin_time = #{toolBladeProcess.beginTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeProcess.endTime != null">
+            <![CDATA[AND t.end_time = #{toolBladeProcess.endTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolBladeProcess.processSeq != null">
+            <![CDATA[AND t.process_seq = #{toolBladeProcess.processSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolBladeProcess.processQty != null">
+            <![CDATA[AND t.process_qty = #{toolBladeProcess.processQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolBladeProcess.departmentId != null">
+            <![CDATA[AND t.department_id = #{toolBladeProcess.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolBladeProcess.departmentName != null and toolBladeProcess.departmentName != ''">
+            <![CDATA[AND t.department_name = #{toolBladeProcess.departmentName, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolBladeProcess">
+        <![CDATA[
+        SELECT
+            t.compose_number AS compose_number,           
+            t.equipment_code AS equipment_code,
+            e.tag_number as tag_number,
+            e.equipment_name as equipment_name,
+            t.part_code AS part_code,
+            p.part_name AS part_name,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,          
+            t.process_qty AS process_qty,           
+            t.department_name AS department_name
+        FROM
+            t_tool_blade_process t
+        inner join t_tool_blade_compose bc on t.compose_number = bc.compose_number  
+        inner join t_part p on t.part_code = p.part_code and p.del_mark = 0 
+        inner join t_equipment e on t.equipment_code = e.equipment_code and e.del_mark = 0 
+        ]]>
+		<where>
+			<if test="toolBladeProcess.composeNumber != null and toolBladeProcess.composeNumber != ''">
+            <![CDATA[AND t.compose_number = #{toolBladeProcess.composeNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.end_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.end_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+		</where>
+		 <![CDATA[ ORDER BY t.pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolBladeProcess">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.compose_number AS compose_number,           
+            t.equipment_code AS equipment_code,
+            t.part_code AS part_code,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_seq AS process_seq,
+            t.process_qty AS process_qty,
+            t.department_id AS department_id,
+            t.department_name AS department_name
+        FROM
+            t_tool_blade_process t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolBladeProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+
+	<select id="countByComposeNumber" parameterType="Map" resultType="int">
+        <![CDATA[
+        SELECT count(t.pk_id) AS count
+        FROM
+            t_tool_blade_process t
+        ]]>
+		<where>
+        <![CDATA[AND t.compose_number = #{composeNumber, jdbcType=CHAR}]]>
+		</where>
+	</select>
+
+	<select id="sumProcessQtyByComposeNumber" parameterType="Map" resultType="int">
+        <![CDATA[
+        SELECT sum(t.process_qty) AS count
+        FROM
+            t_tool_blade_process t
+        ]]>
+		<where>
+        <![CDATA[AND t.compose_number = #{composeNumber, jdbcType=CHAR}]]>
+		</where>
+	</select>
+
+	<select id="selectByComposeNumberList" parameterType="Map" resultMap="ToolBladeProcess">	
+	 <![CDATA[
+        SELECT   
+        	t.compose_number as compose_number,
+            t.begin_time AS begin_time,
+            t.end_time AS end_time,
+            t.process_qty AS process_qty,
+            e.tag_number as tag_number,
+            e.equipment_name as equipment_name,
+            p.part_code as part_code,
+            p.part_name as part_name
+        FROM
+            t_tool_blade_process t
+        inner join t_equipment e on t.equipment_code = e.equipment_code and e.del_mark = 0
+        inner join t_part p on t.part_code = p.part_code and e.del_mark = 0 
+        ]]>
+		<where>
+			AND compose_number in
+			<foreach collection="numberList" open="(" separator="," close=")" item="number">
+				#{number,jdbcType=CHAR}
+			</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_blade_process SET del_mark = 1,update_user=#{toolBladeProcess.updateUser, jdbcType=BIGINT},update_time=#{toolBladeProcess.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeProcess.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_blade_process]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolBladeProcessId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

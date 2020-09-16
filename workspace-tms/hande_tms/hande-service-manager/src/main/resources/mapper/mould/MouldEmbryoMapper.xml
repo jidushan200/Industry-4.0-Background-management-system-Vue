@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldEmbryoMapper">
+	<resultMap id="MouldEmbryo" type="org.tsinghuatj.mould.domain.MouldEmbryo">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="embryoCode" javaType="String" column="embryo_code" jdbcType="CHAR" />
+		<result property="embryoName" javaType="String" column="embryo_name" jdbcType="CHAR" />
+		<result property="embryoDesc" javaType="String" column="embryo_desc" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_embryo (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            embryo_code,
+            embryo_name,
+            embryo_desc
+        )
+        VALUES
+            (
+                #{mouldEmbryo.pkId, jdbcType = BIGINT},
+                #{mouldEmbryo.createUser, jdbcType = BIGINT},
+                #{mouldEmbryo.createTime, jdbcType = TIMESTAMP},
+                #{mouldEmbryo.updateUser, jdbcType = BIGINT},
+                #{mouldEmbryo.updateTime, jdbcType = TIMESTAMP},
+                #{mouldEmbryo.delMark, jdbcType = TINYINT},
+                #{mouldEmbryo.embryoCode, jdbcType = CHAR},
+                #{mouldEmbryo.embryoName, jdbcType = CHAR},
+                #{mouldEmbryo.embryoDesc, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_embryo]]>
+		<set>
+			<if test="mouldEmbryo.createUser != null">
+            <![CDATA[create_user = #{mouldEmbryo.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldEmbryo.createTime != null">
+            <![CDATA[create_time = #{mouldEmbryo.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldEmbryo.updateUser != null">
+            <![CDATA[update_user = #{mouldEmbryo.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldEmbryo.updateTime != null">
+            <![CDATA[update_time = #{mouldEmbryo.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldEmbryo.delMark != null">
+            <![CDATA[del_mark = #{mouldEmbryo.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldEmbryo.embryoCode != null and mouldEmbryo.embryoCode != ''">
+            <![CDATA[embryo_code = #{mouldEmbryo.embryoCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldEmbryo.embryoName != null and mouldEmbryo.embryoName != ''">
+            <![CDATA[embryo_name = #{mouldEmbryo.embryoName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldEmbryo.embryoDesc != null and mouldEmbryo.embryoDesc != ''">
+            <![CDATA[embryo_desc = #{mouldEmbryo.embryoDesc, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldEmbryoId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldEmbryo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.embryo_desc AS embryo_desc
+        FROM
+            t_mould_embryo t
+        ]]>
+		<where>
+			<if test="mouldEmbryo.pkId != null">
+            <![CDATA[AND t.pk_id = #{mouldEmbryo.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldEmbryo.createUser != null">
+            <![CDATA[AND t.create_user = #{mouldEmbryo.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldEmbryo.createTime != null">
+            <![CDATA[AND t.create_time = #{mouldEmbryo.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldEmbryo.updateUser != null">
+            <![CDATA[AND t.update_user = #{mouldEmbryo.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mouldEmbryo.updateTime != null">
+            <![CDATA[AND t.update_time = #{mouldEmbryo.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mouldEmbryo.delMark != null">
+            <![CDATA[AND t.del_mark = #{mouldEmbryo.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mouldEmbryo.embryoCode != null and mouldEmbryo.embryoCode != ''">
+            <![CDATA[AND t.embryo_code = #{mouldEmbryo.embryoCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldEmbryo.embryoName != null and mouldEmbryo.embryoName != ''">
+            <![CDATA[AND t.embryo_name = #{mouldEmbryo.embryoName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldEmbryo.embryoDesc != null and mouldEmbryo.embryoDesc != ''">
+            <![CDATA[AND t.embryo_desc = #{mouldEmbryo.embryoDesc, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldEmbryo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,            
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.embryo_desc AS embryo_desc
+        FROM
+            t_mould_embryo t
+        ]]>
+		<where>			
+			<if test="mouldEmbryo.embryoCode != null and mouldEmbryo.embryoCode != ''">
+            <![CDATA[AND t.embryo_code = #{mouldEmbryo.embryoCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldEmbryo.embryoName != null and mouldEmbryo.embryoName != ''">
+            <![CDATA[AND t.embryo_name like CONCAT ("%",#{mouldEmbryo.embryoName, jdbcType=CHAR},"%") ]]>
+			</if>
+			<if test="mouldEmbryo.embryoDesc != null and mouldEmbryo.embryoDesc != ''">
+            <![CDATA[AND t.embryo_desc = #{mouldEmbryo.embryoDesc, jdbcType=VARCHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldEmbryo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.embryo_desc AS embryo_desc
+        FROM
+            t_mould_embryo t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldEmbryoId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_embryo SET del_mark = 1,update_user=#{mouldEmbryo.updateUser, jdbcType=BIGINT},update_time=#{mouldEmbryo.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldEmbryo.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_embryo]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldEmbryoId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectByCode" parameterType="Map" resultMap="MouldEmbryo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.embryo_desc AS embryo_desc
+        FROM
+            t_mould_embryo t
+        ]]>
+		<where>
+        <![CDATA[AND t.embryo_code = #{embryoCode, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

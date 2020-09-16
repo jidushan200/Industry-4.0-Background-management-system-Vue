@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldBaseMapper">
+	<resultMap id="MouldBase" type="org.tsinghuatj.mould.domain.MouldBase">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="CHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="CHAR" />
+		<result property="lifeMax" javaType="Integer" column="life_max" jdbcType="INTEGER" />
+		<result property="inventoryQty" javaType="Integer" column="inventory_qty" jdbcType="INTEGER" />
+		<result property="maxSeq" javaType="String" column="max_seq" jdbcType="CHAR" />
+		<result property="mouldType" javaType="Integer" column="mould_type" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould_base (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_number,
+            mould_name,
+            mould_map,
+            life_max,
+            inventory_qty,
+            max_seq,
+            mould_type
+        )
+        VALUES
+            (
+                #{mouldBase.pkId, jdbcType = BIGINT},
+                #{mouldBase.createUser, jdbcType = BIGINT},
+                #{mouldBase.createTime, jdbcType = TIMESTAMP},
+                #{mouldBase.updateUser, jdbcType = BIGINT},
+                #{mouldBase.updateTime, jdbcType = TIMESTAMP},
+                #{mouldBase.delMark, jdbcType = TINYINT},
+                #{mouldBase.mouldNumber, jdbcType = CHAR},
+                #{mouldBase.mouldName, jdbcType = CHAR},
+                #{mouldBase.mouldMap, jdbcType = CHAR},
+                #{mouldBase.lifeMax, jdbcType = INTEGER},
+                #{mouldBase.inventoryQty, jdbcType = INTEGER},
+                #{mouldBase.maxSeq, jdbcType = CHAR},
+                #{mouldBase.mouldType, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_base]]>
+		<set>
+			<if test="mouldBase.createUser != null">
+            <![CDATA[create_user = #{mouldBase.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldBase.createTime != null">
+            <![CDATA[create_time = #{mouldBase.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldBase.updateUser != null">
+            <![CDATA[update_user = #{mouldBase.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mouldBase.updateTime != null">
+            <![CDATA[update_time = #{mouldBase.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mouldBase.delMark != null">
+            <![CDATA[del_mark = #{mouldBase.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mouldBase.mouldNumber != null and mouldBase.mouldNumber != ''">
+            <![CDATA[mould_number = #{mouldBase.mouldNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldBase.mouldName != null and mouldBase.mouldName != ''">
+            <![CDATA[mould_name = #{mouldBase.mouldName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldBase.mouldMap != null and mouldBase.mouldMap != ''">
+            <![CDATA[mould_map = #{mouldBase.mouldMap, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldBase.lifeMax != null">
+            <![CDATA[life_max = #{mouldBase.lifeMax, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldBase.inventoryQty != null">
+            <![CDATA[inventory_qty = #{mouldBase.inventoryQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mouldBase.maxSeq != null and mouldBase.maxSeq != ''">
+            <![CDATA[max_seq = #{mouldBase.maxSeq, jdbcType=CHAR},]]>
+			</if>
+			<if test="mouldBase.mouldType != null">
+            <![CDATA[mould_type = #{mouldBase.mouldType, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldBaseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="MouldBase">
+        <![CDATA[
+        SELECT
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.life_max AS life_max,
+            t.inventory_qty AS inventory_qty,
+            t.max_seq AS max_seq,
+            t.mould_type AS mould_type
+        FROM
+            t_mould_base t
+        ]]>
+		<where>			
+            <![CDATA[AND t.del_mark = 0]]>			
+			<if test="mouldBase.mouldNumber != null and mouldBase.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldBase.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.mouldName != null and mouldBase.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldBase.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.mouldMap != null and mouldBase.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldBase.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.lifeMax != null">
+            <![CDATA[AND t.life_max = #{mouldBase.lifeMax, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldBase.inventoryQty != null">
+            <![CDATA[AND t.inventory_qty = #{mouldBase.inventoryQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldBase.maxSeq != null and mouldBase.maxSeq != ''">
+            <![CDATA[AND t.max_seq = #{mouldBase.maxSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.mouldType != null">
+            <![CDATA[AND t.mould_type = #{mouldBase.mouldType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="MouldBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.life_max AS life_max,
+            t.inventory_qty AS inventory_qty,
+            t.max_seq AS max_seq,
+            t.mould_type AS mould_type
+        FROM
+            t_mould_base t
+        ]]>
+		<where>
+			<if test="mouldBase.mouldNumber != null and mouldBase.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mouldBase.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.mouldName != null and mouldBase.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mouldBase.mouldName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.mouldMap != null and mouldBase.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mouldBase.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.lifeMax != null">
+            <![CDATA[AND t.life_max = #{mouldBase.lifeMax, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldBase.inventoryQty != null">
+            <![CDATA[AND t.inventory_qty = #{mouldBase.inventoryQty, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mouldBase.maxSeq != null and mouldBase.maxSeq != ''">
+            <![CDATA[AND t.max_seq = #{mouldBase.maxSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="mouldBase.mouldType != null">
+            <![CDATA[AND t.mould_type = #{mouldBase.mouldType, jdbcType=TINYINT}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="MouldBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.life_max AS life_max,
+            t.inventory_qty AS inventory_qty,
+            t.max_seq AS max_seq,
+            t.mould_type AS mould_type
+        FROM
+            t_mould_base t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldBaseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould_base SET del_mark = 1,update_user=#{mouldBase.updateUser, jdbcType=BIGINT},update_time=#{mouldBase.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldBase.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeByNumber" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_base]]>
+		<where>
+        <![CDATA[AND mould_number = #{mouldNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould_base]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldBaseId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	
+	
+	<select id="selectByMouldNumber" parameterType="Map" resultMap="MouldBase">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max
+        FROM
+            t_mould_base t
+        ]]>
+		<where>
+		 <![CDATA[AND t.del_mark = 0]]>
+		 <![CDATA[AND t.mould_number = #{mouldNumber, jdbcType=CHAR}]]>
+		 <if test="pkId != null">
+            <![CDATA[AND t.pk_id != #{pkId, jdbcType=BIGINT}]]>
+			</if>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

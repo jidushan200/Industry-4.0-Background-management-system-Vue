@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.fixture.repository.FixturePurchaseReceiptDetailMapper">
+	<resultMap id="FixturePurchaseReceiptDetail" type="org.tsinghuatj.fixture.domain.FixturePurchaseReceiptDetail">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="receiptId" javaType="Long" column="receipt_id" jdbcType="BIGINT" />
+		<result property="fixtureNumber" javaType="String" column="fixture_number" jdbcType="CHAR" />
+		<result property="fixtureName" javaType="String" column="fixture_name" jdbcType="CHAR" />
+		<result property="fixtureMap" javaType="String" column="fixture_map" jdbcType="CHAR" />
+		<result property="fixtureBarcode" javaType="String" column="fixture_barcode" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_fixture_purchase_receipt_detail (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            receipt_id,
+            fixture_number,          
+            fixture_barcode
+        )
+        VALUES
+            (
+                #{fixturePurchaseReceiptDetail.pkId, jdbcType = BIGINT},
+                #{fixturePurchaseReceiptDetail.createUser, jdbcType = BIGINT},
+                #{fixturePurchaseReceiptDetail.createTime, jdbcType = TIMESTAMP},
+                #{fixturePurchaseReceiptDetail.updateUser, jdbcType = BIGINT},
+                #{fixturePurchaseReceiptDetail.updateTime, jdbcType = TIMESTAMP},
+                #{fixturePurchaseReceiptDetail.delMark, jdbcType = TINYINT},
+                #{fixturePurchaseReceiptDetail.receiptId, jdbcType = BIGINT},
+                #{fixturePurchaseReceiptDetail.fixtureNumber, jdbcType = CHAR},
+                #{fixturePurchaseReceiptDetail.fixtureBarcode, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_purchase_receipt_detail]]>
+		<set>
+			<if test="fixturePurchaseReceiptDetail.createUser != null">
+            <![CDATA[create_user = #{fixturePurchaseReceiptDetail.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.createTime != null">
+            <![CDATA[create_time = #{fixturePurchaseReceiptDetail.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.updateUser != null">
+            <![CDATA[update_user = #{fixturePurchaseReceiptDetail.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.updateTime != null">
+            <![CDATA[update_time = #{fixturePurchaseReceiptDetail.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.delMark != null">
+            <![CDATA[del_mark = #{fixturePurchaseReceiptDetail.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.receiptId != null">
+            <![CDATA[receipt_id = #{fixturePurchaseReceiptDetail.receiptId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.fixtureNumber != null and fixturePurchaseReceiptDetail.fixtureNumber != ''">
+            <![CDATA[fixture_number = #{fixturePurchaseReceiptDetail.fixtureNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.fixtureBarcode != null and fixturePurchaseReceiptDetail.fixtureBarcode != ''">
+            <![CDATA[fixture_barcode = #{fixturePurchaseReceiptDetail.fixtureBarcode, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{fixturePurchaseReceiptDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="selectByReceiptId" parameterType="Map" resultMap="FixturePurchaseReceiptDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_barcode AS fixture_barcode,
+            b.fixture_name AS fixture_name,
+            b.fixture_map AS fixture_map
+        FROM
+            t_fixture_purchase_receipt_detail t
+            inner join t_fixture_base b on t.fixture_number = b.fixture_number
+        ]]>
+		<where>
+            <![CDATA[AND t.receipt_id = #{receiptId, jdbcType=BIGINT}]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="FixturePurchaseReceiptDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.receipt_id AS receipt_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_barcode AS fixture_barcode
+        FROM
+            t_fixture_purchase_receipt_detail t
+        ]]>
+		<where>
+			<if test="fixturePurchaseReceiptDetail.pkId != null">
+            <![CDATA[AND t.pk_id = #{fixturePurchaseReceiptDetail.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.receiptId != null">
+            <![CDATA[AND t.receipt_id = #{fixturePurchaseReceiptDetail.receiptId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.fixtureNumber != null and fixturePurchaseReceiptDetail.fixtureNumber != ''">
+            <![CDATA[AND t.fixture_number = #{fixturePurchaseReceiptDetail.fixtureNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="fixturePurchaseReceiptDetail.fixtureBarcode != null and fixturePurchaseReceiptDetail.fixtureBarcode != ''">
+            <![CDATA[AND t.fixture_barcode = #{fixturePurchaseReceiptDetail.fixtureBarcode, jdbcType=CHAR}]]>
+			</if>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="FixturePurchaseReceiptDetail">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.receipt_id AS receipt_id,
+            t.fixture_number AS fixture_number,
+            t.fixture_barcode AS fixture_barcode
+        FROM
+            t_fixture_purchase_receipt_detail t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{fixturePurchaseReceiptDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_fixture_purchase_receipt_detail SET del_mark = 1,update_user=#{fixturePurchaseReceiptDetail.updateUser, jdbcType=BIGINT},update_time=#{fixturePurchaseReceiptDetail.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixturePurchaseReceiptDetail.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_fixture_purchase_receipt_detail]]>
+		<where>
+        <![CDATA[AND pk_id = #{fixturePurchaseReceiptDetailId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.base.repository.TerminalMapper">
+	<resultMap id="Terminal" type="org.tsinghuatj.base.domain.Terminal">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="terminalCode" javaType="String" column="terminal_code" jdbcType="CHAR" />
+		<result property="departmentId" javaType="Long" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" javaType="String" column="department_name" jdbcType="CHAR" />
+		<result property="managerId" javaType="Long" column="manager_id" jdbcType="BIGINT" />
+		<result property="managerName" javaType="String" column="manager_name" jdbcType="CHAR" />
+		<result property="ip" javaType="String" column="Ip" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_terminal (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            terminal_code,
+            department_id,
+            department_name,
+            manager_id,
+            manager_name,
+            Ip
+        )
+        VALUES
+            (
+                #{terminal.pkId, jdbcType = BIGINT},
+                #{terminal.createUser, jdbcType = BIGINT},
+                #{terminal.createTime, jdbcType = TIMESTAMP},
+                #{terminal.updateUser, jdbcType = BIGINT},
+                #{terminal.updateTime, jdbcType = TIMESTAMP},
+                #{terminal.delMark, jdbcType = TINYINT},
+                #{terminal.terminalCode, jdbcType = CHAR},
+                #{terminal.departmentId, jdbcType = BIGINT},
+                #{terminal.departmentName, jdbcType = CHAR},
+                #{terminal.managerId, jdbcType = BIGINT},
+                #{terminal.managerName, jdbcType = CHAR},
+                #{terminal.ip, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_terminal]]>
+		<set>
+			<if test="terminal.createUser != null">
+            <![CDATA[create_user = #{terminal.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="terminal.createTime != null">
+            <![CDATA[create_time = #{terminal.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="terminal.updateUser != null">
+            <![CDATA[update_user = #{terminal.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="terminal.updateTime != null">
+            <![CDATA[update_time = #{terminal.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="terminal.delMark != null">
+            <![CDATA[del_mark = #{terminal.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="terminal.terminalCode != null and terminal.terminalCode != ''">
+            <![CDATA[terminal_code = #{terminal.terminalCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="terminal.departmentId != null">
+            <![CDATA[department_id = #{terminal.departmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="terminal.departmentName != null and terminal.departmentName != ''">
+            <![CDATA[department_name = #{terminal.departmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="terminal.managerId != null">
+            <![CDATA[manager_id = #{terminal.managerId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="terminal.managerName != null and terminal.managerName != ''">
+            <![CDATA[manager_name = #{terminal.managerName, jdbcType=CHAR},]]>
+			</if>
+			<if test="terminal.ip != null and terminal.ip != ''">
+            <![CDATA[Ip = #{terminal.ip, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{terminalId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Terminal">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.terminal_code AS terminal_code,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.manager_id AS manager_id,
+            t.manager_name AS manager_name,
+            t.Ip AS Ip
+        FROM
+            t_terminal t
+        ]]>
+		<where>
+			<if test="terminal.pkId != null">
+            <![CDATA[AND t.pk_id = #{terminal.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.createUser != null">
+            <![CDATA[AND t.create_user = #{terminal.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.createTime != null">
+            <![CDATA[AND t.create_time = #{terminal.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="terminal.updateUser != null">
+            <![CDATA[AND t.update_user = #{terminal.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.updateTime != null">
+            <![CDATA[AND t.update_time = #{terminal.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="terminal.delMark != null">
+            <![CDATA[AND t.del_mark = #{terminal.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="terminal.terminalCode != null and terminal.terminalCode != ''">
+            <![CDATA[AND t.terminal_code = #{terminal.terminalCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="terminal.departmentId != null">
+            <![CDATA[AND t.department_id = #{terminal.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.departmentName != null and terminal.departmentName != ''">
+            <![CDATA[AND t.department_name = #{terminal.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="terminal.managerId != null">
+            <![CDATA[AND t.manager_id = #{terminal.managerId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.managerName != null and terminal.managerName != ''">
+            <![CDATA[AND t.manager_name = #{terminal.managerName, jdbcType=CHAR}]]>
+			</if>
+			<if test="terminal.ip != null and terminal.ip != ''">
+            <![CDATA[AND t.Ip = #{terminal.ip, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Terminal">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.terminal_code AS terminal_code,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.manager_id AS manager_id,
+            t.manager_name AS manager_name,
+            t.Ip AS Ip
+        FROM
+            t_terminal t
+        ]]>
+		<where>
+			<if test="terminal.pkId != null">
+            <![CDATA[AND t.pk_id = #{terminal.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.createUser != null">
+            <![CDATA[AND t.create_user = #{terminal.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.createTime != null">
+            <![CDATA[AND t.create_time = #{terminal.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="terminal.updateUser != null">
+            <![CDATA[AND t.update_user = #{terminal.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.updateTime != null">
+            <![CDATA[AND t.update_time = #{terminal.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="terminal.delMark != null">
+            <![CDATA[AND t.del_mark = #{terminal.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="terminal.terminalCode != null and terminal.terminalCode != ''">
+            <![CDATA[AND t.terminal_code = #{terminal.terminalCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="terminal.departmentId != null">
+            <![CDATA[AND t.department_id = #{terminal.departmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.departmentName != null and terminal.departmentName != ''">
+            <![CDATA[AND t.department_name = #{terminal.departmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="terminal.managerId != null">
+            <![CDATA[AND t.manager_id = #{terminal.managerId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="terminal.managerName != null and terminal.managerName != ''">
+            <![CDATA[AND t.manager_name = #{terminal.managerName, jdbcType=CHAR}]]>
+			</if>
+			<if test="terminal.ip != null and terminal.ip != ''">
+            <![CDATA[AND t.Ip = #{terminal.ip, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Terminal">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.terminal_code AS terminal_code,
+            t.department_id AS department_id,
+            t.department_name AS department_name,
+            t.manager_id AS manager_id,
+            t.manager_name AS manager_name,
+            t.Ip AS Ip
+        FROM
+            t_terminal t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{terminalId, jdbcType=BIGINT}]]>
+		</where>
+		<![CDATA[AND t.del_mark = 0]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_terminal SET del_mark = 1,update_user=#{terminal.updateUser, jdbcType=BIGINT},update_time=#{terminal.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{terminal.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_terminal]]>
+		<where>
+        <![CDATA[AND pk_id = #{terminalId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

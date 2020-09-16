@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolUnusualMapper">
+	<resultMap id="ToolUnusual" type="org.tsinghuatj.tool.domain.ToolUnusual">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="VARCHAR" />
+		<result property="partId" javaType="Long" column="part_id" jdbcType="BIGINT" />
+		<result property="partName" javaType="String" column="part_name" jdbcType="CHAR" />
+		<result property="equipmentId" javaType="Long" column="equipment_id" jdbcType="BIGINT" />
+		<result property="equipmentName" javaType="String" column="equipment_name" jdbcType="CHAR" />
+		<result property="unusualResion" javaType="String" column="unusual_resion" jdbcType="VARCHAR" />
+		<result property="unusualTime" javaType="Date" column="unusual_time" jdbcType="TIMESTAMP" />
+		<result property="measures" javaType="Integer" column="measures" jdbcType="INTEGER" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->	
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_unusual (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_id,          
+            tool_number,
+            full_number,
+            part_id,
+            part_name,
+            equipment_id,
+            equipment_name,
+            unusual_resion,
+            unusual_time,
+            measures,
+            remark
+        )
+        VALUES
+            (
+                #{toolUnusual.pkId, jdbcType = BIGINT},
+                #{toolUnusual.createUser, jdbcType = BIGINT},
+                #{toolUnusual.createTime, jdbcType = TIMESTAMP},
+                #{toolUnusual.updateUser, jdbcType = BIGINT},
+                #{toolUnusual.updateTime, jdbcType = TIMESTAMP},
+                #{toolUnusual.delMark, jdbcType = TINYINT},
+                #{toolUnusual.toolId, jdbcType = BIGINT},               
+                #{toolUnusual.toolNumber, jdbcType = CHAR},
+                #{toolUnusual.fullNumber, jdbcType = VARCHAR},
+                #{toolUnusual.partId, jdbcType = BIGINT},
+                #{toolUnusual.partName, jdbcType = CHAR},
+                #{toolUnusual.equipmentId, jdbcType = BIGINT},
+                #{toolUnusual.equipmentName, jdbcType = CHAR},
+                #{toolUnusual.unusualResion, jdbcType = VARCHAR},
+                #{toolUnusual.unusualTime, jdbcType = TIMESTAMP},
+                #{toolUnusual.measures, jdbcType = INTEGER},
+                #{toolUnusual.remark, jdbcType = VARCHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_unusual]]>
+		<set>
+			
+			<if test="toolUnusual.updateUser != null">
+            <![CDATA[update_user = #{toolUnusual.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnusual.updateTime != null">
+            <![CDATA[update_time = #{toolUnusual.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolUnusual.delMark != null">
+            <![CDATA[del_mark = #{toolUnusual.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="toolUnusual.toolId != null">
+            <![CDATA[tool_id = #{toolUnusual.toolId, jdbcType=BIGINT},]]>
+			</if>			
+			<if test="toolUnusual.toolNumber != null and toolUnusual.toolNumber != ''">
+            <![CDATA[tool_number = #{toolUnusual.toolNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnusual.fullNumber != null and toolUnusual.fullNumber != ''">
+            <![CDATA[full_number = #{toolUnusual.fullNumber, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolUnusual.partId != null">
+            <![CDATA[part_id = #{toolUnusual.partId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnusual.partName != null and toolUnusual.partName != ''">
+            <![CDATA[part_name = #{toolUnusual.partName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnusual.equipmentId != null">
+            <![CDATA[equipment_id = #{toolUnusual.equipmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolUnusual.equipmentName != null and toolUnusual.equipmentName != ''">
+            <![CDATA[equipment_name = #{toolUnusual.equipmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="toolUnusual.unusualResion != null and toolUnusual.unusualResion != ''">
+            <![CDATA[unusual_resion = #{toolUnusual.unusualResion, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolUnusual.unusualTime != null">
+            <![CDATA[unusual_time = #{toolUnusual.unusualTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolUnusual.measures != null">
+            <![CDATA[measures = #{toolUnusual.measures, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolUnusual.remark != null and toolUnusual.remark != ''">
+            <![CDATA[remark = #{toolUnusual.remark, jdbcType=VARCHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnusualId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolUnusual">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,           
+            t.tool_number AS tool_number,
+            t.full_number AS full_number,
+            t.part_id AS part_id,
+            t.part_name AS part_name,
+            t.equipment_id AS equipment_id,
+            t.equipment_name AS equipment_name,
+            t.unusual_resion AS unusual_resion,
+            t.unusual_time AS unusual_time,
+            t.measures AS measures,
+            t.remark AS remark
+        FROM
+            t_tool_unusual t
+        ]]>
+		<where>
+			<if test="toolUnusual.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolUnusual.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnusual.createUser != null">
+            <![CDATA[AND t.create_user = #{toolUnusual.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnusual.createTime != null">
+            <![CDATA[AND t.create_time = #{toolUnusual.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnusual.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolUnusual.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnusual.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolUnusual.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnusual.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolUnusual.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolUnusual.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolUnusual.toolId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolUnusual.toolNumber != null and toolUnusual.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolUnusual.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnusual.fullNumber != null and toolUnusual.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolUnusual.fullNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolUnusual.partId != null">
+            <![CDATA[AND t.part_id = #{toolUnusual.partId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnusual.partName != null and toolUnusual.partName != ''">
+            <![CDATA[AND t.part_name = #{toolUnusual.partName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnusual.equipmentId != null">
+            <![CDATA[AND t.equipment_id = #{toolUnusual.equipmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolUnusual.equipmentName != null and toolUnusual.equipmentName != ''">
+            <![CDATA[AND t.equipment_name = #{toolUnusual.equipmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnusual.unusualResion != null and toolUnusual.unusualResion != ''">
+            <![CDATA[AND t.unusual_resion = #{toolUnusual.unusualResion, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolUnusual.unusualTime != null">
+            <![CDATA[AND t.unusual_time = #{toolUnusual.unusualTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnusual.measures != null">
+            <![CDATA[AND t.measures = #{toolUnusual.measures, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolUnusual.remark != null and toolUnusual.remark != ''">
+            <![CDATA[AND t.remark = #{toolUnusual.remark, jdbcType=VARCHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolUnusual">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,           
+            t.tool_number AS tool_number,
+            t.full_number AS full_number,
+            t.part_id AS part_id,
+            t.part_name AS part_name,
+            t.equipment_id AS equipment_id,
+            t.equipment_name AS equipment_name,
+            t.unusual_resion AS unusual_resion,
+            t.unusual_time AS unusual_time,
+            t.measures AS measures,
+            t.remark AS remark
+        FROM
+            t_tool_unusual t
+        ]]>
+		<where>
+			<if test="toolUnusual.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolUnusual.toolId, jdbcType=BIGINT}]]>
+			</if>			
+			<if test="toolUnusual.toolNumber != null and toolUnusual.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolUnusual.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolUnusual.fullNumber != null and toolUnusual.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolUnusual.fullNumber, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.unusual_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.unusual_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolUnusual.measures != null">
+            <![CDATA[AND t.measures = #{toolUnusual.measures, jdbcType=INTEGER}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolUnusual">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,           
+            t.tool_number AS tool_number,
+            t.full_number AS full_number,
+            t.part_id AS part_id,
+            t.part_name AS part_name,
+            t.equipment_id AS equipment_id,
+            t.equipment_name AS equipment_name,
+            t.unusual_resion AS unusual_resion,
+            t.unusual_time AS unusual_time,
+            t.measures AS measures,
+            t.remark AS remark
+        FROM
+            t_tool_unusual t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolUnusualId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_unusual SET del_mark = 1,update_user=#{toolUnusual.updateUser, jdbcType=BIGINT},update_time=#{toolUnusual.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnusual.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_unusual]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolUnusualId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

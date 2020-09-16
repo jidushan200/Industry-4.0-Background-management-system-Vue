@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${basepackage}.${namespace}.repository.${table.className}Mapper">
+	<resultMap id="${table.className}" type="${basepackage}.${namespace}.domain.${table.className}">
+		<#list table.pkColumns as column>
+		<id property="${column.columnNameLower}" javaType="${column.javaType}" column="${column.sqlName}" jdbcType="${column.jdbcType}" />
+		</#list>
+		<#list table.notPkColumns as column>
+		<result property="${column.columnNameLower}" javaType="${column.javaType}" column="${column.sqlName}" jdbcType="${column.jdbcType}" />
+		</#list>
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO ${table.sqlName} (
+            <#list table.columns as column>
+            ${column.sqlName}<#if column_has_next>,</#if>
+            </#list>
+        )
+        VALUES
+            (
+                <#list table.columns as column>
+                ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType = ${column.jdbcType}${"}"}<#if column_has_next>,</#if>
+                </#list>
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE ${table.sqlName}]]>
+		<set>
+			<#list table.notPkColumns as column>
+			<#if column.isDateTimeColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null">
+            <![CDATA[${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"},]]>
+			</if>
+			<#elseif column.isNumberColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null">
+            <![CDATA[${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"},]]>
+			</if>
+			<#elseif column.isStringColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null and ${table.classNameFirstLower}.${column.columnNameLower} != ''">
+            <![CDATA[${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"},]]>
+			</if>
+			</#if>
+			</#list>
+		</set>
+		<where>
+        <![CDATA[AND ${table.pkColumn.sqlName} = ${"#{"}${table.classNameFirstLower}Id, jdbcType=${table.pkColumn.jdbcType}${"}"}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="${table.className}">
+        <![CDATA[
+        SELECT
+            <#list table.columns as column>
+            t.${column.sqlName} AS ${column.sqlName}<#if column_has_next>,</#if>
+            </#list>
+        FROM
+            ${table.sqlName} t
+        ]]>
+		<where>
+			<#list table.columns as column>
+			<#if column.isDateTimeColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null">
+            <![CDATA[AND t.${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"}]]>
+			</if>
+			<#elseif column.isNumberColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null">
+            <![CDATA[AND t.${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"}]]>
+			</if>
+			<#elseif column.isStringColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null and ${table.classNameFirstLower}.${column.columnNameLower} != ''">
+            <![CDATA[AND t.${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"}]]>
+			</if>
+			</#if>
+			</#list>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="${table.className}">
+        <![CDATA[
+        SELECT
+            <#list table.columns as column>
+            t.${column.sqlName} AS ${column.sqlName}<#if column_has_next>,</#if>
+            </#list>
+        FROM
+            ${table.sqlName} t
+        ]]>
+		<where>
+			<#list table.columns as column>
+			<#if column.isDateTimeColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null">
+            <![CDATA[AND t.${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"}]]>
+			</if>
+			<#elseif column.isNumberColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null">
+            <![CDATA[AND t.${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"}]]>
+			</if>
+			<#elseif column.isStringColumn>
+			<if test="${table.classNameFirstLower}.${column.columnNameLower} != null and ${table.classNameFirstLower}.${column.columnNameLower} != ''">
+            <![CDATA[AND t.${column.sqlName} = ${"#{"}${table.classNameFirstLower}.${column.columnNameLower}, jdbcType=${column.jdbcType}${"}"}]]>
+			</if>
+			</#if>
+			</#list>
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="${table.className}">
+        <![CDATA[
+        SELECT
+            <#list table.columns as column>
+            t.${column.sqlName} AS ${column.sqlName}<#if column_has_next>,</#if>
+            </#list>
+        FROM
+            ${table.sqlName} t
+        ]]>
+		<where>
+        <![CDATA[AND t.${table.pkColumn.sqlName} = ${"#{"}${table.classNameFirstLower}Id, jdbcType=${table.pkColumn.jdbcType}${"}"}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE ${table.sqlName} SET del_mark = 1,update_user=${"#{"}${table.classNameFirstLower}.updateUser, jdbcType=${table.pkColumn.jdbcType}${"}"},update_time=${"#{"}${table.classNameFirstLower}.updateTime, jdbcType=TIMESTAMP${"}"}]]>
+		<where>
+        <![CDATA[AND ${table.pkColumn.sqlName} = ${"#{"}${table.classNameFirstLower}.pkId, jdbcType=${table.pkColumn.jdbcType}${"}"}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM ${table.sqlName}]]>
+		<where>
+        <![CDATA[AND ${table.pkColumn.sqlName} = ${"#{"}${table.classNameFirstLower}Id, jdbcType=${table.pkColumn.jdbcType}${"}"}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

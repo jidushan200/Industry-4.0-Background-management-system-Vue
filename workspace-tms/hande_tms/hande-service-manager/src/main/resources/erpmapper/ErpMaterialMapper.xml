@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.erp.repository.ErpMaterialMapper">
+	<resultMap id="ErpMaterial" type="org.tsinghuatj.erp.domain.ErpMaterial">
+		<result property="itemCode" javaType="String" column="item_code" jdbcType="VARCHAR" />
+		<result property="itemName" javaType="String" column="item_name" jdbcType="VARCHAR" />
+		<result property="itemType" javaType="String" column="item_type" jdbcType="VARCHAR" />
+		<result property="itemPrice" javaType="BigDecimal" column="item_price" jdbcType="DECIMAL" />
+		<result property="sumOnhandQuantity" javaType="Integer" column="existing_quantity" jdbcType="INTEGER" />
+		<result property="sumNocheckQuantity" javaType="Integer" column="pending_inspection_quantity" jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<!-- 根据物料编号查询 -->
+	<select id="selectByMaterialNumber" parameterType="Map" resultMap="ErpMaterial">
+        <![CDATA[
+     		select * from apps.cux_zc_tms_item where item_code = #{itemNumber, jdbcType=VARCHAR} 
+        ]]>
+	</select>
+
+
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO cux_zc_tms_item (
+            item_code,
+            item_name,
+            item_type,
+            item_price,
+            existing_quantity,
+            pending_inspection_quantity
+        )
+        VALUES
+            (
+                #{erpMaterial.itemCode, jdbcType = VARCHAR},
+                #{erpMaterial.itemName, jdbcType = VARCHAR},
+                #{erpMaterial.itemType, jdbcType = VARCHAR},
+                #{erpMaterial.itemPrice, jdbcType = DECIMAL},
+                #{erpMaterial.sumOnhandQuantity, jdbcType = INTEGER},
+                #{erpMaterial.sumNocheckQuantity, jdbcType = INTEGER}
+            )
+        ]]>
+	</insert>
+
+
+</mapper>

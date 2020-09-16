@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.erp.repository.ErpEquipmentMapper">
+	<resultMap id="ErpEquipment" type="org.tsinghuatj.erp.domain.ErpEquipment">
+		<result property="equipmentCode" javaType="String" column="equipment_code" jdbcType="VARCHAR" />
+		<result property="equipmentName" javaType="String" column="equipment_name" jdbcType="VARCHAR" />
+		<result property="tagNumber" javaType="String" column="equipment_tag" jdbcType="VARCHAR" />
+		<result property="manufacturerName" javaType="String" column="supplier" jdbcType="VARCHAR" />
+		<result property="modelNumber" javaType="String" column="type" jdbcType="VARCHAR" />
+		<result property="departmentCode" javaType="String" column="LOCATION_Code" jdbcType="VARCHAR" />
+		<result property="distributionLocation" javaType="String" column="DISTRIBUTION_LOCATION" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectByEquipmentCode" parameterType="Map" resultMap="ErpEquipment">
+	  <![CDATA[
+ 		select * from apps.cux_zc_tms_equipment	 
+ 		where equipment_code = #{equipmentCode, jdbcType=VARCHAR}  
+ 	    ]]>
+	</select>
+
+</mapper>

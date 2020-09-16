@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.tool.repository.ToolCoatMapper">
+	<resultMap id="ToolCoat" type="org.tsinghuatj.tool.domain.ToolCoat">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="toolId" javaType="Long" column="tool_id" jdbcType="BIGINT" />
+		<result property="fullNumber" javaType="String" column="full_number" jdbcType="CHAR" />
+		<result property="toolNumber" javaType="String" column="tool_number" jdbcType="CHAR" />
+		<result property="toolName" javaType="String" column="tool_name" jdbcType="CHAR" />
+		<result property="toolMap" javaType="String" column="tool_map" jdbcType="CHAR" />
+		<result property="toolQty" javaType="Integer" column="tool_qty" jdbcType="INTEGER" />
+		<result property="typeId" javaType="Integer" column="type_id" jdbcType="INTEGER" />
+		<result property="coatSeq" javaType="Integer" column="coat_seq" jdbcType="INTEGER" />
+		<result property="outboundUserId" javaType="Long" column="outbound_user_id" jdbcType="BIGINT" />
+		<result property="outboundUserName" javaType="String" column="outbound_user_name" jdbcType="CHAR" />
+		<result property="outboundTime" javaType="Date" column="outbound_time" jdbcType="TIMESTAMP" />
+		
+		<result property="coatSupplier" javaType="String" column="coat_supplier" jdbcType="CHAR" />
+		<result property="coatTime" javaType="Date" column="coat_time" jdbcType="TIMESTAMP" />
+		<result property="supplierId" javaType="Long" column="supplier_id" jdbcType="BIGINT" />
+		<result property="deliever" javaType="String" column="deliever" jdbcType="CHAR" />
+		<result property="coatPrice" javaType="BigDecimal" column="coat_price" jdbcType="DECIMAL" />
+		<result property="remark" javaType="String" column="remark" jdbcType="VARCHAR" />
+
+		<result property="processQty" javaType="Integer" column="process_qty" jdbcType="INTEGER" />
+		<result property="theoreticalQty" javaType="Integer" column="theoretical_qty" jdbcType="INTEGER" />
+		<result property="completionDegree" javaType="BigDecimal" column="completion_degree" jdbcType="DECIMAL" />
+		
+		<result property="checkRemark" javaType="String" column="check_remark" jdbcType="VARCHAR" />
+		<result property="repairRemark" javaType="String" column="repair_remark" jdbcType="VARCHAR" />
+		<result property="technologyRemark" javaType="String" column="technology_remark" jdbcType="VARCHAR" />
+		
+		<result property="settlementStatus" javaType="Integer" column="settlement_status" jdbcType="TINYINT" />
+		<result property="settlementQty" javaType="Integer" column="settlement_qty" jdbcType="INTEGER" />
+		<result property="settlementPrice" javaType="BigDecimal" column="settlement_price" jdbcType="DECIMAL" />
+		<result property="settlementTime" javaType="Date" column="settlement_time" jdbcType="TIMESTAMP" />
+		<result property="settlementId" javaType="Long" column="settlement_id" jdbcType="BIGINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_tool_coat (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            tool_id,
+            full_number,
+            tool_number,
+            type_id,
+            tool_qty,
+            outbound_user_id,
+            outbound_time,
+            coat_seq,            
+            coat_supplier,
+            coat_time,
+            remark,
+            supplier_id,
+            deliever,
+            coat_price,
+            settlement_qty,
+            completion_degree,
+            settlement_status           
+        )
+        VALUES
+            (
+                #{toolCoat.pkId, jdbcType = BIGINT},
+                #{toolCoat.createUser, jdbcType = BIGINT},
+                #{toolCoat.createTime, jdbcType = TIMESTAMP},
+                #{toolCoat.updateUser, jdbcType = BIGINT},
+                #{toolCoat.updateTime, jdbcType = TIMESTAMP},
+                #{toolCoat.delMark, jdbcType = TINYINT},
+                #{toolCoat.toolId, jdbcType = BIGINT},
+                #{toolCoat.fullNumber, jdbcType = CHAR},
+                #{toolCoat.toolNumber, jdbcType = CHAR},
+                #{toolCoat.typeId, jdbcType = INTEGER},
+                #{toolCoat.toolQty, jdbcType = INTEGER},
+                #{toolCoat.outboundUserId, jdbcType = BIGINT},
+                #{toolCoat.outboundTime, jdbcType = TIMESTAMP},
+                #{toolCoat.coatSeq, jdbcType = INTEGER},
+                #{toolCoat.coatSupplier, jdbcType = CHAR},
+                #{toolCoat.coatTime, jdbcType = TIMESTAMP},
+                #{toolCoat.remark, jdbcType = VARCHAR},
+                #{toolCoat.supplierId, jdbcType = BIGINT},
+                #{toolCoat.deliever, jdbcType = CHAR},
+                #{toolCoat.coatPrice, jdbcType = DECIMAL},
+                #{toolCoat.toolQty, jdbcType = INTEGER},
+                0,
+                0
+            )
+        ]]>
+	</insert>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_coat]]>
+		<set>
+			<if test="toolCoat.updateUser != null">
+            <![CDATA[update_user = #{toolCoat.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolCoat.updateTime != null">
+            <![CDATA[update_time = #{toolCoat.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolCoat.typeId != null">
+            <![CDATA[type_id = #{toolCoat.typeId, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolCoat.coatPrice != null">
+            <![CDATA[coat_price = #{toolCoat.coatPrice, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="toolCoat.settlementQty != null">
+            <![CDATA[settlement_qty = #{toolCoat.settlementQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolCoat.processQty != null">
+            <![CDATA[process_qty = #{toolCoat.processQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolCoat.theoreticalQty != null">
+            <![CDATA[theoretical_qty = #{toolCoat.theoreticalQty, jdbcType=INTEGER},]]>
+			</if>
+			<if test="toolCoat.completionDegree != null">
+            <![CDATA[completion_degree = #{toolCoat.completionDegree, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="toolCoat.checkRemark != null and toolCoat.checkRemark != '' ">
+            <![CDATA[check_remark = #{toolCoat.checkRemark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolCoat.repairRemark != null and toolCoat.repairRemark != '' ">
+            <![CDATA[repair_remark = #{toolCoat.repairRemark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolCoat.technologyRemark != null and toolCoat.technologyRemark != '' ">
+            <![CDATA[technology_remark = #{toolCoat.technologyRemark, jdbcType=VARCHAR},]]>
+			</if>
+			<if test="toolCoat.settlementPrice != null ">
+            <![CDATA[settlement_price = #{toolCoat.settlementPrice, jdbcType=DECIMAL},]]>
+			</if>
+			<if test="toolCoat.settlementTime != null ">
+            <![CDATA[settlement_time = #{toolCoat.settlementTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="toolCoat.settlementId != null ">
+            <![CDATA[settlement_id = #{toolCoat.settlementId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="toolCoat.settlementStatus != null ">
+            <![CDATA[settlement_status= #{toolCoat.settlementStatus, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{toolCoatId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="ToolCoat">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            t.coat_seq AS coat_seq,
+            t.coat_supplier AS coat_supplier,
+            t.coat_time AS coat_time,
+            t.remark AS remark,
+            t.supplier_id AS supplier_id,
+            t.deliever AS deliever,
+            t.coat_price AS coat_price
+        FROM
+            t_tool_coat t
+        ]]>
+		<where>
+			<if test="toolCoat.pkId != null">
+            <![CDATA[AND t.pk_id = #{toolCoat.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCoat.createUser != null">
+            <![CDATA[AND t.create_user = #{toolCoat.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCoat.createTime != null">
+            <![CDATA[AND t.create_time = #{toolCoat.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCoat.updateUser != null">
+            <![CDATA[AND t.update_user = #{toolCoat.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCoat.updateTime != null">
+            <![CDATA[AND t.update_time = #{toolCoat.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCoat.delMark != null">
+            <![CDATA[AND t.del_mark = #{toolCoat.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="toolCoat.toolId != null">
+            <![CDATA[AND t.tool_id = #{toolCoat.toolId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCoat.fullNumber != null and toolCoat.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolCoat.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolCoat.coatSeq != null">
+            <![CDATA[AND t.coat_seq = #{toolCoat.coatSeq, jdbcType=INTEGER}]]>
+			</if>
+			<if test="toolCoat.coatSupplier != null and toolCoat.coatSupplier != ''">
+            <![CDATA[AND t.coat_supplier = #{toolCoat.coatSupplier, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolCoat.coatTime != null">
+            <![CDATA[AND t.coat_time = #{toolCoat.coatTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCoat.remark != null and toolCoat.remark != ''">
+            <![CDATA[AND t.remark = #{toolCoat.remark, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="toolCoat.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolCoat.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCoat.deliever != null and toolCoat.deliever != ''">
+            <![CDATA[AND t.deliever = #{toolCoat.deliever, jdbcType=CHAR}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="ToolCoat">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            tb.tool_name as tool_name,
+            tb.tool_map as tool_map,
+            t.coat_seq AS coat_seq,
+            t.tool_qty AS tool_qty,
+            a.real_name as outbound_user_name,
+            t.outbound_time as outbound_time,
+            t.coat_supplier AS coat_supplier,
+            t.coat_time AS coat_time,
+            t.remark AS remark,
+            t.supplier_id AS supplier_id,
+            t.deliever AS deliever,
+            t.coat_price AS coat_price,
+            t.process_qty as process_qty,
+            t.completion_degree as completion_degree,
+            t.check_remark as check_remark,
+            t.repair_remark as repair_remark,
+            t.technology_remark as technology_remark,
+            t.settlement_price as settlement_price,
+            t.settlement_time as settlement_time,
+            t.settlement_id as settlement_id
+        FROM
+            t_tool_coat t 
+            inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0
+            left join t_user_account a on t.outbound_user_id = a.pk_id
+        ]]>
+		<where>
+			<if test="toolCoat.fullNumber != null and toolCoat.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolCoat.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolCoat.toolNumber != null and toolCoat.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolCoat.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolCoat.outboundUserName != null and toolCoat.outboundUserName != ''">
+            <![CDATA[AND a.real_name = #{toolCoat.outboundUserName, jdbcType=CHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.coat_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.coat_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCoat.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolCoat.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.coat_time DESC]]>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectStatisticsPageList" parameterType="Map" resultMap="ToolCoat">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.full_number AS full_number,
+            t.tool_number AS tool_number,
+            tb.tool_name as tool_name,
+            tb.tool_map as tool_map, 
+            t.process_qty as process_qty, 
+            t.theoretical_qty as theoretical_qty,  
+            t.completion_degree as completion_degree,                   
+            t.coat_time AS coat_time,           
+            t.supplier_id AS supplier_id,
+            t.coat_supplier AS coat_supplier,           
+            t.coat_price AS coat_price,
+            t.settlement_qty as settlement_qty,
+            t.check_remark as check_remark,
+            t.repair_remark as repair_remark,
+            t.technology_remark as technology_remark,
+            t.settlement_price as settlement_price,
+            t.settlement_time as settlement_time,
+            t.settlement_id as settlement_id,
+            t.settlement_status as settlement_status           
+        FROM
+            t_tool_coat t inner join t_tool_base tb on t.tool_number = tb.tool_number and tb.del_mark = 0
+        ]]>
+		<where>
+			<if test="toolCoat.fullNumber != null and toolCoat.fullNumber != ''">
+            <![CDATA[AND t.full_number = #{toolCoat.fullNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="toolCoat.toolNumber != null and toolCoat.toolNumber != ''">
+            <![CDATA[AND t.tool_number = #{toolCoat.toolNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.coat_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.coat_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCoat.beginTime != null">
+            <![CDATA[AND t.settlement_time >= #{toolCoat.beginTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCoat.endTime != null">
+            <![CDATA[AND t.settlement_time <= #{toolCoat.endTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="toolCoat.supplierId != null">
+            <![CDATA[AND t.supplier_id = #{toolCoat.supplierId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="toolCoat.degreeMin != null">
+            <![CDATA[AND t.completion_degree >= #{toolCoat.degreeMin, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="toolCoat.degreeMax != null">
+            <![CDATA[AND t.completion_degree <= #{toolCoat.degreeMax, jdbcType=DECIMAL}]]>
+			</if>
+			<if test="toolCoat.settlementStatus != null ">
+            <![CDATA[AND t.settlement_status = #{toolCoat.settlementStatus, jdbcType=TINYINT}]]>
+			</if>
+			<![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY ]]>
+		 <if test="queryDto.sort != null  and queryDto.sort != ''">
+		 <choose>
+			<when test="queryDto.sort == 'DESC'">
+		    <![CDATA[t.tool_number DESC,]]>
+			</when>
+			<otherwise>
+		   <![CDATA[t.tool_number ASC,]]>
+			</otherwise>
+			</choose>
+		</if>	
+		<![CDATA[t.coat_time DESC]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="ToolCoat">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.coat_seq AS coat_seq,
+            t.coat_supplier AS coat_supplier,
+            t.coat_time AS coat_time,
+            t.remark AS remark,
+            t.supplier_id AS supplier_id,
+            t.deliever AS deliever,
+            t.coat_price AS coat_price
+        FROM
+            t_tool_coat t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{toolCoatId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_tool_coat SET del_mark = 1,update_user=#{toolCoat.updateUser, jdbcType=BIGINT},update_time=#{toolCoat.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolCoat.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_tool_coat]]>
+		<where>
+        <![CDATA[AND pk_id = #{toolCoatId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 根据toolId查询 -->
+	<select id="selectByToolId" parameterType="Map" resultMap="ToolCoat">
+        <![CDATA[
+        SELECT
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.coat_seq AS coat_seq,
+            t.coat_supplier AS coat_supplier,
+            t.coat_time AS coat_time,
+            t.remark AS remark,
+            t.supplier_id AS supplier_id,
+            t.deliever AS deliever,
+            t.coat_price AS coat_price
+        FROM
+            t_tool_coat t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+			<if test="queryDto.beginDate != null">
+           <![CDATA[AND t.create_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+           <![CDATA[AND t.create_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+	</select>
+
+	<!-- 根据toolId查询 -->
+	<select id="selectSeqByToolId" parameterType="Map" resultMap="ToolCoat">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.supplier_id AS supplier_id,
+            t.coat_seq AS coat_seq,
+            t.coat_time AS coat_time,
+            t.coat_price AS coat_price
+        FROM
+            t_tool_coat t
+        ]]>
+		<where>
+        <![CDATA[AND t.tool_id = #{toolId, jdbcType=BIGINT}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.coat_time DESC]]>
+		<![CDATA[LIMIT 1]]>
+	</select>
+
+	<select id="selectSeqByFullNumber" parameterType="Map" resultMap="ToolCoat">
+	 <![CDATA[
+        SELECT
+        	t.pk_id as pk_id,
+            t.tool_id AS tool_id,
+            t.full_number AS full_number,
+            t.coat_time AS coat_time,
+            t.coat_price AS coat_price,
+            t.supplier_id as supplier_id
+        FROM
+            t_tool_coat t
+        ]]>
+		<where>
+        <![CDATA[AND t.full_number = #{fullNumber, jdbcType=CHAR}]]>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.create_time DESC]]>
+		<![CDATA[LIMIT 1]]>
+	</select>
+
+
+	<select id="selectBytoolIdList" parameterType="Map" resultMap="ToolCoat">
+	 <![CDATA[
+        SELECT  
+        	t.tool_Id AS tool_Id,
+        	t.full_number AS full_number,         
+            t.coat_seq AS coat_seq,
+            t.coat_time AS coat_time,
+            t.coat_supplier AS coat_supplier,
+            t.coat_price AS coat_price
+        FROM
+            t_tool_coat t
+        ]]>
+		<where>
+			AND tool_Id in
+			<foreach collection="toolIdList" open="(" separator="," close=")" item="id">
+				#{id,jdbcType=BIGINT}
+			</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.create_time DESC]]>
+	</select>
+
+	<select id="selectByFullNumberList" parameterType="Map" resultMap="ToolCoat">
+	 <![CDATA[
+        SELECT          	
+        	t.full_number AS full_number, 
+        	t.tool_number as tool_number,
+            t.coat_time AS coat_time,
+            t.coat_supplier AS coat_supplier,
+            t.coat_price AS coat_price
+        FROM
+            t_tool_coat t
+        ]]>
+		<where>
+			AND full_number in
+			<foreach collection="fullNumberList" open="(" separator="," close=")" item="number">
+				#{number,jdbcType=CHAR}
+			</foreach>
+        <![CDATA[AND t.del_mark = 0]]>
+		</where>
+		<![CDATA[ORDER BY t.pk_id DESC]]>
+	</select>
+
+	<select id="sumCoatPriceByToolId" parameterType="Map" resultType="decimal">	
+	<![CDATA[ 
+		SELECT sum(t.coat_price) FROM t_tool_coat t WHERE t.tool_id =  #{toolId, jdbcType=BIGINT}
+	]]>
+	</select>
+
+	<select id="countCoatQtyByToolId" parameterType="Map" resultType="int">	
+	<![CDATA[ 
+		SELECT count(t.pk_id) as count FROM t_tool_coat t WHERE t.tool_id =  #{toolId, jdbcType=BIGINT}
+	]]>
+	</select>
+
+</mapper>

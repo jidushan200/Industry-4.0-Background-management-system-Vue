@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.mould.repository.MouldMapper">
+	<resultMap id="Mould" type="org.tsinghuatj.mould.domain.Mould">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="mouldBarcode" javaType="String" column="mould_barcode" jdbcType="CHAR" />
+		<result property="warehouseCode" javaType="String" column="warehouse_code" jdbcType="CHAR" />
+		<result property="mouldNumber" javaType="String" column="mould_number" jdbcType="CHAR" />
+		<result property="mouldName" javaType="String" column="mould_name" jdbcType="VARCHAR" />
+		<result property="mouldMap" javaType="String" column="mould_map" jdbcType="CHAR" />
+		<result property="mouldSeq" javaType="String" column="mould_seq" jdbcType="CHAR" />
+		<result property="mouldStatus" javaType="Integer" column="mould_status" jdbcType="TINYINT" />
+		<result property="mouldType" javaType="Integer" column="mould_type" jdbcType="INTEGER" />
+		<result property="lifeMax" javaType="Integer" column="life_max" jdbcType="INTEGER" />
+		<result property="warehouse" javaType="String" column="warehouse" jdbcType="CHAR" />
+		<result property="warehouseTime" javaType="Date" column="warehouse_time" jdbcType="TIMESTAMP" />
+		<result property="mouldAmount" javaType="Integer" column="mould_amount" jdbcType="INTEGER" />
+		<result property="keeperId" javaType="Long" column="keeper_id" jdbcType="BIGINT" />
+		<result property="keeper" javaType="String" column="keeper" jdbcType="CHAR" />
+		<result property="useDepartmentId" javaType="Long" column="use_department_id" jdbcType="BIGINT" />
+		<result property="useDepartmentName" javaType="String" column="use_department_name" jdbcType="CHAR" />
+		<result property="useTeamId" javaType="Long" column="use_team_id" jdbcType="BIGINT" />
+		<result property="useTeamName" javaType="String" column="use_team_name" jdbcType="CHAR" />
+		<result property="userId" javaType="Long" column="user_id" jdbcType="BIGINT" />
+		<result property="userName" javaType="String" column="user_name" jdbcType="CHAR" />
+		<result property="receiveTime" javaType="Date" column="receive_time" jdbcType="TIMESTAMP" />
+		<result property="processAmount" javaType="Integer" column="process_amount" jdbcType="INTEGER" />
+		<result property="processTimes" javaType="Integer" column="process_times" jdbcType="INTEGER" />
+		<result property="repairTimes" javaType="Integer" column="repair_times" jdbcType="INTEGER" />
+		<result property="repairTime" javaType="Date" column="repair_time" jdbcType="TIMESTAMP" />
+		<result property="grinderId" javaType="Long" column="grinder_id" jdbcType="BIGINT" />
+		<result property="grinder" javaType="String" column="grinder" jdbcType="CHAR" />
+		<result property="heatNumber" javaType="String" column="heat_number" jdbcType="CHAR" />
+		<result property="surfaceNumber" javaType="String" column="surface_number" jdbcType="CHAR" />
+		<result property="scripHandler" javaType="String" column="scrip_handler" jdbcType="CHAR" />
+		<result property="scripHandleTime" javaType="Date" column="scrip_handle_time" jdbcType="TIMESTAMP" />
+		<result property="isScrip" javaType="Integer" column="is_scrip" jdbcType="INTEGER" />
+		<result property="isCompromise" javaType="Integer" column="is_compromise" jdbcType="TINYINT" />
+		<result property="embryoCode" javaType="String" column="embryo_code" jdbcType="CHAR" />
+		<result property="embryoName" javaType="String" column="embryo_name" jdbcType="CHAR" />
+		<result property="outRemark" javaType="String" column="out_remark" jdbcType="VARCHAR" />
+		<result property="returnResion" javaType="Integer" column="return_resion" jdbcType="INTEGER" />
+		<result property="returnRemark" javaType="String" column="return_remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_mould (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            mould_barcode,
+            warehouse_code,
+            mould_number,
+            mould_name,
+            mould_map,
+            mould_seq,
+            mould_status,
+            mould_type,
+            life_max,
+            warehouse,
+            warehouse_time,
+            mould_amount,
+            keeper_id,
+            keeper,
+            use_department_id,
+            use_department_name,
+            use_team_id,
+            use_team_name,
+            user_id,
+            user_name,
+            receive_time,
+            process_amount,
+            process_times,
+            repair_times,
+            repair_time,
+            grinder_id,
+            grinder,
+            heat_number,
+            surface_number,
+            scrip_handler,
+            scrip_handle_time,
+            is_scrip,
+            is_compromise,
+            embryo_code,
+            embryo_name
+        )
+        VALUES
+            (
+                #{mould.pkId, jdbcType = BIGINT},
+                #{mould.createUser, jdbcType = BIGINT},
+                #{mould.createTime, jdbcType = TIMESTAMP},
+                #{mould.updateUser, jdbcType = BIGINT},
+                #{mould.updateTime, jdbcType = TIMESTAMP},
+                #{mould.delMark, jdbcType = TINYINT},
+                #{mould.mouldBarcode, jdbcType = CHAR},
+                #{mould.warehouseCode, jdbcType = CHAR},
+                #{mould.mouldNumber, jdbcType = CHAR},
+                #{mould.mouldName, jdbcType = VARCHAR},
+                #{mould.mouldMap, jdbcType = CHAR},
+                #{mould.mouldSeq, jdbcType = CHAR},
+                #{mould.mouldStatus, jdbcType = TINYINT},
+                #{mould.mouldType, jdbcType = INTEGER},
+                #{mould.lifeMax, jdbcType = INTEGER},
+                #{mould.warehouse, jdbcType = CHAR},
+                #{mould.warehouseTime, jdbcType = TIMESTAMP},
+                #{mould.mouldAmount, jdbcType = INTEGER},
+                #{mould.keeperId, jdbcType = BIGINT},
+                #{mould.keeper, jdbcType = CHAR},
+                #{mould.useDepartmentId, jdbcType = BIGINT},
+                #{mould.useDepartmentName, jdbcType = CHAR},
+                #{mould.useTeamId, jdbcType = BIGINT},
+                #{mould.useTeamName, jdbcType = CHAR},
+                #{mould.userId, jdbcType = BIGINT},
+                #{mould.userName, jdbcType = CHAR},
+                #{mould.receiveTime, jdbcType = TIMESTAMP},
+                #{mould.processAmount, jdbcType = INTEGER},
+                #{mould.processTimes, jdbcType = INTEGER},
+                #{mould.repairTimes, jdbcType = INTEGER},
+                #{mould.repairTime, jdbcType = TIMESTAMP},
+                #{mould.grinderId, jdbcType = BIGINT},
+                #{mould.grinder, jdbcType = CHAR},
+                #{mould.heatNumber, jdbcType = CHAR},
+                #{mould.surfaceNumber, jdbcType = CHAR},
+                #{mould.scripHandler, jdbcType = CHAR},
+                #{mould.scripHandleTime, jdbcType = TIMESTAMP},
+                #{mould.isScrip, jdbcType = INTEGER},
+                #{mould.isCompromise, jdbcType = TINYINT},
+                #{mould.embryoCode, jdbcType = CHAR},
+                #{mould.embryoName, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_mould]]>
+		<set>
+			<if test="mould.updateUser != null">
+            <![CDATA[update_user = #{mould.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mould.updateTime != null">
+            <![CDATA[update_time = #{mould.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mould.warehouseCode != null and mould.warehouseCode != ''">
+            <![CDATA[warehouse_code = #{mould.warehouseCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.mouldStatus != null">
+            <![CDATA[mould_status = #{mould.mouldStatus, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mould.lifeMax != null">
+            <![CDATA[life_max = #{mould.lifeMax, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mould.warehouse != null and mould.warehouse != ''">
+            <![CDATA[warehouse = #{mould.warehouse, jdbcType=CHAR},]]>
+			</if>
+
+			<if test="mould.mouldAmount != null">
+            <![CDATA[mould_amount = #{mould.mouldAmount, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mould.keeperId != null">
+            <![CDATA[keeper_id = #{mould.keeperId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mould.keeper != null and mould.keeper != ''">
+            <![CDATA[keeper = #{mould.keeper, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.useDepartmentId != null">
+            <![CDATA[use_department_id = #{mould.useDepartmentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mould.useDepartmentName != null and mould.useDepartmentName != ''">
+            <![CDATA[use_department_name = #{mould.useDepartmentName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.useTeamId != null">
+            <![CDATA[use_team_id = #{mould.useTeamId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mould.useTeamName != null and mould.useTeamName != ''">
+            <![CDATA[use_team_name = #{mould.useTeamName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.userId != null">
+            <![CDATA[user_id = #{mould.userId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mould.userName != null and mould.userName != ''">
+            <![CDATA[user_name = #{mould.userName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.receiveTime != null">
+            <![CDATA[receive_time = #{mould.receiveTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mould.processAmount != null">
+            <![CDATA[process_amount = #{mould.processAmount, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mould.processTimes != null">
+            <![CDATA[process_times = #{mould.processTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mould.repairTimes != null">
+            <![CDATA[repair_times = #{mould.repairTimes, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mould.repairTime != null">
+            <![CDATA[repair_time = #{mould.repairTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mould.grinderId != null">
+            <![CDATA[grinder_id = #{mould.grinderId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="mould.grinder != null and mould.grinder != ''">
+            <![CDATA[grinder = #{mould.grinder, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.heatNumber != null and mould.heatNumber != ''">
+            <![CDATA[heat_number = #{mould.heatNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.surfaceNumber != null and mould.surfaceNumber != ''">
+            <![CDATA[surface_number = #{mould.surfaceNumber, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.scripHandler != null and mould.scripHandler != ''">
+            <![CDATA[scrip_handler = #{mould.scripHandler, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.scripHandleTime != null">
+            <![CDATA[scrip_handle_time = #{mould.scripHandleTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="mould.isScrip != null">
+            <![CDATA[is_scrip = #{mould.isScrip, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mould.isCompromise != null">
+            <![CDATA[is_compromise = #{mould.isCompromise, jdbcType=TINYINT},]]>
+			</if>
+			<if test="mould.embryoCode != null and mould.embryoCode != ''">
+            <![CDATA[embryo_code = #{mould.embryoCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.embryoName != null and mould.embryoName != ''">
+            <![CDATA[embryo_name = #{mould.embryoName, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.outRemark != null and mould.outRemark != ''">
+            <![CDATA[out_remark = #{mould.outRemark, jdbcType=CHAR},]]>
+			</if>
+			<if test="mould.returnResion != null">
+            <![CDATA[return_resion = #{mould.returnResion, jdbcType=INTEGER},]]>
+			</if>
+			<if test="mould.returnRemark != null and mould.returnRemark != ''">
+            <![CDATA[return_remark = #{mould.returnRemark, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{mouldId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="Mould">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_barcode AS mould_barcode,
+            t.warehouse_code AS warehouse_code,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.warehouse AS warehouse,
+            t.warehouse_time AS warehouse_time,
+            t.mould_amount AS mould_amount,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.use_department_id AS use_department_id,
+            t.use_department_name AS use_department_name,
+            t.use_team_id AS use_team_id,
+            t.use_team_name AS use_team_name,
+            t.user_id AS user_id,
+            t.user_name AS user_name,
+            t.receive_time AS receive_time,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_time AS repair_time,
+            t.grinder_id AS grinder_id,
+            t.grinder AS grinder,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handle_time AS scrip_handle_time,
+            t.is_scrip AS is_scrip,
+            t.is_compromise AS is_compromise,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name
+        FROM
+            t_mould t
+        ]]>
+		<where>
+			<if test="mould.pkId != null">
+            <![CDATA[AND t.pk_id = #{mould.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.createUser != null">
+            <![CDATA[AND t.create_user = #{mould.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.createTime != null">
+            <![CDATA[AND t.create_time = #{mould.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.updateUser != null">
+            <![CDATA[AND t.update_user = #{mould.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.beginDate != null">
+            <![CDATA[AND t.update_time >= #{mould.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.endDate != null">
+            <![CDATA[AND t.update_time <= #{mould.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.delMark != null">
+            <![CDATA[AND t.del_mark = #{mould.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mould.mouldBarcode != null and mould.mouldBarcode != ''">
+            <![CDATA[AND t.mould_barcode = #{mould.mouldBarcode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.warehouseCode != null and mould.warehouseCode != ''">
+            <![CDATA[AND t.warehouse_code = #{mould.warehouseCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.mouldNumber != null and mould.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mould.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.mouldName != null and mould.mouldName != ''">
+            <![CDATA[AND t.mould_name = #{mould.mouldName, jdbcType=VARCHAR}]]>
+			</if>
+			<if test="mould.mouldMap != null and mould.mouldMap != ''">
+            <![CDATA[AND t.mould_map = #{mould.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.mouldSeq != null and mould.mouldSeq != ''">
+            <![CDATA[AND t.mould_seq = #{mould.mouldSeq, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.mouldStatus != null">
+            <![CDATA[AND t.mould_status = #{mould.mouldStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mould.mouldType != null">
+            <![CDATA[AND t.mould_type = #{mould.mouldType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.lifeMax != null">
+            <![CDATA[AND t.life_max = #{mould.lifeMax, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.warehouse != null and mould.warehouse != ''">
+            <![CDATA[AND t.warehouse = #{mould.warehouse, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.warehouseTime != null">
+            <![CDATA[AND t.warehouse_time = #{mould.warehouseTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.mouldAmount != null">
+            <![CDATA[AND t.mould_amount = #{mould.mouldAmount, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.keeperId != null">
+            <![CDATA[AND t.keeper_id = #{mould.keeperId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.keeper != null and mould.keeper != ''">
+            <![CDATA[AND t.keeper = #{mould.keeper, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.useDepartmentId != null">
+            <![CDATA[AND t.use_department_id = #{mould.useDepartmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.useDepartmentName != null and mould.useDepartmentName != ''">
+            <![CDATA[AND t.use_department_name = #{mould.useDepartmentName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.useTeamId != null">
+            <![CDATA[AND t.use_team_id = #{mould.useTeamId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.useTeamName != null and mould.useTeamName != ''">
+            <![CDATA[AND t.use_team_name = #{mould.useTeamName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.userId != null">
+            <![CDATA[AND t.user_id = #{mould.userId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.userName != null and mould.userName != ''">
+            <![CDATA[AND t.user_name = #{mould.userName, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.receiveTime != null">
+            <![CDATA[AND t.receive_time = #{mould.receiveTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.processAmount != null">
+            <![CDATA[AND t.process_amount = #{mould.processAmount, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.processTimes != null">
+            <![CDATA[AND t.process_times = #{mould.processTimes, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.repairTimes != null">
+            <![CDATA[AND t.repair_times = #{mould.repairTimes, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.repairTime != null">
+            <![CDATA[AND t.repair_time = #{mould.repairTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.grinderId != null">
+            <![CDATA[AND t.grinder_id = #{mould.grinderId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.grinder != null and mould.grinder != ''">
+            <![CDATA[AND t.grinder = #{mould.grinder, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.heatNumber != null and mould.heatNumber != ''">
+            <![CDATA[AND t.heat_number = #{mould.heatNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.surfaceNumber != null and mould.surfaceNumber != ''">
+            <![CDATA[AND t.surface_number = #{mould.surfaceNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.scripHandler != null and mould.scripHandler != ''">
+            <![CDATA[AND t.scrip_handler = #{mould.scripHandler, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.scripHandleTime != null">
+            <![CDATA[AND t.scrip_handle_time = #{mould.scripHandleTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.isScrip != null">
+            <![CDATA[AND t.is_scrip = #{mould.isScrip, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.isCompromise != null">
+            <![CDATA[AND t.is_compromise = #{mould.isCompromise, jdbcType=TINYINT}]]>
+			</if>
+			<![CDATA[ AND t.mould_status >0 ]]>
+			<![CDATA[ AND t.mould_status <7 ]]>
+			<![CDATA[ AND t.del_mark = 0 ]]>
+		</where>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="Mould">
+        <![CDATA[
+        SELECT  
+        	t.pk_id AS pk_id,
+        	t.update_time as update_time,
+            t.mould_barcode AS mould_barcode,
+            t.warehouse_code AS warehouse_code,
+            t.mould_number AS mould_number,
+            b.mould_name AS mould_name,
+            b.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.warehouse AS warehouse,
+            t.warehouse_time AS warehouse_time,
+            t.mould_amount AS mould_amount,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.use_department_id AS use_department_id,
+            t.use_department_name AS use_department_name,           
+            t.use_team_name AS use_team_name,
+            t.user_name AS user_name,
+            t.receive_time AS receive_time,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_time AS repair_time,           
+            t.grinder AS grinder,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handle_time AS scrip_handle_time,
+            t.is_scrip AS is_scrip,
+            t.is_compromise AS is_compromise,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.out_remark as out_remark,
+            t.return_resion as return_resion,
+            t.return_remark as return_remark
+        FROM
+            t_mould t 
+            inner join t_mould_base b on t.mould_number = b.mould_number and b.del_mark = 0
+        ]]>
+		<where>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.update_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.update_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.mouldBarcode != null and mould.mouldBarcode != ''">
+            <![CDATA[AND t.mould_barcode = #{mould.mouldBarcode, jdbcType=CHAR}]]>
+			</if>			
+			<if test="mould.mouldNumber != null and mould.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mould.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.mouldMap != null and mould.mouldMap != ''">
+            <![CDATA[AND b.mould_map = #{mould.mouldMap, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.mouldStatus != null">
+            <![CDATA[AND t.mould_status = #{mould.mouldStatus, jdbcType=TINYINT}]]>
+			</if>
+			<if test="mould.mouldType != null">
+            <![CDATA[AND t.mould_type = #{mould.mouldType, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.useDepartmentId != null">
+            <![CDATA[AND t.use_department_id = #{mould.useDepartmentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.useTeamId != null">
+            <![CDATA[AND t.use_team_id = #{mould.useTeamId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="mould.isScrip != null">
+            <![CDATA[AND t.is_scrip = #{mould.isScrip, jdbcType=INTEGER}]]>
+			</if>
+			<if test="mould.isList != null">
+            <![CDATA[AND t.mould_status > 0]]>
+			</if>
+			<if test="mould.isList == null">
+            <![CDATA[AND t.mould_status = 0]]>
+			</if>
+			<if test="mould.isScripList != null">
+            <![CDATA[AND t.mould_status = 7]]>
+			</if>
+			<if test="mould.isLife == null and mould.isScripList == null">
+            <![CDATA[AND t.mould_status < 7]]>
+			</if>
+			<if test="mould.isLife != null">
+            <![CDATA[AND t.mould_status <= 7]]>
+			</if>
+			 <![CDATA[AND t.del_mark = 0 ]]>
+		</where>
+		<if test="queryDto.sort != null  and queryDto.sort != ''">
+			<choose>
+				<when test="queryDto.sort == 'DESC'">
+		    		<![CDATA[ORDER BY t.update_time DESC]]>
+				</when>
+				<otherwise>
+		   			<![CDATA[ORDER BY t.update_time ASC]]>
+				</otherwise>
+			</choose>
+		</if>
+		<if test="queryDto.sort == null ">
+			<![CDATA[ORDER BY t.update_time DESC]]>
+		</if>
+	</select>
+	
+	<select id="selectLifePageList" parameterType="Map" resultMap="Mould">
+        <![CDATA[
+        SELECT  
+        	t.pk_id AS pk_id,        	
+            t.mould_barcode AS mould_barcode,           
+            t.mould_number AS mould_number,
+            b.mould_name AS mould_name,
+            b.mould_map AS mould_map,           
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.warehouse AS warehouse,
+            t.warehouse_time AS warehouse_time,
+            t.mould_amount AS mould_amount,           
+            t.keeper AS keeper,          
+            t.use_department_name AS use_department_name,
+            t.use_team_name AS use_team_name,
+            t.user_name AS user_name,
+            t.receive_time AS receive_time,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_time AS repair_time,
+            t.grinder_id AS grinder_id,
+            t.grinder AS grinder,           
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name,
+            t.out_remark as out_remark,
+            t.return_remark as return_remark
+        FROM
+            t_mould t inner join t_mould_base b on t.mould_number = b.mould_number
+        ]]>
+		<where>
+			<if test="queryDto.beginDate != null">
+            <![CDATA[AND t.update_time >= #{queryDto.beginDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="queryDto.endDate != null">
+            <![CDATA[AND t.update_time <= #{queryDto.endDate, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="mould.mouldBarcode != null and mould.mouldBarcode != ''">
+            <![CDATA[AND t.mould_barcode = #{mould.mouldBarcode, jdbcType=CHAR}]]>
+			</if>			
+			<if test="mould.mouldNumber != null and mould.mouldNumber != ''">
+            <![CDATA[AND t.mould_number = #{mould.mouldNumber, jdbcType=CHAR}]]>
+			</if>
+			<if test="mould.mouldName != null and mould.mouldName != ''">
+            <![CDATA[AND b.mould_name like concat('%',#{mould.mouldName, jdbcType=VARCHAR},'%')]]>
+			</if>
+            <![CDATA[AND t.mould_status > 0]]>	
+			 <![CDATA[AND t.del_mark = 0 ]]>
+		</where>
+		<if test="queryDto.sort != null  and queryDto.sort != ''">
+			<choose>
+				<when test="queryDto.sort == 'DESC'">
+		    <![CDATA[ORDER BY t.update_time DESC]]>
+				</when>
+				<otherwise>
+		   <![CDATA[ORDER BY t.update_time ASC]]>
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="Mould">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.mould_barcode AS mould_barcode,
+            t.warehouse_code AS warehouse_code,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.warehouse AS warehouse,
+            t.warehouse_time AS warehouse_time,
+            t.mould_amount AS mould_amount,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.use_department_id AS use_department_id,
+            t.use_department_name AS use_department_name,
+            t.use_team_id AS use_team_id,
+            t.use_team_name AS use_team_name,
+            t.user_id AS user_id,
+            t.user_name AS user_name,
+            t.receive_time AS receive_time,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_time AS repair_time,
+            t.grinder_id AS grinder_id,
+            t.grinder AS grinder,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handle_time AS scrip_handle_time,
+            t.is_scrip AS is_scrip,
+            t.is_compromise AS is_compromise,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name
+        FROM
+            t_mould t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{mouldId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_mould SET del_mark = 1,update_user=#{mould.updateUser, jdbcType=BIGINT},update_time=#{mould.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{mould.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_mould]]>
+		<where>
+        <![CDATA[AND pk_id = #{mouldId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+
+	<!-- 根据主键查询 -->
+	<select id="selectByFullNumber" parameterType="Map" resultMap="Mould">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,           
+            t.mould_barcode AS mould_barcode,
+            t.warehouse_code AS warehouse_code,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.warehouse AS warehouse,
+            t.warehouse_time AS warehouse_time,
+            t.mould_amount AS mould_amount,
+            t.keeper_id AS keeper_id,
+            t.keeper AS keeper,
+            t.use_department_id AS use_department_id,
+            t.use_department_name AS use_department_name,
+            t.use_team_id AS use_team_id,
+            t.use_team_name AS use_team_name,
+            t.user_id AS user_id,
+            t.user_name AS user_name,
+            t.receive_time AS receive_time,
+            t.process_amount AS process_amount,
+            t.process_times AS process_times,
+            t.repair_times AS repair_times,
+            t.repair_time AS repair_time,
+            t.grinder_id AS grinder_id,
+            t.grinder AS grinder,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.scrip_handler AS scrip_handler,
+            t.scrip_handle_time AS scrip_handle_time,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name
+        FROM
+            t_mould t
+        ]]>
+		<where>
+        <![CDATA[AND t.mould_barcode = #{fullNumber, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectSeqByNumber" parameterType="Map" resultMap="Mould">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.mould_barcode AS mould_barcode,
+            t.warehouse_code AS warehouse_code,
+            t.mould_number AS mould_number,
+            t.mould_name AS mould_name,
+            t.mould_map AS mould_map,
+            t.mould_seq AS mould_seq,
+            t.mould_status AS mould_status,
+            t.mould_type AS mould_type,
+            t.life_max AS life_max,
+            t.warehouse AS warehouse,
+            t.warehouse_time AS warehouse_time,
+            t.mould_amount AS mould_amount,
+            t.heat_number AS heat_number,
+            t.surface_number AS surface_number,
+            t.embryo_code AS embryo_code,
+            t.embryo_name AS embryo_name
+        FROM
+            t_mould t
+        ]]>
+		<where>
+        <![CDATA[AND t.mould_number = #{mouldNumber, jdbcType=CHAR}]]>
+		</where>
+		<![CDATA[ORDER BY t.mould_seq DESC]]>
+        <![CDATA[LIMIT 1]]>
+	</select>
+</mapper>

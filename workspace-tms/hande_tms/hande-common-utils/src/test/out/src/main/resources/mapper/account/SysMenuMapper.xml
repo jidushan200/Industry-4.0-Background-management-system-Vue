@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.account.repository.SysMenuMapper">
+	<resultMap id="SysMenu" type="org.tsinghuatj.account.domain.SysMenu">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="parentId" javaType="Long" column="parent_id" jdbcType="BIGINT" />
+		<result property="name" javaType="String" column="name" jdbcType="CHAR" />
+		<result property="path" javaType="String" column="path" jdbcType="CHAR" />
+		<result property="title" javaType="String" column="title" jdbcType="CHAR" />
+		<result property="menuIcon" javaType="String" column="menu_icon" jdbcType="CHAR" />
+		<result property="sysIcon" javaType="String" column="sys_icon" jdbcType="CHAR" />
+		<result property="component" javaType="String" column="component" jdbcType="CHAR" />
+		<result property="access" javaType="String" column="access" jdbcType="CHAR" />
+		<result property="level" javaType="Integer" column="level" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">
+		<selectKey resultType="long" keyProperty="sysMenu.pkId" order="BEFORE">
+        <![CDATA[select (next value for MYCATSEQ_GLOBAL) AS pk_id]]>
+		</selectKey>		
+        <![CDATA[
+        INSERT INTO t_sys_menu (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            parent_id,
+            name,
+            path,
+            title,
+            menu_icon,
+            sys_icon,
+            component,
+            access,
+            level
+        )
+        VALUES
+            (
+                #{sysMenu.pkId, jdbcType = BIGINT},
+                #{sysMenu.createUser, jdbcType = BIGINT},
+                #{sysMenu.createTime, jdbcType = TIMESTAMP},
+                #{sysMenu.updateUser, jdbcType = BIGINT},
+                #{sysMenu.updateTime, jdbcType = TIMESTAMP},
+                #{sysMenu.delMark, jdbcType = TINYINT},
+                #{sysMenu.parentId, jdbcType = BIGINT},
+                #{sysMenu.name, jdbcType = CHAR},
+                #{sysMenu.path, jdbcType = CHAR},
+                #{sysMenu.title, jdbcType = CHAR},
+                #{sysMenu.menuIcon, jdbcType = CHAR},
+                #{sysMenu.sysIcon, jdbcType = CHAR},
+                #{sysMenu.component, jdbcType = CHAR},
+                #{sysMenu.access, jdbcType = CHAR},
+                #{sysMenu.level, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_menu]]>
+		<set>
+			<if test="sysMenu.createUser != null">
+            <![CDATA[create_user = #{sysMenu.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysMenu.createTime != null">
+            <![CDATA[create_time = #{sysMenu.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysMenu.updateUser != null">
+            <![CDATA[update_user = #{sysMenu.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysMenu.updateTime != null">
+            <![CDATA[update_time = #{sysMenu.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysMenu.delMark != null">
+            <![CDATA[del_mark = #{sysMenu.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="sysMenu.parentId != null">
+            <![CDATA[parent_id = #{sysMenu.parentId, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysMenu.name != null and sysMenu.name != ''">
+            <![CDATA[name = #{sysMenu.name, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysMenu.path != null and sysMenu.path != ''">
+            <![CDATA[path = #{sysMenu.path, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysMenu.title != null and sysMenu.title != ''">
+            <![CDATA[title = #{sysMenu.title, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysMenu.menuIcon != null and sysMenu.menuIcon != ''">
+            <![CDATA[menu_icon = #{sysMenu.menuIcon, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysMenu.sysIcon != null and sysMenu.sysIcon != ''">
+            <![CDATA[sys_icon = #{sysMenu.sysIcon, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysMenu.component != null and sysMenu.component != ''">
+            <![CDATA[component = #{sysMenu.component, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysMenu.access != null and sysMenu.access != ''">
+            <![CDATA[access = #{sysMenu.access, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysMenu.level != null">
+            <![CDATA[level = #{sysMenu.level, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{sysMenuId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="SysMenu">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.parent_id AS parent_id,
+            t.name AS name,
+            t.path AS path,
+            t.title AS title,
+            t.menu_icon AS menu_icon,
+            t.sys_icon AS sys_icon,
+            t.component AS component,
+            t.access AS access,
+            t.level AS level
+        FROM
+            t_sys_menu t
+        ]]>
+		<where>
+			<if test="sysMenu.pkId != null">
+            <![CDATA[AND t.pk_id = #{sysMenu.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.createUser != null">
+            <![CDATA[AND t.create_user = #{sysMenu.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.createTime != null">
+            <![CDATA[AND t.create_time = #{sysMenu.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysMenu.updateUser != null">
+            <![CDATA[AND t.update_user = #{sysMenu.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysMenu.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysMenu.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysMenu.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysMenu.parentId != null">
+            <![CDATA[AND t.parent_id = #{sysMenu.parentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.name != null and sysMenu.name != ''">
+            <![CDATA[AND t.name = #{sysMenu.name, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.path != null and sysMenu.path != ''">
+            <![CDATA[AND t.path = #{sysMenu.path, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.title != null and sysMenu.title != ''">
+            <![CDATA[AND t.title = #{sysMenu.title, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.menuIcon != null and sysMenu.menuIcon != ''">
+            <![CDATA[AND t.menu_icon = #{sysMenu.menuIcon, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.sysIcon != null and sysMenu.sysIcon != ''">
+            <![CDATA[AND t.sys_icon = #{sysMenu.sysIcon, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.component != null and sysMenu.component != ''">
+            <![CDATA[AND t.component = #{sysMenu.component, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.access != null and sysMenu.access != ''">
+            <![CDATA[AND t.access = #{sysMenu.access, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.level != null">
+            <![CDATA[AND t.level = #{sysMenu.level, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="SysMenu">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.parent_id AS parent_id,
+            t.name AS name,
+            t.path AS path,
+            t.title AS title,
+            t.menu_icon AS menu_icon,
+            t.sys_icon AS sys_icon,
+            t.component AS component,
+            t.access AS access,
+            t.level AS level
+        FROM
+            t_sys_menu t
+        ]]>
+		<where>
+			<if test="sysMenu.pkId != null">
+            <![CDATA[AND t.pk_id = #{sysMenu.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.createUser != null">
+            <![CDATA[AND t.create_user = #{sysMenu.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.createTime != null">
+            <![CDATA[AND t.create_time = #{sysMenu.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysMenu.updateUser != null">
+            <![CDATA[AND t.update_user = #{sysMenu.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysMenu.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysMenu.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysMenu.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysMenu.parentId != null">
+            <![CDATA[AND t.parent_id = #{sysMenu.parentId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysMenu.name != null and sysMenu.name != ''">
+            <![CDATA[AND t.name = #{sysMenu.name, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.path != null and sysMenu.path != ''">
+            <![CDATA[AND t.path = #{sysMenu.path, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.title != null and sysMenu.title != ''">
+            <![CDATA[AND t.title = #{sysMenu.title, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.menuIcon != null and sysMenu.menuIcon != ''">
+            <![CDATA[AND t.menu_icon = #{sysMenu.menuIcon, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.sysIcon != null and sysMenu.sysIcon != ''">
+            <![CDATA[AND t.sys_icon = #{sysMenu.sysIcon, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.component != null and sysMenu.component != ''">
+            <![CDATA[AND t.component = #{sysMenu.component, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.access != null and sysMenu.access != ''">
+            <![CDATA[AND t.access = #{sysMenu.access, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysMenu.level != null">
+            <![CDATA[AND t.level = #{sysMenu.level, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="SysMenu">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.parent_id AS parent_id,
+            t.name AS name,
+            t.path AS path,
+            t.title AS title,
+            t.menu_icon AS menu_icon,
+            t.sys_icon AS sys_icon,
+            t.component AS component,
+            t.access AS access,
+            t.level AS level
+        FROM
+            t_sys_menu t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{sysMenuId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_menu SET del_mark = 1]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysMenuId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_sys_menu]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysMenuId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

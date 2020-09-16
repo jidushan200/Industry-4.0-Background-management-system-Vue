@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.erp.repository.ErpStaffMapper">
+	<resultMap id="ErpStaff" type="org.tsinghuatj.erp.domain.ErpStaff">
+		<result property="staffNumber" javaType="String" column="employee_number" jdbcType="VARCHAR" />
+		<result property="staffName" javaType="String" column="user_name" jdbcType="VARCHAR" />
+		<result property="gender" javaType="String" column="sex" jdbcType="VARCHAR" />
+		<result property="departmentName" javaType="String" column="department" jdbcType="VARCHAR" />
+		<result property="team" javaType="String" column="banzu" jdbcType="VARCHAR" />
+		<result property="postion" javaType="String" column="gangwei" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<select id="selectByStaffNumber" parameterType="Map" resultMap="ErpStaff">
+        <![CDATA[
+      	select * from apps.cux_zc_tms_people
+ 		where employee_number = #{staffNumber, jdbcType=VARCHAR}
+ 		]]>
+	</select>
+
+
+
+</mapper>

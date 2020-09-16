@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tsinghuatj.sys.repository.SysParamMapper">
+	<resultMap id="SysParam" type="org.tsinghuatj.sys.domain.SysParam">
+		<id property="pkId" javaType="Long" column="pk_id" jdbcType="BIGINT" />
+		<result property="createUser" javaType="Long" column="create_user" jdbcType="BIGINT" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="Long" column="update_user" jdbcType="BIGINT" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="paramKey" javaType="String" column="param_key" jdbcType="CHAR" />
+		<result property="paramName" javaType="String" column="param_name" jdbcType="CHAR" />
+		<result property="paramValue" javaType="String" column="param_value" jdbcType="CHAR" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">		
+        <![CDATA[
+        INSERT INTO t_sys_param (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            param_key,
+            param_name,
+            param_value
+        )
+        VALUES
+            (
+                #{sysParam.pkId, jdbcType = BIGINT},
+                #{sysParam.createUser, jdbcType = BIGINT},
+                #{sysParam.createTime, jdbcType = TIMESTAMP},
+                #{sysParam.updateUser, jdbcType = BIGINT},
+                #{sysParam.updateTime, jdbcType = TIMESTAMP},
+                #{sysParam.delMark, jdbcType = TINYINT},
+                #{sysParam.paramKey, jdbcType = CHAR},
+                #{sysParam.paramName, jdbcType = CHAR},
+                #{sysParam.paramValue, jdbcType = CHAR}
+            )
+        ]]>
+	</insert>
+
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_param]]>
+		<set>
+			<if test="sysParam.createUser != null">
+            <![CDATA[create_user = #{sysParam.createUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysParam.createTime != null">
+            <![CDATA[create_time = #{sysParam.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysParam.updateUser != null">
+            <![CDATA[update_user = #{sysParam.updateUser, jdbcType=BIGINT},]]>
+			</if>
+			<if test="sysParam.updateTime != null">
+            <![CDATA[update_time = #{sysParam.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysParam.delMark != null">
+            <![CDATA[del_mark = #{sysParam.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="sysParam.paramKey != null and sysParam.paramKey != ''">
+            <![CDATA[param_key = #{sysParam.paramKey, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysParam.paramName != null and sysParam.paramName != ''">
+            <![CDATA[param_name = #{sysParam.paramName, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysParam.paramValue != null and sysParam.paramValue != ''">
+            <![CDATA[param_value = #{sysParam.paramValue, jdbcType=CHAR},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{sysParamId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="SysParam">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.param_key AS param_key,
+            t.param_name AS param_name,
+            t.param_value AS param_value
+        FROM
+            t_sys_param t
+        ]]>
+		<where>
+			<if test="sysParam.pkId != null">
+            <![CDATA[AND t.pk_id = #{sysParam.pkId, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysParam.createUser != null">
+            <![CDATA[AND t.create_user = #{sysParam.createUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysParam.createTime != null">
+            <![CDATA[AND t.create_time = #{sysParam.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysParam.updateUser != null">
+            <![CDATA[AND t.update_user = #{sysParam.updateUser, jdbcType=BIGINT}]]>
+			</if>
+			<if test="sysParam.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysParam.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysParam.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysParam.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysParam.paramKey != null and sysParam.paramKey != ''">
+            <![CDATA[AND t.param_key = #{sysParam.paramKey, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysParam.paramName != null and sysParam.paramName != ''">
+            <![CDATA[AND t.param_name = #{sysParam.paramName, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysParam.paramValue != null and sysParam.paramValue != ''">
+            <![CDATA[AND t.param_value = #{sysParam.paramValue, jdbcType=CHAR}]]>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectPageList" parameterType="Map" resultMap="SysParam">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,          
+            t.param_key AS param_key,
+            t.param_name AS param_name,
+            t.param_value AS param_value
+        FROM
+            t_sys_param t
+        ]]>
+		<where>	
+			 <![CDATA[ AND del_mark = 0 ]]>
+		</where>
+		 <![CDATA[ ORDER BY pk_id desc ]]>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="SysParam">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.param_key AS param_key,
+            t.param_name AS param_name,
+            t.param_value AS param_value
+        FROM
+            t_sys_param t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{sysParamId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+	
+	<select id="selectByParamKey" parameterType="Map" resultMap="SysParam">
+	 <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.param_key AS param_key,
+            t.param_name AS param_name,
+            t.param_value AS param_value
+        FROM
+            t_sys_param t
+        ]]>
+		<where>
+        <![CDATA[AND t.param_key = #{paramKey, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>	
+	</select>
+	
+
+	<!-- 按主键逻辑删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_param SET del_mark = 1,update_user=#{sysParam.updateUser, jdbcType=BIGINT},update_time=#{sysParam.updateTime, jdbcType=TIMESTAMP}]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysParam.pkId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+	
+	<!-- 按主键物理删除 -->
+	<delete id="removeById" parameterType="Map">
+        <![CDATA[DELETE FROM t_sys_param]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysParamId, jdbcType=BIGINT}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>
